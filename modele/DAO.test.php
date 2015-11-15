@@ -11,7 +11,7 @@
 // Projet DLS - BTS Info - Anciens élèves
 // Test de la classe DAO
 // Auteur : JM CARTRON
-// Dernière mise à jour : 10/11/2015
+// Dernière mise à jour : 15/11/2015
 
 include_once ('Fonction.class.php');
 include_once ('Eleve.class.php');
@@ -68,11 +68,12 @@ $uneVille = "Rennes";
 $uneEntreprise = "Orange";
 $unCompteAccepte = false;
 $unMotDePasse = "passe";
+$desEtudesPostBTS = 'Bachelor Informatique "Systèmes, Réseaux et Cloud Computing" au Lycée De La Salle';
 $uneDateDerniereMAJ = date('Y-m-d H:i:s', time());		// l'heure courante
 $unIdFonction = 1;
 
 $unEleve = new Eleve($unId, $unNom, $unPrenom, $unSexe, $uneAnneeDebutBTS, $unTel, $uneAdrMail, $uneRue, 
-	$unCodePostal, $uneVille, $uneEntreprise, $unCompteAccepte, $unMotDePasse, $uneDateDerniereMAJ, $unIdFonction);
+	$unCodePostal, $uneVille, $uneEntreprise, $unCompteAccepte, $unMotDePasse, $desEtudesPostBTS, $uneDateDerniereMAJ, $unIdFonction);
 
 $ok = $dao->creerCompteEleve($unEleve);
 if ($ok)

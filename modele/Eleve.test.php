@@ -32,10 +32,11 @@ $uneVille = "Rennes";
 $uneEntreprise = "Orange";
 $unCompteAccepte = false;
 $unMotDePasse = Outils::creerMdp();
+$desEtudesPostBTS = 'Bachelor Informatique "Systèmes, Réseaux et Cloud Computing" au Lycée De La Salle';
 $uneDateDerniereMAJ = "07/11/2015";
 $unIdFonction = 1;
 $unEleve = new Eleve($unId, $unNom, $unPrenom, $unSexe, $uneAnneeDebutBTS, $unTel, $uneAdrMail, $uneRue, $unCodePostal, 
-	$uneVille, $uneEntreprise, $unCompteAccepte, $unMotDePasse, $uneDateDerniereMAJ, $unIdFonction);
+	$uneVille, $uneEntreprise, $unCompteAccepte, $unMotDePasse, $desEtudesPostBTS, $uneDateDerniereMAJ, $unIdFonction);
 
 echo ($unEleve->toString());
 echo ('<br>');
@@ -53,6 +54,7 @@ $unEleve->setVille("Saint-Grégoire");
 $unEleve->setEntreprise("Citron");
 $unEleve->setCompteAccepte(true);
 $unEleve->setMotDePasse(Outils::creerMdp());
+$unEleve->setEtudesPostBTS('Bachelor Informatique "Sécurité informatique" au Lycée De La Salle');
 $unEleve->setDateDerniereMAJ("08/11/2015");
 $unEleve->setIdFonction(2);
 

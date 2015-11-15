@@ -1,7 +1,7 @@
 <?php
 	// Projet DLS - BTS Info - Anciens élèves
 	// Fonction de la vue vues.html5/VueDemanderCreationCompte.php : visualiser la vue de création de compte élève
-	// Ecrit le 11/11/2015 par Jim
+	// Ecrit le 15/11/2015 par Jim
 ?>
 <!doctype html>
 <html>
@@ -23,8 +23,9 @@
 			
 			<p>Après vérification de votre demande par les administrateurs de l'annuaire (cette opération peut prendre quelques jours éventuellement),
 			 vous recevrez un mail de confirmation avec votre mot de passe (que vous pourrez ensuite modifier).</p>
+			 
+			<h3>Entrez les données nécessaires à la création de votre compte :</h3>
 			
-			<p>Une * indique un champ obligatoire.</p>
 			<form name="form1" id="form1" action="index.php?action=DemanderCreationCompte" method="post">
 				<table>
 					<tr>
@@ -55,7 +56,11 @@
 					<tr>
 						<td><label for="txtAdrMail">Adresse mail *</label></td>
 						<td><input type="text" name="txtAdrMail" id="txtAdrMail" size="50" maxlength="50" class="<?php echo $class_adrMail; ?>" value="<?php echo $adrMail; ?>" /></td>
-					</tr>					
+					</tr>
+					<tr>
+						<td><label for="txtEtudesPostBTS">Etudes post BTS</label></td>
+						<td><textarea rows="2" name="txtEtudesPostBTS" id="txtEtudesPostBTS" cols="82" maxlength="150" class="<?php echo $class_etudesPostBTS; ?>" ><?php echo $etudesPostBTS; ?></textarea></td>
+					</tr>		
 					<tr>
 						<td><label for="txtRue">Rue</label></td>
 						<td><input type="text" name="txtRue" id="txtRue" size="80" maxlength="80" class="<?php echo $class_rue; ?>" value="<?php echo $rue; ?>" /></td>
@@ -80,25 +85,27 @@
 									<option value="<?php echo $uneFonction->getId(); ?>" <?php if ($idFonction == $uneFonction->getId()) echo 'selected="selected"'; ?>><?php echo $uneFonction->getLibelle(); ?></option>
 								<?php } ?>				
 							</select>
+							&nbsp;&nbsp;
+							<input type="submit" value="Envoyer les données" name="btnEnvoyer" id="btnEnvoyer" />
 						</td>
 					</tr>											
 		            <tr>
 		              <td>&nbsp;</td>
 		              <td>&nbsp;</td>
 		            </tr>
-					<tr>
-						<td></td>
-						<td>
-							<input type="submit" value="Envoyer" name="btnEnvoyer" id="btnEnvoyer" />&nbsp;&nbsp;
-                			<input type="reset" value="Effacer" name="btnEffacer" id="btnEffacer" />
-                		</td>
-					</tr>
 				</table>
 			</form>
 		</div>
+
+		<p id="message"><?php echo $message; ?></p>
 		
-		<p id=message><?php echo $msgFooter; ?></p>
-		<p id=footer>Annuaire des anciens élèves du BTS Informatique - Lycée De La Salle (Rennes)</p>
+		<p id="legende"><b>Légende : </b>&nbsp;&nbsp;
+		<input type="text" size="30" class="normal" value="Une * indique un champ obligatoire." />&nbsp;&nbsp;
+		<input type="text" size="25" class="nonRempli" value="Champ obligatoire non rempli." />&nbsp;&nbsp;
+		<input type="text" size="20" class="incorrect" value="Valeur incorrecte." />
+		</p>
+			
+		<p id="footer">Annuaire des anciens élèves du BTS Informatique - Lycée De La Salle (Rennes)</p>
 	</div>
 </body>
 </html>

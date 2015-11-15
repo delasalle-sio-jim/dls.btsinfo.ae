@@ -3,7 +3,7 @@
 // fichier : modele/Eleve.class.php
 // Rôle : la classe Eleve représente les élèves (actuels ou anciens) de l'application
 // Auteur : JM CARTRON
-// Dernière mise à jour : 12/11/2015
+// Dernière mise à jour : 15/11/2015
 
 // inclusion de la classe Fonction
 include_once ('Fonction.class.php');
@@ -29,6 +29,7 @@ class Eleve
 	private $entreprise;		// nom de l'entreprise actuelle (ou null pour les étudiants et les sans-emplois)	
 	private $compteAccepte;		// false initialement, true quand le compte a été accepté	
 	private $motDePasse;		// mot de passe
+	private $etudesPostBTS;		// études suivies après le BTS
 	private $dateDerniereMAJ;	// date de dernière mise à jour des données par l'élève
 	private $idFonction;		// l'identifiant de la fonction actuellement occupée
 
@@ -36,8 +37,8 @@ class Eleve
 	// ----------------------------------------- Constructeur -----------------------------------------------
 	// ------------------------------------------------------------------------------------------------------
 
-	public function __construct($unId, $unNom, $unPrenom, $unSexe, $uneAnneeDebutBTS, $unTel, $uneAdrMail, $uneRue, 
-	$unCodePostal, $uneVille, $uneEntreprise, $unCompteAccepte, $unMotDePasse, $uneDateDerniereMAJ, $unIdFonction) {
+	public function __construct($unId, $unNom, $unPrenom, $unSexe, $uneAnneeDebutBTS, $unTel, $uneAdrMail, $uneRue, $unCodePostal, 
+			$uneVille, $uneEntreprise, $unCompteAccepte, $unMotDePasse, $desEtudesPostBTS, $uneDateDerniereMAJ, $unIdFonction) {
 		$this->id = $unId;
 		$this->nom = strtoupper($unNom);
 		$this->prenom = Outils::corrigerPrenom($unPrenom);
@@ -51,6 +52,7 @@ class Eleve
 		$this->entreprise = $uneEntreprise;		
 		$this->compteAccepte = $unCompteAccepte;		
 		$this->motDePasse = $unMotDePasse;
+		$this->etudesPostBTS = $desEtudesPostBTS;		
 		$this->dateDerniereMAJ = $uneDateDerniereMAJ;
 		$this->idFonction = $unIdFonction;
 	}
@@ -94,9 +96,12 @@ class Eleve
 
 	public function getCompteAccepte() {return $this->compteAccepte;}
 	public function setCompteAccepte($unCompteAccepte) {$this->compteAccepte = $unCompteAccepte;}	
-	
+
 	public function getMotDePasse() {return $this->motDePasse;}
-	public function setMotDePasse($unMotDePasse) {$this->motDePasse = $unMotDePasse;}
+	public function setMotDePasse($unMotDePasse) {$this->motDePasse = $unMotDePasse;}	
+	
+	public function getEtudesPostBTS() {return $this->etudesPostBTS;}
+	public function setEtudesPostBTS($desEtudesPostBTS) {$this->etudesPostBTS = $desEtudesPostBTS;}
 
 	public function getDateDerniereMAJ() {return $this->dateDerniereMAJ;}
 	public function setDateDerniereMAJ($uneDateDerniereMAJ) {$this->dateDerniereMAJ = $uneDateDerniereMAJ;}
@@ -124,6 +129,7 @@ class Eleve
 		if ($this->getCompteAccepte()) $texte = "oui"; else $texte = "non";
 		$msg .= 'compteAccepte : ' . $texte . '<br>';
 		$msg .= 'motDePasse : ' . $this->getMotDePasse() . '<br>';
+		$msg .= 'etudesPostBTS : ' . $this->getEtudesPostBTS() . '<br>';
 		$msg .= 'dateDerniereMAJ : ' . $this->getDateDerniereMAJ() . '<br>';
 		$msg .= 'idFonction : ' . $this->getIdFonction() . '<br>';
 		return $msg;

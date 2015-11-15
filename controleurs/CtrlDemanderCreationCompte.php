@@ -1,7 +1,7 @@
 <?php
 // Projet DLS - BTS Info - Anciens élèves
 // Fonction du contrôleur CtrlDemanderCreationCompte.php : traiter la demande de création de compte d'un élève
-// Ecrit le 12/11/2015 par Jim
+// Ecrit le 15/11/2015 par Jim
 
 // initialisations du style de chaque zone de saisie (avant les contrôles des données saisies)
 $class_nom = "normal";
@@ -10,12 +10,12 @@ $class_sexe = "normal";
 $class_anneeDebutBTS = "normal";
 $class_tel = "normal";
 $class_adrMail = "normal";
+$class_etudesPostBTS = "normal";
 $class_rue = "normal";
 $class_codePostal = "normal";
 $class_ville = "normal";
 $class_entreprise = "normal";
 $class_fonction = "normal";
-
 
 // inclusion de la classe Outils
 include_once ('modele/Outils.class.php');
@@ -35,13 +35,14 @@ if ( ! isset ($_POST ["txtNom"]) ) {
 	$anneeDebutBTS = '';
 	$tel = '';
 	$adrMail = '';
+	$etudesPostBTS = '';
 	$rue = '';
 	$codePostal = '';
 	$ville = '';
 	$entreprise = '';
 	$idFonction = '';
 
-	$msgFooter = 'Créer un compte élève';
+	$message = "&nbsp;";
 	$themeFooter = $themeNormal;
 	include_once ($cheminDesVues . 'VueDemanderCreationCompte.php');
 }
@@ -54,6 +55,7 @@ else {
 	if ( empty ($_POST ["txtAnneeDebutBTS"]) == true)  $anneeDebutBTS = "";  else   $anneeDebutBTS = $_POST ["txtAnneeDebutBTS"];
 	if ( empty ($_POST ["txtTel"]) == true)  $tel = "";  else   $tel = $_POST ["txtTel"];
 	if ( empty ($_POST ["txtAdrMail"]) == true)  $adrMail = "";  else   $adrMail = $_POST ["txtAdrMail"];
+	if ( empty ($_POST ["txtEtudesPostBTS"]) == true)  $etudesPostBTS = "";  else   $etudesPostBTS = $_POST ["txtEtudesPostBTS"];
 	if ( empty ($_POST ["txtRue"]) == true)  $rue = "";  else   $rue = $_POST ["txtRue"];
 	if ( empty ($_POST ["txtCodePostal"]) == true)  $codePostal = "";  else   $codePostal = $_POST ["txtCodePostal"];
 	if ( empty ($_POST ["txtVille"]) == true)  $ville = "";  else   $ville = $_POST ["txtVille"];
@@ -73,7 +75,7 @@ else {
 	
 	if ($nom == '' || $prenom == '' || $sexe == '' || $anneeDebutBTS == '' || $tel == '' || $adrMail == '' || Outils::estUneAdrMailValide($adrMail) == false || Outils::estUnCodePostalValide($codePostal) == false) {
 		// si les données sont incorrectes ou incomplètes, réaffichage de la vue de suppression avec un message explicatif
-		$msgFooter = 'Données incomplètes ou incorrectes !';
+		$message = 'Données incomplètes ou incorrectes !';
 		$themeFooter = $themeProbleme;
 		include_once ($cheminDesVues . 'VueDemanderCreationCompte.php');
 	}
@@ -81,7 +83,7 @@ else {
 		if ( $dao->existeAdrMail($adrMail) ) {
 			// si l'adresse existe déjà, réaffichage de la vue
 			$class_adrMail = "incorrect";
-			$msgFooter = "Adresse mail déjà existante !";
+			$message = "Adresse mail déjà existante !";
 			$themeFooter = $themeProbleme;
 			include_once ($cheminDesVues . 'VueDemanderCreationCompte.php');
 		}
@@ -94,12 +96,12 @@ else {
 			$motDePasse = Outils::creerMdp();	// création d'un mot de passe aléatoire de 8 caractères
 			$dateDerniereMAJ = date('Y-m-d H:i:s', time());		// l'heure courante
 			$unEleve = new Eleve($id, $nom, $prenom, $sexe, $anneeDebutBTS, $tel, $adrMail, $rue, $codePostal, 
-				$ville, $entreprise, $compteAccepte, $motDePasse, $dateDerniereMAJ, $idFonction);
+				$ville, $entreprise, $compteAccepte, $motDePasse, $etudesPostBTS, $dateDerniereMAJ, $idFonction);
 			// enregistrement de l'élève dans la BDD
 			$ok = $dao->creerCompteEleve($unEleve);
 			if ( ! $ok ) {
 				// si l'enregistrement a échoué, réaffichage de la vue avec un message explicatif					
-				$msgFooter = "Problème lors de l'enregistrement !";
+				$message = "Problème lors de l'enregistrement !";
 				$themeFooter = $themeProbleme;
 				include_once ($cheminDesVues . 'VueDemanderCreationCompte.php');
 			}
@@ -113,13 +115,13 @@ else {
 				$ok = Outils::envoyerMail($ADR_MAIL_ADMINISTRATEUR, $sujet, $message, $ADR_MAIL_EMETTEUR);
 				if ( ! $ok ) {
 					// si l'envoi de mail a échoué, réaffichage de la vue avec un message explicatif
-					$msgFooter = "Enregistrement effectué.<br>L'envoi du mail à l'administrateur a rencontré un problème !";
+					$message = "Enregistrement effectué.<br>L'envoi du mail à l'administrateur a rencontré un problème !";
 					$themeFooter = $themeProbleme;
 					include_once ($cheminDesVues . 'VueDemanderCreationCompte.php');
 				}
 				else {
 					// tout a fonctionné
-					$msgFooter = "Enregistrement effectué.<br>Un mail va être envoyé à l'administrateur !";
+					$message = "Enregistrement effectué.<br>Un mail va être envoyé à l'administrateur !";
 					$themeFooter = $themeNormal;
 					include_once ($cheminDesVues . 'VueDemanderCreationCompte.php');
 				}

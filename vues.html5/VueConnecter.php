@@ -1,7 +1,7 @@
 <?php
 	// Projet DLS - BTS Info - Anciens élèves
 	// Fonction de la vue vues.html5/VueConnecter.php : visualiser la vue de connexion
-	// Ecrit le 11/11/2015 par Jim
+	// Ecrit le 15/11/2015 par Jim
 ?>
 <!doctype html>
 <html>
@@ -25,6 +25,7 @@
 				<li>Formulaire d'inscription à la soirée des anciens</li>
 				<li>Consultation de la liste des anciens déjà inscrits à la soirée des anciens</li>
 				<li>Outil de recherche d'anciens élèves inscrits à l'annuaire</li>
+				<li>Consultation de galeries photos</li>
 			</ul>
 			<p>Si vous n'avez pas encore de compte, commencez par le <a href="index.php?action=DemanderCreationCompte">créer</a>. 
 			Après vérification de votre demande par les administrateurs de l'annuaire (cette opération peut prendre quelques jours éventuellement),

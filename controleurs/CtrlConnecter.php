@@ -13,7 +13,7 @@ if ( isset ($_POST ["txtAdrMail"]) == false) {
 	$motDePasse = '';
 	$afficherMdp = 'off';
 	$typeUtilisateur = '';
-	$msgFooter = 'Connexion';
+	$message = 'Connexion';
 	$themeFooter = $themeNormal;
 	include_once ($cheminDesVues . 'VueConnecter.php');
 }
@@ -25,7 +25,7 @@ else {
 			
 	if ($adrMail == '' || $motDePasse == '') {
 		// si les données sont incomplètes, réaffichage de la vue avec un message explicatif
-		$msgFooter = 'Données incomplètes ou incorrectes !';
+		$message = 'Données incomplètes ou incorrectes !';
 		$themeFooter = $themeProbleme;
 		$typeUtilisateur = '';
 		include_once ($cheminDesVues . 'VueConnecter.php');
@@ -41,7 +41,7 @@ else {
 		
 		if ( $typeUtilisateur == "inconnu" ) {
 			// si l'authentification est incorrecte, retour à la vue de connexion
-			$msgFooter = 'Authentification incorrecte !';
+			$message = 'Authentification incorrecte !';
 			$themeFooter = $themeProbleme;
 			include_once ($cheminDesVues . 'VueConnecter.php');
 		}

@@ -4,7 +4,7 @@
 //                                                 DAO : Data Access Object
 //                             Cette classe fournit des méthodes d'accès à la bdd anciensEtudiants
 //                                                 Elle utilise l'objet PDO
-//                       Auteur : JM Cartron                       Dernière modification : 11/11/2015
+//                       Auteur : JM Cartron                       Dernière modification : 15/11/2015
 // -------------------------------------------------------------------------------------------------------------------------
 
 // liste des méthodes de cette classe (dans l'ordre d'apparition dans la classe) :
@@ -183,11 +183,11 @@ class DAO
 	}
 	
 	// enregistre l'utilisateur dans la bdd
-	// modifié par Jim le 12/11/2015
+	// modifié par Jim le 15/11/2015
 	public function creerCompteEleve ($unEleve)
 	{	// préparation de la requete
-		$txt_req = "insert into ae_eleves (nom, prenom, sexe, anneeDebutBTS, tel, adrMail, rue, codePostal, ville, entreprise, compteAccepte, motDePasse, dateDerniereMAJ, idFonction)";
-		$txt_req .= " values (:nom, :prenom, :sexe, :anneeDebutBTS, :tel, :adrMail, :rue, :codePostal, :ville, :entreprise, :compteAccepte, :motDePasse, :dateDerniereMAJ, :idFonction)";
+		$txt_req = "insert into ae_eleves (nom, prenom, sexe, anneeDebutBTS, tel, adrMail, rue, codePostal, ville, entreprise, compteAccepte, motDePasse, etudesPostBTS, dateDerniereMAJ, idFonction)";
+		$txt_req .= " values (:nom, :prenom, :sexe, :anneeDebutBTS, :tel, :adrMail, :rue, :codePostal, :ville, :entreprise, :compteAccepte, :motDePasse, :etudesPostBTS, :dateDerniereMAJ, :idFonction)";
 		$req = $this->cnx->prepare($txt_req);
 		// liaison de la requête et de ses paramètres
 		$req->bindValue("nom", utf8_decode($unEleve->getNom()), PDO::PARAM_STR);
@@ -201,8 +201,9 @@ class DAO
 		$req->bindValue("ville", utf8_decode($unEleve->getVille()), PDO::PARAM_STR);
 		$req->bindValue("entreprise", utf8_decode($unEleve->getEntreprise()), PDO::PARAM_STR);
 		$req->bindValue("compteAccepte", utf8_decode($unEleve->getCompteAccepte()), PDO::PARAM_INT);
-		// ATTENTION : le mot de passe est hashé en MD5 avant l'enregistrement dans la bdd
-		$req->bindValue("motDePasse", utf8_decode(md5($unEleve->getMotDePasse())), PDO::PARAM_STR);
+		// ATTENTION : le mot de passe est hashé en sha1 avant l'enregistrement dans la bdd
+		$req->bindValue("motDePasse", utf8_decode(sha1($unEleve->getMotDePasse())), PDO::PARAM_STR);
+		$req->bindValue("etudesPostBTS", utf8_decode($unEleve->getEtudesPostBTS()), PDO::PARAM_STR);
 		$req->bindValue("dateDerniereMAJ", utf8_decode($unEleve->getDateDerniereMAJ()), PDO::PARAM_STR);
 		$req->bindValue("idFonction", utf8_decode($unEleve->getIdFonction()), PDO::PARAM_INT);
 		// exécution de la requete
