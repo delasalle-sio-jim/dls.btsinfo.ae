@@ -1,7 +1,7 @@
 <?php
 	// Projet DLS - BTS Info - Anciens élèves
 	// Fonction de la vue vues.html5/VueDemanderCreationCompte.php : visualiser la vue de création de compte élève
-	// Ecrit le 15/11/2015 par Jim
+	// Ecrit le 16/11/2015 par Jim
 ?>
 <!doctype html>
 <html>
@@ -9,12 +9,12 @@
 	<?php include_once ('head.php'); ?>
 </head> 
 <body>
-	<div id=conteneur>
-		<ul id=menu>
+	<div id="conteneur">
+		<ul id="menu">
 			<li><a href="index.php?action=Connecter">Retour accueil</a></li>
 		</ul>
 			
-		<div id=contenu>
+		<div id="contenu">
 
 			<img src="images/Logo_DLS.gif" class="logo" alt="Lycée De La Salle (Rennes)" />&nbsp;&nbsp;&nbsp;&nbsp;
 			<img src="images/Intitules_bts_ig_sio.png" class="logo" alt="BTS Informatique" />

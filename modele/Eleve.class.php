@@ -3,7 +3,7 @@
 // fichier : modele/Eleve.class.php
 // Rôle : la classe Eleve représente les élèves (actuels ou anciens) de l'application
 // Auteur : JM CARTRON
-// Dernière mise à jour : 15/11/2015
+// Dernière mise à jour : 16/11/2015
 
 // inclusion de la classe Fonction
 include_once ('Fonction.class.php');
@@ -114,8 +114,7 @@ class Eleve
 	// ------------------------------------------------------------------------------------------------------
 	
 	public function toString() {
-		$msg = 'Eleve : <br>';
-		$msg .= 'id : ' . $this->getId() . '<br>';
+		$msg = 'id : ' . $this->getId() . '<br>';
 		$msg .= 'nom : ' . $this->getNom() . '<br>';
 		$msg .= 'prenom : ' . $this->getPrenom() . '<br>';
 		$msg .= 'sexe : ' . $this->getSexe() . '<br>';				

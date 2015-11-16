@@ -11,7 +11,7 @@
 // Projet DLS - BTS Info - Anciens élèves
 // Test de la classe DAO
 // Auteur : JM CARTRON
-// Dernière mise à jour : 15/11/2015
+// Dernière mise à jour : 16/11/2015
 
 include_once ('Fonction.class.php');
 include_once ('Eleve.class.php');
@@ -42,9 +42,9 @@ echo "<p>TypeUtilisateur de ('jean.michel.cartron@gmail.com', 'admin') : <b>" . 
 $typeUtilisateur = $dao->getTypeUtilisateur('jean.michel.cartron@gmail.com', 'adminnnnn');
 echo "TypeUtilisateur de ('jean.michel.cartron@gmail.com', 'adminnnnn') : <b>" . $typeUtilisateur . "</b><br>";
 $typeUtilisateur = $dao->getTypeUtilisateur('jean.michel.cartron@gmail.com', 'passe');
-echo "TypeUtilisateur de ('jean.michel.cartron@gmail.com', 'passe') : <b>" . $typeUtilisateur;
+echo "TypeUtilisateur de ('jean.michel.cartron@gmail.com', 'passe') : <b>" . $typeUtilisateur . "</b><br>";
 
-// test de la méthode existeAdrMail -----------------------------------------------------------
+// test de la méthode existeAdrMail ---------------------------------------------------------------
 // modifié par Jim le 12/11/2015
 echo "<h3>Test de existeAdrMail : </h3>";
 if ($dao->existeAdrMail("sophie.fonfec@gmail.com")) $existe = "oui"; else $existe = "non";
@@ -52,6 +52,7 @@ echo "<p>Existence de l'adresse 'sophie.fonfec@gmail.com' : <b>" . $existe . "</
 if ($dao->existeAdrMail("anna.lyse.durine@gmail.com")) $existe = "oui"; else $existe = "non";
 echo "Existence de l'adresse 'anna.lyse.durine@gmail.com' : <b>" . $existe . "</b></p>";
 
+/*
 // test de la méthode creerCompteEleve ------------------------------------------------------------
 // modifié par Jim le 12/11/2015
 echo "<h3>Test de creerCompteEleve : </h3>";
@@ -80,28 +81,86 @@ if ($ok)
 	echo "<p>Elève bien enregistré !</p>";
 else
 	echo "<p>Echec lors de l'enregistrement de l'élève !</p>";
+*/
+
+// test de la méthode getEleve --------------------------------------------------------------------
+// modifié par Jim le 16/11/2015
+echo "<h3>Test de getEleve(id) : </h3>";
+$unEleve = $dao->getEleve(1);
+if ($unEleve == null)
+	echo ("Identifiant 1 inexistant ! <br>");
+else
+	echo ($unEleve->toString());
+echo ('<br>');
+
+$unEleve = $dao->getEleve(2);
+if ($unEleve == null)
+	echo ("Identifiant 2 inexistant ! <br>");
+else
+	echo ($unEleve->toString());
+echo ('<br>');
+
+echo "<h3>Test de getEleve(adrMail) : </h3>";
+$unEleve = $dao->getEleve('sophie.fonfec@gmail.com');
+if ($unEleve == null)
+	echo ("Adresse mail 'sophie.fonfec@gmail.com' inexistante ! <br>");
+else
+	echo ($unEleve->toString());
+echo ('<br>');
+
+$unEleve = $dao->getEleve('sophie.fonfec@gmail.commmm');
+if ($unEleve == null)
+	echo ("Adresse mail 'sophie.fonfec@gmail.commmm' inexistante ! <br>");
+else
+	echo ($unEleve->toString());
+echo ('<br>');
+
+// test de la méthode validerCreationCompte -------------------------------------------------------
+// modifié par Jim le 16/11/2015
+echo "<h3>Test de validerCreationCompte : </h3>";
+$ok = $dao->validerCreationCompte(4, 'acceptation');
+if ( ! $ok)
+	echo ("Mise à jour (4, 'acceptation') refusée ! <br>");
+else {
+	$unEleve = $dao->getEleve(4);
+	echo ("compteAccepte : " . $unEleve->getCompteAccepte());
+}
+echo ('<br>');
+
+$ok = $dao->validerCreationCompte(4, 'rejet');
+if ( ! $ok)
+	echo ("Mise à jour (4, 'rejet') refusée ! <br>");
+else {
+	$unEleve = $dao->getEleve(4);
+	echo ("compteAccepte : " . $unEleve->getCompteAccepte());
+}
+echo ('<br>');
+
+$ok = $dao->validerCreationCompte(4, 'rejetee');
+if ( ! $ok)
+	echo ("Mise à jour (4, 'rejetee') refusée ! <br>");
+else {
+	$unEleve = $dao->getEleve(4);
+	echo ("compteAccepte : " . $unEleve->getCompteAccepte());
+}
+echo ('<br>');
+
+// test de la méthode modifierMdp -----------------------------------------------------------------
+// modifié par Jim le 16/11/2015
+echo "<h3>Test de modifierMdp : </h3>";
+$dao->modifierMdp(1, "admin");
+$unEleve = $dao->getEleve(1);
+echo ("Nouveau mot de passe : " . $unEleve->getMotDePasse()) . "<br>";
+$dao->modifierMdp(1, "passe");
+$unEleve = $dao->getEleve(1);
+echo ("Nouveau mot de passe : " . $unEleve->getMotDePasse()) . "<br>";
+
 
 
 
 
 
 /*
-// test de la méthode genererUnDigicode -----------------------------------------------------------
-// modifié par Jim le 24/9/2015
-echo "<h3>Test de genererUnDigicode : </h3>";
-echo "<p>Un digicode aléatoire : <b>" . $dao->genererUnDigicode() . "</b><br>";
-echo "Un digicode aléatoire : <b>" . $dao->genererUnDigicode() . "</b><br>";
-echo "Un digicode aléatoire : <b>" . $dao->genererUnDigicode() . "</b><p>";
-
-
-// test de la méthode creerLesDigicodesManquants --------------------------------------------------
-// modifié par Jim le 24/9/2015
-echo "<h3>Test de creerLesDigicodesManquants : </h3>";
-$dao->creerLesDigicodesManquants();
-echo "<p>Pour ce test, videz auparavant la table <b>mrbs_entry_digicode</b><br>";
-echo " puis vérifiez que la table est reconstruite après exécution du test.</p>";
-
-
 // test de la méthode listeReservations -----------------------------------------------------------
 // modifié par Jim le 30/9/2015
 echo "<h3>Test de listeReservations : </h3>";
@@ -123,67 +182,7 @@ foreach ($lesReservations as $uneReservation)
 }
 
 
-// // test de la méthode existeReservation -----------------------------------------------------------
-// // modifié par Jim le 25/9/2015
-// echo "<h3>Test de existeReservation : </h3>";
-// if ($dao->existeReservation("11")) $existe = "oui"; else $existe = "non";
-// echo "<p>Existence de la réservation 11 : <b>" . $existe . "</b><br>";
-// if ($dao->existeReservation("12")) $existe = "oui"; else $existe = "non";
-// echo "Existence de la réservation 12 : <b>" . $existe . "</b></p>";
 
-
-// // test de la méthode estLeCreateur ---------------------------------------------------------------
-// // modifié par Jim le 25/9/2015
-// echo "<h3>Test de estLeCreateur : </h3>";
-// if ($dao->estLeCreateur("admin", "11")) $estLeCreateur = "oui"; else $estLeCreateur = "non";
-// echo "<p>'admin' a créé la réservation 11 : <b>" . $estLeCreateur . "</b><br>";
-// if ($dao->estLeCreateur("zenelsy", "11")) $estLeCreateur = "oui"; else $estLeCreateur = "non";
-// echo "'zenelsy' a créé la réservation 11 : <b>" . $estLeCreateur . "</b></p>";
-
-
-// // test de la méthode getReservation --------------------------------------------------------------
-// // modifié par Jim le 25/9/2015
-// echo "<h3>Test de getReservation : </h3>";
-// $laReservation = $dao->getReservation("11");
-// if ($laReservation) 
-// 	echo "<p>La réservation 11 existe : <br>" . $laReservation->toString() . "</p>";
-// else
-// 	echo "<p>La réservation 11 n'existe pas !</p>";	
-// $laReservation = $dao->getReservation("12");
-// if ($laReservation) 
-// 	echo "<p>La réservation 12 existe : <br>" . $laReservation->toString() . "</p>";
-// else
-// 	echo "<p>La réservation 12 n'existe pas !</p>";	
-
-
-// // test de la méthode getUtilisateur --------------------------------------------------------------
-// // modifié par Jim le 30/9/2015
-// echo "<h3>Test de getUtilisateur : </h3>";
-// $unUtilisateur = $dao->getUtilisateur("admin");
-// if ($unUtilisateur)
-// 	echo "<p>L'utilisateur admin existe : <br>" . $unUtilisateur->toString() . "</p>";
-// else
-// 	echo "<p>L'utilisateur admin n'existe pas !</p>";
-// $unUtilisateur = $dao->getUtilisateur("admon");
-// if ($unUtilisateur)
-// 	echo "<p>L'utilisateur admon existe : <br>" . u$unUtilisateur->toString() . "</p>";
-// else
-// 	echo "<p>L'utilisateur admon n'existe pas !</p>";
-
-
-// // test de la méthode confirmerReservation --------------------------------------------------------
-// // pour ce test, utiliser une réservation dont le champ status est mis auparavant à 4 (état provisoire)
-// // modifié par Jim le 28/9/2015
-// echo "<h3>Test de confirmerReservation : </h3>";
-// $laReservation = $dao->getReservation("10");
-// if ($laReservation) {
-// 	echo "<p>Etat de la réservation 10 avant confirmation : <b>" . $laReservation->getStatus() . "</b><br>";
-// 	$dao->confirmerReservation("10");
-// 	$laReservation = $dao->getReservation("10");
-// 	echo "Etat de la réservation 10 après confirmation : <b>" . $laReservation->getStatus() . "</b></p>";
-// }
-// else
-// 	echo "<p>La réservation 10 n'existe pas !</p>";	
 
 
 // // test de la méthode annulerReservation --------------------------------------------------------
@@ -204,26 +203,6 @@ foreach ($lesReservations as $uneReservation)
 
 
 
-
-
-// // test de la méthode modifierMdpUser -------------------------------------------------------------
-// // modifié par Jim le 28/9/2015
-// echo "<h3>Test de modifierMdpUser : </h3>";
-// $unUtilisateur = $dao->getUtilisateur("admin");
-// if ($unUtilisateur) {
-// 	$dao->modifierMdpUser("admin", "passe");
-// 	$unUtilisateur = $dao->getUtilisateur("admin");
-// 	echo "<p>Nouveau mot de passe de l'utilisateur admin : <b>" . $unUtilisateur->getPassword() . "</b><br>";
-	
-// 	$dao->modifierMdpUser("admin", "admin");
-// 	$unUtilisateur = $dao->getUtilisateur("admin");
-// 	echo "Nouveau mot de passe de l'utilisateur admin : <b>" . $unUtilisateur->getPassword() . "</b><br>";
-	
-// 	$niveauUtilisateur = $dao->getNiveauUtilisateur('admin', 'admin');
-// 	echo "NiveauUtilisateur de ('admin', 'admin') : <b>" . $niveauUtilisateur . "</b></p>";
-// }
-// else
-// 	echo "<p>L'utilisateur admin n'existe pas !</p>";
 
 
 // // test de la méthode envoyerMdp ------------------------------------------------------------------

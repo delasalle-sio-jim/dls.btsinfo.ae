@@ -1,7 +1,7 @@
 <?php
 	// Projet DLS - BTS Info - Anciens élèves
 	// Fonction de la vue vues.html5/VueConnecter.php : visualiser la vue de connexion
-	// Ecrit le 15/11/2015 par Jim
+	// Ecrit le 16/11/2015 par Jim
 ?>
 <!doctype html>
 <html>
@@ -9,13 +9,13 @@
 	<?php include_once ('head.php'); ?>
 </head> 
 <body>
-	<div id=conteneur>
-		<ul id=menu>
+	<div id="conteneur">
+		<ul id="menu">
 			<li><a href="index.php?action=DemanderCreationCompte">Création compte</a></li>
 			<li><a href="index.php?action=DemanderMdp">Mot de passe oublié</a></li>
 		</ul>
 			
-		<div id=contenu>
+		<div id="contenu">
 
 			<img src="images/Logo_DLS.gif" class="logo" alt="Lycée De La Salle (Rennes)" />&nbsp;&nbsp;&nbsp;&nbsp;
 			<img src="images/Intitules_bts_ig_sio.png" class="logo" alt="BTS Informatique" />
@@ -59,8 +59,9 @@
 			</form>
 		</div>
 		
-		<p id=message><?php echo $msgFooter; ?></p>
-		<p id=footer>Annuaire des anciens élèves du BTS Informatique - Lycée De La Salle (Rennes)</p>
+		<p id="message"><?php echo $message; ?></p>
+		
+		<p id="footer">Annuaire des anciens élèves du BTS Informatique - Lycée De La Salle (Rennes)</p>
 	</div>
 </body>
 </html>

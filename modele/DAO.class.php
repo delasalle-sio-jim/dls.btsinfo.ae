@@ -127,14 +127,14 @@ class DAO
 	
 	// fournit le type d'un utilisateur identifié par $adrMail et $motDePasse
 	// renvoie "eleve" ou "administrateur" si authentification correcte, "inconnu" sinon
-	// modifié par Jim le 11/11/2015
+	// modifié par Jim le 16/11/2015
 	public function getTypeUtilisateur($adrMail, $motDePasse)
 	{	// préparation de la requête de recherche dans la table ae_eleves
-		$txt_req = "Select count(*) from ae_eleves where adrMail = :adrMail and motDePasse = :motDePasseCrypte";
+		$txt_req = "Select count(*) from ae_eleves where adrMail = :adrMail and motDePasse = :motDePasseCrypte and compteAccepte = 1";
 		$req = $this->cnx->prepare($txt_req);
 		// liaison de la requête et de ses paramètres
 		$req->bindValue("adrMail", $adrMail, PDO::PARAM_STR);
-		$req->bindValue("motDePasseCrypte", md5($motDePasse), PDO::PARAM_STR);
+		$req->bindValue("motDePasseCrypte", sha1($motDePasse), PDO::PARAM_STR);
 		// extraction des données et comptage des réponses
 		$req->execute();
 		$nbReponses = $req->fetchColumn(0);
@@ -148,7 +148,7 @@ class DAO
 		$req = $this->cnx->prepare($txt_req);
 		// liaison de la requête et de ses paramètres
 		$req->bindValue("adrMail", $adrMail, PDO::PARAM_STR);
-		$req->bindValue("motDePasseCrypte", md5($motDePasse), PDO::PARAM_STR);
+		$req->bindValue("motDePasseCrypte", sha1($motDePasse), PDO::PARAM_STR);
 		// extraction des données et comptage des réponses
 		$req->execute();
 		$nbReponses = $req->fetchColumn(0);
@@ -181,8 +181,58 @@ class DAO
 		else
 			return true;
 	}
+
+	// fournit un objet Eleve à partir de son identifiant ou de son adresse mail
+	// fournit la valeur null si le paramètre n'existe pas ou est incorrect
+	// modifié par Jim le 16/11/2015
+	public function getEleve($parametre)
+	{	// si le paramètre n'est ni un nombre entier, ni une adresse mail, on retourne la valeur null
+		if ( ! Outils::estUnEntierValide($parametre) && ! Outils::estUneAdrMailValide($parametre) ) return null;
+		
+		// préparation de la requete de recherche
+		if (Outils::estUnEntierValide($parametre)) $txt_req = "Select * from ae_eleves where id = :parametre";
+		if (Outils::estUneAdrMailValide($parametre)) $txt_req = "Select * from ae_eleves where adrMail = :parametre";
+		
+		$req = $this->cnx->prepare($txt_req);
+		// liaison de la requête et de son paramètre
+		if (Outils::estUnEntierValide($parametre)) $req->bindValue("parametre", $parametre, PDO::PARAM_INT);
+		if (Outils::estUneAdrMailValide($parametre)) $req->bindValue("parametre", $parametre, PDO::PARAM_STR);
+		
+		// extraction des données
+		$req->execute();
+		$uneLigne = $req->fetch(PDO::FETCH_OBJ);
+		// libère les ressources du jeu de données
+		$req->closeCursor();
+		
+		// traitement de la réponse
+		if ( ! $uneLigne)
+			return null;
+		else
+		{	// création d'un objet Eleve
+			$id = utf8_encode($uneLigne->id);
+			$nom = utf8_encode($uneLigne->nom);
+			$prenom = utf8_encode($uneLigne->prenom);
+			$sexe = utf8_encode($uneLigne->sexe);
+			$anneeDebutBTS = utf8_encode($uneLigne->anneeDebutBTS);
+			$tel = utf8_encode($uneLigne->tel);
+			$adrMail = utf8_encode($uneLigne->adrMail);
+			$rue = utf8_encode($uneLigne->rue);
+			$codePostal = utf8_encode($uneLigne->codePostal);
+			$ville = utf8_encode($uneLigne->ville);
+			$entreprise = utf8_encode($uneLigne->entreprise);
+			$compteAccepte = utf8_encode($uneLigne->compteAccepte);
+			$motDePasse = utf8_encode($uneLigne->motDePasse);
+			$etudesPostBTS = utf8_encode($uneLigne->etudesPostBTS);
+			$dateDerniereMAJ = utf8_encode($uneLigne->dateDerniereMAJ);
+			$idFonction = utf8_encode($uneLigne->idFonction);			
+					
+			$unEleve = new Eleve($id, $nom, $prenom, $sexe, $anneeDebutBTS, $tel, $adrMail, $rue, $codePostal, 
+				$ville, $entreprise, $compteAccepte, $motDePasse, $etudesPostBTS, $dateDerniereMAJ, $idFonction);
+			return $unEleve;
+		}
+	}
 	
-	// enregistre l'utilisateur dans la bdd
+	// enregistre l'élève dans la bdd
 	// modifié par Jim le 15/11/2015
 	public function creerCompteEleve ($unEleve)
 	{	// préparation de la requete
@@ -211,9 +261,36 @@ class DAO
 		return $ok;
 	}
 	
+	// enregistre dans la bdd l'acceptation ou le rejet d'une demande de création de compte élève
+	// modifié par Jim le 16/11/2015
+	public function validerCreationCompte($idCompte, $decision)
+	{	// vérification de la décision
+		if ($decision != 'acceptation' && $decision != 'rejet' ) return null;
+		
+		// préparation de la requete
+		if ($decision == 'acceptation') $txt_req = "update ae_eleves set compteAccepte = true where id = :idcompte";
+		if ($decision == 'rejet') $txt_req = "update ae_eleves set compteAccepte = false where id = :idcompte";		
+		$req = $this->cnx->prepare($txt_req);
+		// liaison de la requête et de ses paramètres
+		$req->bindValue("idcompte", $idCompte, PDO::PARAM_INT);
+		// exécution de la requete
+		$ok = $req->execute();
+		return $ok;
+	}
 	
-	
-	
+	// enregistre le nouveau mot de passe de l'utilisateur dans la bdd après l'avoir hashé en SHA1
+	// modifié par Jim le 16/11/2015
+	public function modifierMdp($idEleve, $nouveauMdp)
+	{	// préparation de la requête
+		$txt_req = "update ae_eleves set motDePasse = :nouveauMdp where id = :idEleve";
+		$req = $this->cnx->prepare($txt_req);
+		// liaison de la requête et de ses paramètres
+		$req->bindValue("nouveauMdp", sha1($nouveauMdp), PDO::PARAM_STR);
+		$req->bindValue("idEleve", $idEleve, PDO::PARAM_INT);
+		// exécution de la requete
+		$ok = $req->execute();
+		return $ok;
+	}
 	
 	
 	
@@ -250,106 +327,6 @@ class DAO
 		$req1->closeCursor();
 		return;
 	}	
-/*
-	// mise à jour de la table mrbs_entry_digicode (si besoin) pour créer les digicodes manquants
-	// cette fonction peut dépanner en cas d'absence des triggers chargés de créer les digicodes
-	// modifié par Jim le 23/9/2015
-	public function creerLesDigicodesManquants()
-	{	// préparation de la requete de recherche des réservations sans digicode
-		$txt_req1 = "Select id from mrbs_entry where id not in (select id from mrbs_entry_digicode)";
-		$req1 = $this->cnx->prepare($txt_req1);
-		// extraction des données
-		$req1->execute();
-		// extrait une ligne du résultat :
-		$uneLigne = $req1->fetch(PDO::FETCH_OBJ);
-		// tant qu'une ligne est trouvée :
-		$dateCreation = date('Y-m-d H:i:s', time());
-		while ($uneLigne)
-		{	// génération aléatoire d'un digicode de 6 caractères hexadécimaux
-			$digicode = $this->genererUnDigicode();
-			// préparation de la requete d'insertion
-			$txt_req2 = "insert into mrbs_entry_digicode (id, digicode, dateCreation) values (:id, :digicode, :dateCreation)";
-			$req2 = $this->cnx->prepare($txt_req2);
-			// liaison de la requête et de ses paramètres
-			$req2->bindValue("id", $uneLigne->id, PDO::PARAM_INT);
-			$req2->bindValue("digicode", $digicode, PDO::PARAM_STR);
-			$req2->bindValue("dateCreation", $dateCreation, PDO::PARAM_INT);
-			// exécution de la requête
-			$req2->execute();
-			// extrait la ligne suivante
-			$uneLigne = $req1->fetch(PDO::FETCH_OBJ);
-		}
-		// libère les ressources du jeu de données
-		$req1->closeCursor();
-		return;
-	}
-*/	
-	// fournit la liste des réservations à venir d'un utilisateur ($nomUser)
-	// le résultat est fourni sous forme d'une collection d'objets Reservation
-	// modifié par Jim le 30/9/2015
-	public function listeReservations($nomUser)
-	{	// préparation de la requete de recherche
-		$txt_req = "Select mrbs_entry.id, timestamp, start_time, end_time, room_name, status, digicode";
-		$txt_req = $txt_req . " from mrbs_entry, mrbs_room, mrbs_entry_digicode";
-		$txt_req = $txt_req . " where mrbs_entry.room_id = mrbs_room.id";
-		$txt_req = $txt_req . " and mrbs_entry.id = mrbs_entry_digicode.id";
-		$txt_req = $txt_req . " and create_by = :nomUser";
-		$txt_req = $txt_req . " and start_time > :time";
-		$txt_req = $txt_req . " order by start_time, room_name";
-		
-		$req = $this->cnx->prepare($txt_req);
-		// liaison de la requête et de ses paramètres
-		$req->bindValue("nomUser", $nomUser, PDO::PARAM_STR);
-		$req->bindValue("time", time(), PDO::PARAM_INT);		
-		// extraction des données
-		$req->execute();
-		$uneLigne = $req->fetch(PDO::FETCH_OBJ);
-		
-		// construction d'une collection d'objets Reservation
-		$lesReservations = array();
-		// tant qu'une ligne est trouvée :
-		while ($uneLigne)
-		{	// création d'un objet Reservation
-			$unId = utf8_encode($uneLigne->id);
-			$unTimeStamp = utf8_encode($uneLigne->timestamp);
-			$unStartTime = utf8_encode($uneLigne->start_time);
-			$unEndTime = utf8_encode($uneLigne->end_time);
-			$unRoomName = utf8_encode($uneLigne->room_name);
-			$unStatus = utf8_encode($uneLigne->status);
-			$unDigicode = utf8_encode($uneLigne->digicode);
-			
-			$uneReservation = new Reservation($unId, $unTimeStamp, $unStartTime, $unEndTime, $unRoomName, $unStatus, $unDigicode);
-			// ajout de la réservation à la collection
-			$lesReservations[] = $uneReservation;
-			// extrait la ligne suivante
-			$uneLigne = $req->fetch(PDO::FETCH_OBJ);
-		}
-		// libère les ressources du jeu de données
-		$req->closeCursor();
-		// fourniture de la collection
-		return $lesReservations;
-	}
-
-	// fournit true si la réservation ($idReservation) existe, false sinon
-	// modifié par Jim le 5/5/2015
-	public function existeReservation($idReservation)
-	{	// préparation de la requete de recherche
-		$txt_req = "Select count(*) from mrbs_entry where id = :idReservation";
-		$req = $this->cnx->prepare($txt_req);
-		// liaison de la requête et de ses paramètres
-		$req->bindValue("idReservation", $idReservation, PDO::PARAM_INT);
-		// extraction des données et comptage des réponses
-		$req->execute();
-		$nbReponses = $req->fetchColumn(0);
-		// libère les ressources du jeu de données
-		$req->closeCursor();
-		
-		// fourniture de la réponse
-		if ($nbReponses == 0)
-			return false;
-		else
-			return true;
-	}
 	
 	// teste si un utilisateur ($nomUser) est le créateur d'une réservation ($idReservation)
 	// renvoie true si l'utilisateur est bien le créateur, false sinon
@@ -375,86 +352,7 @@ class DAO
 			return true;
 	}
 	
-	// fournit un objet Reservation à partir de son identifiant
-	// fournit la valeur null si l'identifiant n'existe pas
-	// modifié par Jim le 27/9/2015
-	public function getReservation($idReservation)
-	{	// préparation de la requete de recherche
-		$txt_req = "Select mrbs_entry.id, timestamp, start_time, end_time, room_name, status, digicode ";
-		$txt_req = $txt_req . " from mrbs_entry, mrbs_entry_digicode, mrbs_room ";
-		$txt_req = $txt_req . " where mrbs_entry.room_id = mrbs_room.id ";
-		$txt_req = $txt_req . " and mrbs_entry.id = mrbs_entry_digicode.id";
-		$txt_req = $txt_req . " and mrbs_entry.id = :idReservation";
-		$req = $this->cnx->prepare($txt_req);
-		// liaison de la requête et de ses paramètres
-		$req->bindValue("idReservation", $idReservation, PDO::PARAM_INT);	
-		// extraction des données
-		$req->execute();
-		$uneLigne = $req->fetch(PDO::FETCH_OBJ);
-		// libère les ressources du jeu de données
-		$req->closeCursor();
-		
-		// traitement de la réponse
-		if ( ! $uneLigne)
-			return null;
-		else
-		{	// création d'un objet Reservation
-			$unId = utf8_encode($uneLigne->id);
-			$unTimeStamp = utf8_encode($uneLigne->timestamp);
-			$unStartTime = utf8_encode($uneLigne->start_time);
-			$unEndTime = utf8_encode($uneLigne->end_time);
-			$unRoomName = utf8_encode($uneLigne->room_name);
-			$unStatus = utf8_encode($uneLigne->status);
-			$unDigicode = utf8_encode($uneLigne->digicode);
-			
-			$uneReservation = new Reservation($unId, $unTimeStamp, $unStartTime, $unEndTime, $unRoomName, $unStatus, $unDigicode);
-			return $uneReservation;
-		}
-	}
 
-	// fournit un objet Utilisateur à partir de son nom ($nomUser)
-	// fournit la valeur null si le nom n'existe pas
-	// modifié par Jim le 27/9/2015
-	public function getUtilisateur($nomUser)
-	{	// préparation de la requete de recherche
-		$txt_req = "Select * from mrbs_users where name = :nomUser";
-		$req = $this->cnx->prepare($txt_req);
-		// liaison de la requête et de ses paramètres
-		$req->bindValue("nomUser", $nomUser, PDO::PARAM_STR);
-		// extraction des données
-		$req->execute();
-		$uneLigne = $req->fetch(PDO::FETCH_OBJ);
-		// libère les ressources du jeu de données
-		$req->closeCursor();
-		
-		// traitement de la réponse
-		if ( ! $uneLigne)
-			return null;
-		else
-		{	// création d'un objet Utilisateur
-			$unId = utf8_encode($uneLigne->id);
-			$unLevel = utf8_encode($uneLigne->level);
-			$unName = utf8_encode($uneLigne->name);
-			$unPassword = utf8_encode($uneLigne->password);
-			$unEmail = utf8_encode($uneLigne->email);
-				
-			$unUtilisateur = new Utilisateur($unId, $unLevel, $unName, $unPassword, $unEmail);
-			return $unUtilisateur;
-		}
-	}
-	
-	// enregistre la confirmation de réservation dans la bdd
-	// modifié par Jim le 5/5/2015
-	public function confirmerReservation($idReservation)
-	{	// préparation de la requete
-		$txt_req = "update mrbs_entry set status = 0 where id = :idReservation";
-		$req = $this->cnx->prepare($txt_req);
-		// liaison de la requête et de ses paramètres
-		$req->bindValue("idReservation", $idReservation, PDO::PARAM_INT);
-		// exécution de la requete
-		$ok = $req->execute();
-		return $ok;
-	}
 	
 	// enregistre l'annulation de réservation dans la bdd
 	// modifié par Jim le 5/5/2015
@@ -471,19 +369,7 @@ class DAO
 	
 
 
-	// enregistre le nouveau mot de passe de l'utilisateur dans la bdd après l'avoir hashé en MD5
-	// modifié par Jim le 6/5/2015
-	public function modifierMdpUser($nomUser, $nouveauMdp)
-	{	// préparation de la requete
-		$txt_req = "update mrbs_users set password = :nouveauMdp where name = :nomUser";
-		$req = $this->cnx->prepare($txt_req);
-		// liaison de la requête et de ses paramètres
-		$req->bindValue("nouveauMdp", md5($nouveauMdp), PDO::PARAM_STR);
-		$req->bindValue("nomUser", $nomUser, PDO::PARAM_STR);		
-		// exécution de la requete
-		$ok = $req->execute();
-		return $ok;
-	}	
+
 
 	// envoie un mail à l'utilisateur avec son nouveau mot de passe
 	// retourne true si envoi correct, false en cas de problème d'envoi
@@ -504,95 +390,6 @@ class DAO
 		return $ok;
 	}
 
-	// teste si le digicode saisi ($digicodeSaisi) correspond bien à une réservation
-	// de la salle indiquée ($idSalle) pour l'heure courante
-	// fournit la valeur 0 si le digicode n'est pas bon, 1 si le digicode est bon
-	// modifié par Jim le 18/5/2015
-	public function testerDigicodeSalle($idSalle, $digicodeSaisi)
-	{	global $DELAI_DIGICODE;
-		// préparation de la requete de recherche
-		$txt_req = "Select count(*)";
-		$txt_req = $txt_req . " from mrbs_entry, mrbs_entry_digicode";
-		$txt_req = $txt_req . " where mrbs_entry.id = mrbs_entry_digicode.id";
-		$txt_req = $txt_req . " and room_id = :idSalle";
-		$txt_req = $txt_req . " and digicode = :digicodeSaisi";
-		$txt_req = $txt_req . " and (start_time - :delaiDigicode) < " . time();
-		$txt_req = $txt_req . " and (end_time + :delaiDigicode) > " . time();
-		
-		$req = $this->cnx->prepare($txt_req);
-		// liaison de la requête et de ses paramètres
-		$req->bindValue("idSalle", $idSalle, PDO::PARAM_STR);
-		$req->bindValue("digicodeSaisi", $digicodeSaisi, PDO::PARAM_STR);	
-		$req->bindValue("delaiDigicode", $DELAI_DIGICODE, PDO::PARAM_INT);	
-				
-		// exécution de la requete
-		$req->execute();
-		$nbReponses = $req->fetchColumn(0);
-		// libère les ressources du jeu de données
-		$req->closeCursor();
-		
-		// fourniture de la réponse
-		if ($nbReponses == 0)
-			return "0";
-		else
-			return "1";
-	}
-	
-	// teste si le digicode saisi ($digicodeSaisi) correspond bien à une réservation de salle quelconque
-	// pour l'heure courante
-	// fournit la valeur 0 si le digicode n'est pas bon, 1 si le digicode est bon
-	// modifié par Jim le 18/5/2015
-	public function testerDigicodeBatiment($digicodeSaisi)
-	{	global $DELAI_DIGICODE;
-		// préparation de la requete de recherche
-		$txt_req = "Select count(*)";
-		$txt_req = $txt_req . " from mrbs_entry, mrbs_entry_digicode";
-		$txt_req = $txt_req . " where mrbs_entry.id = mrbs_entry_digicode.id";
-		$txt_req = $txt_req . " and digicode = :digicodeSaisi";
-		$txt_req = $txt_req . " and start_time - :delaiDigicode < " . time();
-		$txt_req = $txt_req . " and end_time + :delaiDigicode > " . time();
-		
-		$req = $this->cnx->prepare($txt_req);
-		// liaison de la requête et de ses paramètres
-		$req->bindValue("digicodeSaisi", $digicodeSaisi, PDO::PARAM_STR);	
-		$req->bindValue("delaiDigicode", $DELAI_DIGICODE, PDO::PARAM_INT);	
-		
-		// exécution de la requete
-		$req->execute();
-		$nbReponses = $req->fetchColumn(0);
-		// libère les ressources du jeu de données
-		$req->closeCursor();
-		
-		// fourniture de la réponse
-		if ($nbReponses == 0)
-			return "0";
-		else
-			return "1";
-	}
-
-
-
-	// recherche si un utilisateur a passé des réservations à venir
-	// modifié par Jim le 6/5/2015
-	public function aPasseDesReservations($name)
-	{	// préparation de la requete de recherche
-		$txt_req = "Select count(*) from mrbs_entry where create_by = :name and start_time > " . time();
-		$req = $this->cnx->prepare($txt_req);
-		// liaison de la requête et de ses paramètres
-		$req->bindValue("name", $name, PDO::PARAM_STR);
-		// exécution de la requete
-		$req->execute();
-		$nbReponses = $req->fetchColumn(0);
-		// libère les ressources du jeu de données
-		$req->closeCursor();
-		
-		// fourniture de la réponse
-		if ($nbReponses == 0)
-			return false;
-		else
-			return true;
-	}
-	
 	// supprime l'utilisateur dans la bdd
 	// modifié par Jim le 6/5/2015
 	public function supprimerUtilisateur($name)
@@ -606,43 +403,7 @@ class DAO
 		return $ok;
 	}	
 	
-	// fournit la liste des salles disponibles à la réservation
-	// le résultat est fourni sous forme d'une collection d'objets Salle
-	// modifié par Jim le 30/9/2015
-	function listeSalles()
-	{	// préparation de la requete de recherche
-		$txt_req = "Select mrbs_room.id, mrbs_room.room_name, mrbs_room.capacity, mrbs_area.area_name, mrbs_area.area_admin_email";
-		$txt_req = $txt_req . " from mrbs_room, mrbs_area";
-		$txt_req = $txt_req . " where mrbs_room.area_id = mrbs_area.id";
-		$txt_req = $txt_req . " order by mrbs_area.area_name, mrbs_room.room_name";
-		
-		$req = $this->cnx->prepare($txt_req);
-		// extraction des données
-		$req->execute();
-		$uneLigne = $req->fetch(PDO::FETCH_OBJ);
-		
-		// construction d'une collection d'objets Salle
-		$lesSalles = array();
-		// tant qu'une ligne est trouvée :
-		while ($uneLigne)
-		{	// création d'un objet Salle
-			$unId = utf8_encode($uneLigne->id);
-			$unRoomName = utf8_encode($uneLigne->room_name);
-			$unCapacity = utf8_encode($uneLigne->capacity);
-			$unAreaName = utf8_encode($uneLigne->area_name);
-			$unAeraAdminEmail = utf8_encode($uneLigne->area_admin_email);
-				
-			$uneSalle = new Salle($unId, $unRoomName, $unCapacity, $unAreaName, $unAeraAdminEmail);
-			// ajout de la réservation à la collection
-			$lesSalles[] = $uneSalle;
-			// extrait la ligne suivante
-			$uneLigne = $req->fetch(PDO::FETCH_OBJ);
-		}
-		// libère les ressources du jeu de données
-		$req->closeCursor();
-		// fourniture de la collection
-		return $lesSalles;
-	}
+
 	
 } // fin de la classe DAO
 

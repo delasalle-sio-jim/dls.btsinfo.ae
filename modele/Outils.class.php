@@ -1,11 +1,12 @@
 <?php
 // -------------------------------------------------------------------------------------------------------------------------
 //                                         boite à outils de fonctions courantes
-//                       Auteur : JM Cartron                       Dernière modification : 9/11/2015
+//                       Auteur : JM Cartron                       Dernière modification : 16/11/2015
 // -------------------------------------------------------------------------------------------------------------------------
 
 // liste des méthodes statiques de cette classe (dans l'ordre d'apparition dans le fichier) :
 
+// estUnEntierValide        : validation d'un nombre entier (il doit comporter 1 ou plusieurs chiffres chiffres)
 // estUnCodePostalValide    : validation d'un code postal (il doit comporter 5 chiffres)
 // estUneAdrMailValide      : validation d'une adresse mail
 // estUnNumTelValide        : validation d'un numéro de téléphone (5 groupes de 2 chiffres EVENTUELLEMENT séparés)
@@ -30,6 +31,14 @@
 // début de la classe Outils
 class Outils
 {
+	// fournit true si $entierAvalider est un nombre entier valide (1 ou plusieurs chiffres), false sinon
+	public static function estUnEntierValide($entierAvalider)
+	{	// utilisation d'une expression régulière pour vérifier un nombre entier :
+		$EXPRESSION = "#^[0-9]+$#";
+		// on retourne true si le nombre est valide :
+		if ( preg_match ( $EXPRESSION , $entierAvalider ) == true ) return true; else return false;
+	}	
+
 	// fournit true si $codePostalAvalider est un code postal valide (5 chiffres), false sinon
 	public static function estUnCodePostalValide($codePostalAvalider)
 	{	// utilisation d'une expression régulière pour vérifier un code postal :

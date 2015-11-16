@@ -48,7 +48,7 @@ if ( isset ($_SESSION['cheminDesVues']) == false)
 {	// détection du type de terminal pour le choix des vues
 	require_once 'Mobile_Detect.php';
 	$detect = new Mobile_Detect;
-	if ( $detect->isMobile() ) $cheminDesVues = "vues.jquery/"; else $cheminDesVues = "vues.html5/";
+	if ( $detect->isMobile() ) $cheminDesVues = "vues.jquery/"; else $cheminDesVues = "vues.jquery/";
 	$_SESSION['cheminDesVues'] = $cheminDesVues;
 }
 else

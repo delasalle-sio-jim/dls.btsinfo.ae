@@ -1,21 +1,22 @@
 <?php
 // Projet DLS - BTS Info - Anciens élèves
 // Fonction du contrôleur CtrlDemanderCreationCompte.php : traiter la demande de création de compte d'un élève
-// Ecrit le 15/11/2015 par Jim
+// Ecrit le 16/11/2015 par Jim
 
 // initialisations du style de chaque zone de saisie (avant les contrôles des données saisies)
-$class_nom = "normal";
-$class_prenom = "normal";
-$class_sexe = "normal";
-$class_anneeDebutBTS = "normal";
-$class_tel = "normal";
-$class_adrMail = "normal";
-$class_etudesPostBTS = "normal";
-$class_rue = "normal";
-$class_codePostal = "normal";
-$class_ville = "normal";
-$class_entreprise = "normal";
-$class_fonction = "normal";
+// les 3 styles prévus dans la feuille de style (style.css) sont : 'normal', 'nomRempli' et 'incorrect'
+$class_nom = 'normal';
+$class_prenom = 'normal';
+$class_sexe = 'normal';
+$class_anneeDebutBTS = 'normal';
+$class_tel = 'normal';
+$class_adrMail = 'normal';
+$class_etudesPostBTS = 'normal';
+$class_rue = 'normal';
+$class_codePostal = 'normal';
+$class_ville = 'normal';
+$class_entreprise = 'normal';
+$class_fonction = 'normal';
 
 // inclusion de la classe Outils
 include_once ('modele/Outils.class.php');
@@ -42,7 +43,7 @@ if ( ! isset ($_POST ["txtNom"]) ) {
 	$entreprise = '';
 	$idFonction = '';
 
-	$message = "&nbsp;";
+	$message = '&nbsp;';
 	$themeFooter = $themeNormal;
 	include_once ($cheminDesVues . 'VueDemanderCreationCompte.php');
 }
@@ -62,6 +63,7 @@ else {
 	if ( empty ($_POST ["txtEntreprise"]) == true)  $entreprise = "";  else   $entreprise = $_POST ["txtEntreprise"];
 	if ( empty ($_POST ["listeFonctions"]) == true)  $idFonction = "";  else   $idFonction = $_POST ["listeFonctions"];
 	
+	// tests des champs obligatoires non remplis
 	if ($nom == '') $class_nom = "nonRempli";
 	if ($prenom == '') $class_prenom = "nonRempli";	
 	if ($sexe == '') $class_sexe = "nonRempli";	
@@ -69,6 +71,7 @@ else {
 	if ($tel == '') $class_tel = "nonRempli";
 	if ($adrMail == '') $class_adrMail = "nonRempli";
 
+	// tests des champs incorrects
 	if (Outils::estUnNumTelValide($tel) == false) $class_tel = "incorrect";
 	if (Outils::estUnCodePostalValide($codePostal) == false) $class_codePostal = "incorrect";
 	if (Outils::estUneAdrMailValide($adrMail) == false) $class_adrMail = "incorrect";
@@ -93,7 +96,7 @@ else {
 			// création d'un objet Eleve
 			$id = 0; 							// le numéro sera affecté automatiquement par le SGBD
 			$compteAccepte = false;				// en attente de la décision de l'administrateur de la base
-			$motDePasse = Outils::creerMdp();	// création d'un mot de passe aléatoire de 8 caractères
+			$motDePasse = '';					// le mot de passe sera créé lors de l'acceptation du compte
 			$dateDerniereMAJ = date('Y-m-d H:i:s', time());		// l'heure courante
 			$unEleve = new Eleve($id, $nom, $prenom, $sexe, $anneeDebutBTS, $tel, $adrMail, $rue, $codePostal, 
 				$ville, $entreprise, $compteAccepte, $motDePasse, $etudesPostBTS, $dateDerniereMAJ, $idFonction);
@@ -106,12 +109,19 @@ else {
 				include_once ($cheminDesVues . 'VueDemanderCreationCompte.php');
 			}
 			else {
+				// lecture de la bdd pour récupérer l'id attribué au compte élève
+				$unEleve = $dao->getEleve($adrMail);
 				// envoi d'un mail de confirmation de l'enregistrement
-				$sujet = "Création d'un compte élève dans l'annuaire des anciens du BTS Informatique";
+				$sujet = "Demande de création d'un compte élève dans l'annuaire des anciens du BTS Informatique";
 				$message = "Un élève (actuel ou ancien) vient de créer un compte.\n\n";
 				$message .= "Les données enregistrées sont :\n\n";
-				$message .= str_replace ("<br>", "\n", $unEleve->toString()) . "\n";
-					
+				$message .= str_replace ("<br>", "\n", $unEleve->toString()) . "\n\n";
+				$message .= "Pour accepter la création du compte, cliquez sur ce lien :\n";
+				$message .= $ADR_SERVICE_WEB . "ValiderCreationCompte.php?idCompte=" . $unEleve->getId() . "&decision=acceptation";
+				$message .= "\n\n";
+				$message .= "Pour rejeter la création du compte, cliquez sur ce lien :\n";
+				$message .= $ADR_SERVICE_WEB . "ValiderCreationCompte.php?idCompte=" . $unEleve->getId() . "&decision=rejet";				
+				
 				$ok = Outils::envoyerMail($ADR_MAIL_ADMINISTRATEUR, $sujet, $message, $ADR_MAIL_EMETTEUR);
 				if ( ! $ok ) {
 					// si l'envoi de mail a échoué, réaffichage de la vue avec un message explicatif

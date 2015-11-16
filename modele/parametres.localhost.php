@@ -13,12 +13,14 @@ $PARAM_USER = "cartron";			// nom de l'utilisateur
 $PARAM_PWD = "cartron";				// son mot de passe
 
 // Autres paramètres -----------------------------------------------------------------------------------------
-global $ADR_MAIL_EMETTEUR, $ADR_MAIL_ADMINISTRATEUR;
+global $ADR_MAIL_EMETTEUR, $ADR_MAIL_ADMINISTRATEUR, $ADR_SERVICE_WEB;
 
 // adresse de l'émetteur lors d'un envoi de courriel
 $ADR_MAIL_EMETTEUR = "delasalle.sio.eleves@gmail.com";
 // adresse de l'administrateur lors d'un envoi de courriel
 $ADR_MAIL_ADMINISTRATEUR = "jean.michel.cartron@gmail.com";
+// adresse du service web
+$ADR_SERVICE_WEB = "http://localhost/ws-php-cartron/dls.btsinfo.ae/services/";
 
 // ATTENTION : on ne met pas de balise de fin de script pour ne pas prendre le risque
 // d'enregistrer d'espaces après la balise de fin de script !!!!!!!!!!!!
