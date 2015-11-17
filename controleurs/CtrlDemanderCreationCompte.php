@@ -29,7 +29,7 @@ $lesFonctions = $dao->getLesFonctions();
 
 if ( ! isset ($_POST ["txtNom"]) ) {
 	// si les données n'ont pas été postées, c'est le premier appel du formulaire : affichage de la vue sans message d'erreur
-	$premierAppel = true;
+	//$premierAppel = true;
 	$nom = '';
 	$prenom = '';
 	$sexe = '';
@@ -48,7 +48,7 @@ if ( ! isset ($_POST ["txtNom"]) ) {
 	include_once ($cheminDesVues . 'VueDemanderCreationCompte.php');
 }
 else {
-	$premierAppel = false;
+	//$premierAppel = false;
 	// récupération des données postées
 	if ( empty ($_POST ["txtNom"]) == true)  $nom = "";  else   $nom = $_POST ["txtNom"];
 	if ( empty ($_POST ["txtPrenom"]) == true)  $prenom = "";  else   $prenom = $_POST ["txtPrenom"];

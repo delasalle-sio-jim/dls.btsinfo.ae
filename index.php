@@ -48,11 +48,13 @@ if ( isset ($_SESSION['cheminDesVues']) == false)
 {	// détection du type de terminal pour le choix des vues
 	require_once 'Mobile_Detect.php';
 	$detect = new Mobile_Detect;
-	if ( $detect->isMobile() ) $cheminDesVues = "vues.jquery/"; else $cheminDesVues = "vues.jquery/";
+	if ( $detect->isMobile() ) $cheminDesVues = "vues.jquery/"; else $cheminDesVues = "vues.html5/";
 	$_SESSION['cheminDesVues'] = $cheminDesVues;
 }
 else
 	 $cheminDesVues = $_SESSION['cheminDesVues'];
+
+$cheminDesVues = "vues.jquery/";	// pour forcer l'affichage de la version mobile (ligne à bloquer normalement)
 
 // si l'utilisateur n'est pas encore identifié, il sera automatiquement redirigé vers le contrôleur d'authentification
 // (sauf s'il ne peut pas se connecter et demande de se faire envoyer son mot de passe qu'il a oublié ou s'il veut se créer un compte)
