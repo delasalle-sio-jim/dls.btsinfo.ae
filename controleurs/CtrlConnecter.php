@@ -23,7 +23,7 @@ else {
 	if ( empty ($_POST ["txtMotDePasse"]) == true)  $motDePasse = "";  else   $motDePasse = $_POST ["txtMotDePasse"];
 	if ( empty ($_POST ["caseAfficherMdp"]) == true)  $afficherMdp = "off";  else   $afficherMdp = $_POST ["caseAfficherMdp"];
 			
-	if ($adrMail == '' || $motDePasse == '') {
+	if ($adrMail == '' || $motDePasse == '' || Outils::estUneAdrMailValide($adrMail) == false) {
 		// si les données sont incomplètes, réaffichage de la vue avec un message explicatif
 		$message = 'Données incomplètes ou incorrectes !';
 		$themeFooter = $themeProbleme;
@@ -51,7 +51,8 @@ else {
 			$_SESSION['motDePasse'] = $motDePasse;
 			$_SESSION['typeUtilisateur'] = $typeUtilisateur;
 			// redirection vers la page de menu
-			header ("Location: index.php?action=Menu");
+			//header ("Location: index.php?action=Menu");
+			include_once ('controleurs/CtrlMenu.php');
 		}
 		
 		unset($dao);		// fermeture de la connexion à MySQL

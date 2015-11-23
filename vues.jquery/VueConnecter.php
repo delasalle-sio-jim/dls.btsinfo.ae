@@ -26,14 +26,6 @@
 							<li>Consultation de galeries photos</li>
 						</ul>
 					</div>
-					
-					<div data-role="collapsible">
-						<h3>J'ai oublié mon mot de passe</h3>
-						<p>Ce bouton permet de regénérer un nouveau mot de passe qui vous sera immédiatement envoyé par mail. Nous vous conseillons de le changer aussitôt.</p>
-						<p style="margin-top: 0px; margin-bottom: 20px;">
-							<a href="index.php?action=DemanderMdp" data-role="button">J'ai oublié mon mot de passe</a>
-						</p>
-					</div>
 								
 					<div data-role="collapsible">
 						<h3>Créer mon compte</h3>
@@ -44,10 +36,10 @@
 							<a href="index.php?action=DemanderCreationCompte" data-role="button" data-ajax="false">Créer mon compte</a>
 						</p>
 					</div>
-										
+
 					<div data-role="collapsible" data-collapsed="false">
 						<h3>Accéder à mon compte</h3>
-						<form name="form1" id="form1" action="index.php?action=Connecter" method="post">
+						<form name="form1" id="form1" action="index.php?action=Connecter" method="post" data-transition="<?php echo $transition; ?>">
 							<div data-role="fieldcontain" class="ui-hide-label">
 								<label for="txtAdrMail">Adresse mail :</label>
 								<input type="text" name="txtAdrMail" id="txtAdrMail" placeholder="Mon adresse mail" value="<?php echo $adrMail; ?>" >
@@ -62,6 +54,22 @@
 							<div data-role="fieldcontain" data-mini="true" style="margin-top: 0px; margin-bottom: 0px;">
 								<p style="margin-top: 0px; margin-bottom: 0px;">
 									<input type="submit" name="btnConnecter" id="btnConnecter" value="Me connecter">
+								</p>
+							</div>
+						</form>
+					</div>
+					
+					<div data-role="collapsible">
+						<h3>J'ai oublié mon mot de passe</h3>
+						<p>Cette option permet de regénérer un nouveau mot de passe qui vous sera immédiatement envoyé par mail. Nous vous conseillons de le changer aussitôt.</p>
+						<form name="form2" id="form2" action="index.php?action=DemanderMdp" method="post">
+							<div data-role="fieldcontain" class="ui-hide-label">
+								<label for="txtAdrMail2">Adresse mail :</label>
+								<input type="text" name="txtAdrMail2" id="txtAdrMail2" placeholder="Mon adresse mail" value="<?php echo $adrMail; ?>" >
+							</div>														
+							<div data-role="fieldcontain" data-mini="true" style="margin-top: 0px; margin-bottom: 0px;">
+								<p style="margin-top: 0px; margin-bottom: 0px;">
+									<input type="submit" name="btnConnecter2" id="btnConnecter2" value="Obtenir un nouveau mot de passe">
 								</p>
 							</div>
 						</form>

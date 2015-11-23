@@ -1,9 +1,20 @@
 <?php
 // Projet DLS - BTS Info - Anciens élèves
 // Fonction du contrôleur CtrlMenu.php : traiter la demande d'accès au menu
-// Ecrit le 11/11/2015 par Jim
+// Ecrit le 23/11/2015 par Jim
 
-// Ce contrôleur charge simplement la vue VueMenu.php
+// connexion du serveur web à la base MySQL
+include_once ('modele/DAO.class.php');
+$dao = new DAO();
 
-if ($typeUtilisateur == "eleve") include_once ($cheminDesVues . 'VueMenuEleve.php');
-if ($typeUtilisateur == "administrateur") include_once ($cheminDesVues . 'VueMenuAdministrateur.php');
+if ($typeUtilisateur == "eleve") {
+	$utilisateur = $dao->getEleve($adrMail);
+}
+
+if ($typeUtilisateur == "administrateur") {
+	$utilisateur = $dao->getAdministrateur($adrMail);
+}
+
+$nom = $utilisateur->getNom();
+
+include_once ($cheminDesVues . 'VueMenu.php');

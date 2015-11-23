@@ -231,6 +231,44 @@ class DAO
 			return $unEleve;
 		}
 	}
+
+	// fournit un objet Administrateur à partir de son identifiant ou de son adresse mail
+	// fournit la valeur null si le paramètre n'existe pas ou est incorrect
+	// modifié par Jim le 23/11/2015
+	public function getAdministrateur($parametre)
+	{	// si le paramètre n'est ni un nombre entier, ni une adresse mail, on retourne la valeur null
+		if ( ! Outils::estUnEntierValide($parametre) && ! Outils::estUneAdrMailValide($parametre) ) return null;
+		
+		// préparation de la requete de recherche
+		if (Outils::estUnEntierValide($parametre)) $txt_req = "Select * from ae_administrateurs where id = :parametre";
+		if (Outils::estUneAdrMailValide($parametre)) $txt_req = "Select * from ae_administrateurs where adrMail = :parametre";
+		
+		$req = $this->cnx->prepare($txt_req);
+		// liaison de la requête et de son paramètre
+		if (Outils::estUnEntierValide($parametre)) $req->bindValue("parametre", $parametre, PDO::PARAM_INT);
+		if (Outils::estUneAdrMailValide($parametre)) $req->bindValue("parametre", $parametre, PDO::PARAM_STR);
+		
+		// extraction des données
+		$req->execute();
+		$uneLigne = $req->fetch(PDO::FETCH_OBJ);
+		// libère les ressources du jeu de données
+		$req->closeCursor();
+		
+		// traitement de la réponse
+		if ( ! $uneLigne)
+			return null;
+		else
+		{	// création d'un objet Eleve
+			$id = utf8_encode($uneLigne->id);
+			$nom = utf8_encode($uneLigne->nom);
+			$prenom = utf8_encode($uneLigne->prenom);
+			$adrMail = utf8_encode($uneLigne->adrMail);
+			$motDePasse = utf8_encode($uneLigne->motDePasse);
+				
+			$unAdministrateur = new Administrateur($id, $adrMail, $motDePasse, $prenom, $nom);
+			return $unAdministrateur;
+		}
+	}
 	
 	// enregistre l'élève dans la bdd
 	// modifié par Jim le 15/11/2015
