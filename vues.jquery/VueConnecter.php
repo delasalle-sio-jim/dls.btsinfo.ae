@@ -1,7 +1,7 @@
 <?php
 	// Projet DLS - BTS Info - Anciens élèves
 	// Fonction de la vue vues.jquery/VueConnecter.php : visualiser la vue de connexion
-	// Ecrit le 17/11/2015 par Jim
+	// Ecrit le 24/11/2015 par Jim
 ?>
 <!doctype html>
 <html>
@@ -37,7 +37,7 @@
 						</p>
 					</div>
 
-					<div data-role="collapsible" data-collapsed="false">
+					<div data-role="collapsible" <?php if($divConnecterDepliee == true) echo ('data-collapsed="false"'); ?>>
 						<h3>Accéder à mon compte</h3>
 						<form name="form1" id="form1" action="index.php?action=Connecter" method="post" data-transition="<?php echo $transition; ?>">
 							<div data-role="fieldcontain" class="ui-hide-label">
@@ -59,7 +59,7 @@
 						</form>
 					</div>
 					
-					<div data-role="collapsible">
+					<div data-role="collapsible" <?php if($divDemanderMdpDepliee == true) echo ('data-collapsed="false"'); ?>>
 						<h3>J'ai oublié mon mot de passe</h3>
 						<p>Cette option permet de regénérer un nouveau mot de passe qui vous sera immédiatement envoyé par mail. Nous vous conseillons de le changer aussitôt.</p>
 						<form name="form2" id="form2" action="index.php?action=DemanderMdp" method="post">

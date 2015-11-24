@@ -4,7 +4,7 @@
 //                                                 DAO : Data Access Object
 //                             Cette classe fournit des méthodes d'accès à la bdd anciensEtudiants
 //                                                 Elle utilise l'objet PDO
-//                       Auteur : JM Cartron                       Dernière modification : 15/11/2015
+//                       Auteur : JM Cartron                       Dernière modification : 24/11/2015
 // -------------------------------------------------------------------------------------------------------------------------
 
 // liste des méthodes de cette classe (dans l'ordre d'apparition dans la classe) :
@@ -317,18 +317,40 @@ class DAO
 	}
 	
 	// enregistre le nouveau mot de passe de l'utilisateur dans la bdd après l'avoir hashé en SHA1
-	// modifié par Jim le 16/11/2015
-	public function modifierMdp($idEleve, $nouveauMdp)
+	// modifié par Jim le 24/11/2015
+	public function modifierMdp($adrMail, $nouveauMdp)
 	{	// préparation de la requête
-		$txt_req = "update ae_eleves set motDePasse = :nouveauMdp where id = :idEleve";
+		$txt_req = "update ae_eleves set motDePasse = :nouveauMdp where adrMail = :adrMail";
 		$req = $this->cnx->prepare($txt_req);
 		// liaison de la requête et de ses paramètres
 		$req->bindValue("nouveauMdp", sha1($nouveauMdp), PDO::PARAM_STR);
-		$req->bindValue("idEleve", $idEleve, PDO::PARAM_INT);
+		$req->bindValue("adrMail", $adrMail, PDO::PARAM_STR);
 		// exécution de la requete
 		$ok = $req->execute();
 		return $ok;
 	}
+	
+	// envoie un mail à l'utilisateur avec son nouveau mot de passe
+	// retourne true si envoi correct, false en cas de problème d'envoi
+	// modifié par Jim le 24/11/2015
+	public function envoyerMdp($adrMail, $nouveauMdp)
+	{	global $ADR_MAIL_EMETTEUR;
+		// si l'adresse mail n'est pas dans la table mrbs_users :
+		if ( ! $this->existeAdrMail($adrMail) ) return false;
+		
+		// envoie un mail à l'utilisateur avec son nouveau mot de passe
+		$sujet = "Modification de votre mot de passe d'accès à l'annuaire des anciens élèves du Lycée De La Salle";
+		$message = "Votre mot de passe d'accès à l'annuaire des anciens élèves du Lycée De La Salle a été modifié.\n\n";
+		$message .= "Votre nouveau mot de passe est : " . $nouveauMdp;
+		$ok = Outils::envoyerMail ($adrMail, $sujet, $message, $ADR_MAIL_EMETTEUR);
+		return $ok;
+	}	
+	
+	
+	
+	
+	
+	
 	
 	
 	
@@ -409,24 +431,6 @@ class DAO
 
 
 
-	// envoie un mail à l'utilisateur avec son nouveau mot de passe
-	// retourne true si envoi correct, false en cas de problème d'envoi
-	// modifié par Jim le 6/5/2015
-	public function envoyerMdp($nomUser, $nouveauMdp)
-	{	global $ADR_MAIL_EMETTEUR;
-		// si l'adresse n'est pas dans la table mrbs_users :
-		if ( ! $this->existeUtilisateur($nomUser) ) return false;
-
-		// recherche de l'adresse mail
-		$adrMail = $this->getUtilisateur($nomUser)->getEmail();
-		
-		// envoie un mail à l'utilisateur avec son nouveau mot de passe 
-		$sujet = "Modification de votre mot de passe d'accès au service Réservations M2L";
-		$message = "Votre mot de passe d'accès au service Réservations M2L a été modifié.\n\n";
-		$message .= "Votre nouveau mot de passe est : " . $nouveauMdp;
-		$ok = Outils::envoyerMail ($adrMail, $sujet, $message, $ADR_MAIL_EMETTEUR);
-		return $ok;
-	}
 
 	// supprime l'utilisateur dans la bdd
 	// modifié par Jim le 6/5/2015

@@ -3,7 +3,7 @@
 	// Fonction de la vue VueMenu.php : visualiser le menu de l'élève ou de l'administrateur
 	// cette vue est appelée par le lien "index.php?action=Menu", sans passer par un contôleur
 	// la barre d'entête possède un lien de déconnexion permettant de retourner à la page de connexion
-	// Ecrit le 23/11/2015 par Jim
+	// Ecrit le 24/11/2015 par Jim
 ?>
 <!doctype html>
 <html>
@@ -17,7 +17,7 @@
 				<a href="index.php?action=Deconnecter" data-transition="<?php echo $transition; ?>">Déconnexion</a>
 			</div>
 			<div data-role="content">
-				<h4 style="text-align: center; margin-top: 20px; margin-bottom: 20px;">Utilisateur : <?php echo $nom; ?></h4>
+				<h4 style="text-align: center; margin-top: 20px; margin-bottom: 20px;"><?php echo $titre . $prenom . ' ' . $nom; ?></h4>
 				<ul data-role="listview" data-inset="true">
 					<?php if ( $typeUtilisateur == "eleve" ) {
 						// menu élève ?>

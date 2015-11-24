@@ -1,11 +1,17 @@
 <?php
 // Projet DLS - BTS Info - Anciens élèves
 // Fonction du contrôleur CtrlConnecter.php : traiter la demande de connexion d'un utilisateur
-// Ecrit le 16/11/2015 par Jim
+// Ecrit le 24/11/2015 par Jim
 
 // Ce contrôleur vérifie l'authentification de l'utilisateur
 // si l'authentification est bonne, il affiche le menu élève ou administrateur (vue VueMenu.php)
 // si l'authentification est incorrecte, il réaffiche la page de connexion (vue VueConnecter.php)
+
+// inclusion de la classe Outils
+include_once ('modele/Outils.class.php');
+
+$divConnecterDepliee = true;		// indique si la division doit être dépliée à l'affichage de la vue
+$divDemanderMdpDepliee = false;		// indique si la division doit être dépliée à l'affichage de la vue
 
 if ( isset ($_POST ["txtAdrMail"]) == false) {
 	// si les données n'ont pas été postées, c'est le premier appel du formulaire : affichage de la vue sans message d'erreur
@@ -51,7 +57,6 @@ else {
 			$_SESSION['motDePasse'] = $motDePasse;
 			$_SESSION['typeUtilisateur'] = $typeUtilisateur;
 			// redirection vers la page de menu
-			//header ("Location: index.php?action=Menu");
 			include_once ('controleurs/CtrlMenu.php');
 		}
 		
