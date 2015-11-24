@@ -1,9 +1,9 @@
 <?php
-	// Projet Réservations M2L - version web mobile
-	// Fonction de la vue VueMenu.php : visualiser le menu de l'utilisateur ou de l'administrateur
+	// Projet DLS - BTS Info - Anciens élèves
+	// Fonction de la vue VueMenu.php : visualiser le menu de l'élève ou de l'administrateur
 	// cette vue est appelée par le lien "index.php?action=Menu", sans passer par un contôleur
 	// la barre d'entête possède un lien de déconnexion permettant de retourner à la page de connexion
-	// Ecrit le 12/10/2015 par Jim
+	// Ecrit le 24/11/2015 par Jim
 ?>
 <!doctype html>
 <html>
@@ -13,20 +13,30 @@
 	<body>
 		<div data-role="page">
 			<div data-role="header" data-theme="<?php echo $themeNormal; ?>">
-				<h4>M2L-GRR</h4>
-				<a href="index.php?action=Deconnecter">Déconnexion</a>
+				<h4>DLS-Info-AE</h4>
+				<a href="index.php?action=Deconnecter" data-transition="<?php echo $transition; ?>">Déconnexion</a>
 			</div>
 			<div data-role="content">
-				<h4 style="text-align: center; margin-top: 20px; margin-bottom: 20px;">Utilisateur : <?php echo $nom; ?></h4>
+				<h4 style="text-align: center; margin-top: 20px; margin-bottom: 20px;"><?php echo $titre . $prenom . ' ' . $nom; ?></h4>
 				<ul data-role="listview" data-inset="true">
-					<li><a href="index.php?action=ConsulterReservations">Consulter mes réservations</a></li>
-					<li><a href="index.php?action=ConfirmerReservation">Confirmer une réservation</a></li>
-					<li><a href="index.php?action=AnnulerReservation">Annuler une réservation</a></li>
-					<li><a href="index.php?action=ChangerDeMdp">Modifier mon mot de passe</a></li>
-					<?php if ( $niveauUtilisateur == "administrateur" ) {
-						// le menu administrateur possède 2 options supplémentaires ?>
-						<li><a href="index.php?action=CreerUtilisateur">Créer un utilisateur</a></li>
-						<li><a href="index.php?action=SupprimerUtilisateur">Supprimer un utilisateur</a></li>
+					<?php if ( $typeUtilisateur == "eleve" ) {
+						// menu élève ?>
+						<li><a href="index.php?action=ChangerDeMdp" data-transition="<?php echo $transition; ?>">Modifier mon mot de passe</a></li>
+						<li><a href="index.php?action=Menu" data-transition="<?php echo $transition; ?>">Informations sur la soirée des anciens</a></li>
+						<li><a href="index.php?action=Menu" data-transition="<?php echo $transition; ?>">M'inscrire à la soirée des anciens</a></li>
+						<li><a href="index.php?action=Menu" data-transition="<?php echo $transition; ?>">Recherche d'autres anciens élèves</a></li>
+						<li><a href="index.php?action=Menu" data-transition="<?php echo $transition; ?>">Mettre à jour mon profil</a></li>
+						<li><a href="index.php?action=Menu" data-transition="<?php echo $transition; ?>">Galerie des photos de classe</a></li>
+					<?php } ?>
+					<?php if ( $typeUtilisateur == "administrateur" ) {
+						// menu administrateur ?>
+						<li><a href="index.php?action=Menu" data-transition="<?php echo $transition; ?>">Créer un administrateur</a></li>
+						<li><a href="index.php?action=Menu" data-transition="<?php echo $transition; ?>">Supprimer un administrateur</a></li>
+						<li><a href="index.php?action=Menu" data-transition="<?php echo $transition; ?>">Gérer les comptes élèves</a></li>
+						<li><a href="index.php?action=Menu" data-transition="<?php echo $transition; ?>">MAJ des informations sur la soirée</a></li>
+						<li><a href="index.php?action=Menu" data-transition="<?php echo $transition; ?>">Consulter les inscriptions à la soirée</a></li>
+						<li><a href="index.php?action=Menu" data-transition="<?php echo $transition; ?>">Envoyer courriels de relance</a></li>
+						<li><a href="index.php?action=Menu" data-transition="<?php echo $transition; ?>">Gérer la galerie des photos de classe</a></li>
 					<?php } ?>
 				</ul>
 				
