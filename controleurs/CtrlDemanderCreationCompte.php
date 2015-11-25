@@ -27,7 +27,7 @@ $dao = new DAO();
 // obtention de la collection des fonctions occupées par les anciens élèves (pour liste déroulante)
 $lesFonctions = $dao->getLesFonctions();
 
-if ( ! isset ($_POST ["txtNom"]) ) {
+if ( ! isset ($_POST ["btnEnvoyer"]) ) {
 	// si les données n'ont pas été postées, c'est le premier appel du formulaire : affichage de la vue sans message d'erreur
 	//$premierAppel = true;
 	$nom = '';

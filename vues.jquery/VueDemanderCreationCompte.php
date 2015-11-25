@@ -27,19 +27,36 @@
 						<h3>Créer mon compte</h3>
 							<form name="form1" id="form1" action="index.php?action=DemanderCreationCompte" method="post">
 								<div data-role="fieldcontain" class="ui-hide-label">
-									<label for="txtNom">Nom (de naissance) :</label>
-									<input type="text" name="txtNom" id="txtNom" placeholder="Nom (de naissance)" value="<?php echo $nom; ?>">
+									<label for="txtNom">Nom (de naissance) *</label>
+									<input type="text" name="txtNom" id="txtNom" placeholder="Nom (de naissance)" data-mini="true" value="<?php echo $nom; ?>">
 
-									<label for="txtPrenom">Prénom :</label>
-									<input type="email" name="txtPrenom" id="txtPrenom" placeholder="Prénom" value="<?php echo $prenom; ?>">
+									<label for="txtPrenom">Prénom *</label>
+									<input type="text" name="txtPrenom" id="txtPrenom" placeholder="Prénom" data-mini="true" value="<?php echo $prenom; ?>">
+
+									<fieldset data-role="controlgroup" data-type="horizontal">
+										<legend data-mini="true">Sexe :</legend>
+										<input type="radio" name="radioSexe" id="radioSexeH" value="H" data-mini="true" <?php if ($sexe == "H") echo 'checked';?> >
+										<label for="radioSexeH">Homme</label>
+										<input type="radio" name="radioSexe" id="radioSexeF" value="F" data-mini="true" <?php if ($sexe == "F") echo 'checked';?> >
+										<label for="radioSexeF">Femme</label>
+									</fieldset>
 								</div>
+								<div data-role="fieldcontain" class="ui-hide-label">
+									<label for="txtAnneeDebutBTS">Année d'entrée en BTS *</label>
+									<input type="text" name="txtAnneeDebutBTS" id="txtAnneeDebutBTS" pattern="[0-9]{4,4}" placeholder="Année d'entrée en BTS" data-mini="true" value="<?php echo $anneeDebutBTS; ?>">
 
+									<label for="txtTel">Téléphone *</label>
+									<input type="tel" name="txtTel" id="txtTel" placeholder="Téléphone" data-mini="true" value="<?php echo $tel; ?>">
+
+									<label for="txtAdrMail">Adresse mail *</label>
+									<input type="email" name="txtAdrMail" id="txtAdrMail" placeholder="Adresse mail" data-mini="true" value="<?php echo $adrMail; ?>">
+									
+									<label for="txtEtudesPostBTS">Etudes post BTS</label>
+									<textarea rows="2" name="txtEtudesPostBTS" id="txtEtudesPostBTS" maxlength="150"><?php echo $etudesPostBTS; ?></textarea>
+								</div>
 								
-								
-								
-								
-								
-								
+		
+													
 								
 								<div data-role="fieldcontain">
 									<input type="submit" value="Envoyer les données" name="btnEnvoyer" id="btnEnvoyer">
