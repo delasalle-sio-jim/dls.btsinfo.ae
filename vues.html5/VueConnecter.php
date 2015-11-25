@@ -27,12 +27,13 @@
 				<li>Outil de recherche d'anciens élèves inscrits à l'annuaire</li>
 				<li>Consultation de galeries photos</li>
 			</ul>
+			
+			<h2>Créer mon compte</h2>
 			<p>Si vous n'avez pas encore de compte, commencez par le <a href="index.php?action=DemanderCreationCompte">créer</a>. 
 			Après vérification de votre demande par les administrateurs de l'annuaire (cette opération peut prendre quelques jours éventuellement),
 			 vous recevrez un mail de confirmation avec votre mot de passe (que vous pourrez ensuite modifier).</p>
-			<p>&nbsp;</p>
 			 		
-			<h2>Connexion</h2>
+			<h2>Accéder à mon compte</h2>
 			<form name="form1" id="form1" action="index.php?action=Connecter" method="post">
 				<table>
 					<tr>
@@ -54,6 +55,21 @@
 					<tr>
 						<td></td>
 						<td><input type="submit" name="btnConnecter" id="btnConnecter" value="Me connecter"></td>
+					</tr>
+				</table>
+			</form>
+			
+			<h2>J'ai oublié mon mot de passe</h2>
+			<p>Cette option permet de regénérer un nouveau mot de passe qui vous sera immédiatement envoyé par mail. Nous vous conseillons de le changer aussitôt.</p>
+			<form name="form2" id="form2" action="index.php?action=DemanderMdp" method="post">
+				<table>
+					<tr>
+						<td><label for="txtAdrMail2">Adresse mail :</label></td>
+						<td><input type="text" name="txtAdrMail2" id="txtAdrMail2" size="50" maxlength="50" placeholder="Mon adresse mail" value="<?php echo $adrMail; ?>" ></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td><input type="submit" name="btnConnecter2" id="btnConnecter2" value="Obtenir un nouveau mot de passe"></td>
 					</tr>
 				</table>
 			</form>
