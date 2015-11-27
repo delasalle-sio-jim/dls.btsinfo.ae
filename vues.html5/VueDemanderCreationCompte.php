@@ -58,10 +58,6 @@
 						<td><input type="text" name="txtAdrMail" id="txtAdrMail" size="50" maxlength="50" class="<?php echo $class_adrMail; ?>" value="<?php echo $adrMail; ?>" /></td>
 					</tr>
 					<tr>
-						<td><label for="txtEtudesPostBTS">Etudes post BTS</label></td>
-						<td><textarea rows="2" name="txtEtudesPostBTS" id="txtEtudesPostBTS" cols="82" maxlength="150" class="<?php echo $class_etudesPostBTS; ?>" ><?php echo $etudesPostBTS; ?></textarea></td>
-					</tr>		
-					<tr>
 						<td><label for="txtRue">Rue</label></td>
 						<td><input type="text" name="txtRue" id="txtRue" size="80" maxlength="80" class="<?php echo $class_rue; ?>" value="<?php echo $rue; ?>" /></td>
 					</tr>						
@@ -72,7 +68,11 @@
 					<tr>
 						<td><label for="txtVille">Ville</label></td>
 						<td><input type="text" name="txtVille" id="txtVille" size="30" maxlength="30" class="<?php echo $class_ville; ?>" value="<?php echo $ville; ?>" /></td>
-					</tr>					
+					</tr>
+					<tr>
+						<td><label for="txtEtudesPostBTS">Etudes post BTS</label></td>
+						<td><textarea rows="2" name="txtEtudesPostBTS" id="txtEtudesPostBTS" cols="82" maxlength="150" class="<?php echo $class_etudesPostBTS; ?>" ><?php echo $etudesPostBTS; ?></textarea></td>
+					</tr>
 					<tr>
 						<td><label for="txtEntreprise">Entreprise actuelle</label></td>
 						<td><input type="text" name="txtEntreprise" id="txtEntreprise" size="50" maxlength="50" class="<?php echo $class_entreprise; ?>" value="<?php echo $entreprise; ?>" /></td>
