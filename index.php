@@ -26,8 +26,8 @@ $debug = false;
 
 // choix des styles graphiques pour jQuery mobile
 $version = "1.4.5";			// choix de la version de JQuery Mobile (voir fichier head.php) : 1.2.0,  1.2.1,  1.3.2,  1.4.5
-$themeNormal = "b";			// thème de base
-$themeProbleme = "a";		// thème utilisé pour afficher un message en cas de problème
+$themeNormal = "a";			// thème de base
+$themeProbleme = "b";		// thème utilisé pour afficher un message en cas de problème
 $transition ="flip";		// transition lors des changements de page (pop, flip, fade, turn, flow, slidefade, slide, slideup, slidedown
 
 // on vérifie le paramètre action de l'URL
@@ -55,7 +55,7 @@ if ( isset ($_SESSION['cheminDesVues']) == false)
 else
 	 $cheminDesVues = $_SESSION['cheminDesVues'];
 
-// $cheminDesVues = "vues.jquery/";	// pour forcer l'affichage de la version mobile (ligne à bloquer normalement)
+$cheminDesVues = "vues.jquery/";	// pour forcer l'affichage de la version mobile (ligne à bloquer normalement)
 
 // si l'utilisateur n'est pas encore identifié, il sera automatiquement redirigé vers le contrôleur d'authentification
 // (sauf s'il ne peut pas se connecter et demande de se faire envoyer son mot de passe qu'il a oublié ou s'il veut se créer un compte)
