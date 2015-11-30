@@ -1,6 +1,6 @@
 <?php
 // Projet DLS - BTS Info - Anciens élèves
-// Ecrit le 24/11/2015 par Jim
+// Ecrit le 29/11/2015 par Jim
 
 // Fonction de la page principale index.php : analyser toutes les demandes et activer le contrôleur chargé de traiter l'action demandée
 

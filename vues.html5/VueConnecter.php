@@ -1,12 +1,28 @@
 <?php
 	// Projet DLS - BTS Info - Anciens élèves
 	// Fonction de la vue vues.html5/VueConnecter.php : visualiser la vue de connexion
-	// Ecrit le 16/11/2015 par Jim
+	// Ecrit le 30/11/2015 par Jim
 ?>
 <!doctype html>
 <html>
 <head>	
 	<?php include_once ('head.php'); ?>
+	<script>
+		window.onload = initialisations;
+		
+		function initialisations()
+		{
+			document.form1.caseAfficherMdp.onchange = afficherMdp;
+		}
+		
+		function afficherMdp()
+		{	if (document.form1.caseAfficherMdp.checked == true)
+				document.form1.txtMotDePasse.type="text";
+			else
+				document.form1.txtMotDePasse.type="password";
+		}
+	</script>
+	
 </head> 
 <body>
 	<div id="conteneur">
@@ -38,12 +54,12 @@
 				<table>
 					<tr>
 						<td><label for="txtAdrMail">Adresse mail :</label></td>
-						<td><input type="text" name="txtAdrMail" id="txtAdrMail" size="50" maxlength="50" placeholder="Mon adresse mail" value="<?php echo $adrMail; ?>" ></td>
+						<td><input type="email" name="txtAdrMail" id="txtAdrMail" size="50" maxlength="50" placeholder="Mon adresse mail" required value="<?php echo $adrMail; ?>" ></td>
 					</tr>
 					<tr>
 						<td><label for="txtMotDePasse">Mot de passe :</label></td>
 						<td><input type="<?php if ($afficherMdp == 'off') echo 'password'; else echo 'text'; ?>" name="txtMotDePasse" id="txtMotDePasse" 
-							size="20" maxlength="20" placeholder="Mon mot de passe" value="<?php echo $motDePasse; ?>" ></td>
+							size="20" maxlength="20" placeholder="Mon mot de passe" required value="<?php echo $motDePasse; ?>" ></td>
 					</tr>
 					<tr>
 						<td></td>
@@ -65,7 +81,7 @@
 				<table>
 					<tr>
 						<td><label for="txtAdrMail2">Adresse mail :</label></td>
-						<td><input type="text" name="txtAdrMail2" id="txtAdrMail2" size="50" maxlength="50" placeholder="Mon adresse mail" value="<?php echo $adrMail; ?>" ></td>
+						<td><input type="email" name="txtAdrMail2" id="txtAdrMail2" size="50" maxlength="50" placeholder="Mon adresse mail" required value="<?php echo $adrMail; ?>" ></td>
 					</tr>
 					<tr>
 						<td></td>

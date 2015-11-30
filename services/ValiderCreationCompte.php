@@ -1,6 +1,6 @@
 <?php
 // Service web ValiderCreationCompte.php du projet DLS - BTS Info - Anciens élèves
-// Ecrit le 16/11/2015 par Jim
+// Ecrit le 29/11/2015 par Jim
 
 // ce service web permet à un administrateur d'accepter ou de rejeter une demande de création de compte
 // il envoie un mail au demandeur, avec son mot de passe en cas d'acceptation, ou un message de rejet
@@ -53,7 +53,7 @@ else
 	{	$ok = $dao->validerCreationCompte($idCompte, $decision);
 		if ( $decision == 'acceptation' ) {
 			$nouveauMdp = Outils::creerMdp();					// création d'un mot de passe aléatoire de 8 caractères
-			$ok = $dao->modifierMdp($unEleve->getId(), $nouveauMdp);
+			$ok = $dao->modifierMdp($unEleve->getAdrMail(), $nouveauMdp);
 			// envoi d'un mail d'acceptation à l'intéressé avec son mot de passe
 			$sujet = "Demande de création de votre compte élève dans l'annuaire des anciens du BTS Informatique";
 			$message = "Votre demande de création de compte a bien été validée.\n\n";
@@ -94,7 +94,7 @@ else
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>Test de la classe DAO</title>
+	<title>Validation DLS - BTS Informatique</title>
 	<style type="text/css">body {font-family: Arial, Helvetica, sans-serif; font-size: small;}</style>
 </head>
 <body>

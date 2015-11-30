@@ -1,7 +1,7 @@
 <?php
 	// Projet DLS - BTS Info - Anciens élèves
 	// Fonction de la vue vues.jquery/VueDemanderCreationCompte.php : visualiser la vue de création de compte élève
-	// Ecrit le 27/11/2015 par Jim
+	// Ecrit le 29/11/2015 par Jim
 ?>
 <!doctype html>
 <html>
@@ -30,12 +30,12 @@
 								<div data-role="fieldcontain" class="ui-hide-label">
 
 									<label for="txtNom">Nom (de naissance) *</label>
-									<input type="text" name="txtNom" id="txtNom" placeholder="Nom (de naissance) *" data-mini="true" value="<?php echo $nom; ?>">
+									<input type="text" name="txtNom" id="txtNom" maxlength="30" placeholder="Nom (de naissance) *" data-mini="true" required value="<?php echo $nom; ?>">
 
 									<label for="txtPrenom">Prénom *</label>
-									<input type="text" name="txtPrenom" id="txtPrenom" placeholder="Prénom *" data-mini="true" value="<?php echo $prenom; ?>">
+									<input type="text" name="txtPrenom" id="txtPrenom" maxlength="30" placeholder="Prénom *" data-mini="true" required value="<?php echo $prenom; ?>">
 
-									<fieldset data-role="controlgroup" data-type="horizontal">
+									<fieldset data-role="controlgroup" data-type="horizontal" required>
 										<legend data-mini="true">Sexe :</legend>
 										<input type="radio" name="radioSexe" id="radioSexeH" value="H" data-mini="true" <?php if ($sexe == "H") echo 'checked';?> >
 										<label for="radioSexeH">Homme</label>
@@ -44,16 +44,16 @@
 									</fieldset>
 									
 									<label for="txtAnneeDebutBTS">Année d'entrée en BTS *</label>
-									<input type="text" name="txtAnneeDebutBTS" id="txtAnneeDebutBTS" pattern="[0-9]{4,4}" placeholder="Année d'entrée en BTS (4 chiffres) *" data-mini="true" value="<?php echo $anneeDebutBTS; ?>">
+									<input type="text" name="txtAnneeDebutBTS" id="txtAnneeDebutBTS" maxlength="4" pattern="[0-9]{4,4}" placeholder="Année d'entrée en BTS (4 chiffres) *" data-mini="true" required value="<?php echo $anneeDebutBTS; ?>">
 
 									<label for="txtTel">Téléphone *</label>
-									<input type="tel" name="txtTel" id="txtTel" placeholder="Téléphone *" data-mini="true" value="<?php echo $tel; ?>">
+									<input type="tel" name="txtTel" id="txtTel" maxlength="14" placeholder="Téléphone *" data-mini="true" required value="<?php echo $tel; ?>">
 
 									<label for="txtAdrMail">Adresse mail *</label>
-									<input type="email" name="txtAdrMail" id="txtAdrMail" placeholder="Adresse mail *" data-mini="true" value="<?php echo $adrMail; ?>">
+									<input type="email" name="txtAdrMail" id="txtAdrMail" maxlength="50" placeholder="Adresse mail *" data-mini="true" required value="<?php echo $adrMail; ?>">
 
 									<label for="txtRue">Rue</label>
-									<input type="text" name="txtRue" id="txtRue" placeholder="Rue" data-mini="true" value="<?php echo $rue; ?>" />
+									<input type="text" name="txtRue" id="txtRue" maxlength="80" placeholder="Rue" data-mini="true" value="<?php echo $rue; ?>" />
 									
 									<label for="txtCodePostal">Code postal</label>
 									<input type="text" name="txtCodePostal" id="txtCodePostal" maxlength="5" pattern="[0-9]{5,5}" placeholder="Code postal" data-mini="true" value="<?php echo $codePostal; ?>" />

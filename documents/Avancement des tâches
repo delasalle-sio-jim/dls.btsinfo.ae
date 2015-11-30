@@ -7,9 +7,9 @@ VueDemanderCreationCompte         Tester le fonctionnement                      
 Formulaires (tous)                Ajouter attributs required et pattern + textes correspondants                           X
 VueMenu (html5)                   Faire menu en version HTML5                                                             X
 
-CtrlChangerMdp (html5)            Faire le contrôleur de changement de mdp                                                X
+CtrlChangerMdp (html5)            Faire le contrôleur de changement de mdp                                                                    X       29/11/2015
 VueChangerMdp (html5)             Faire la vue de changement de mdp en version HTML5                                      X
-VueChangerMdp (jquery)            Faire la vue de changement de mdp en version jQuery                                     X
+VueChangerMdp (jquery)            Faire la vue de changement de mdp en version jQuery                                                         X       29/11/2015
 
 Vues                              Concevoir un système d'affichage des messages plus fonctionnel                          X
 Envois de mails                   Ajouter de la mise en forme HTML dans les mails + logo                                  X

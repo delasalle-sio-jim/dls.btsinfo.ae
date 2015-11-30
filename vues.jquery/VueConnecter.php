@@ -1,12 +1,37 @@
 <?php
 	// Projet DLS - BTS Info - Anciens élèves
 	// Fonction de la vue vues.jquery/VueConnecter.php : visualiser la vue de connexion
-	// Ecrit le 24/11/2015 par Jim
+	// Ecrit le 29/11/2015 par Jim
+	
+	// pour obliger la page à se recharger
+	header('Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0');
+	header('Pragma: no-cache');
+	header('Content-Tranfer-Encoding: none');
+	header('Expires: 0');
 ?>
 <!doctype html>
 <html>
 	<head>	
 		<?php include_once ('head.php'); ?>
+		
+		<script>
+			/*
+			window.onload = initialisations;
+			
+			function initialisations()
+			{
+				document.form1.caseAfficherMdp.onclick = afficherMdp;
+				afficherMdp();
+			}
+			*/
+			function afficherMdp()
+			{	// document.form1.caseAfficherMdp.checked = ! document.form1.caseAfficherMdp.checked;
+				if (document.form1.caseAfficherMdp.checked == true)
+					document.form1.txtMotDePasse.type="text";
+				else
+					document.form1.txtMotDePasse.type="password";
+			}
+		</script>
 	</head> 
 	<body>
 		<div data-role="page">
@@ -33,27 +58,27 @@
 						<p>Après vérification de votre demande par les administrateurs de l'annuaire (cette opération peut prendre quelques jours éventuellement),
 						 vous recevrez un mail de confirmation avec votre mot de passe (que vous pourrez ensuite modifier).</p>
 						<p style="margin-top: 0px; margin-bottom: 0px;">
-							<a href="index.php?action=DemanderCreationCompte" data-role="button" data-ajax="false">Créer mon compte</a>
+							<a href="index.php?action=DemanderCreationCompte" data-role="button" data-mini="true" >Créer mon compte</a>
 						</p>
 					</div>
 
 					<div data-role="collapsible" <?php if($divConnecterDepliee == true) echo ('data-collapsed="false"'); ?>>
 						<h3>Accéder à mon compte</h3>
-						<form name="form1" id="form1" action="index.php?action=Connecter" method="post" data-transition="<?php echo $transition; ?>">
+						<form name="form1" id="form1" action="index.php?action=Connecter" data-ajax="false" method="post" data-transition="<?php echo $transition; ?>">
 							<div data-role="fieldcontain" class="ui-hide-label">
 								<label for="txtAdrMail">Adresse mail :</label>
-								<input type="text" name="txtAdrMail" id="txtAdrMail" placeholder="Mon adresse mail" value="<?php echo $adrMail; ?>" >
+								<input type="email" name="txtAdrMail" id="txtAdrMail" placeholder="Mon adresse mail" required value="<?php echo $adrMail; ?>" >
 		
 								<label for="txtMotDePasse">Mot de passe :</label>
-								<input type="<?php if ($afficherMdp == 'off') echo 'password'; else echo 'text'; ?>" name="txtMotDePasse" id="txtMotDePasse" placeholder="Mon mot de passe" value="<?php echo $motDePasse; ?>" >
+								<input type="password" name="txtMotDePasse" id="txtMotDePasse" required placeholder="Mon mot de passe" value="<?php echo $motDePasse; ?>" >
 							</div>														
-							<div data-role="fieldcontain" data-type="horizontal" data-mini="true" class="ui-hide-label">
+							<div data-role="fieldcontain" data-type="horizontal" class="ui-hide-label">
 								<label for="caseAfficherMdp">Afficher le mot de passe en clair</label>
-								<input type="checkbox" name="caseAfficherMdp" id="caseAfficherMdp" <?php if ($afficherMdp == 'on') echo 'checked'; ?>>
+								<input type="checkbox" name="caseAfficherMdp" id="caseAfficherMdp" onclick="afficherMdp();" data-mini="true" <?php if ($afficherMdp == 'on') echo 'checked'; ?>>
 							</div>
-							<div data-role="fieldcontain" data-mini="true" style="margin-top: 0px; margin-bottom: 0px;">
+							<div data-role="fieldcontain" style="margin-top: 0px; margin-bottom: 0px;">
 								<p style="margin-top: 0px; margin-bottom: 0px;">
-									<input type="submit" name="btnConnecter" id="btnConnecter" value="Me connecter">
+									<input type="submit" name="btnConnecter" id="btnConnecter" data-mini="true" value="Me connecter">
 								</p>
 							</div>
 						</form>
@@ -62,14 +87,14 @@
 					<div data-role="collapsible" <?php if($divDemanderMdpDepliee == true) echo ('data-collapsed="false"'); ?>>
 						<h3>J'ai oublié mon mot de passe</h3>
 						<p>Cette option permet de regénérer un nouveau mot de passe qui vous sera immédiatement envoyé par mail. Nous vous conseillons de le changer aussitôt.</p>
-						<form name="form2" id="form2" action="index.php?action=DemanderMdp" method="post">
+						<form name="form2" id="form2" action="index.php?action=DemanderMdp" method="post" >
 							<div data-role="fieldcontain" class="ui-hide-label">
 								<label for="txtAdrMail2">Adresse mail :</label>
-								<input type="text" name="txtAdrMail2" id="txtAdrMail2" placeholder="Mon adresse mail" value="<?php echo $adrMail; ?>" >
+								<input type="email" name="txtAdrMail2" id="txtAdrMail2" placeholder="Mon adresse mail" required value="<?php echo $adrMail; ?>" >
 							</div>														
-							<div data-role="fieldcontain" data-mini="true" style="margin-top: 0px; margin-bottom: 0px;">
+							<div data-role="fieldcontain" style="margin-top: 0px; margin-bottom: 0px;">
 								<p style="margin-top: 0px; margin-bottom: 0px;">
-									<input type="submit" name="btnConnecter2" id="btnConnecter2" value="Obtenir un nouveau mot de passe">
+									<input type="submit" name="btnConnecter2" id="btnConnecter2" data-mini="true" value="Obtenir un nouveau mot de passe">
 								</p>
 							</div>
 						</form>

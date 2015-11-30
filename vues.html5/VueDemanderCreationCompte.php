@@ -1,7 +1,7 @@
 <?php
 	// Projet DLS - BTS Info - Anciens élèves
 	// Fonction de la vue vues.html5/VueDemanderCreationCompte.php : visualiser la vue de création de compte élève
-	// Ecrit le 16/11/2015 par Jim
+	// Ecrit le 29/11/2015 par Jim
 ?>
 <!doctype html>
 <html>
@@ -30,11 +30,11 @@
 				<table>
 					<tr>
 						<td><label for="txtNom">Nom (de naissance) *</label></td>
-						<td><input type="text" name="txtNom" id="txtNom" size="30" maxlength="30" class="<?php echo $class_nom; ?>" value="<?php echo $nom; ?>" /></td>
+						<td><input type="text" name="txtNom" id="txtNom" size="30" maxlength="30" class="<?php echo $class_nom; ?>" required value="<?php echo $nom; ?>" /></td>
 					</tr>
 					<tr>
 						<td><label for="txtPrenom">Prénom *</label></td>
-						<td><input type="text" name="txtPrenom" id="txtPrenom" size="30" maxlength="30" class="<?php echo $class_prenom; ?>" value="<?php echo $prenom; ?>" /></td>
+						<td><input type="text" name="txtPrenom" id="txtPrenom" size="30" maxlength="30" class="<?php echo $class_prenom; ?>" required value="<?php echo $prenom; ?>" /></td>
 					</tr>
 					<tr> 
 						<td><label for="radioSexe">Sexe *</label></td>
@@ -47,15 +47,15 @@
 					</tr>
 					<tr>
 						<td><label for="txtAnneeDebutBTS">Année d'entrée en BTS *</label></td>
-						<td><input type="text" name="txtAnneeDebutBTS" id="txtAnneeDebutBTS" size="4" maxlength="4" class="<?php echo $class_anneeDebutBTS; ?>" value="<?php echo $anneeDebutBTS; ?>" /></td>
+						<td><input type="text" name="txtAnneeDebutBTS" id="txtAnneeDebutBTS" size="4" maxlength="4" pattern="[0-9]{4,4}" class="<?php echo $class_anneeDebutBTS; ?>" required value="<?php echo $anneeDebutBTS; ?>" /></td>
 					</tr>
 					<tr>
 						<td><label for="txtTel">Téléphone *</label></td>
-						<td><input type="text" name="txtTel" id="txtTel" size="14" maxlength="14"  class="<?php echo $class_tel; ?>" value="<?php echo $tel; ?>" /></td>
+						<td><input type="tel" name="txtTel" id="txtTel" size="14" maxlength="14"  class="<?php echo $class_tel; ?>" required value="<?php echo $tel; ?>" /></td>
 					</tr>
 					<tr>
 						<td><label for="txtAdrMail">Adresse mail *</label></td>
-						<td><input type="text" name="txtAdrMail" id="txtAdrMail" size="50" maxlength="50" class="<?php echo $class_adrMail; ?>" value="<?php echo $adrMail; ?>" /></td>
+						<td><input type="email" name="txtAdrMail" id="txtAdrMail" size="50" maxlength="50" class="<?php echo $class_adrMail; ?>" required value="<?php echo $adrMail; ?>" /></td>
 					</tr>
 					<tr>
 						<td><label for="txtRue">Rue</label></td>
@@ -63,7 +63,7 @@
 					</tr>						
 					<tr>
 						<td><label for="txtCodePostal">Code postal</label></td>
-						<td><input type="text" name="txtCodePostal" id="txtCodePostal" size="5" maxlength="5" class="<?php echo $class_codePostal; ?>" value="<?php echo $codePostal; ?>" /></td>
+						<td><input type="text" name="txtCodePostal" id="txtCodePostal" size="5" maxlength="5" pattern="[0-9]{5,5}" class="<?php echo $class_codePostal; ?>" value="<?php echo $codePostal; ?>" /></td>
 					</tr>
 					<tr>
 						<td><label for="txtVille">Ville</label></td>

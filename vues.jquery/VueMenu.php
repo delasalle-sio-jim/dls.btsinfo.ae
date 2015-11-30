@@ -3,7 +3,7 @@
 	// Fonction de la vue VueMenu.php : visualiser le menu de l'élève ou de l'administrateur
 	// cette vue est appelée par le lien "index.php?action=Menu", sans passer par un contôleur
 	// la barre d'entête possède un lien de déconnexion permettant de retourner à la page de connexion
-	// Ecrit le 24/11/2015 par Jim
+	// Ecrit le 29/11/2015 par Jim
 ?>
 <!doctype html>
 <html>
@@ -30,6 +30,7 @@
 					<?php } ?>
 					<?php if ( $typeUtilisateur == "administrateur" ) {
 						// menu administrateur ?>
+						<li><a href="index.php?action=ChangerDeMdp" data-transition="<?php echo $transition; ?>">Modifier mon mot de passe</a></li>
 						<li><a href="index.php?action=Menu" data-transition="<?php echo $transition; ?>">Créer un administrateur</a></li>
 						<li><a href="index.php?action=Menu" data-transition="<?php echo $transition; ?>">Supprimer un administrateur</a></li>
 						<li><a href="index.php?action=Menu" data-transition="<?php echo $transition; ?>">Gérer les comptes élèves</a></li>
