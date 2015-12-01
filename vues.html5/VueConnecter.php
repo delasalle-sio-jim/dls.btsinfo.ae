@@ -28,7 +28,6 @@
 	<div id="conteneur">
 		<ul id="menu">
 			<li><a href="index.php?action=DemanderCreationCompte">Création compte</a></li>
-			<li><a href="index.php?action=DemanderMdp">Mot de passe oublié</a></li>
 		</ul>
 			
 		<div id="contenu">

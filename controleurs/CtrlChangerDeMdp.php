@@ -24,7 +24,7 @@ else {
 		if ( empty ($_POST ["txtNouveauMdp"]) == true)  $nouveauMdp = "";  else   $nouveauMdp = $_POST ["txtNouveauMdp"];
 		if ( empty ($_POST ["txtConfirmationMdp"]) == true)  $confirmationMdp = "";  else   $confirmationMdp = $_POST ["txtConfirmationMdp"];
 		if ( empty ($_POST ["caseAfficherMdp"]) == true)  $afficherMdp = 'off';  else   $afficherMdp = $_POST ["caseAfficherMdp"];
-						
+				
 		if ( $nouveauMdp == "" || $confirmationMdp == "" ) {
 			// si les données sont incomplètes, réaffichage de la vue avec un message explicatif
 			$message = 'Données incomplètes !';

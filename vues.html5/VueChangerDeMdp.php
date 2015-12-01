@@ -12,11 +12,11 @@
 		
 		function initialisations()
 		{
-			document.form1.caseAfficherMdp.onchange = afficherMdp;
+			document.getElementById("caseAfficherMdp").onchange = afficherMdp;
 		}
 		
 		function afficherMdp()
-		{	if (document.form1.caseAfficherMdp.checked == true)
+		{	if (document.getElementById("caseAfficherMdp").checked == true)
 			{	document.getElementById("txtNouveauMdp").type="text";
 				document.getElementById("txtConfirmationMdp").type="text";
 			}
@@ -31,7 +31,7 @@
 <body>
 	<div id="conteneur">
 		<ul id="menu">
-			<li><a href="index.php?action=Menu">Retour menu</a></li>
+			<li><a href="index.php?action=Menu" data-ajax="false">Retour menu</a></li>
 		</ul>
 			
 		<div id="contenu">

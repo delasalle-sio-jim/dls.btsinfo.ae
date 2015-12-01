@@ -3,11 +3,11 @@
 	// Fonction de la vue vues.jquery/VueConnecter.php : visualiser la vue de connexion
 	// Ecrit le 1/12/2015 par Jim
 	
-	// pour obliger la page à se recharger
+	// pour obliger la page à se recharger	
 	header('Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0');
 	header('Pragma: no-cache');
 	header('Content-Tranfer-Encoding: none');
-	header('Expires: 0');
+	header('Expires: 0');	
 ?>
 <!doctype html>
 <html>
@@ -20,13 +20,13 @@
 			
 			function initialisations()
 			{
-				document.form1.caseAfficherMdp.onclick = afficherMdp;
+				document.getElementById("caseAfficherMdp").onclick = afficherMdp;
 				afficherMdp();
 			}
 			*/
 			function afficherMdp()
-			{	// document.form1.caseAfficherMdp.checked = ! document.form1.caseAfficherMdp.checked;
-				if (document.form1.caseAfficherMdp.checked == true)
+			{	// document.getElementById("caseAfficherMdp").checked = ! document.getElementById("caseAfficherMdp").checked;
+				if (document.getElementById("caseAfficherMdp").checked == true)
 					document.getElementById("txtMotDePasse").type="text";
 				else
 					document.getElementById("txtMotDePasse").type="password";
@@ -69,13 +69,13 @@
 
 					<div data-role="collapsible" <?php if($divConnecterDepliee == true) echo ('data-collapsed="false"'); ?>>
 						<h3>Accéder à mon compte</h3>
-						<form name="form1" id="form1" action="index.php?action=Connecter" method="post" data-transition="<?php echo $transition; ?>">
+						<form name="form1" id="form1" action="index.php?action=Connecter" data-ajax="false" method="post" data-transition="<?php echo $transition; ?>">
 							<div data-role="fieldcontain" class="ui-hide-label">
 								<label for="txtAdrMail">Adresse mail :</label>
 								<input type="email" name="txtAdrMail" id="txtAdrMail" placeholder="Mon adresse mail" required value="<?php echo $adrMail; ?>" >
 		
 								<label for="txtMotDePasse">Mot de passe :</label>
-								<input type="<?php if($_SESSION['afficherMdp']) echo 'text'; else echo 'password'; ?>" name="txtMotDePasse" id="txtMotDePasse" required autocomplete="off" placeholder="Mon mot de passe" value="<?php echo $motDePasse; ?>" >
+								<input type="<?php if($_SESSION['afficherMdp'] == 'on') echo 'text'; else echo 'password'; ?>" name="txtMotDePasse" id="txtMotDePasse" required autocomplete="off" placeholder="Mon mot de passe" value="<?php echo $motDePasse; ?>" >
 							</div>														
 							<div data-role="fieldcontain" data-type="horizontal" class="ui-hide-label">
 								<label for="caseAfficherMdp">Afficher le mot de passe en clair</label>

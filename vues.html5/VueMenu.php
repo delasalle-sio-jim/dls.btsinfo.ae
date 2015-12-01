@@ -13,7 +13,7 @@
 <body>
 	<div id="conteneur">
 		<ul id="menu">
-			<li><a href="index.php?action=Connecter">Déconnexion</a></li>
+			<li><a href="index.php?action=Connecter" data-ajax="false">Déconnexion</a></li>
 		</ul>
 			
 		<div id="contenu">

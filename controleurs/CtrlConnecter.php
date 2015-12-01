@@ -27,7 +27,7 @@ else {
 	// récupération des données postées
 	if ( empty ($_POST ["txtAdrMail"]) == true) $adrMail = $_SESSION['adrMail'];  else $adrMail = $_POST ["txtAdrMail"];
 	if ( empty ($_POST ["txtMotDePasse"]) == true)  $motDePasse = $_SESSION['motDePasse'];  else   $motDePasse = $_POST ["txtMotDePasse"];
-	if ( empty ($_POST ["caseAfficherMdp"]) == true)  $afficherMdp = $_SESSION['afficherMdp'];  else   $afficherMdp = $_POST ["caseAfficherMdp"];
+	if ( empty ($_POST ["caseAfficherMdp"]) == true)  $afficherMdp = 'off';  else $afficherMdp = $_POST ["caseAfficherMdp"];
 		
 	if ($adrMail == '' || $motDePasse == '' || Outils::estUneAdrMailValide($adrMail) == false) {
 		// si les données sont incomplètes, réaffichage de la vue avec un message explicatif
