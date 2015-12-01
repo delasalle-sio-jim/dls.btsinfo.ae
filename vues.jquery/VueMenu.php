@@ -1,20 +1,20 @@
 <?php
 	// Projet DLS - BTS Info - Anciens élèves
 	// Fonction de la vue VueMenu.php : visualiser le menu de l'élève ou de l'administrateur
-	// cette vue est appelée par le lien "index.php?action=Menu", sans passer par un contôleur
+	// cette vue est appelée par le lien "index.php?action=Menu"
 	// la barre d'entête possède un lien de déconnexion permettant de retourner à la page de connexion
 	// Ecrit le 29/11/2015 par Jim
 ?>
 <!doctype html>
 <html>
 	<head>
-		<?php include_once ('vues/head.php'); ?>
+		<?php include_once ($cheminDesVues . 'head.php'); ?>
 	</head> 
 	<body>
 		<div data-role="page">
 			<div data-role="header" data-theme="<?php echo $themeNormal; ?>">
 				<h4>DLS-Info-AE</h4>
-				<a href="index.php?action=Deconnecter" data-transition="<?php echo $transition; ?>">Déconnexion</a>
+				<a href="index.php?action=Connecter" data-transition="<?php echo $transition; ?>">Déconnexion</a>
 			</div>
 			<div data-role="content">
 				<h4 style="text-align: center; margin-top: 20px; margin-bottom: 20px;"><?php echo $titre . $prenom . ' ' . $nom; ?></h4>
@@ -42,9 +42,24 @@
 				</ul>
 				
 				<?php if($debug == true) {
-					echo "<p>SESSION['nom'] = " . $_SESSION['nom'] . "</p>";
-					echo "<p>SESSION['mdp'] = " . $_SESSION['mdp'] . "</p>";
-					echo "<p>SESSION['niveauUtilisateur'] = " . $_SESSION['niveauUtilisateur'] . "</p>";
+					// en mise au point, on peut afficher certaines variables dans la page
+					if ( isset ($_SESSION['adrMail']) == true)
+						echo "<p>SESSION['adrMail'] = " . $_SESSION['adrMail'] . "</p>";
+					if ( isset ($_SESSION['motDePasse']) == true)
+						echo "<p>SESSION['motDePasse'] = " . $_SESSION['motDePasse'] . "</p>";
+					if ( isset ($_SESSION['typeUtilisateur']) == true)
+						echo "<p>SESSION['typeUtilisateur'] = " . $_SESSION['typeUtilisateur'] . "</p>";
+					
+					if ( isset ($_POST['txtAdrMail']) == true)
+						echo "<p>POST['txtAdrMail'] = " . $_POST['txtAdrMail'] . "</p>";
+					if ( isset ($_POST['txtMotDePasse']) == true)
+						echo "<p>POST['txtMotDePasse'] = " . $_POST['txtMotDePasse'] . "</p>";
+					if ( isset ($_POST['caseAfficherMdp']) == true)
+						echo "<p>POST['caseAfficherMdp'] = " . $_POST['caseAfficherMdp'] . "</p>";
+										
+					echo "<p>adrMail = " . $adrMail . "</p>";
+					echo "<p>motDePasse = " . $motDePasse . "</p>";
+					echo "<p>afficherMdp = " . $afficherMdp . "</p>";
 				} ?>
 				
 			</div>

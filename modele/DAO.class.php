@@ -4,7 +4,7 @@
 //                                                 DAO : Data Access Object
 //                             Cette classe fournit des méthodes d'accès à la bdd anciensEtudiants
 //                                                 Elle utilise l'objet PDO
-//                       Auteur : JM Cartron                       Dernière modification : 24/11/2015
+//                       Auteur : JM Cartron                       Dernière modification : 01/12/2015
 // -------------------------------------------------------------------------------------------------------------------------
 
 // liste des méthodes de cette classe (dans l'ordre d'apparition dans la classe) :
@@ -353,97 +353,6 @@ class DAO
 	
 	
 	
-	
-	
-	
-
-	// mise à jour de la table mrbs_entry_digicode (si besoin) pour créer les digicodes manquants
-	// cette fonction peut dépanner en cas d'absence des triggers chargés de créer les digicodes
-	// modifié par Jim le 5/5/2015
-	public function creerLesDigicodesManquants()
-	{	// préparation de la requete de recherche des réservations sans digicode
-		$txt_req1 = "Select id from mrbs_entry where id not in (select id from mrbs_entry_digicode)";
-		$req1 = $this->cnx->prepare($txt_req1);
-		// extraction des données
-		$req1->execute();
-		// extrait une ligne du résultat :
-		$uneLigne = $req1->fetch(PDO::FETCH_OBJ);
-		// tant qu'une ligne est trouvée :
-		while ($uneLigne)
-		{	// génération aléatoire d'un digicode de 6 caractères hexadécimaux
-			$digicode = $this->genererUnDigicode();
-			// préparation de la requete d'insertion
-			$txt_req2 = "insert into mrbs_entry_digicode (id, digicode) values (:id, :digicode)";
-			$req2 = $this->cnx->prepare($txt_req2);
-			// liaison de la requête et de ses paramètres
-			$req2->bindValue("id", $uneLigne->id, PDO::PARAM_INT);
-			$req2->bindValue("digicode", $digicode, PDO::PARAM_STR);
-			// exécution de la requête
-			$req2->execute();
-			// extrait la ligne suivante
-			$uneLigne = $req1->fetch(PDO::FETCH_OBJ);
-		}
-		// libère les ressources du jeu de données
-		$req1->closeCursor();
-		return;
-	}	
-	
-	// teste si un utilisateur ($nomUser) est le créateur d'une réservation ($idReservation)
-	// renvoie true si l'utilisateur est bien le créateur, false sinon
-	// modifié par Jim le 5/5/2015
-	public function estLeCreateur($nomUser, $idReservation)
-	{	// préparation de la requete de recherche
-		$txt_req = "Select count(*) from mrbs_entry where create_by = :nomUser and id = :idReservation";
-		$req = $this->cnx->prepare($txt_req);
-		// liaison de la requête et de ses paramètres
-		$req->bindValue("nomUser", $nomUser, PDO::PARAM_STR);
-		$req->bindValue("idReservation", $idReservation, PDO::PARAM_INT);	
-		
-		// extraction des données et comptage des réponses
-		$req->execute();
-		$nbReponses = $req->fetchColumn(0);
-		// libère les ressources du jeu de données
-		$req->closeCursor();
-		
-		// fourniture de la réponse
-		if ($nbReponses == 0)
-			return false;
-		else
-			return true;
-	}
-	
-
-	
-	// enregistre l'annulation de réservation dans la bdd
-	// modifié par Jim le 5/5/2015
-	public function annulerReservation($idReservation)
-	{	// préparation de la requete
-		$txt_req = "delete from mrbs_entry where id = :idReservation";
-		$req = $this->cnx->prepare($txt_req);
-		// liaison de la requête et de ses paramètres
-		$req->bindValue("idReservation", $idReservation, PDO::PARAM_INT);
-		// exécution de la requete
-		$ok = $req->execute();
-		return $ok;
-	}
-	
-
-
-
-
-
-	// supprime l'utilisateur dans la bdd
-	// modifié par Jim le 6/5/2015
-	public function supprimerUtilisateur($name)
-	{	// préparation de la requete
-		$txt_req = "delete from mrbs_users where name = :name" ;
-		$req = $this->cnx->prepare($txt_req);
-		// liaison de la requête et de ses paramètres
-		$req->bindValue("name", utf8_decode($name), PDO::PARAM_STR);
-		// exécution de la requete
-		$ok = $req->execute();
-		return $ok;
-	}	
 	
 
 	

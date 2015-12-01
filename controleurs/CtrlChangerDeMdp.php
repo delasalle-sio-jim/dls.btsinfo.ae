@@ -1,7 +1,7 @@
 <?php
 // Projet DLS - BTS Info - Anciens élèves
 // Fonction du contrôleur CtrlChangerDeMdp.php : traiter la demande de changement de mot de passe
-// Ecrit le 29/11/2015 par Jim
+// Ecrit le 1/12/2015 par Jim
 
 // on vérifie si le demandeur de cette action est bien authentifié
 if ( $_SESSION['typeUtilisateur'] != 'eleve' && $_SESSION['typeUtilisateur'] != 'administrateur') {
@@ -10,19 +10,21 @@ if ( $_SESSION['typeUtilisateur'] != 'eleve' && $_SESSION['typeUtilisateur'] != 
 	header ("Location: index.php?action=Deconnecter");
 }
 else {
-	if ( ! isset ($_POST ["nouveauMdp"]) && ! isset ($_POST ["confirmationMdp"]) ) {
+	if ( ! isset ($_POST ["txtNouveauMdp"]) && ! isset ($_POST ["txtConfirmationMdp"]) ) {
 		// si les données n'ont pas été postées, c'est le premier appel du formulaire : affichage de la vue sans message d'erreur
 		$nouveauMdp = '';
 		$confirmationMdp = '';
+		$afficherMdp = 'off';
 		$message = 'Changer mon mot de passe';
 		$themeFooter = $themeNormal;
 		include_once ($cheminDesVues . 'VueChangerDeMdp.php');
 	}
 	else {
 		// récupération des données postées
-		if ( empty ($_POST ["nouveauMdp"]) == true)  $nouveauMdp = "";  else   $nouveauMdp = $_POST ["nouveauMdp"];
-		if ( empty ($_POST ["confirmationMdp"]) == true)  $confirmationMdp = "";  else   $confirmationMdp = $_POST ["confirmationMdp"];
-				
+		if ( empty ($_POST ["txtNouveauMdp"]) == true)  $nouveauMdp = "";  else   $nouveauMdp = $_POST ["txtNouveauMdp"];
+		if ( empty ($_POST ["txtConfirmationMdp"]) == true)  $confirmationMdp = "";  else   $confirmationMdp = $_POST ["txtConfirmationMdp"];
+		if ( empty ($_POST ["caseAfficherMdp"]) == true)  $afficherMdp = 'off';  else   $afficherMdp = $_POST ["caseAfficherMdp"];
+						
 		if ( $nouveauMdp == "" || $confirmationMdp == "" ) {
 			// si les données sont incomplètes, réaffichage de la vue avec un message explicatif
 			$message = 'Données incomplètes !';

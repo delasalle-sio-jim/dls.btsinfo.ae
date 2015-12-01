@@ -1,7 +1,7 @@
 <?php
 	// Projet DLS - BTS Info - Anciens élèves
 	// Fonction de la vue vues.jquery/VueConnecter.php : visualiser la vue de connexion
-	// Ecrit le 29/11/2015 par Jim
+	// Ecrit le 1/12/2015 par Jim
 	
 	// pour obliger la page à se recharger
 	header('Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0');
@@ -27,13 +27,18 @@
 			function afficherMdp()
 			{	// document.form1.caseAfficherMdp.checked = ! document.form1.caseAfficherMdp.checked;
 				if (document.form1.caseAfficherMdp.checked == true)
-					document.form1.txtMotDePasse.type="text";
+					document.getElementById("txtMotDePasse").type="text";
 				else
-					document.form1.txtMotDePasse.type="password";
+					document.getElementById("txtMotDePasse").type="password";
+			}
+			
+			function initialisation()
+			{	afficherMdp();
+				document.getElementById("txtMotDePasse").innerText="<?php echo $motDePasse; ?>"
 			}
 		</script>
 	</head> 
-	<body>
+	<body onload="initialisation();">
 		<div data-role="page">
 			<div data-role="header" data-theme="<?php echo $themeNormal; ?>">
 				<h4>DLS-Info-AE</h4>
@@ -64,13 +69,13 @@
 
 					<div data-role="collapsible" <?php if($divConnecterDepliee == true) echo ('data-collapsed="false"'); ?>>
 						<h3>Accéder à mon compte</h3>
-						<form name="form1" id="form1" action="index.php?action=Connecter" data-ajax="false" method="post" data-transition="<?php echo $transition; ?>">
+						<form name="form1" id="form1" action="index.php?action=Connecter" method="post" data-transition="<?php echo $transition; ?>">
 							<div data-role="fieldcontain" class="ui-hide-label">
 								<label for="txtAdrMail">Adresse mail :</label>
 								<input type="email" name="txtAdrMail" id="txtAdrMail" placeholder="Mon adresse mail" required value="<?php echo $adrMail; ?>" >
 		
 								<label for="txtMotDePasse">Mot de passe :</label>
-								<input type="password" name="txtMotDePasse" id="txtMotDePasse" required placeholder="Mon mot de passe" value="<?php echo $motDePasse; ?>" >
+								<input type="<?php if($_SESSION['afficherMdp']) echo 'text'; else echo 'password'; ?>" name="txtMotDePasse" id="txtMotDePasse" required autocomplete="off" placeholder="Mon mot de passe" value="<?php echo $motDePasse; ?>" >
 							</div>														
 							<div data-role="fieldcontain" data-type="horizontal" class="ui-hide-label">
 								<label for="caseAfficherMdp">Afficher le mot de passe en clair</label>
@@ -78,7 +83,7 @@
 							</div>
 							<div data-role="fieldcontain" style="margin-top: 0px; margin-bottom: 0px;">
 								<p style="margin-top: 0px; margin-bottom: 0px;">
-									<input type="submit" name="btnConnecter" id="btnConnecter" data-mini="true" value="Me connecter">
+									<input type="submit" name="btnConnecter" id="btnConnecter" data-mini="true" data-ajax="false" value="Me connecter">
 								</p>
 							</div>
 						</form>
@@ -104,9 +109,27 @@
 												
 				<?php if($debug == true) {
 					// en mise au point, on peut afficher certaines variables dans la page
-					echo "<p>SESSION['adrMail'] = " . $_SESSION['adrMail'] . "</p>";
-					echo "<p>SESSION['motDePasse'] = " . $_SESSION['motDePasse'] . "</p>";
-					echo "<p>SESSION['typeUtilisateur'] = " . $_SESSION['typeUtilisateur'] . "</p>";
+					if ( isset ($_SESSION['adrMail']) == true)
+						echo "<p>SESSION['adrMail'] = " . $_SESSION['adrMail'] . "</p>";
+					if ( isset ($_SESSION['motDePasse']) == true)
+						echo "<p>SESSION['motDePasse'] = " . $_SESSION['motDePasse'] . "</p>";
+					if ( isset ($_SESSION['typeUtilisateur']) == true)
+						echo "<p>SESSION['typeUtilisateur'] = " . $_SESSION['typeUtilisateur'] . "</p>";
+					if ( isset ($_SESSION['afficherMdp']) == true)
+						echo "<p>SESSION['afficherMdp'] = " . $_SESSION['afficherMdp'] . "</p>";
+										
+					if ( isset ($_POST['txtAdrMail']) == true)
+						echo "<p>POST['txtAdrMail'] = " . $_POST['txtAdrMail'] . "</p>";
+					if ( isset ($_POST['txtMotDePasse']) == true)
+						echo "<p>POST['txtMotDePasse'] = " . $_POST['txtMotDePasse'] . "</p>";
+					if ( isset ($_POST['caseAfficherMdp']) == true)
+						echo "<p>POST['caseAfficherMdp'] = " . $_POST['caseAfficherMdp'] . "</p>";
+					if ( isset ($_POST['btnConnecter']) == true)
+						echo "<p>POST['btnConnecter'] = " . $_POST['btnConnecter'] . "</p>";
+															
+					echo "<p>adrMail = " . $adrMail . "</p>";
+					echo "<p>motDePasse = " . $motDePasse . "</p>";
+					echo "<p>afficherMdp = " . $afficherMdp . "</p>";
 				} ?>
 			</div>
 			

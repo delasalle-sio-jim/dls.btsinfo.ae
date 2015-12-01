@@ -1,6 +1,6 @@
 <?php
 // Projet DLS - BTS Info - Anciens élèves
-// Ecrit le 29/11/2015 par Jim
+// Ecrit le 1/12/2015 par Jim
 
 // Fonction de la page principale index.php : analyser toutes les demandes et activer le contrôleur chargé de traiter l'action demandée
 
@@ -38,6 +38,7 @@ if ($action == '' || $action == 'Deconnecter')
 {	unset ($_SESSION['adrMail']);
 	unset ($_SESSION['motDePasse']);
 	unset ($_SESSION['typeUtilisateur']);
+	unset ($_SESSION['afficherMdp']);
 	unset ($_SESSION['cheminDesVues']);
 }
 
@@ -45,6 +46,7 @@ if ($action == '' || $action == 'Deconnecter')
 if ( isset ($_SESSION['adrMail']) == false)  $adrMail = '';  else  $adrMail = $_SESSION['adrMail'];
 if ( isset ($_SESSION['motDePasse']) == false)  $motDePasse = '';  else  $motDePasse = $_SESSION['motDePasse'];
 if ( isset ($_SESSION['typeUtilisateur']) == false)  $typeUtilisateur = '';  else  $typeUtilisateur = $_SESSION['typeUtilisateur'];
+if ( isset ($_SESSION['afficherMdp']) == false)  $afficherMdp = 'off';  else  $afficherMdp = $_SESSION['afficherMdp'];
 if ( isset ($_SESSION['cheminDesVues']) == false) 
 {	// détection du type de terminal pour le choix des vues
 	require_once 'Mobile_Detect.php';
@@ -55,7 +57,7 @@ if ( isset ($_SESSION['cheminDesVues']) == false)
 else
 	 $cheminDesVues = $_SESSION['cheminDesVues'];
 
-$cheminDesVues = "vues.jquery/";	// pour forcer l'affichage de la version mobile (ligne à bloquer normalement)
+// $cheminDesVues = "vues.jquery/";	// pour forcer l'affichage de la version mobile (ligne à bloquer normalement)
 
 // si l'utilisateur n'est pas encore identifié, il sera automatiquement redirigé vers le contrôleur d'authentification
 // (sauf s'il ne peut pas se connecter et demande de se faire envoyer son mot de passe qu'il a oublié ou s'il veut se créer un compte)
