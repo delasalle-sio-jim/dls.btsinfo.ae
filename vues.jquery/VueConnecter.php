@@ -75,7 +75,7 @@
 								<input type="email" name="txtAdrMail" id="txtAdrMail" placeholder="Mon adresse mail" required value="<?php echo $adrMail; ?>" >
 		
 								<label for="txtMotDePasse">Mot de passe :</label>
-								<input type="<?php if($_SESSION['afficherMdp'] == 'on') echo 'text'; else echo 'password'; ?>" name="txtMotDePasse" id="txtMotDePasse" required autocomplete="off" placeholder="Mon mot de passe" value="<?php echo $motDePasse; ?>" >
+								<input type="<?php if($afficherMdp == 'on') echo 'text'; else echo 'password'; ?>" name="txtMotDePasse" id="txtMotDePasse" required autocomplete="off" placeholder="Mon mot de passe" value="<?php echo $motDePasse; ?>" >
 							</div>														
 							<div data-role="fieldcontain" data-type="horizontal" class="ui-hide-label">
 								<label for="caseAfficherMdp">Afficher le mot de passe en clair</label>
