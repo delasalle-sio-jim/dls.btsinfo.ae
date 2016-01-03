@@ -14,7 +14,8 @@ $typeUtilisateur = '';
 
 if ( ! isset ($_POST ["txtAdrMail2"]) == true) {
 	// si les données n'ont pas été postées, c'est le premier appel du formulaire : affichage de la vue sans message d'erreur
-	$message = 'Mot de passe oublié';
+	$message = '';
+	$typeMessage = '';			// 2 valeurs possibles : 'information' ou 'avertissement'
 	$themeFooter = $themeNormal;
 	include_once ($cheminDesVues . 'VueConnecter.php');
 }
@@ -25,6 +26,7 @@ else {
 	if ($adrMail == '' || Outils::estUneAdrMailValide($adrMail) == false) {
 		// si les données sont incomplètes, réaffichage de la vue avec un message explicatif
 		$message = 'Données incomplètes ou incorrectes !';
+		$typeMessage = 'avertissement';
 		$themeFooter = $themeProbleme;
 		include_once ($cheminDesVues . 'VueConnecter.php');
 	}
@@ -38,6 +40,7 @@ else {
 		if ( ! $dao->existeAdrMail($adrMail) )  {
 			// si $adrMail n'existe pas, retour à la vue
 			$message = "Adresse mail inexistante !";
+			$typeMessage = 'avertissement';
 			$themeFooter = $themeProbleme;
 			include_once ($cheminDesVues . 'VueConnecter.php');
 		}
@@ -52,11 +55,13 @@ else {
 			if ($ok) {
 				$themeFooter = $themeNormal;
 				$message = 'Vous allez recevoir un mail<br>avec votre nouveau mot de passe.';
+				$typeMessage = 'information';
 				include_once ($cheminDesVues . 'VueConnecter.php');
 			}
 			else {
 				$themeFooter = $themeProbleme;
 				$message = "Echec lors de l'envoi du mail !";
+				$typeMessage = 'avertissement';
 				include_once ($cheminDesVues . 'VueConnecter.php');
 			}
 		}

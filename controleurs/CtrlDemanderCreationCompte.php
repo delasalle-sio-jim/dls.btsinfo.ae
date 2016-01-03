@@ -1,7 +1,7 @@
 <?php
 // Projet DLS - BTS Info - Anciens élèves
 // Fonction du contrôleur CtrlDemanderCreationCompte.php : traiter la demande de création de compte d'un élève
-// Ecrit le 16/11/2015 par Jim
+// Ecrit le 30/12/2015 par Jim
 
 // initialisations du style de chaque zone de saisie (avant les contrôles des données saisies)
 // les 3 styles prévus dans la feuille de style (style.css) sont : 'normal', 'nomRempli' et 'incorrect'
@@ -43,7 +43,8 @@ if ( ! isset ($_POST ["btnEnvoyer"]) ) {
 	$entreprise = '';
 	$idFonction = '';
 
-	$message = '&nbsp;';
+	$message = '';
+	$typeMessage = '';			// 2 valeurs possibles : 'information' ou 'avertissement'
 	$themeFooter = $themeNormal;
 	include_once ($cheminDesVues . 'VueDemanderCreationCompte.php');
 }
@@ -79,6 +80,7 @@ else {
 	if ($nom == '' || $prenom == '' || $sexe == '' || $anneeDebutBTS == '' || $tel == '' || $adrMail == '' || Outils::estUneAdrMailValide($adrMail) == false || Outils::estUnCodePostalValide($codePostal) == false) {
 		// si les données sont incorrectes ou incomplètes, réaffichage de la vue de suppression avec un message explicatif
 		$message = 'Données incomplètes ou incorrectes !';
+		$typeMessage = 'avertissement';
 		$themeFooter = $themeProbleme;
 		include_once ($cheminDesVues . 'VueDemanderCreationCompte.php');
 	}
@@ -87,6 +89,7 @@ else {
 			// si l'adresse existe déjà, réaffichage de la vue
 			$class_adrMail = "incorrect";
 			$message = "Adresse mail déjà existante !";
+			$typeMessage = 'avertissement';
 			$themeFooter = $themeProbleme;
 			include_once ($cheminDesVues . 'VueDemanderCreationCompte.php');
 		}
@@ -105,6 +108,7 @@ else {
 			if ( ! $ok ) {
 				// si l'enregistrement a échoué, réaffichage de la vue avec un message explicatif					
 				$message = "Problème lors de l'enregistrement !";
+				$typeMessage = 'avertissement';
 				$themeFooter = $themeProbleme;
 				include_once ($cheminDesVues . 'VueDemanderCreationCompte.php');
 			}
@@ -126,12 +130,14 @@ else {
 				if ( ! $ok ) {
 					// si l'envoi de mail a échoué, réaffichage de la vue avec un message explicatif
 					$message = "Enregistrement effectué.<br>L'envoi du mail à l'administrateur a rencontré un problème !";
+					$typeMessage = 'avertissement';
 					$themeFooter = $themeProbleme;
 					include_once ($cheminDesVues . 'VueDemanderCreationCompte.php');
 				}
 				else {
 					// tout a fonctionné
 					$message = "Enregistrement effectué.<br>Un mail va être envoyé à l'administrateur !";
+					$typeMessage = 'information';
 					$themeFooter = $themeNormal;
 					include_once ($cheminDesVues . 'VueDemanderCreationCompte.php');
 				}

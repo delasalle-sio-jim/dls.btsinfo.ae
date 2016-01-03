@@ -7,7 +7,7 @@
 //  - l'icone de l'application
 //  - la feuille de styles
 
-// Ecrit le 11/11/2015 par Jim
+// Modifié le 30/12/2015 par Jim
 ?>
 		<title>DLS - BTS Informatique - Anciens élèves</title> 
 		<meta charset="utf-8">

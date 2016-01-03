@@ -15,7 +15,8 @@ else {
 		$nouveauMdp = '';
 		$confirmationMdp = '';
 		$afficherMdp = 'off';
-		$message = 'Changer mon mot de passe';
+		$message = '';
+		$typeMessage = '';			// 2 valeurs possibles : 'information' ou 'avertissement'
 		$themeFooter = $themeNormal;
 		include_once ($cheminDesVues . 'VueChangerDeMdp.php');
 	}
@@ -28,6 +29,7 @@ else {
 		if ( $nouveauMdp == "" || $confirmationMdp == "" ) {
 			// si les données sont incomplètes, réaffichage de la vue avec un message explicatif
 			$message = 'Données incomplètes !';
+			$typeMessage = 'avertissement';
 			$themeFooter = $themeProbleme;
 			include_once ($cheminDesVues . 'VueChangerDeMdp.php');
 		}
@@ -35,6 +37,7 @@ else {
 			if ( $nouveauMdp != $confirmationMdp ) {
 				// si les données sont incorrectes, réaffichage de la vue avec un message explicatif
 				$message = 'Le nouveau mot de passe et<br>sa confirmation sont différents !';
+				$typeMessage = 'avertissement';
 				$themeFooter = $themeProbleme;
 				include_once ($cheminDesVues . 'VueChangerDeMdp.php');
 			}
@@ -51,10 +54,12 @@ else {
 							
 				if ( $ok ) {
 					$message = "Enregistrement effectué.<br>Vous allez recevoir un mail de confirmation.";
+					$typeMessage = 'information';
 					$themeFooter = $themeNormal;
 				}
 				else {
 					$message = "Enregistrement effectué.<br>L'envoi du mail de confirmation a rencontré un problème.";
+					$typeMessage = 'avertissement';
 					$themeFooter = $themeProbleme;
 				}
 				unset($dao);		// fermeture de la connexion à MySQL

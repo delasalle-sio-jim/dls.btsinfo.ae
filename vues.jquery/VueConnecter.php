@@ -1,7 +1,7 @@
 <?php
 	// Projet DLS - BTS Info - Anciens élèves
 	// Fonction de la vue vues.jquery/VueConnecter.php : visualiser la vue de connexion
-	// Ecrit le 1/12/2015 par Jim
+	// Ecrit le 3/1/2016 par Jim
 	
 	// pour obliger la page à se recharger	
 	header('Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0');
@@ -15,15 +15,14 @@
 		<?php include_once ('head.php'); ?>
 		
 		<script>
-			/*
-			window.onload = initialisations;
+			<?php if ($typeMessage != '') { ?>
+				// associe une fonction à l'événement pageinit
+				$(document).bind('pageinit', function() {
+					// affiche la boîte de dialogue 'affichage_message'
+					$.mobile.changePage('#affichage_message', {transition: "<?php echo $transition; ?>"});
+				} );
+			<?php } ?>
 			
-			function initialisations()
-			{
-				document.getElementById("caseAfficherMdp").onclick = afficherMdp;
-				afficherMdp();
-			}
-			*/
 			function afficherMdp()
 			{	// document.getElementById("caseAfficherMdp").checked = ! document.getElementById("caseAfficherMdp").checked;
 				if (document.getElementById("caseAfficherMdp").checked == true)
@@ -63,7 +62,7 @@
 						<p>Après vérification de votre demande par les administrateurs de l'annuaire (cette opération peut prendre quelques jours éventuellement),
 						 vous recevrez un mail de confirmation avec votre mot de passe (que vous pourrez ensuite modifier).</p>
 						<p style="margin-top: 0px; margin-bottom: 0px;">
-							<a href="index.php?action=DemanderCreationCompte" data-role="button" data-mini="true" >Créer mon compte</a>
+							<a href="index.php?action=DemanderCreationCompte" data-role="button" data-mini="true" data-ajax="false">Créer mon compte</a>
 						</p>
 					</div>
 
@@ -75,7 +74,7 @@
 								<input type="email" name="txtAdrMail" id="txtAdrMail" placeholder="Mon adresse mail" required value="<?php echo $adrMail; ?>" >
 		
 								<label for="txtMotDePasse">Mot de passe :</label>
-								<input type="<?php if($_SESSION['afficherMdp'] == 'on') echo 'text'; else echo 'password'; ?>" name="txtMotDePasse" id="txtMotDePasse" required autocomplete="off" placeholder="Mon mot de passe" value="<?php echo $motDePasse; ?>" >
+								<input type="<?php if($afficherMdp == 'on') echo 'text'; else echo 'password'; ?>" name="txtMotDePasse" id="txtMotDePasse" required autocomplete="off" placeholder="Mon mot de passe" value="<?php echo $motDePasse; ?>" >
 							</div>														
 							<div data-role="fieldcontain" data-type="horizontal" class="ui-hide-label">
 								<label for="caseAfficherMdp">Afficher le mot de passe en clair</label>
@@ -92,7 +91,7 @@
 					<div data-role="collapsible" <?php if($divDemanderMdpDepliee == true) echo ('data-collapsed="false"'); ?>>
 						<h3>J'ai oublié mon mot de passe</h3>
 						<p>Cette option permet de regénérer un nouveau mot de passe qui vous sera immédiatement envoyé par mail. Nous vous conseillons de le changer aussitôt.</p>
-						<form name="form2" id="form2" action="index.php?action=DemanderMdp" method="post" >
+						<form name="form2" id="form2" action="index.php?action=DemanderMdp" method="post" data-ajax="false">
 							<div data-role="fieldcontain" class="ui-hide-label">
 								<label for="txtAdrMail2">Adresse mail :</label>
 								<input type="email" name="txtAdrMail2" id="txtAdrMail2" placeholder="Mon adresse mail" required value="<?php echo $adrMail; ?>" >
@@ -133,9 +132,12 @@
 				} ?>
 			</div>
 			
-			<div data-role="footer" data-position="fixed" data-theme="<?php echo $themeFooter; ?>">
-				<h4><?php echo $message; ?></h4>
+			<div data-role="footer" data-position="fixed" data-theme="<?php echo $themeNormal; ?>">
+				<h4>Annuaire des anciens du BTS Informatique<br>Lycée De La Salle (Rennes)</h4>
 			</div>
 		</div>
+		
+		<?php include_once ('vues.jquery/dialog_message.php'); ?>
+		
 	</body>
 </html>

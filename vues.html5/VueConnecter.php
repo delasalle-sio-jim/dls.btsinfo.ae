@@ -1,7 +1,7 @@
 <?php
 	// Projet DLS - BTS Info - Anciens élèves
 	// Fonction de la vue vues.html5/VueConnecter.php : visualiser la vue de connexion
-	// Ecrit le 1/12/2015 par Jim
+	// Ecrit le 30/12/2015 par Jim
 ?>
 <!doctype html>
 <html>
@@ -10,30 +10,54 @@
 	<script>
 		window.onload = initialisations;
 		
-		function initialisations()
-		{
+		function initialisations() {
 			document.form1.caseAfficherMdp.onchange = afficherMdp;
+			
+			<?php if ($typeMessage == 'avertissement') { ?>
+				afficher_avertissement("<?php echo $message; ?>");
+			<?php } ?>
+			
+			<?php if ($typeMessage == 'information') { ?>
+				afficher_information("<?php echo $message; ?>");
+			<?php } ?>
 		}
-		
 		function afficherMdp()
 		{	if (document.form1.caseAfficherMdp.checked == true)
 				document.form1.txtMotDePasse.type="text";
 			else
 				document.form1.txtMotDePasse.type="password";
 		}
-	</script>
-	
+		function afficher_information(msg) {
+			document.getElementById("titre_message").innerHTML = "Information...";
+			document.getElementById("titre_message").className = "classe_information";
+			document.getElementById("texte_message").innerHTML = msg;
+			window.open ("#affichage_message", "_self");
+		}
+		function afficher_avertissement(msg) {
+			document.getElementById("titre_message").innerHTML = "Avertissement...";
+			document.getElementById("titre_message").className = "classe_avertissement";
+			document.getElementById("texte_message").innerHTML = msg;
+			window.open ("#affichage_message", "_self");
+		}
+	</script>	
 </head> 
 <body>
-	<div id="conteneur">
-		<ul id="menu">
-			<li><a href="index.php?action=DemanderCreationCompte">Création compte</a></li>
-		</ul>
+	<div id="page">
+	
+		<div id="header">
+			<div id="header-menu">
+				<ul id="menu-horizontal">
+					<li><a href="index.php?action=DemanderCreationCompte">Création compte</a></li>
+				</ul>
+			</div>
+			<div id="header-logos">
+				<img src="images/Logo_DLS.gif" id="logo-gauche" alt="Lycée De La Salle (Rennes)" />
+				<img src="images/Intitules_bts_ig_sio.png" id="logo-droite" alt="BTS Informatique" />
+			</div>
+		</div>
 			
-		<div id="contenu">
+		<div id="content">
 
-			<img src="images/Logo_DLS.gif" class="logo" alt="Lycée De La Salle (Rennes)" />&nbsp;&nbsp;&nbsp;&nbsp;
-			<img src="images/Intitules_bts_ig_sio.png" class="logo" alt="BTS Informatique" />
 			<h2>Bienvenue sur l'annuaire des anciens élèves du lycée De La Salle</h2>
 			<p>L'annuaire des anciens élèves du <b>BTS Informatique</b> du <b>Lycée De La Salles</b> (Rennes) vous propose les services suivants :</p>
 			<ul>
@@ -50,49 +74,51 @@
 			 		
 			<h2>Accéder à mon compte</h2>
 			<form name="form1" id="form1" action="index.php?action=Connecter" method="post">
-				<table>
-					<tr>
-						<td><label for="txtAdrMail">Adresse mail :</label></td>
-						<td><input type="email" name="txtAdrMail" id="txtAdrMail" size="50" maxlength="50" placeholder="Mon adresse mail" required value="<?php echo $adrMail; ?>" ></td>
-					</tr>
-					<tr>
-						<td><label for="txtMotDePasse">Mot de passe :</label></td>
-						<td><input type="<?php if ($afficherMdp == 'off') echo 'password'; else echo 'text'; ?>" name="txtMotDePasse" id="txtMotDePasse" 
-							size="20" maxlength="20" placeholder="Mon mot de passe" required value="<?php echo $motDePasse; ?>" ></td>
-					</tr>
-					<tr>
-						<td></td>
-						<td>
-							<input type="checkbox" name="caseAfficherMdp" id="caseAfficherMdp" <?php if ($afficherMdp == 'on') echo 'checked'; ?>>
-							<label for="caseAfficherMdp">Afficher le mot de passe en clair</label>
-						</td>
-					</tr>
-					<tr>
-						<td></td>
-						<td><input type="submit" name="btnConnecter" id="btnConnecter" value="Me connecter"></td>
-					</tr>
-				</table>
+				<p>
+					<label for="txtAdrMail">Adresse mail :</label>
+					<input type="email" name="txtAdrMail" id="txtAdrMail" size="50" maxlength="50" placeholder="Mon adresse mail" required value="<?php echo $adrMail; ?>" >
+				</p>
+				<p>
+					<label for="txtMotDePasse">Mot de passe :</label>
+					<input type="<?php if ($afficherMdp == 'off') echo 'password'; else echo 'text'; ?>" name="txtMotDePasse" id="txtMotDePasse" 
+						size="20" maxlength="20" placeholder="Mon mot de passe" required value="<?php echo $motDePasse; ?>" >
+				</p>
+				<p>
+					<input type="checkbox" name="caseAfficherMdp" id="caseAfficherMdp" <?php if ($afficherMdp == 'on') echo 'checked'; ?>>
+					<label for="caseAfficherMdp">Afficher en clair</label>
+				</p>
+				<p>
+					<input type="submit" name="btnConnecter" id="btnConnecter" value="Me connecter">
+				</p>
 			</form>
 			
 			<h2>J'ai oublié mon mot de passe</h2>
 			<p>Cette option permet de regénérer un nouveau mot de passe qui vous sera immédiatement envoyé par mail. Nous vous conseillons de le changer aussitôt.</p>
 			<form name="form2" id="form2" action="index.php?action=DemanderMdp" method="post">
-				<table>
-					<tr>
-						<td><label for="txtAdrMail2">Adresse mail :</label></td>
-						<td><input type="email" name="txtAdrMail2" id="txtAdrMail2" size="50" maxlength="50" placeholder="Mon adresse mail" required value="<?php echo $adrMail; ?>" ></td>
-					</tr>
-					<tr>
-						<td></td>
-						<td><input type="submit" name="btnConnecter2" id="btnConnecter2" value="Obtenir un nouveau mot de passe"></td>
-					</tr>
-				</table>
+				<p>
+					<label for="txtAdrMail2">Adresse mail :</label>
+					<input type="email" name="txtAdrMail2" id="txtAdrMail2" size="50" maxlength="50" placeholder="Mon adresse mail" required value="<?php echo $adrMail; ?>" >
+				</p>
+				<p>
+					
+					<input type="submit" name="btnConnecter2" id="btnConnecter2" value="Obtenir un nouveau mot de passe">
+				</p>
 			</form>
+			
 		</div>
-		
-		<p id="message"><?php echo $message; ?></p>
-		
-		<p id="footer">Annuaire des anciens élèves du BTS Informatique - Lycée De La Salle (Rennes)</p>
+				
+		<div id="footer">
+			<p>Annuaire des anciens élèves du BTS Informatique - Lycée De La Salle (Rennes)</p>
+		</div>	
 	</div>
+	
+	<aside id="affichage_message" class="classe_message">
+		<div>
+			<h2 id="titre_message" class="classe_information">Message</h2>
+			<p id="texte_message" class="classe_texte_message">Texte du message</p>
+			<a href="#close" title="Fermer">Fermer</a>
+		</div>
+	</aside>
+	
 </body>
 </html>
