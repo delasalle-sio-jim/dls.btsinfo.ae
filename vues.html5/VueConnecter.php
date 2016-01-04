@@ -76,12 +76,12 @@
 			<form name="form1" id="form1" action="index.php?action=Connecter" method="post">
 				<p>
 					<label for="txtAdrMail">Adresse mail :</label>
-					<input type="email" name="txtAdrMail" id="txtAdrMail" size="50" maxlength="50" placeholder="Mon adresse mail" required value="<?php echo $adrMail; ?>" >
+					<input type="email" name="txtAdrMail" id="txtAdrMail" maxlength="50" placeholder="Mon adresse mail" required value="<?php echo $adrMail; ?>" >
 				</p>
 				<p>
 					<label for="txtMotDePasse">Mot de passe :</label>
 					<input type="<?php if ($afficherMdp == 'off') echo 'password'; else echo 'text'; ?>" name="txtMotDePasse" id="txtMotDePasse" 
-						size="20" maxlength="20" placeholder="Mon mot de passe" required value="<?php echo $motDePasse; ?>" >
+						maxlength="20" placeholder="Mon mot de passe" required value="<?php echo $motDePasse; ?>" >
 				</p>
 				<p>
 					<input type="checkbox" name="caseAfficherMdp" id="caseAfficherMdp" <?php if ($afficherMdp == 'on') echo 'checked'; ?>>
@@ -97,7 +97,7 @@
 			<form name="form2" id="form2" action="index.php?action=DemanderMdp" method="post">
 				<p>
 					<label for="txtAdrMail2">Adresse mail :</label>
-					<input type="email" name="txtAdrMail2" id="txtAdrMail2" size="50" maxlength="50" placeholder="Mon adresse mail" required value="<?php echo $adrMail; ?>" >
+					<input type="email" name="txtAdrMail2" id="txtAdrMail2" maxlength="50" placeholder="Mon adresse mail" required value="<?php echo $adrMail; ?>" >
 				</p>
 				<p>
 					

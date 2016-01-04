@@ -60,7 +60,7 @@
 								<input type="email" name="txtAdrMail" id="txtAdrMail" maxlength="50" placeholder="Adresse mail *" data-mini="true" required value="<?php echo $adrMail; ?>">
 
 								<label for="txtTel">Téléphone</label>
-								<input type="tel" name="txtTel" id="txtTel" maxlength="14" placeholder="Téléphone" data-mini="true" required value="<?php echo $tel; ?>">
+								<input type="tel" name="txtTel" id="txtTel" maxlength="14" placeholder="Téléphone" data-mini="true" value="<?php echo $tel; ?>">
 								
 								<label for="txtRue">Rue</label>
 								<input type="text" name="txtRue" id="txtRue" maxlength="80" placeholder="Rue" data-mini="true" value="<?php echo $rue; ?>" />

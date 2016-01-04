@@ -68,11 +68,11 @@
 			<form name="form1" id="form1" action="index.php?action=ChangerDeMdp" method="post">
 				<p>
 					<label for="txtNouveauMdp">Nouveau mot de passe :</label>
-					<input type="<?php if ($afficherMdp == 'off') echo 'password'; else echo 'text'; ?>" name="txtNouveauMdp" id="txtNouveauMdp" size="40" maxlength="20" placeholder="Mon nouveau mot de passe" required value="<?php echo $nouveauMdp; ?>" >
+					<input type="<?php if ($afficherMdp == 'off') echo 'password'; else echo 'text'; ?>" name="txtNouveauMdp" id="txtNouveauMdp" maxlength="20" placeholder="Mon nouveau mot de passe" required value="<?php echo $nouveauMdp; ?>" >
 				</p>
 				<p>
 					<label for="txtConfirmationMdp">Confirmation :</label>
-					<input type="<?php if ($afficherMdp == 'off') echo 'password'; else echo 'text'; ?>" name="txtConfirmationMdp" id="txtConfirmationMdp" size="40" maxlength="20" placeholder="Confirmation" required value="<?php echo $confirmationMdp; ?>" >
+					<input type="<?php if ($afficherMdp == 'off') echo 'password'; else echo 'text'; ?>" name="txtConfirmationMdp" id="txtConfirmationMdp" maxlength="20" placeholder="Confirmation" required value="<?php echo $confirmationMdp; ?>" >
 				</p>
 				<p>
 					<input type="checkbox" name="caseAfficherMdp" id="caseAfficherMdp" onclick="afficherMdp();" <?php if ($afficherMdp == 'on') echo 'checked'; ?>>
