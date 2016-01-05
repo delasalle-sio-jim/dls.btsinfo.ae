@@ -18,6 +18,7 @@
 // il faut être administrateur pour les 2 actions suivantes :
 //    index.php?action=ModifierCompteEleve    : pour afficher la page de modification d'un compte élève 
 //    index.php?action=SupprimerCompteEleve   : pour afficher la page de suppression d'un compte élève 
+//    index.php?action=SupprimerAdmin		  : pour afficher la page de suppression d'un compte administateur
 
 session_start();		// permet d'utiliser des variables de session
 
@@ -87,6 +88,9 @@ switch($action){
 	}
 	case 'SupprimerCompteEleve': {
 		include_once ('controleurs/CtrlSupprimerCompteEleve.php'); break;
+	}
+	case 'SupprimerAdmin':{
+		include_once ('controleurs/CtrlSupprimerAdmin.php'); break;
 	}
 	default : {
 		// toute autre tentative est automatiquement redirigée vers le contrôleur d'authentification

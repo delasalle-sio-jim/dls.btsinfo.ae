@@ -44,6 +44,8 @@
 // enregistrerUtilisateur        : enregistre l'utilisateur dans la bdd
 // aPasseDesReservations         : recherche si l'utilisateur ($name) a passé des réservations à venir
 // supprimerUtilisateur          : supprime l'utilisateur dans la bdd
+//supprimerAdministrateur		 : supprime un administrateur dans la bdd a partir de son adresse mail
+
 
 // listeSalles                   : fournit la liste des salles disponibles à la réservation
 
@@ -348,8 +350,16 @@ class DAO
 	
 	
 	
+	public function supprimerAdministrateur($adrMailAdmin)
+	{
+		//préparation d'une requete de suppression s'un administrater en fonction de l'adresse mail mise en paramètre
+	$txt_req = "DELETE from ae_administrateurs where adrMail = :adrMailAdmin";
+	$req = $this->cnx->prepare($txt_req);
+	$req->bindValue("adrMailAdmin", $adrMailAdmin, PDO::PARAM_STR);//remplissage de la variable
+	$ok = $req->execute();//execution de la requete
+	return $ok;
 	
-	
+	}
 	
 	
 	
