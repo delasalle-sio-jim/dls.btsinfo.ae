@@ -12,7 +12,7 @@
 <!doctype html>
 <html>
 	<head>	
-		<?php include_once ('vues.jquery/head.php'); ?>
+		<?php include_once ('head.php'); ?>
 		
 		<script>
 			<?php if ($typeMessage != '') { ?>
@@ -31,24 +31,22 @@
 				<a href="index.php?action=Menu" data-ajax="false" data-transition="<?php echo $transition; ?>">Retour menu</a>
 			</div>
 			<div data-role="content">
-				<h4 style="text-align: center; margin-top: 10px; margin-bottom: 10px;">Changer mon mot de passe</h4>
+				<h4 style="text-align: center; margin-top: 10px; margin-bottom: 10px;">Supprimer un administrateur</h4>
 				<form action="index.php?action=SupprimerAdmin" method="post" data-ajax="false" >
 				
 					<div data-role="fieldcontain" class="ui-hide-label">
 						<label for="txtAdrMailAdmin">Adresse mail de l'administrateur à supprimer :</label>
-						<input type="text" name="txtAdrMailAdmin" id="txtAdrMailAdmin" class="normal" value"<?php if($etape == 1 ) echo $txtMailAdmin ; else echo ''; ?>" placeholder="Adresse mail de l'administrateur a supprimer" required>
+						<input type="text" name="txtAdrMailAdmin" id="txtAdrMailAdmin" class="normal" value="<?php if($etape == 1 ) echo $txtMailAdmin ; else echo '' ?>" placeholder="Adresse mail de l'administrateur à supprimer" required>
 					</div>
 					
-						<div data-role="fieldcontain">
+					<div data-role="fieldcontain">
 						<input type="submit" name="btnDetailAdmin"  id="btnDetailAdmin" value="Obtenir les details sur l'administrateur">
 					</div>
-				</form>
-				
-				<?php if ($etape == 1)
-					{?> 
-				<div data-role="content">
-				<h4 style="text-align: center; margin-top: 10px; margin-bottom: 10px;">Changer mon mot de passe</h4>
-				<form action="index.php?action=SupprimerAdmin" method="post" data-ajax="false" >
+					
+					
+					<?php if ($etape == 1)	
+						{?> 
+					
 					<div data-role="fieldcontain" class="ui-hide-label">
 						<label2 for="txtAdrMailAdmin">Prénom de l'administrateur  :<?php echo $prenomAdmin ?></label2>
 					</div>
@@ -67,15 +65,16 @@
 					</div>
 					
 					<div data-role="fieldcontain" class="ui-hide-label">
-					<input type="submit" name="btnSupprimerAdmin"  id="btnDetailAdmin" value="Obtenir les details sur l'administrateur">
+					<input type="submit" name="btnSupprimerAdmin"  id="btnSupprimerAdmin" value="Supprimer Administrateur">
 					</div>
-					
+				</form>
+						
 				<?php } ?>
 				<div data-role="footer" data-position="fixed" data-theme="<?php echo $themeNormal; ?>">
-				<h4>Annuaire des anciens du BTS Informatique<br>Lycée De La Salle (Rennes)</h4>
+					<h4>Annuaire des anciens du BTS Informatique<br>Lycée De La Salle (Rennes)</h4>
+				</div>
 			</div>
 		</div>
-		
 		<?php include_once ('vues.jquery/dialog_message.php'); ?>
 		</body>
 </html>

@@ -59,7 +59,7 @@ else {
 							 
 						 	if ( $ok ) {
 							 		
-						 		$message = "Suppression effectué. L\'administrateur lié a l'adresse ".$adrMailAdmin." ne poura plus effectuer de modification.";
+						 		$message = "Suppression effectuée. L\'administrateur lié à l'adresse ".$adrMailAdmin." ne poura plus effectuer de modification.";
 						 		$typeMessage = 'information';
 						 		$themeFooter = $themeNormal;
 						 		include_once ($cheminDesVues . 'VueSupprimerAdmin.php');

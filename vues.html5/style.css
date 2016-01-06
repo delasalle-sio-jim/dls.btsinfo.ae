@@ -181,6 +181,12 @@ label {
 	text-align: left;
 	display: inline-block;
 }
+
+label2 {
+	width: 600px;
+	text-align: left;
+	display: inline-block;
+}
 select {
 	width: 405px;
 }
