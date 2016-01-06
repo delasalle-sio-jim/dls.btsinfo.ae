@@ -1,7 +1,7 @@
 <?php
 	// Projet DLS - BTS Info - Anciens élèves
 	// Fonction de la vue vues.html5/VueDemanderCreationCompte.php : visualiser la vue de création de compte élève
-	// Ecrit le 30/12/2015 par Jim
+	// Ecrit le 6/1/2016 par Jim
 ?>
 <!doctype html>
 <html>
@@ -61,49 +61,49 @@
 
 				<p>
 					<label for="txtNom">Nom (de naissance) *</label>
-					<input type="text" name="txtNom" id="txtNom" maxlength="30" class="<?php echo $class_nom; ?>" required value="<?php echo $nom; ?>" />
+					<input type="text" name="txtNom" id="txtNom" maxlength="30" required value="<?php echo $nom; ?>" />
 				</p>
 				<p>
 					<label for="txtPrenom">Prénom *</label>
-					<input type="text" name="txtPrenom" id="txtPrenom" maxlength="30" class="<?php echo $class_prenom; ?>" required value="<?php echo $prenom; ?>" />
+					<input type="text" name="txtPrenom" id="txtPrenom" maxlength="30" required value="<?php echo $prenom; ?>" />
 				</p>
 				<p> 
 					<label for="radioSexe">Sexe *</label>
 					
-  					<input type="radio" name="radioSexe" id="radioSexeH" value="H" <?php if ($sexe == "H") echo 'checked="checked"';?> />Homme
-              		<input type="radio" name="radioSexe" id="radioSexeF" value="F" <?php if ($sexe == "F") echo 'checked="checked"';?> />Femme
+  					<input type="radio" name="radioSexe" id="radioSexeH" required value="H" <?php if ($sexe == "H") echo 'checked="checked"';?> />Homme
+              		<input type="radio" name="radioSexe" id="radioSexeF" required value="F" <?php if ($sexe == "F") echo 'checked="checked"';?> />Femme
 				</p>
 				<p>
 					<label for="txtAnneeDebutBTS">Année d'entrée en BTS *</label>
-					<input type="text" name="txtAnneeDebutBTS" id="txtAnneeDebutBTS" maxlength="4" pattern="[0-9]{4,4}" class="<?php echo $class_anneeDebutBTS; ?>" required value="<?php echo $anneeDebutBTS; ?>" />
+					<input type="text" name="txtAnneeDebutBTS" id="txtAnneeDebutBTS" maxlength="4" pattern="^[0-9]{4}$" required value="<?php echo $anneeDebutBTS; ?>" />
 				</p>
 				<p>
 					<label for="txtAdrMail">Adresse mail *</label>
-					<input type="email" name="txtAdrMail" id="txtAdrMail" maxlength="50" class="<?php echo $class_adrMail; ?>" required value="<?php echo $adrMail; ?>" />
+					<input type="email" name="txtAdrMail" id="txtAdrMail" maxlength="50" required pattern="^.+@.+\..+$" value="<?php echo $adrMail; ?>" />
 				</p>
 				<p>
 					<label for="txtTel">Téléphone</label>
-					<input type="tel" name="txtTel" id="txtTel" maxlength="14"  class="<?php echo $class_tel; ?>" value="<?php echo $tel; ?>" />
+					<input type="text" name="txtTel" id="txtTel" maxlength="14" pattern="^([0-9]{2}( |-|\.)?){4}[0-9]{2}$" value="<?php echo $tel; ?>" />
 				</p>
 				<p>
 					<label for="txtRue">Rue</label>
-					<input type="text" name="txtRue" id="txtRue" maxlength="80" class="<?php echo $class_rue; ?>" value="<?php echo $rue; ?>" />
+					<input type="text" name="txtRue" id="txtRue" maxlength="80" value="<?php echo $rue; ?>" />
 				</p>						
 				<p>
 					<label for="txtCodePostal">Code postal</label>
-					<input type="text" name="txtCodePostal" id="txtCodePostal" maxlength="5" pattern="[0-9]{5,5}" class="<?php echo $class_codePostal; ?>" value="<?php echo $codePostal; ?>" />
+					<input type="text" name="txtCodePostal" id="txtCodePostal" maxlength="5" pattern="^[0-9]{5}$" value="<?php echo $codePostal; ?>" />
 				</p>
 				<p>
 					<label for="txtVille">Ville</label>
-					<input type="text" name="txtVille" id="txtVille" maxlength="30" class="<?php echo $class_ville; ?>" value="<?php echo $ville; ?>" />
+					<input type="text" name="txtVille" id="txtVille" maxlength="30" value="<?php echo $ville; ?>" />
 				</p>
 				<p>
 					<label for="txtEtudesPostBTS">Etudes post BTS</label>
-					<textarea rows="2" name="txtEtudesPostBTS" id="txtEtudesPostBTS" maxlength="150" class="<?php echo $class_etudesPostBTS; ?>" ><?php echo $etudesPostBTS; ?></textarea>
+					<textarea rows="2" name="txtEtudesPostBTS" id="txtEtudesPostBTS" maxlength="150"><?php echo $etudesPostBTS; ?></textarea>
 				</p>
 				<p>
 					<label for="txtEntreprise">Entreprise actuelle</label>
-					<input type="text" name="txtEntreprise" id="txtEntreprise" maxlength="50" class="<?php echo $class_entreprise; ?>" value="<?php echo $entreprise; ?>" />
+					<input type="text" name="txtEntreprise" id="txtEntreprise" maxlength="50" value="<?php echo $entreprise; ?>" />
 				</p>						
 				<p>
 					<label for="listeFonctions">Fonction actuelle</label>
@@ -118,14 +118,8 @@
 					<input type="submit" value="Envoyer les données" name="btnEnvoyer" id="btnEnvoyer" />
 				</p>
 			</form>
-
-			<p>
-				<label for="legende1">Légende</label>
-				<input id="legende1" type="text" class="nonRempli" value="Champ obligatoire non rempli." />
-				<input id="legende2" type="text" class="incorrect" value="Valeur incorrecte." />
-			</p>		
+	
 		</div>
-
 			
 		<div id="footer">
 			<p>Annuaire des anciens élèves du BTS Informatique - Lycée De La Salle (Rennes)</p>

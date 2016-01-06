@@ -1,22 +1,7 @@
 <?php
 // Projet DLS - BTS Info - Anciens élèves
 // Fonction du contrôleur CtrlDemanderCreationCompte.php : traiter la demande de création de compte d'un élève
-// Ecrit le 30/12/2015 par Jim
-
-// initialisations du style de chaque zone de saisie (avant les contrôles des données saisies)
-// les 3 styles prévus dans la feuille de style (style.css) sont : 'normal', 'nomRempli' et 'incorrect'
-$class_nom = 'normal';
-$class_prenom = 'normal';
-$class_sexe = 'normal';
-$class_anneeDebutBTS = 'normal';
-$class_tel = 'normal';
-$class_adrMail = 'normal';
-$class_etudesPostBTS = 'normal';
-$class_rue = 'normal';
-$class_codePostal = 'normal';
-$class_ville = 'normal';
-$class_entreprise = 'normal';
-$class_fonction = 'normal';
+// Ecrit le 6/1/2016 par Jim
 
 // inclusion de la classe Outils
 include_once ('modele/Outils.class.php');
@@ -29,7 +14,6 @@ $lesFonctions = $dao->getLesFonctions();
 
 if ( ! isset ($_POST ["btnEnvoyer"]) ) {
 	// si les données n'ont pas été postées, c'est le premier appel du formulaire : affichage de la vue sans message d'erreur
-	//$premierAppel = true;
 	$nom = '';
 	$prenom = '';
 	$sexe = '';
@@ -62,20 +46,7 @@ else {
 	if ( empty ($_POST ["txtCodePostal"]) == true)  $codePostal = "";  else   $codePostal = $_POST ["txtCodePostal"];
 	if ( empty ($_POST ["txtVille"]) == true)  $ville = "";  else   $ville = $_POST ["txtVille"];
 	if ( empty ($_POST ["txtEntreprise"]) == true)  $entreprise = "";  else   $entreprise = $_POST ["txtEntreprise"];
-	if ( empty ($_POST ["listeFonctions"]) == true)  $idFonction = "";  else   $idFonction = $_POST ["listeFonctions"];
-	
-	// tests des champs obligatoires non remplis
-	if ($nom == '') $class_nom = "nonRempli";
-	if ($prenom == '') $class_prenom = "nonRempli";	
-	if ($sexe == '') $class_sexe = "nonRempli";	
-	if ($anneeDebutBTS == '') $class_anneeDebutBTS = "nonRempli";
-	if ($tel == '') $class_tel = "nonRempli";
-	if ($adrMail == '') $class_adrMail = "nonRempli";
-
-	// tests des champs incorrects
-	if (Outils::estUnNumTelValide($tel) == false) $class_tel = "incorrect";
-	if (Outils::estUnCodePostalValide($codePostal) == false) $class_codePostal = "incorrect";
-	if (Outils::estUneAdrMailValide($adrMail) == false) $class_adrMail = "incorrect";
+	if ( empty ($_POST ["listeFonctions"]) == true)  $idFonction = "";  else   $idFonction = $_POST ["listeFonctions"];	
 	
 	if ($nom == '' || $prenom == '' || $sexe == '' || $anneeDebutBTS == '' || $tel == '' || $adrMail == '' || Outils::estUneAdrMailValide($adrMail) == false || Outils::estUnCodePostalValide($codePostal) == false) {
 		// si les données sont incorrectes ou incomplètes, réaffichage de la vue de suppression avec un message explicatif
@@ -87,7 +58,6 @@ else {
 	else {
 		if ( $dao->existeAdrMail($adrMail) ) {
 			// si l'adresse existe déjà, réaffichage de la vue
-			$class_adrMail = "incorrect";
 			$message = "Adresse mail déjà existante !";
 			$typeMessage = 'avertissement';
 			$themeFooter = $themeProbleme;

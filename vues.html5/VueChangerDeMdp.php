@@ -1,7 +1,7 @@
 <?php
 	// Projet DLS - BTS Info - Anciens élèves
 	// Fonction de la vue vues.html5/VueConnecter.php : visualiser la vue de connexion
-	// Ecrit le 30/12/2015 par Jim
+	// Ecrit le 6/1/2016 par Jim
 ?>
 <!doctype html>
 <html>

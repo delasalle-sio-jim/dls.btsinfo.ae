@@ -1,7 +1,7 @@
 <?php
 	// Projet DLS - BTS Info - Anciens élèves
 	// Fonction de la vue vues.html5/VueConnecter.php : visualiser la vue de connexion
-	// Ecrit le 30/12/2015 par Jim
+	// Ecrit le 6/1/2016 par Jim
 ?>
 <!doctype html>
 <html>
@@ -100,11 +100,9 @@
 					<input type="email" name="txtAdrMail2" id="txtAdrMail2" maxlength="50" placeholder="Mon adresse mail" required value="<?php echo $adrMail; ?>" >
 				</p>
 				<p>
-					
 					<input type="submit" name="btnConnecter2" id="btnConnecter2" value="Obtenir un nouveau mot de passe">
 				</p>
 			</form>
-			
 		</div>
 				
 		<div id="footer">

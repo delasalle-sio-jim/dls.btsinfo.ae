@@ -21,7 +21,7 @@ div#page {
 	-ms-border-radius: 15px;
 	-khtml-border-radius: 15px;
 	border-radius: 15px;
-	background: -moz-linear-gradient(bottom, rgb(255, 255, 255), rgb(210, 210, 210));
+	background: -moz-linear-gradient(top, rgb(255, 255, 255), rgb(210, 210, 210));
 	background: -webkit-gradient(linear, left top, left bottom, from(rgb(255, 255, 255)), to(rgb(210, 210, 210)));
 	background: linear-gradient(to bottom, rgb(255, 255, 255), rgb(225, 225, 225));
 }
@@ -92,7 +92,7 @@ div#header-logos {
 div#footer {
 	height: 36px;
 	padding: 0; 
-	margin: 40px 0 0 0;
+	margin: 20px 0 0 0;
 	background: #00A3E4;
 	-moz-border-radius: 0 0 15px 15px;
 	-webkit-border-radius: 0 0 15px 15px;
@@ -167,7 +167,7 @@ input, select {
 textarea {
 	padding-left: 5px;
 	border: solid 1px grey;
-	width: 396px;
+	width: 398px;
 	display: inline-block;
 	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px;
@@ -217,6 +217,12 @@ input[type=submit] {
 	background: -webkit-gradient(linear, right top, right bottom, from(rgb(255, 255, 255)), to(rgb(210, 210, 210)));
 	background: linear-gradient(to bottom, rgb(255, 255, 255), rgb(210, 210, 210));
 }
+input[type=text]:invalid , input[type=email]:invalid, input[type=password]:invalid, textarea:invalid {
+	background: #fff url(../images/carre-rouge.png) no-repeat 99% center;
+}
+input[type=text]:valid , input[type=email]:valid, input[type=password]:valid, textarea:valid {
+	background: #fff url(../images/carre-vert.png) no-repeat 99% center;
+}
 
 /* zone à mettre à jour */
 div#content h2 {
@@ -246,40 +252,8 @@ div#content a:hover {
 	color: #0b4c8e;
 	font-weight: bold;
 }
-p#legende {
-	padding-right: 10px; 
-	margin: 0px; 
-	margin-bottom: 10px; 
-	line-height: 30px; 
-	text-align: center;
-	font-size: 1em;
-	font-weight: bold;
-}
-input#legende1 {
-	width: 190px;
-	display: inline-block;
-}
-input#legende2 {
-	width: 190px;
-	margin-left: 7px;
-	display: inline-block;
-}
 /* fin de la zone à mettre à jour */
 
-.normal {
-	color: black;
-	background-color: white;
-}
-
-.nonRempli {
-	color: black;
-	background-color: #ff9f9f;
-}
-
-.incorrect {
-	color: white;
-	background-color: red;
-}
 
 /* ------------------------ styles lies au systeme d'affichage de messages ---------------------------- */
 
