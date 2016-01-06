@@ -16,9 +16,11 @@ $PARAM_PWD = "cartron";				// son mot de passe
 global $ADR_MAIL_EMETTEUR, $ADR_MAIL_ADMINISTRATEUR, $ADR_SERVICE_WEB;
 
 // adresse de l'émetteur lors d'un envoi de courriel
-$ADR_MAIL_EMETTEUR = "delasalle.sio.eleves@gmail.com";
+// autres adresses fictives "delasalle.sio.emetteur@gmail.com" et "delasalle.sio.destinataire@gmail.com"
+$ADR_MAIL_EMETTEUR = "delasalle.sio.eleves@gmail.com";// mot de pase sio1sio2 (boite mail test)
 // adresse de l'administrateur lors d'un envoi de courriel
-$ADR_MAIL_ADMINISTRATEUR = "jean.michel.cartron@gmail.com";
+// $ADR_MAIL_ADMINISTRATEUR = "jean.michel.cartron@gmail.com";
+$ADR_MAIL_ADMINISTRATEUR = "delasalle.sio.esteve.n@gmail.com";
 // adresse du service web
 $ADR_SERVICE_WEB = "http://localhost/ws-php-cartron/dls.btsinfo.ae/services/";
 
