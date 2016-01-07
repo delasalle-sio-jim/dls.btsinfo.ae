@@ -26,7 +26,7 @@
 		}
 // on ajoute onClick="confirmation();" au niveau du boutton ou  onsubmit="return confirmation();" au niveau de la balise form
 // ce script est censé mettre un fenêtre pop-up de confirmation avant la suppression d'un Administrateur
-
+// script non fonctionel
 function confirmation()
 {
 return confirm("Êtes vous sur de vouloir supprimer cet Administrateur?")
@@ -66,7 +66,7 @@ function afficher_avertissement(msg) {
 			<form name="form1" id="form1" action="index.php?action=SupprimerAdmin" method="post" >
 					<p>
 						<label for="txtAdrMailAdmin">Adresse Mail de l'administrateur à supprimer :</label>
-						<input type="text" name="txtAdrMailAdmin" id="txtAdrMailAdmin" maxlength="50" placeholder="Adresse Mail de l'administrateur à supprimer" class="normal" value="<?php if($etape == 1 ) echo $txtMailAdmin ; else echo ''; ?>" required>
+						<input type="text" name="txtAdrMailAdmin" id="txtAdrMailAdmin" maxlength="50" pattern="^.+@.+\..+$" placeholder="Adresse Mail de l'administrateur à supprimer" class="normal" value="<?php if($etape == 1 ) echo $txtMailAdmin ; else echo ''; ?>" required>
 					</p>
 					<p>
 					
@@ -87,10 +87,10 @@ function afficher_avertissement(msg) {
 					</p>
 					<p>
 						<label2 for="comfirmation">Entrez le mail de l'administrateur pour confimer la suppression de celui-ci :</label2>
-						<input type="text" name="txtAdrMailAdmin2" id="txtAdrMailAdmin2" maxlength="50">
+						<input type="text" name="txtAdrMailAdmin2" id="txtAdrMailAdmin2" maxlength="50" class ="normal" pattern="^.+@.+\..+$" required>
 					</p>
 					<p>
-						<input type="submit" name="btnSupprimerAdmin"  id="btnSupprimerAdmin" value="Supprimer l'Administrateur">
+						<input type="submit" name="btnSupprimerAdmin"  id="btnSupprimerAdmin" value="Supprimer l'Administrateur" >
 					</p>
 					
 					</form>	

@@ -45,6 +45,7 @@
 // aPasseDesReservations         : recherche si l'utilisateur ($name) a passé des réservations à venir
 // supprimerUtilisateur          : supprime l'utilisateur dans la bdd
 //supprimerAdministrateur		 : supprime un administrateur dans la bdd a partir de son adresse mail
+// creerAdministrateur			 : crée un administrateur dans la bdd
 
 
 // listeSalles                   : fournit la liste des salles disponibles à la réservation
@@ -132,11 +133,11 @@ class DAO
 	// modifié par Jim le 16/11/2015
 	public function getTypeUtilisateur($adrMail, $motDePasse)
 	{	// préparation de la requête de recherche dans la table ae_eleves
-		$txt_req = "Select count(*) from ae_eleves where adrMail = :adrMail and motDePasse = :motDePasseCrypte and compteAccepte = 1";
+		$txt_req = "Select count(*) from ae_eleves where adrMail = :adrMail and motDePasse = :motDePasseChiffre and compteAccepte = 1";
 		$req = $this->cnx->prepare($txt_req);
 		// liaison de la requête et de ses paramètres
 		$req->bindValue("adrMail", $adrMail, PDO::PARAM_STR);
-		$req->bindValue("motDePasseCrypte", sha1($motDePasse), PDO::PARAM_STR);
+		$req->bindValue("motDePasseChiffe", sha1($motDePasse), PDO::PARAM_STR);
 		// extraction des données et comptage des réponses
 		$req->execute();
 		$nbReponses = $req->fetchColumn(0);
@@ -359,6 +360,18 @@ class DAO
 	$ok = $req->execute();//execution de la requete
 	return $ok;
 	
+	}
+	
+	public function creerAdministrateur($adrMailAdmin,$nomAdmin,$prenomAdmin,$MdpAdmin)
+	{ 
+		$txt_req = "INSERT INTO ae_administrateurs(adrMail,motDePasse,prenom,nom ) VALUES(:adrMail,:mdp,:prenom,:nom)";
+		$req = $this->cnx->prepare($txt_req);
+		$req->bindValue("adrMail", $adrMailAdmin, PDO::PARAM_STR);//remplissage de la variable
+		$req->bindValue("mdp", sha1($MdpAdmin), PDO::PARAM_STR);
+		$req->bindValue("prenom", $prenomAdmin, PDO::PARAM_STR);
+		$req->bindValue("nom", strtoupper($nomAdmin), PDO::PARAM_STR);
+		$ok = $req->execute();//execution de la requete
+		return $ok;
 	}
 	
 	
