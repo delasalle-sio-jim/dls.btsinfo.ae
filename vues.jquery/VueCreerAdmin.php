@@ -28,22 +28,22 @@
 				<h4 style="text-align: center; margin-top: 10px; margin-bottom: 10px;">Creer un administrateur</h4>
 				<form action="index.php?action=CreerAdmin" method="post" data-ajax="false" >
 				
-					<div data-role="fieldcontain" class="ui-hide-label">
+					<div data-role="fieldcontain" >
 						<label for="txtAdrMailAdmin">Nom :</label>
 						<input type="text" name="txtNom" id="txtNom" class="normal" placeholder="Nom de l'administrateur" required>
 					</div>
 					
-					<div data-role="fieldcontain" class="ui-hide-label">
+					<div data-role="fieldcontain" >
 						<label for="txtPrenom">Prenom :</label>
 						<input type="text" name="txtPrenom" id="txtPrenom" class="normal" placeholder="Prenom de l'administrateur" required>
 					</div>
 					
-					<div data-role="fieldcontain" class="ui-hide-label">
+					<div data-role="fieldcontain" >
 						<label for="txtAdrMailAdmin">Adresse mail de l'administrateur :</label>
 						<input type="text" name="txtAdrMail" id="txtAdrMail" class="normal" placeholder="Adresse mail de l'administrateur " required>
 					</div>
 					
-					<div data-role="fieldcontain" class="ui-hide-label">
+					<div data-role="fieldcontain" >
 						<label for="txtAdrMailAdmin">Mot de passe :</label>
 						<input type="password" name="txtMdpAdmin" id="txtMdpAdmin" class="normal" placeholder="Mot de passe de l'administrateur" required>
 					</div>

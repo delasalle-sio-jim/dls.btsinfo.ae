@@ -67,19 +67,9 @@
 					<label for="txtPrenom">Prénom</label>
 					<input type="text" name="txtPrenom" id="txtPrenom" maxlength="30" required value="<?php echo $prenom; ?>" />
 				</p>
-				<p> 
-					<label for="radioSexe">Sexe</label>
-					
-  					<input type="radio" name="radioSexe" id="radioSexeH" required value="H" <?php if ($sexe == "H") echo 'checked="checked"';?> />Homme
-              		<input type="radio" name="radioSexe" id="radioSexeF" required value="F" <?php if ($sexe == "F") echo 'checked="checked"';?> />Femme
-				</p>
 				<p>
 					<label for="txtAnneeDebutBTS">Année d'entrée en BTS</label>
 					<input type="text" name="txtAnneeDebutBTS" id="txtAnneeDebutBTS" maxlength="4" pattern="^[0-9]{4}$" required value="<?php echo $anneeDebutBTS; ?>" />
-				</p>
-				<p>
-					<label for="txtAdrMail">Adresse mail</label>
-					<input type="email" name="txtAdrMail" id="txtAdrMail" maxlength="50" required pattern="^.+@.+\..+$" value="<?php echo $adrMail; ?>" />
 				</p>
 				<p>
 					<label for="txtTel">Téléphone</label>
@@ -118,3 +108,5 @@
 					<input type="submit" value="Envoyer les données" name="btnEnvoyer" id="btnEnvoyer" />
 				</p>
 			</form>
+		</div>
+	</div>

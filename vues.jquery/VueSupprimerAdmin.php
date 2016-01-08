@@ -47,19 +47,19 @@
 					<?php if ($etape == 1)	
 						{?> 
 					
-					<div data-role="fieldcontain" class="ui-hide-label">
-						<label2 for="txtAdrMailAdmin">Prénom de l'administrateur  :<?php echo $prenomAdmin ?></label2>
+					<div data-role="fieldcontain">
+						<label for="txtAdrMailAdmin">Prénom de l'administrateur  :<?php echo $prenomAdmin ?></label>
 					</div>
 					
-					<div data-role="fieldcontain" class="ui-hide-label">
-						<label2 for="txtAdrMailAdmin">Nom de l'administrateur :<?php echo $nomAdmin ?></label2>
+					<div data-role="fieldcontain">
+						<label for="txtAdrMailAdmin">Nom de l'administrateur :<?php echo $nomAdmin ?></label>
 					</div>
 					
-					<div data-role="fieldcontain" class="ui-hide-label">
-						<label2 for="txtAdrMailAdmin">Adresse mail de l'administrateur :<?php echo $txtMailAdmin ?></label2>
+					<div data-role="fieldcontain">
+						<label>Adresse mail de l'administrateur :<?php echo $txtMailAdmin ?></label>
 					</div>
 					
-					<div data-role="fieldcontain" class="ui-hide-label">
+					<div data-role="fieldcontain">
 						<label for="txtAdrMailAdmin">Entrez le mail de l'administrateur pour confimer la suppression de celui-ci :</label>
 						<input type="text" name="txtAdrMailAdmin2" id="txtAdrMailAdmin" placeholder="Adresse mail de l'administrateur a supprimer" required>
 					</div>
