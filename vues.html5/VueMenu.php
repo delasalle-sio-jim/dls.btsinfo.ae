@@ -34,7 +34,7 @@
 					<p><a href="index.php?action=Menu" class="bouton-menu">Informations sur la soirée des anciens</a></p>
 					<p><a href="index.php?action=Menu" class="bouton-menu">M'inscrire à la soirée des anciens</a></p>
 					<p><a href="index.php?action=Menu" class="bouton-menu">Recherche d'autres anciens élèves</a></p>
-					<p><a href="index.php?action=Menu" class="bouton-menu">Mettre à jour mon profil</a></p>
+					<p><a href="index.php?action=ModifFichePerso" class="bouton-menu">Mettre à jour mon profil</a></p>
 					<p><a href="index.php?action=Menu" class="bouton-menu">Galerie des photos de classe</a></p>
 				<?php } ?>
 				

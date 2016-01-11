@@ -39,7 +39,7 @@
 		<div id="header">
 			<div id=header-menu>
 				<ul id="menu-horizontal">
-					<li><a href="index.php?action=Connecter">Retour accueil</a></li>
+					<li><a href="index.php?action=Menu">Retour au Menu</a></li>
 				</ul>
 			</div>
 			<div id="header-logos">
@@ -52,24 +52,24 @@
 			 		
 			<h2>Modification de votre compte</h2>
 			
-			<p>Après vérification de votre demande par les administrateurs de l'annuaire (cette opération peut prendre quelques jours éventuellement),
-			 vous recevrez un mail de confirmation avec votre mot de passe (que vous pourrez ensuite modifier).</p>
+			<p>Vous pouvez modifier les informations liées à votre compte.</p>
+			
 			 
 			<h3>Entrez les données que vous voulez modifier de votre profil :</h3>
 			
-		<form name="form1" id="form1" action="index.php?action=DemanderCreationCompte" method="post">
+		<form name="form1" id="form1" action="index.php?action=ModifFichePerso" method="post">
 
 				<p>
 					<label for="txtNom">Nom (de naissance)</label>
-					<input type="text" name="txtNom" id="txtNom" maxlength="30" required value="<?php echo $nom; ?>" />
+					<input type="text" name="txtNom" id="txtNom" maxlength="30" value="<?php echo $nom; ?>" />
 				</p>
 				<p>
 					<label for="txtPrenom">Prénom</label>
-					<input type="text" name="txtPrenom" id="txtPrenom" maxlength="30" required value="<?php echo $prenom; ?>" />
+					<input type="text" name="txtPrenom" id="txtPrenom" maxlength="30" value="<?php echo $prenom; ?>" />
 				</p>
 				<p>
 					<label for="txtAnneeDebutBTS">Année d'entrée en BTS</label>
-					<input type="text" name="txtAnneeDebutBTS" id="txtAnneeDebutBTS" maxlength="4" pattern="^[0-9]{4}$" required value="<?php echo $anneeDebutBTS; ?>" />
+					<input type="text" name="txtAnneeDebutBTS" id="txtAnneeDebutBTS" maxlength="4" pattern="^[0-9]{4}$" value="<?php echo $anneeDebutBTS; ?>" />
 				</p>
 				<p>
 					<label for="txtTel">Téléphone</label>
@@ -105,8 +105,22 @@
 					</select>
 				</p>						
 				<p>
-					<input type="submit" value="Envoyer les données" name="btnEnvoyer" id="btnEnvoyer" />
+					<input type="submit" value="Envoyer les données" name="btnModifier" id="btnModifier" />
 				</p>
 			</form>
 		</div>
 	</div>
+	<div id="footer">
+			<p>Annuaire des anciens élèves du BTS Informatique - Lycée De La Salle (Rennes)</p>
+		</div>		
+	</div>
+	
+	<aside id="affichage_message" class="classe_message">
+		<div>
+			<h2 id="titre_message" class="classe_information">Message</h2>
+			<p id="texte_message" class="classe_texte_message">Texte du message</p>
+			<a href="#close" title="Fermer">Fermer</a>
+		</div>
+	</aside>
+	</body>
+	

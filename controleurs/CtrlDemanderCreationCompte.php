@@ -48,7 +48,7 @@ else {
 	if ( empty ($_POST ["txtEntreprise"]) == true)  $entreprise = "";  else   $entreprise = $_POST ["txtEntreprise"];
 	if ( empty ($_POST ["listeFonctions"]) == true)  $idFonction = "";  else   $idFonction = $_POST ["listeFonctions"];	
 	
-	if ($nom == '' || $prenom == '' || $sexe == '' || $anneeDebutBTS == '' || $tel == '' || $adrMail == '' || Outils::estUneAdrMailValide($adrMail) == false || Outils::estUnCodePostalValide($codePostal) == false) {
+	if ($nom == '' || $prenom == '' || $sexe == '' || $anneeDebutBTS == '' || $adrMail == '' || Outils::estUneAdrMailValide($adrMail) == false || Outils::estUnCodePostalValide($codePostal) == false) {
 		// si les données sont incorrectes ou incomplètes, réaffichage de la vue de suppression avec un message explicatif
 		$message = 'Données incomplètes ou incorrectes !';
 		$typeMessage = 'avertissement';

@@ -22,7 +22,7 @@ $ADR_MAIL_EMETTEUR = "delasalle.sio.eleves@gmail.com";// mot de pase sio1sio2 (b
 // $ADR_MAIL_ADMINISTRATEUR = "jean.michel.cartron@gmail.com";
 $ADR_MAIL_ADMINISTRATEUR = "delasalle.sio.esteve.n@gmail.com";
 // adresse du service web
-$ADR_SERVICE_WEB = "http://localhost/ws-php-cartron/dls.btsinfo.ae/services/";
+$ADR_SERVICE_WEB = "http://localhost/ws-php-esteve/dls.btsinfo.ae/services/";
 
 // ATTENTION : on ne met pas de balise de fin de script pour ne pas prendre le risque
 // d'enregistrer d'espaces après la balise de fin de script !!!!!!!!!!!!

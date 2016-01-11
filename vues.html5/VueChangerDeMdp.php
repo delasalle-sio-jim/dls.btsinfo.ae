@@ -63,7 +63,7 @@
 		</div>
 			
 		<div id="content">
-			 		
+		
 			<h2>Changer mon mot de passe</h2>
 			<form name="form1" id="form1" action="index.php?action=ChangerDeMdp" method="post">
 				<p>

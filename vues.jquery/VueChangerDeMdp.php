@@ -68,7 +68,7 @@
 						<label for="txtNouveauMdp">Nouveau mot de passe :</label>
 						<input type="<?php if ($afficherMdp == 'off') echo 'password'; else echo 'text'; ?>" name="txtNouveauMdp" id="txtNouveauMdp" placeholder="Mon nouveau mot de passe" required value="<?php echo $nouveauMdp; ?>">
 					</div>
-					<div data-role="fieldcontain" >
+					<div data-role="fieldcontain">
 						<label for="txtConfirmationMdp">Confirmation nouveau mot de passe :</label>
 						<input type="<?php if ($afficherMdp == 'off') echo 'password'; else echo 'text'; ?>" name="txtConfirmationMdp" id="txtConfirmationMdp" placeholder="Confirmation de mon nouveau mot de passe" required value="<?php echo $confirmationMdp; ?>">
 					</div>

@@ -137,7 +137,7 @@ class DAO
 		$req = $this->cnx->prepare($txt_req);
 		// liaison de la requête et de ses paramètres
 		$req->bindValue("adrMail", $adrMail, PDO::PARAM_STR);
-		$req->bindValue("motDePasseChiffe", sha1($motDePasse), PDO::PARAM_STR);
+		$req->bindValue("motDePasseChiffre", sha1($motDePasse), PDO::PARAM_STR);
 		// extraction des données et comptage des réponses
 		$req->execute();
 		$nbReponses = $req->fetchColumn(0);
@@ -373,91 +373,45 @@ class DAO
 		$ok = $req->execute();//execution de la requete
 		return $ok;
 	}
+
+	
 	public function modifierFichePerso($nom,$prenom,$anneeDebutBTS,$mail,$telephone,$rue,$ville,$cp,$etudes,$entreprise,$fonction)
 	{
-		if($nom != '')
-		{
-			$txt_req = "UPDATE from ae_eleves SET nom = :nom";
-			$req = $this->cnx->prepare($txt_req);
-			$req->bindValue("nom", $nom, PDO::PARAM_STR);//remplissage de la variable
-			$ok = $req->execute();//execution de la requete
-		}
-	
-		if($prenom != '')
-		{
-			$txt_req = "UPDATE from ae_eleves SET prenom = :prenom";
-			$req = $this->cnx->prepare($txt_req);
-			$req->bindValue("prenom", $prenom, PDO::PARAM_STR);//remplissage de la variable
-			$ok = $req->execute();//execution de la requete
-		}
+		$telephone = Outils::corrigerTelephone($telephone);
+		$nom = strtoupper($nom);	
+		$prenom = Outils::corrigerPrenom($prenom);
+		$ville = Outils::corrigerVille($ville);
 		
-		if($anneeDebutBTS != '')
-		{
-			$txt_req = "UPDATE from ae_eleves SET anneeDebutBTS = :anneeDebutBTS";
-			$req = $this->cnx->prepare($txt_req);
-			$req->bindValue("anneeDebutBTS", $anneeDebutBTS, PDO::PARAM_STR);//remplissage de la variable
-			$ok = $req->execute();//execution de la requete
-		}
-		if($telephone != '')
-		{
-			$txt_req = "UPDATE from ae_eleves SET tel = :tel";
-			$req = $this->cnx->prepare($txt_req);
-			$req->bindValue("tel", $telephone, PDO::PARAM_STR);//remplissage de la variable
-			$ok = $req->execute();//execution de la requete
-		}
+		$txt_req = "UPDATE ae_eleves SET nom = :nom, prenom = :prenom, anneeDebutBTS = :anneeDebutBTS, tel = :tel, codePostal = :cp, ville = :ville, rue = :rue, entreprise = :entreprise, idFonction = :fonction, etudesPostBTS = :etudes WHERE adrMail = :mail;";
 		
-		if($cp != '')
-		{
-			$txt_req = "UPDATE from ae_eleves SET codePostal = :cp";
-			$req = $this->cnx->prepare($txt_req);
-			$req->bindValue("cp", $cp, PDO::PARAM_STR);//remplissage de la variable
-			$ok = $req->execute();//execution de la requete
-		}
+		$req = $this->cnx->prepare($txt_req);
 		
-		if($ville != '')
-		{
-			$txt_req = "UPDATE from ae_eleves SET ville = :ville";
-			$req = $this->cnx->prepare($txt_req);
-			$req->bindValue("ville", $ville, PDO::PARAM_STR);//remplissage de la variable
-			$ok = $req->execute();//execution de la requete
-		}
+		//remplissage des variables
+		$req->bindValue("nom", $nom, PDO::PARAM_STR);
+		$req->bindValue("prenom", $prenom, PDO::PARAM_STR);
+		$req->bindValue("anneeDebutBTS", $anneeDebutBTS, PDO::PARAM_STR);
+		$req->bindValue("tel", $telephone, PDO::PARAM_STR);
+		$req->bindValue("cp", $cp, PDO::PARAM_STR);
+		$req->bindValue("ville", $ville, PDO::PARAM_STR);
+		$req->bindValue("rue", $rue, PDO::PARAM_STR);
+		$req->bindValue("entreprise", $entreprise, PDO::PARAM_STR);
+		$req->bindValue("fonction", $fonction, PDO::PARAM_INT);
+		$req->bindValue("etudes", $etudes, PDO::PARAM_STR);
+		$req->bindValue("mail", $mail, PDO::PARAM_STR);
 		
-		if($rue != '')
-		{
-			$txt_req = "UPDATE from ae_eleves SET rue = :rue";
-			$req = $this->cnx->prepare($txt_req);
-			$req->bindValue("rue", $rue, PDO::PARAM_STR);//remplissage de la variable
-			$ok = $req->execute();//execution de la requete
-		}
+		$ok = $req->execute();//execution de la requete
 		
-		if($entreprise!= '')
+		if($ok)
 		{
-			$txt_req = "UPDATE from ae_eleves SET ville = :ville";
+			$txt_req = "Update ae_eleves SET dateDerniereMAJ = :date where adrMail = :mail";
 			$req = $this->cnx->prepare($txt_req);
-			$req->bindValue("ville", $ville, PDO::PARAM_STR);//remplissage de la variable
-			$ok = $req->execute();//execution de la requete
-		}
-		
-		if($fonction != '')
-		{
-			$txt_req = "UPDATE from ae_eleves SET ville = :ville";
-			$req = $this->cnx->prepare($txt_req);
-			$req->bindValue("ville", $ville, PDO::PARAM_STR);//remplissage de la variable
-			$ok = $req->execute();//execution de la requete
-		}
-		
-		if($etudes != '')
-		{
-			$txt_req = "UPDATE from ae_eleves SET ville = :ville";
-			$req = $this->cnx->prepare($txt_req);
-			$req->bindValue("ville", $ville, PDO::PARAM_STR);//remplissage de la variable
+			$date = date('Y-m-d H:i:s', time());
+			$req->bindValue("mail", $mail, PDO::PARAM_STR);//remplissage de la variable
+			$req->bindValue("date", $date, PDO::PARAM_STR);//remplissage de la variable
 			$ok = $req->execute();//execution de la requete
 		}
 		return $ok;
-	
-	
-	
-	
+
 	}
 	
 	

@@ -25,7 +25,7 @@
 						<li><a href="index.php?action=Menu" data-ajax="false" data-transition="<?php echo $transition; ?>">Informations sur la soirée des anciens</a></li>
 						<li><a href="index.php?action=Menu" data-ajax="false" data-transition="<?php echo $transition; ?>">M'inscrire à la soirée des anciens</a></li>
 						<li><a href="index.php?action=Menu" data-ajax="false" data-transition="<?php echo $transition; ?>">Recherche d'autres anciens élèves</a></li>
-						<li><a href="index.php?action=Menu" data-ajax="false" data-transition="<?php echo $transition; ?>">Mettre à jour mon profil</a></li>
+						<li><a href="index.php?action=ModifFichePerso" data-ajax="false" data-transition="<?php echo $transition; ?>">Mettre à jour mon profil</a></li>
 						<li><a href="index.php?action=Menu" data-ajax="false" data-transition="<?php echo $transition; ?>">Galerie des photos de classe</a></li>
 					<?php } ?>
 					<?php if ( $typeUtilisateur == "administrateur" ) {
