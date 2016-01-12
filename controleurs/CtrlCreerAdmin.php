@@ -44,8 +44,8 @@ else
 		// connexion du serveur web à la base MySQL
 		include_once ('modele/DAO.class.php');
 		$dao = new DAO();
-		
-		$ok = $dao->creerAdministrateur($adrMailAdmin, $nomAdmin, $prenomAdmin);
+		$nouveauMdp = Outils::creerMdp();
+		$ok = $dao->creerAdministrateur($adrMailAdmin, $nouveauMdp, $nomAdmin, $prenomAdmin);
 		
 	
 		if($ok){

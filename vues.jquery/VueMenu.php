@@ -38,7 +38,7 @@
 						<li><a href="index.php?action=Menu" data-ajax="false" data-transition="<?php echo $transition; ?>">Consulter les inscriptions à la soirée</a></li>
 						<li><a href="index.php?action=Menu" data-ajax="false" data-transition="<?php echo $transition; ?>">Envoyer courriels de relance</a></li>
 						<li><a href="index.php?action=Menu" data-ajax="false" data-transition="<?php echo $transition; ?>">Gérer la galerie des photos de classe</a></li>
-						<li><a href="index.php?action=CreatUserAdmin" data-ajax="false" data-transition="<?php echo $transition; ?>">">Créer un compte utilisateur</a></p>
+						<li><a href="index.php?action=CreatUserAdmin" data-ajax="false" data-transition="<?php echo $transition; ?>">Créer un compte utilisateur</a></p>
 					<?php } ?>
 				</ul>
 				

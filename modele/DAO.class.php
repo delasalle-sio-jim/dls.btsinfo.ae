@@ -129,6 +129,34 @@ class DAO
 		return $lesFonctions;
 	}	
 	
+	function getLesEleves()
+	{	// préparation de la requete de recherche
+	$txt_req = "Select id, adrMail from ae_eleves order by id";
+	
+	$req = $this->cnx->prepare($txt_req);
+	// extraction des données
+	$req->execute();
+	$uneLigne = $req->fetch(PDO::FETCH_OBJ);
+	
+	// construction d'une collection d'objets Fonction
+	$lesFonctions = array();
+	// tant qu'une ligne est trouvée :
+	while ($uneLigne)
+	{	// création d'un objet Fonction
+		$unId = utf8_encode($uneLigne->id);
+		$uneAdrMail = utf8_encode($uneLigne->adrMail);
+			
+		$unEleve = new Eleve($unId, $uneAdrMail);
+		// ajout de la fonction à la collection
+		$lesEleves[] = $unEleve;
+		// extrait la ligne suivante
+		$uneLigne = $req->fetch(PDO::FETCH_OBJ);
+	}
+	// libère les ressources du jeu de données
+	$req->closeCursor();
+	// fourniture de la collection
+	return $lesFonctions;
+	}
 	// fournit le type d'un utilisateur identifié par $adrMail et $motDePasse
 	// renvoie "eleve" ou "administrateur" si authentification correcte, "inconnu" sinon
 	// modifié par Jim le 16/11/2015
@@ -369,12 +397,13 @@ class DAO
 	
 	}
 	
-	public function creerAdministrateur($adrMailAdmin,$nomAdmin,$prenomAdmin,$MdpAdmin)
+	public function creerAdministrateur($adrMailAdmin, $MdpAdmin,$nomAdmin,$prenomAdmin)
 	{ 
-		$txt_req = "INSERT INTO ae_administrateurs(adrMail,prenom,nom ) VALUES(:adrMail,:mdp,:prenom,:nom)";
+		$txt_req = "INSERT INTO ae_administrateurs(adrMail,motDePasse ,prenom,nom) VALUES(:adrMail,:mdp,:prenom,:nom)";
 		$req = $this->cnx->prepare($txt_req);
 		$req->bindValue("adrMail", $adrMailAdmin, PDO::PARAM_STR);//remplissage de la variable
 		$req->bindValue("prenom", $prenomAdmin, PDO::PARAM_STR);
+		$req->bindValue("mdp", $MdpAdmin, PDO::PARAM_STR);
 		$req->bindValue("nom", strtoupper($nomAdmin), PDO::PARAM_STR);
 		$ok = $req->execute();//execution de la requete
 		return $ok;
@@ -399,24 +428,38 @@ class DAO
 		$prenom = Outils::corrigerPrenom($prenom);
 		$ville = Outils::corrigerVille($ville);
 		
-		$txt_req = "UPDATE ae_eleves SET nom = :nom, prenom = :prenom, anneeDebutBTS = :anneeDebutBTS, tel = :tel, codePostal = :cp, ville = :ville, rue = :rue, entreprise = :entreprise, idFonction = :fonction, etudesPostBTS = :etudes WHERE adrMail = :mail;";
+		//$txt_req = "UPDATE ae_eleves SET nom = :nom, prenom = :prenom, anneeDebutBTS = :anneeDebutBTS, tel = :tel, codePostal = :cp, ville = :ville, rue = :rue, entreprise = :entreprise, idFonction = :fonction, etudesPostBTS = :etudes WHERE adrMail = :mail;";
+		
+
+		$txt_req = "UPDATE ae_eleves SET ";
+		$txt_req .= " nom = :nom,";
+		$txt_req .= " prenom = :prenom,";
+		$txt_req .= " anneeDebutBTS = :anneeDebutBTS,";
+		$txt_req .= " tel = :tel,";
+		$txt_req .= " codePostal = :cp,";
+		$txt_req .= " ville = :ville,";
+		$txt_req .= " rue = :rue,";
+		$txt_req .= " entreprise = :entreprise,";
+		$txt_req .= " idFonction = :fonction,";
+		$txt_req .= " etudesPostBTS = :etudes";
+		$txt_req .= " WHERE adrMail = :mail;";
 		
 
 		
 		$req = $this->cnx->prepare($txt_req);
 		
 		//remplissage des variables
-		$req->bindValue("nom", $nom, PDO::PARAM_STR);
-		$req->bindValue("prenom", $prenom, PDO::PARAM_STR);
-		$req->bindValue("anneeDebutBTS", $anneeDebutBTS, PDO::PARAM_STR);
-		$req->bindValue("tel", $telephone, PDO::PARAM_STR);
-		$req->bindValue("cp", $cp, PDO::PARAM_STR);
-		$req->bindValue("ville", $ville, PDO::PARAM_STR);
-		$req->bindValue("rue", $rue, PDO::PARAM_STR);
-		$req->bindValue("entreprise", $entreprise, PDO::PARAM_STR);
-		$req->bindValue("fonction", $fonction, PDO::PARAM_INT);
-		$req->bindValue("etudes", $etudes, PDO::PARAM_STR);
-		$req->bindValue("mail", $mail, PDO::PARAM_STR);
+		$req->bindValue("nom", utf8_decode($nom), PDO::PARAM_STR);
+		$req->bindValue("prenom", utf8_decode($prenom), PDO::PARAM_STR);
+		$req->bindValue("anneeDebutBTS", utf8_decode($anneeDebutBTS), PDO::PARAM_STR);
+		$req->bindValue("tel", utf8_decode($telephone), PDO::PARAM_STR);
+		$req->bindValue("cp", utf8_decode($cp), PDO::PARAM_STR);
+		$req->bindValue("ville", utf8_decode($ville), PDO::PARAM_STR);
+		$req->bindValue("rue", utf8_decode($rue), PDO::PARAM_STR);
+		$req->bindValue("entreprise", utf8_decode($entreprise), PDO::PARAM_STR);
+		$req->bindValue("fonction", utf8_decode($fonction), PDO::PARAM_INT);
+		$req->bindValue("etudes", utf8_decode($etudes), PDO::PARAM_STR);
+		$req->bindValue("mail", utf8_decode($mail), PDO::PARAM_STR);
 		
 		$ok = $req->execute();//execution de la requete
 		
