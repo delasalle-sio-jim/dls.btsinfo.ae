@@ -22,7 +22,6 @@ if ( ! isset ($_POST ["btnCreation"]) ) {
 	$prenomAdmin = '';
 	$adrMailAdmin = '';
 	$message = '';
-	$afficherMdp = 'off';
 	$typeMessage = '';			// 2 valeurs possibles : 'information' ou 'avertissement'
 	$themeFooter = $themeNormal;
 	include_once ($cheminDesVues . 'VueCreerAdmin.php');
@@ -32,9 +31,8 @@ else
 	if ( empty ($_POST ["txtNom"]) == true)  $nomAdmin = "";  else   $nomAdmin = $_POST ["txtNom"];
 	if ( empty ($_POST ["txtPrenom"]) == true)  $prenomAdmin = "";  else   $prenomAdmin = $_POST ["txtPrenom"];
 	if ( empty ($_POST ["txtAdrMail"]) == true)  $adrMailAdmin = "";  else   $adrMailAdmin = $_POST ["txtAdrMail"];
-	if ( empty ($_POST ["txtMdpAdmin"]) == true)  $MdpAdmin = "";  else   $MdpAdmin = $_POST ["txtMdpAdmin"];
 	
-	if ($adrMailAdmin == '' || $MdpAdmin == '' || Outils::estUneAdrMailValide($adrMailAdmin) == false || $nomAdmin == ''|| $prenomAdmin == '') {
+	if ($adrMailAdmin == '' ||  Outils::estUneAdrMailValide($adrMailAdmin) == false || $nomAdmin == ''|| $prenomAdmin == '') {
 		// si les données sont incomplètes, réaffichage de la vue avec un message explicatif
 		$message = 'Données incomplètes ou incorrectes !';
 		$typeMessage = 'avertissement';
@@ -47,13 +45,26 @@ else
 		include_once ('modele/DAO.class.php');
 		$dao = new DAO();
 		
-		$ok = $dao->creerAdministrateur($adrMailAdmin, $nomAdmin, $prenomAdmin, $MdpAdmin);
+		$ok = $dao->creerAdministrateur($adrMailAdmin, $nomAdmin, $prenomAdmin);
 		
 	
 		if($ok){
-			$message = "Enregistrement effectué.";
+			$nouveauMdp = Outils::creerMdp();					// création d'un mot de passe aléatoire de 8 caractères
+			$ok = $dao->modifierMdp($adrMailAdmin, $nouveauMdp);
+			// envoi d'un mail d'acceptation à l'intéressé avec son mot de passe
+			$sujet = "Demande de création de votre compte Administrateur dans l'annuaire des anciens du BTS Informatique";
+			$message = "Votre demande de création de compte a bien été validée.\n\n";
+			$message .= "Votre login de connexion est : " . $adrMailAdmin . "\n";
+			$message .= "Votre mot de passe est : " . $nouveauMdp . "\n\n";
+			$message .= "Cordialement.\n";
+			$message .= "Les administrateurs de l'annuaire";
+			$ok = Outils::envoyerMail($adrMailAdmin, $sujet, $message, $ADR_MAIL_ADMINISTRATEUR);
+				
+			// envoi d'un mail à l'administrateur
+			$message = "Enregistrement effectué, un mail va ête envoyé au nouvel administrateur.";
 			$typeMessage = 'information';
 			$themeFooter = $themeNormal;
+		
 			
 		}
 		else {

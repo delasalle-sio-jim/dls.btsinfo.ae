@@ -42,12 +42,7 @@
 						<label for="txtAdrMailAdmin">Adresse mail de l'administrateur :</label>
 						<input type="text" name="txtAdrMail" id="txtAdrMail" class="normal" placeholder="Adresse mail de l'administrateur " required>
 					</div>
-					
-					<div data-role="fieldcontain" >
-						<label for="txtAdrMailAdmin">Mot de passe :</label>
-						<input type="password" name="txtMdpAdmin" id="txtMdpAdmin" class="normal" placeholder="Mot de passe de l'administrateur" required>
-					</div>
-					
+										
 					<div data-role="fieldcontain">
 						<input type="submit" name="btnCreation" id="btnCreation" value="Creer l'Administrateur">
 					</div>

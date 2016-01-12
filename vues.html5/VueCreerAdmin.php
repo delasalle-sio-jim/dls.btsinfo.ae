@@ -70,12 +70,6 @@
 					<input type="email" name="txtAdrMail" id="txtAdrMail" maxlength="50" required pattern="^.+@.+\..+$" value="" required/>
 				</p>
 				<p>
-				<label for="MdpAdmin">Mot de passe</label>
-				<input type="<?php if ($afficherMdp == 'off') echo 'password'; else echo 'text'; ?>" name="txtMdpAdmin" id="txtMdpAdmin" 
-						maxlength="20" placeholder="Le mot de passe" required value="" required>
-				</p>
-				
-				<p>
 						<input type="submit" name="btnCreation"  id="btnCeation" value="Creer l'Administrateur" >
 					</p>
 			</form>

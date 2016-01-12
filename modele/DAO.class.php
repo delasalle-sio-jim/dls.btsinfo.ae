@@ -4,7 +4,8 @@
 //                                                 DAO : Data Access Object
 //                             Cette classe fournit des méthodes d'accès à la bdd anciensEtudiants
 //                                                 Elle utilise l'objet PDO
-//                       Auteur : JM Cartron                       Dernière modification : 01/12/2015
+//                       Auteur : JM Cartron                       Dernière modification : 11/01/2016
+//						 Participation de : Nicolas Esteve
 // -------------------------------------------------------------------------------------------------------------------------
 
 // liste des méthodes de cette classe (dans l'ordre d'apparition dans la classe) :
@@ -353,27 +354,43 @@ class DAO
 	
 	public function supprimerAdministrateur($adrMailAdmin)
 	{
+		if($adrMailAdmin == 'delasalle.sio.profs@gmail.com')
+		{
+			$ok='indestructible';
+		}
+		else{
 		//préparation d'une requete de suppression s'un administrater en fonction de l'adresse mail mise en paramètre
 	$txt_req = "DELETE from ae_administrateurs where adrMail = :adrMailAdmin";
 	$req = $this->cnx->prepare($txt_req);
 	$req->bindValue("adrMailAdmin", $adrMailAdmin, PDO::PARAM_STR);//remplissage de la variable
 	$ok = $req->execute();//execution de la requete
+		}
 	return $ok;
 	
 	}
 	
 	public function creerAdministrateur($adrMailAdmin,$nomAdmin,$prenomAdmin,$MdpAdmin)
 	{ 
-		$txt_req = "INSERT INTO ae_administrateurs(adrMail,motDePasse,prenom,nom ) VALUES(:adrMail,:mdp,:prenom,:nom)";
+		$txt_req = "INSERT INTO ae_administrateurs(adrMail,prenom,nom ) VALUES(:adrMail,:mdp,:prenom,:nom)";
 		$req = $this->cnx->prepare($txt_req);
 		$req->bindValue("adrMail", $adrMailAdmin, PDO::PARAM_STR);//remplissage de la variable
-		$req->bindValue("mdp", sha1($MdpAdmin), PDO::PARAM_STR);
 		$req->bindValue("prenom", $prenomAdmin, PDO::PARAM_STR);
 		$req->bindValue("nom", strtoupper($nomAdmin), PDO::PARAM_STR);
 		$ok = $req->execute();//execution de la requete
 		return $ok;
 	}
-
+	
+	public function modifierMdpAdmin($adrMail, $nouveauMdp)
+	{	// préparation de la requête
+		$txt_req = "update ae_administrateurs set motDePasse = :nouveauMdp where adrMail = :adrMail";
+		$req = $this->cnx->prepare($txt_req);
+		// liaison de la requête et de ses paramètres
+		$req->bindValue("nouveauMdp", sha1($nouveauMdp), PDO::PARAM_STR);
+		$req->bindValue("adrMail", $adrMail, PDO::PARAM_STR);
+		// exécution de la requete
+		$ok = $req->execute();
+		return $ok;
+	}
 	
 	public function modifierFichePerso($nom,$prenom,$anneeDebutBTS,$mail,$telephone,$rue,$ville,$cp,$etudes,$entreprise,$fonction)
 	{
@@ -383,6 +400,8 @@ class DAO
 		$ville = Outils::corrigerVille($ville);
 		
 		$txt_req = "UPDATE ae_eleves SET nom = :nom, prenom = :prenom, anneeDebutBTS = :anneeDebutBTS, tel = :tel, codePostal = :cp, ville = :ville, rue = :rue, entreprise = :entreprise, idFonction = :fonction, etudesPostBTS = :etudes WHERE adrMail = :mail;";
+		
+
 		
 		$req = $this->cnx->prepare($txt_req);
 		

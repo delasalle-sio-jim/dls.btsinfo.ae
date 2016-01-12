@@ -98,6 +98,9 @@ switch($action){
 	case 'ModifFichePerso':{
 		include_once ('controleurs/CtrlModifFichePerso.php'); break;
 	}
+	case 'CreatUserAdmin':{
+		include_once ('controleurs/CtrlCreatUserAdmin.php'); break;
+	}
 	default : {
 		// toute autre tentative est automatiquement redirigée vers le contrôleur d'authentification
 		include_once ('controleurs/CtrlConnecter.php'); break;
