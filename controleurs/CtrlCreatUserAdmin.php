@@ -1,7 +1,7 @@
 <?php
 // Projet DLS - BTS Info - Anciens élèves
-// Fonction du contrôleur CtrlDemanderCreationCompte.php : traiter la demande de création de compte d'un élève
-// Ecrit le 6/1/2016 par Jim
+// Fonction du contrôleur CtrlCreatUserAdmin.php : traiter la demande de création de compte d'un élève
+// Ecrit le 12/01/2016 par Nicolas Esteve
 
 // inclusion de la classe Outils
 include_once ('modele/Outils.class.php');
@@ -30,7 +30,7 @@ if ( ! isset ($_POST ["btnEnvoyer"]) ) {
 	$message = '';
 	$typeMessage = '';			// 2 valeurs possibles : 'information' ou 'avertissement'
 	$themeFooter = $themeNormal;
-	include_once ($cheminDesVues . 'VueDemanderCreationCompte.php');
+	include_once ($cheminDesVues . 'VueCreatUserAdmin.php');
 }
 else {
 	//$premierAppel = false;
@@ -53,7 +53,7 @@ else {
 		$message = 'Données incomplètes ou incorrectes !';
 		$typeMessage = 'avertissement';
 		$themeFooter = $themeProbleme;
-		include_once ($cheminDesVues . 'VueDemanderCreationCompte.php');
+		include_once ($cheminDesVues . 'VueCreatUserAdmin.php');
 	}
 	else {
 		if ( $dao->existeAdrMail($adrMail) ) {
@@ -61,14 +61,14 @@ else {
 			$message = "Adresse mail déjà existante !";
 			$typeMessage = 'avertissement';
 			$themeFooter = $themeProbleme;
-			include_once ($cheminDesVues . 'VueDemanderCreationCompte.php');
+			include_once ($cheminDesVues . 'VueCreatUserAdmin.php');
 		}
 		else {
 			// inclusion de la classe Eleve
 			include_once ('modele/Eleve.class.php');
 			// création d'un objet Eleve
 			$id = 0; 							// le numéro sera affecté automatiquement par le SGBD
-			$compteAccepte = false;				// en attente de la décision de l'administrateur de la base
+			$compteAccepte = true;				// en attente de la décision de l'administrateur de la base
 			$motDePasse = '';					// le mot de passe sera créé lors de l'acceptation du compte
 			$dateDerniereMAJ = date('Y-m-d H:i:s', time());		// l'heure courante
 			$unEleve = new Eleve($id, $nom, $prenom, $sexe, $anneeDebutBTS, $tel, $adrMail, $rue, $codePostal, 
@@ -80,36 +80,35 @@ else {
 				$message = "Problème lors de l'enregistrement !";
 				$typeMessage = 'avertissement';
 				$themeFooter = $themeProbleme;
-				include_once ($cheminDesVues . 'VueDemanderCreationCompte.php');
+				include_once ($cheminDesVues . 'VueCreatUserAdmin.php');
 			}
 			else {
 				// lecture de la bdd pour récupérer l'id attribué au compte élève
-				$unEleve = $dao->getEleve($adrMail);
-				// envoi d'un mail de confirmation de l'enregistrement
-				$sujet = "Demande de création d'un compte élève dans l'annuaire des anciens du BTS Informatique";
-				$message = "Un élève (actuel ou ancien) vient de créer un compte.\n\n";
-				$message .= "Les données enregistrées sont :\n\n";
-				$message .= str_replace ("<br>", "\n", $unEleve->toString()) . "\n\n";
-				$message .= "Pour accepter la création du compte, cliquez sur ce lien :\n";
-				$message .= $ADR_SERVICE_WEB . "ValiderCreationCompte.php?idCompte=" . $unEleve->getId() . "&decision=acceptation";
-				$message .= "\n\n";
-				$message .= "Pour rejeter la création du compte, cliquez sur ce lien :\n";
-				$message .= $ADR_SERVICE_WEB . "ValiderCreationCompte.php?idCompte=" . $unEleve->getId() . "&decision=rejet";				
+				$nouveauMdp = Outils::creerMdp();					// création d'un mot de passe aléatoire de 8 caractères
+				$ok = $dao->modifierMdp($unEleve->getAdrMail(), $nouveauMdp);
+				// envoi d'un mail d'acceptation à l'intéressé avec son mot de passe
+				$sujet = "Demande de création de votre compte élève dans l'annuaire des anciens du BTS Informatique";
+				$message = "Votre demande de création de compte a bien été validée.\n\n";
+				$message .= "Votre login de connexion est : " . $adrMail . "\n";
+				$message .= "Votre mot de passe est : " . $nouveauMdp . "\n\n";
+				$message .= "Cordialement.\n";
+				$message .= "Les administrateurs de l'annuaire";
+				$ok = Outils::envoyerMail($adrMail, $sujet, $message, $ADR_MAIL_ADMINISTRATEUR);	
 				
-				$ok = Outils::envoyerMail($ADR_MAIL_ADMINISTRATEUR, $sujet, $message, $ADR_MAIL_EMETTEUR);
+				
 				if ( ! $ok ) {
 					// si l'envoi de mail a échoué, réaffichage de la vue avec un message explicatif
-					$message = "Enregistrement effectué.<br>L'envoi du mail à l'administrateur a rencontré un problème !";
+					$message = "Enregistrement effectué.<br>L'envoi du mail à l'utilisateur a rencontré un problème !";
 					$typeMessage = 'avertissement';
 					$themeFooter = $themeProbleme;
-					include_once ($cheminDesVues . 'VueDemanderCreationCompte.php');
+					include_once ($cheminDesVues . 'VueCreatUserAdmin.php');
 				}
 				else {
 					// tout a fonctionné
-					$message = "Enregistrement effectué.<br>Un mail va être envoyé à l'administrateur !";
+					$message = "Enregistrement effectué.<br>Un mail va être envoyé à l'utilisateur !";
 					$typeMessage = 'information';
 					$themeFooter = $themeNormal;
-					include_once ($cheminDesVues . 'VueDemanderCreationCompte.php');
+					include_once ($cheminDesVues . 'VueCreatUserAdmin.php');
 				}
 			}
 		}

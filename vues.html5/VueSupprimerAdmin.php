@@ -1,7 +1,7 @@
 <?php
 // Projet DLS - BTS Info - Anciens élèves
 // Fonction de la vue vues.html5/VueSuppimerAdmin.php : supprimer un administrateur
-// Ecrit le 05/01/2016 par Nicolas Esteve
+// Ecrit le 06/01/2016 par Nicolas Esteve
 ?>
 <!doctype html>
 <html>
@@ -11,9 +11,14 @@
 		window.onload = initialisations;
 		
 		function initialisations() {
+			
 			<?php if ($typeMessage == 'avertissement') { ?>
 				afficher_avertissement("<?php echo $message; ?>");
-			<?php } ?>
+			<?php } 
+			if(! isset($txtAdrMailAdmin))
+					{
+						$txtAdrMailAdmin ='';
+					}?>
 			
 			<?php if ($typeMessage == 'information') { ?>
 				afficher_information("<?php echo $message; ?>");
@@ -21,7 +26,7 @@
 		}
 // on ajoute onClick="confirmation();" au niveau du boutton ou  onsubmit="return confirmation();" au niveau de la balise form
 // ce script est censé mettre un fenêtre pop-up de confirmation avant la suppression d'un Administrateur
-
+// script non fonctionel
 function confirmation()
 {
 return confirm("Êtes vous sur de vouloir supprimer cet Administrateur?")
@@ -56,18 +61,42 @@ function afficher_avertissement(msg) {
 				<img src="images/Intitules_bts_ig_sio.png" id="logo-droite" alt="BTS Informatique" />
 			</div>
 		</div>
-		
+		<div id="content">	
 		<h2>Supprimer un Administrateur</h2>
 			<form name="form1" id="form1" action="index.php?action=SupprimerAdmin" method="post" >
-				<p>
-					<label for="txtAdrMailAdmin">Adresse Mail de l'administrateur à supprimer :</label>
-					<input type="text" name="txtAdrMailAdmin" id="txtAdrMailAdmin" maxlength="50" placeholder="Adresse Mail de l'administrateur à supprimer" required>
-				</p>
-				<p>
-				
-		 			<input type="submit" name="btnSupprimerAdmin"  id="btnSupprimerAdmin" value="Supprimer l'Administrateur">
-				</p>
-		</form>
+					<p>
+						<label for="txtAdrMailAdmin">Adresse Mail de l'administrateur à supprimer :</label>
+						<input type="text" name="txtAdrMailAdmin" id="txtAdrMailAdmin" maxlength="50" pattern="^.+@.+\..+$" placeholder="Adresse Mail de l'administrateur à supprimer" class="normal" value="<?php if($etape == 1 ) echo $txtMailAdmin ; else echo ''; ?>" required>
+					</p>
+					<p>
+					
+			 			<input type="submit" name="btnDetailAdmin"  id="btnDetailAdmin" value="Obtenir détail">
+					</p>
+					<!--  </form>-->
+					<?php if ($etape == 1)
+					{?>
+					<!--  <form name="form2" id="form1" action="index.php?action=SupprimerAdmin" method="post" > -->
+					<p>
+						<label class="label2" for="prenomAdmin">Prénom de l'administrateur:	<?php echo $prenomAdmin ?></label>
+					</p>
+					<p>
+						<label class="label2" for="nomAdmin">Nom de l'adminisrateur:	<?php echo $nomAdmin ?></label>
+					</p>
+					<p>
+						<label class="label2" for="MailAdmin">Mail de l'administrateur:	<?php echo $txtMailAdmin ?></label>
+					</p>
+					<p>
+						<label class="label2" for="comfirmation">Entrez le mail de l'administrateur pour confimer la suppression de celui-ci :</label>
+						<input type="text" name="txtAdrMailAdmin2" id="txtAdrMailAdmin2" maxlength="50" class ="normal" pattern="^.+@.+\..+$" required>
+					</p>
+					<p>
+						<input type="submit" name="btnSupprimerAdmin"  id="btnSupprimerAdmin" value="Supprimer l'Administrateur" >
+					</p>
+					
+					</form>	
+					<?php }?>
+			
+		</div>
 		<div id="footer">
 			<p>Annuaire des anciens élèves du BTS Informatique - Lycée De La Salle (Rennes)</p>
 		</div>		

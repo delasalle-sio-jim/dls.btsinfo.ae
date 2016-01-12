@@ -25,19 +25,20 @@
 						<li><a href="index.php?action=Menu" data-ajax="false" data-transition="<?php echo $transition; ?>">Informations sur la soirée des anciens</a></li>
 						<li><a href="index.php?action=Menu" data-ajax="false" data-transition="<?php echo $transition; ?>">M'inscrire à la soirée des anciens</a></li>
 						<li><a href="index.php?action=Menu" data-ajax="false" data-transition="<?php echo $transition; ?>">Recherche d'autres anciens élèves</a></li>
-						<li><a href="index.php?action=Menu" data-ajax="false" data-transition="<?php echo $transition; ?>">Mettre à jour mon profil</a></li>
+						<li><a href="index.php?action=ModifFichePerso" data-ajax="false" data-transition="<?php echo $transition; ?>">Mettre à jour mon profil</a></li>
 						<li><a href="index.php?action=Menu" data-ajax="false" data-transition="<?php echo $transition; ?>">Galerie des photos de classe</a></li>
 					<?php } ?>
 					<?php if ( $typeUtilisateur == "administrateur" ) {
 						// menu administrateur ?>
 						<li><a href="index.php?action=ChangerDeMdp" data-ajax="false" data-transition="<?php echo $transition; ?>">Modifier mon mot de passe</a></li>
-						<li><a href="index.php?action=Menu" data-ajax="false" data-transition="<?php echo $transition; ?>">Créer un administrateur</a></li>
+						<li><a href="index.php?action=CreerAdmin" data-ajax="false" data-transition="<?php echo $transition; ?>">Créer un administrateur</a></li>
 						<li><a href="index.php?action=SupprimerAdmin" data-ajax="false" data-transition="<?php echo $transition; ?>">Supprimer un administrateur</a></li>
 						<li><a href="index.php?action=Menu" data-ajax="false" data-transition="<?php echo $transition; ?>">Gérer les comptes élèves</a></li>
 						<li><a href="index.php?action=Menu" data-ajax="false" data-transition="<?php echo $transition; ?>">MAJ des informations sur la soirée</a></li>
 						<li><a href="index.php?action=Menu" data-ajax="false" data-transition="<?php echo $transition; ?>">Consulter les inscriptions à la soirée</a></li>
 						<li><a href="index.php?action=Menu" data-ajax="false" data-transition="<?php echo $transition; ?>">Envoyer courriels de relance</a></li>
 						<li><a href="index.php?action=Menu" data-ajax="false" data-transition="<?php echo $transition; ?>">Gérer la galerie des photos de classe</a></li>
+						<li><a href="index.php?action=CreatUserAdmin" data-ajax="false" data-transition="<?php echo $transition; ?>">Créer un compte utilisateur</a></p>
 					<?php } ?>
 				</ul>
 				

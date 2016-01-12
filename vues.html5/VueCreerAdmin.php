@@ -1,7 +1,7 @@
 <?php
-	// Projet DLS - BTS Info - Anciens élèves
-	// Fonction de la vue vues.html5/VueConnecter.php : visualiser la vue de connexion
-	// Ecrit le 6/1/2016 par Jim
+// Projet DLS - BTS Info - Anciens élèves
+// Fonction de la vue vues.html5/VueSuppimerAdmin.php : supprimer un administrateur
+// Ecrit le 07/01/2016 par Nicolas Esteve
 ?>
 <!doctype html>
 <html>
@@ -11,8 +11,7 @@
 		window.onload = initialisations;
 		
 		function initialisations() {
-			document.getElementById("caseAfficherMdp").onchange = afficherMdp;
-
+			
 			<?php if ($typeMessage == 'avertissement') { ?>
 				afficher_avertissement("<?php echo $message; ?>");
 			<?php } ?>
@@ -20,17 +19,6 @@
 			<?php if ($typeMessage == 'information') { ?>
 				afficher_information("<?php echo $message; ?>");
 			<?php } ?>
-		}
-		
-		function afficherMdp()
-		{	if (document.getElementById("caseAfficherMdp").checked == true)
-			{	document.getElementById("txtNouveauMdp").type="text";
-				document.getElementById("txtConfirmationMdp").type="text";
-			}
-			else
-			{	document.getElementById("txtNouveauMdp").type="password";
-				document.getElementById("txtConfirmationMdp").type="password";
-			}
 		}
 		function afficher_information(msg) {
 			document.getElementById("titre_message").innerHTML = "Information...";
@@ -45,15 +33,14 @@
 			window.open ("#affichage_message", "_self");
 		}
 	</script>
-	
-</head> 
-<body>
+   	
+   <body>
 	<div id="page">
 	
 		<div id="header">
-			<div id="header-menu">
+			<div id=header-menu>
 				<ul id="menu-horizontal">
-					<li><a href="index.php?action=Menu" data-ajax="false">Retour menu</a></li>
+					<li><a href="index.php?action=Connecter">Retour accueil</a></li>
 				</ul>
 			</div>
 			<div id="header-logos">
@@ -63,29 +50,31 @@
 		</div>
 			
 		<div id="content">
-		
-			<h2>Changer mon mot de passe</h2>
-			<form name="form1" id="form1" action="index.php?action=ChangerDeMdp" method="post">
+			 		
+			<h2>Création d'un compte Administrateur </h2>
+			 
+			<h3>Entrez les données nécessaires à la création du compte (tout les champ sont obligatoire) :</h3>
+						
+			<form name="form1" id="form1" action="index.php?action=CreerAdmin" method="post">
+
 				<p>
-					<label for="txtNouveauMdp">Nouveau mot de passe :</label>
-					<input type="<?php if ($afficherMdp == 'off') echo 'password'; else echo 'text'; ?>" name="txtNouveauMdp" id="txtNouveauMdp" maxlength="20" placeholder="Mon nouveau mot de passe" required value="<?php echo $nouveauMdp; ?>" >
+					<label for="txtNom">Nom</label>
+					<input type="text" name="txtNom" id="txtNom" maxlength="30" required value="" required/>
 				</p>
 				<p>
-					<label for="txtConfirmationMdp">Confirmation :</label>
-					<input type="<?php if ($afficherMdp == 'off') echo 'password'; else echo 'text'; ?>" name="txtConfirmationMdp" id="txtConfirmationMdp" maxlength="20" placeholder="Confirmation" required value="<?php echo $confirmationMdp; ?>" >
+					<label for="txtPrenom">Prénom</label>
+					<input type="text" name="txtPrenom" id="txtPrenom" maxlength="30" required value="" required/>
 				</p>
 				<p>
-					<input type="checkbox" name="caseAfficherMdp" id="caseAfficherMdp" onclick="afficherMdp();" <?php if ($afficherMdp == 'on') echo 'checked'; ?>>
-					<label for="caseAfficherMdp">Afficher en clair</label>
-					
+					<label for="txtAdrMail">Adresse mail</label>
+					<input type="email" name="txtAdrMail" id="txtAdrMail" maxlength="50" required pattern="^.+@.+\..+$" value="" required/>
 				</p>
 				<p>
-					<input type="submit" name="btnChangerDeMdp" id="btnChangerDeMdp" value="Changer le mot de passe">
-				</p>
+						<input type="submit" name="btnCreation"  id="btnCeation" value="Creer l'Administrateur" >
+					</p>
 			</form>
-			
+				
 		</div>
-		
 		<div id="footer">
 			<p>Annuaire des anciens élèves du BTS Informatique - Lycée De La Salle (Rennes)</p>
 		</div>		

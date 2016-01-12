@@ -4,7 +4,8 @@
 //                                                 DAO : Data Access Object
 //                             Cette classe fournit des méthodes d'accès à la bdd anciensEtudiants
 //                                                 Elle utilise l'objet PDO
-//                       Auteur : JM Cartron                       Dernière modification : 01/12/2015
+//                       Auteur : JM Cartron                       Dernière modification : 11/01/2016
+//						 Participation de : Nicolas Esteve
 // -------------------------------------------------------------------------------------------------------------------------
 
 // liste des méthodes de cette classe (dans l'ordre d'apparition dans la classe) :
@@ -45,6 +46,7 @@
 // aPasseDesReservations         : recherche si l'utilisateur ($name) a passé des réservations à venir
 // supprimerUtilisateur          : supprime l'utilisateur dans la bdd
 //supprimerAdministrateur		 : supprime un administrateur dans la bdd a partir de son adresse mail
+// creerAdministrateur			 : crée un administrateur dans la bdd
 
 
 // listeSalles                   : fournit la liste des salles disponibles à la réservation
@@ -127,16 +129,44 @@ class DAO
 		return $lesFonctions;
 	}	
 	
+	function getLesEleves()
+	{	// préparation de la requete de recherche
+	$txt_req = "Select id, adrMail from ae_eleves order by id";
+	
+	$req = $this->cnx->prepare($txt_req);
+	// extraction des données
+	$req->execute();
+	$uneLigne = $req->fetch(PDO::FETCH_OBJ);
+	
+	// construction d'une collection d'objets Fonction
+	$lesFonctions = array();
+	// tant qu'une ligne est trouvée :
+	while ($uneLigne)
+	{	// création d'un objet Fonction
+		$unId = utf8_encode($uneLigne->id);
+		$uneAdrMail = utf8_encode($uneLigne->adrMail);
+			
+		$unEleve = new Eleve($unId, $uneAdrMail);
+		// ajout de la fonction à la collection
+		$lesEleves[] = $unEleve;
+		// extrait la ligne suivante
+		$uneLigne = $req->fetch(PDO::FETCH_OBJ);
+	}
+	// libère les ressources du jeu de données
+	$req->closeCursor();
+	// fourniture de la collection
+	return $lesFonctions;
+	}
 	// fournit le type d'un utilisateur identifié par $adrMail et $motDePasse
 	// renvoie "eleve" ou "administrateur" si authentification correcte, "inconnu" sinon
 	// modifié par Jim le 16/11/2015
 	public function getTypeUtilisateur($adrMail, $motDePasse)
 	{	// préparation de la requête de recherche dans la table ae_eleves
-		$txt_req = "Select count(*) from ae_eleves where adrMail = :adrMail and motDePasse = :motDePasseCrypte and compteAccepte = 1";
+		$txt_req = "Select count(*) from ae_eleves where adrMail = :adrMail and motDePasse = :motDePasseChiffre and compteAccepte = 1";
 		$req = $this->cnx->prepare($txt_req);
 		// liaison de la requête et de ses paramètres
 		$req->bindValue("adrMail", $adrMail, PDO::PARAM_STR);
-		$req->bindValue("motDePasseCrypte", sha1($motDePasse), PDO::PARAM_STR);
+		$req->bindValue("motDePasseChiffre", sha1($motDePasse), PDO::PARAM_STR);
 		// extraction des données et comptage des réponses
 		$req->execute();
 		$nbReponses = $req->fetchColumn(0);
@@ -352,15 +382,99 @@ class DAO
 	
 	public function supprimerAdministrateur($adrMailAdmin)
 	{
+		if($adrMailAdmin == 'delasalle.sio.profs@gmail.com')
+		{
+			$ok='indestructible';
+		}
+		else{
 		//préparation d'une requete de suppression s'un administrater en fonction de l'adresse mail mise en paramètre
 	$txt_req = "DELETE from ae_administrateurs where adrMail = :adrMailAdmin";
 	$req = $this->cnx->prepare($txt_req);
 	$req->bindValue("adrMailAdmin", $adrMailAdmin, PDO::PARAM_STR);//remplissage de la variable
 	$ok = $req->execute();//execution de la requete
+		}
 	return $ok;
 	
 	}
 	
+	public function creerAdministrateur($adrMailAdmin, $MdpAdmin,$nomAdmin,$prenomAdmin)
+	{ 
+		$txt_req = "INSERT INTO ae_administrateurs(adrMail,motDePasse ,prenom,nom) VALUES(:adrMail,:mdp,:prenom,:nom)";
+		$req = $this->cnx->prepare($txt_req);
+		$req->bindValue("adrMail", $adrMailAdmin, PDO::PARAM_STR);//remplissage de la variable
+		$req->bindValue("prenom", $prenomAdmin, PDO::PARAM_STR);
+		$req->bindValue("mdp", $MdpAdmin, PDO::PARAM_STR);
+		$req->bindValue("nom", strtoupper($nomAdmin), PDO::PARAM_STR);
+		$ok = $req->execute();//execution de la requete
+		return $ok;
+	}
+	
+	public function modifierMdpAdmin($adrMail, $nouveauMdp)
+	{	// préparation de la requête
+		$txt_req = "update ae_administrateurs set motDePasse = :nouveauMdp where adrMail = :adrMail";
+		$req = $this->cnx->prepare($txt_req);
+		// liaison de la requête et de ses paramètres
+		$req->bindValue("nouveauMdp", sha1($nouveauMdp), PDO::PARAM_STR);
+		$req->bindValue("adrMail", $adrMail, PDO::PARAM_STR);
+		// exécution de la requete
+		$ok = $req->execute();
+		return $ok;
+	}
+	
+	public function modifierFichePerso($nom,$prenom,$anneeDebutBTS,$mail,$telephone,$rue,$ville,$cp,$etudes,$entreprise,$fonction)
+	{
+		$telephone = Outils::corrigerTelephone($telephone);
+		$nom = strtoupper($nom);	
+		$prenom = Outils::corrigerPrenom($prenom);
+		$ville = Outils::corrigerVille($ville);
+		
+		//$txt_req = "UPDATE ae_eleves SET nom = :nom, prenom = :prenom, anneeDebutBTS = :anneeDebutBTS, tel = :tel, codePostal = :cp, ville = :ville, rue = :rue, entreprise = :entreprise, idFonction = :fonction, etudesPostBTS = :etudes WHERE adrMail = :mail;";
+		
+
+		$txt_req = "UPDATE ae_eleves SET ";
+		$txt_req .= " nom = :nom,";
+		$txt_req .= " prenom = :prenom,";
+		$txt_req .= " anneeDebutBTS = :anneeDebutBTS,";
+		$txt_req .= " tel = :tel,";
+		$txt_req .= " codePostal = :cp,";
+		$txt_req .= " ville = :ville,";
+		$txt_req .= " rue = :rue,";
+		$txt_req .= " entreprise = :entreprise,";
+		$txt_req .= " idFonction = :fonction,";
+		$txt_req .= " etudesPostBTS = :etudes";
+		$txt_req .= " WHERE adrMail = :mail;";
+		
+
+		
+		$req = $this->cnx->prepare($txt_req);
+		
+		//remplissage des variables
+		$req->bindValue("nom", utf8_decode($nom), PDO::PARAM_STR);
+		$req->bindValue("prenom", utf8_decode($prenom), PDO::PARAM_STR);
+		$req->bindValue("anneeDebutBTS", utf8_decode($anneeDebutBTS), PDO::PARAM_STR);
+		$req->bindValue("tel", utf8_decode($telephone), PDO::PARAM_STR);
+		$req->bindValue("cp", utf8_decode($cp), PDO::PARAM_STR);
+		$req->bindValue("ville", utf8_decode($ville), PDO::PARAM_STR);
+		$req->bindValue("rue", utf8_decode($rue), PDO::PARAM_STR);
+		$req->bindValue("entreprise", utf8_decode($entreprise), PDO::PARAM_STR);
+		$req->bindValue("fonction", utf8_decode($fonction), PDO::PARAM_INT);
+		$req->bindValue("etudes", utf8_decode($etudes), PDO::PARAM_STR);
+		$req->bindValue("mail", utf8_decode($mail), PDO::PARAM_STR);
+		
+		$ok = $req->execute();//execution de la requete
+		
+		if($ok)
+		{
+			$txt_req = "Update ae_eleves SET dateDerniereMAJ = :date where adrMail = :mail";
+			$req = $this->cnx->prepare($txt_req);
+			$date = date('Y-m-d H:i:s', time());
+			$req->bindValue("mail", $mail, PDO::PARAM_STR);//remplissage de la variable
+			$req->bindValue("date", $date, PDO::PARAM_STR);//remplissage de la variable
+			$ok = $req->execute();//execution de la requete
+		}
+		return $ok;
+
+	}
 	
 	
 	
