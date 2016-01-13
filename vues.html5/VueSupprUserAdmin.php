@@ -55,36 +55,49 @@
 					
 					<select size="1" name="listeEleve" id="listeEleve">
 						<?php foreach ($lesEleves as $unEleve) { ?>
-							<option value="<?php echo $unEleve->getId(); ?>" <?php if ($idEleve == $unEleve->getId()) echo 'selected="selected"'; ?>><?php echo $unEleve->getAdrMail(); ?></option>
-						<?php } ?>				
+							<option value="<?php echo $unEleve->getId()?>" <?php if ($idEleve == $unEleve->getAdrMail()) echo 'selected="selected"'; ?>><?php echo $unEleve->getAdrMail(); ?></option>					
+							<?php } ?>				
 					</select>
-				</p>	
-				<?php if(etape == 1)
+				</p>
+				
+				<p>
+					<input type="submit" name="btnDetail" id="btnDetail" value="Obtenir les détail">
+				</p>
+				
+				<?php if($etape == 1)
 				{?>
-				<
+				
 				<p>
-				<label class="label2" for="prenomAdmin">Prénom de l'administrateur:	<?php echo $unEleve->getPrenom(); ?></label>
+					<label class="label2" for="prenomA">Prénom de l'utilisateur:<?php echo $prenom ?></label>
 				</p>
 				
 				<p>
-					<label class="label2" for="nomAdmin">Nom de l'adminisrateur:	<?php echo $nomAdmin ?></label>
+					<label class="label2" for="nom">Nom de l'utilisateur:<?php echo $nom ?></label>
 				</p>
 				
 				<p>
-					<label class="label2" for="MailAdmin">Mail de l'administrateur:	<?php echo $txtMailAdmin ?></label>
+					<label class="label2" for="mail">Mail de l'utilisateur:	<?php echo $mail ?></label>
 				</p>
 				
-								
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				<?php }?>			
+				<p>
+					<label class="label2" for="annee">L'année d'entrée en BTS:<?php echo $annee ?></label>
+				</p>
+				<p>
+					<input type="submit" name="btnSupprimer" id="btnSupprimer" value="Supprimer l'utilisateur">
+				</p>
+				<?php }?>	
+				</div>
+		<div id="footer">
+			<p>Annuaire des anciens élèves du BTS Informatique - Lycée De La Salle (Rennes)</p>
+		</div>		
+	</div>
+	
+	<aside id="affichage_message" class="classe_message">
+		<div>
+			<h2 id="titre_message" class="classe_information">Message</h2>
+			<p id="texte_message" class="classe_texte_message">Texte du message</p>
+			<a href="#close" title="Fermer">Fermer</a>
+		</div>
+	</aside>
+</body>
+</html>						

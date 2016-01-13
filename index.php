@@ -58,11 +58,7 @@ if ( isset ($_SESSION['cheminDesVues']) == false)
 else
 	 $cheminDesVues = $_SESSION['cheminDesVues'];
 
-<<<<<<< HEAD
-// $cheminDesVues = "vues.jquery/";	// pour forcer l'affichage de la version mobile (ligne à bloquer normalement)
-=======
  //$cheminDesVues = "vues.jquery/";	// pour forcer l'affichage de la version mobile (ligne à bloquer normalement)
->>>>>>> branch 'master' of https://github.com/delasalle-sio-jim/dls.btsinfo.ae.git
 
 // si l'utilisateur n'est pas encore identifié, il sera automatiquement redirigé vers le contrôleur d'authentification
 // (sauf s'il ne peut pas se connecter et demande de se faire envoyer son mot de passe qu'il a oublié ou s'il veut se créer un compte)
@@ -104,6 +100,9 @@ switch($action){
 	}
 	case 'CreatUserAdmin':{
 		include_once ('controleurs/CtrlCreatUserAdmin.php'); break;
+	}
+	case 'SupprUserAdmin':{
+		include_once ('controleurs/CtrlSupprUserAdmin.php'); break;
 	}
 	default : {
 		// toute autre tentative est automatiquement redirigée vers le contrôleur d'authentification

@@ -131,6 +131,7 @@ class DAO
 	
 	function getLesEleves()
 	{	// préparation de la requete de recherche
+	$dao = new dao();
 	$txt_req = "Select id, adrMail from ae_eleves order by id";
 	
 	$req = $this->cnx->prepare($txt_req);
@@ -139,14 +140,15 @@ class DAO
 	$uneLigne = $req->fetch(PDO::FETCH_OBJ);
 	
 	// construction d'une collection d'objets Fonction
-	$lesFonctions = array();
+	$lesEleves = array();
 	// tant qu'une ligne est trouvée :
 	while ($uneLigne)
 	{	// création d'un objet Fonction
 		$unId = utf8_encode($uneLigne->id);
 		$uneAdrMail = utf8_encode($uneLigne->adrMail);
+		$unEleve = $dao->getEleve($unId);
 			
-		$unEleve = new Eleve($unId, $uneAdrMail);
+		
 		// ajout de la fonction à la collection
 		$lesEleves[] = $unEleve;
 		// extrait la ligne suivante
@@ -155,8 +157,9 @@ class DAO
 	// libère les ressources du jeu de données
 	$req->closeCursor();
 	// fourniture de la collection
-	return $lesFonctions;
+	return $lesEleves;
 	}
+	
 	// fournit le type d'un utilisateur identifié par $adrMail et $motDePasse
 	// renvoie "eleve" ou "administrateur" si authentification correcte, "inconnu" sinon
 	// modifié par Jim le 16/11/2015
