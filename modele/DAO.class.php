@@ -496,8 +496,12 @@ class DAO
 		return $ok;
 
 	}
+	// le parapetre fait la diffférence enter le Html et le Jquery mobile
+	// la variable utilisée est le chemin dsevues
 	function RechercheLesEleves()
 	{	// préparation de la requete de recherche
+	//	if($parametre == 'vues.jquery/')
+	//	{
 		$dao = new dao();
 		$txt_req = "Select id, adrMail from ae_eleves order by id";
 		
@@ -519,11 +523,39 @@ class DAO
 		// extrait la ligne suivante
 		$uneLigne = $req->fetch(PDO::FETCH_OBJ);
 		}
-		$lesEleves .= 'fin de liste"';
+		$lesEleves .= '"';
 		// libère les ressources du jeu de données
 		$req->closeCursor();
 		// fourniture de la collection
 		return $lesEleves;
+	//	}
+		//else {
+		//	$dao = new dao();
+		//	$txt_req = "Select id, adrMail from ae_eleves order by id";
+			
+		//	$req = $this->cnx->prepare($txt_req);
+			// extraction des données
+		//	$req->execute();
+		//	$uneLigne = $req->fetch(PDO::FETCH_OBJ);
+			
+			// construction d'une collection d'objets Fonction
+		//	$lesEleves = '"';
+			// tant qu'une ligne est trouvée :
+		//	while ($uneLigne)
+		//	{	// création d'un objet Fonction
+				
+			//	$uneAdrMail = utf8_encode($uneLigne->adrMail);
+				
+				// ajout de la fonction à la collection
+			//	$lesEleves .= '<li><a value="'.$uneAdrMail.'" onclick="submit()">'.$uneAdrMail.'</a></li>';
+				// extrait la ligne suivante
+			//	$uneLigne = $req->fetch(PDO::FETCH_OBJ);
+		//	}
+			// libère les ressources du jeu de données
+		//$req->closeCursor();
+			// fourniture de la collection
+		//	return $lesEleves;
+		//}
 	}
 	
 

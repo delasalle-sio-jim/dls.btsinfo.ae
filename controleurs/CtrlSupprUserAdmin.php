@@ -18,7 +18,7 @@ if( (! isset ($_POST ["listeEleves"]) == true) && ( ! isset ($_POST ["btnSupprim
 		$idEleve = '';
 		$adrMailEleve = '';
 		$etape = 0;
-		$liste = $dao->RechercheLesEleves();
+		$liste = $dao->RechercheLesEleves($cheminDesVues);
 		$themeFooter = $themeNormal;
 		include_once ($cheminDesVues . 'VueSupprUserAdmin.php');
 	}
@@ -34,7 +34,7 @@ if( (! isset ($_POST ["listeEleves"]) == true) && ( ! isset ($_POST ["btnSupprim
 		$mail = $unEleve->getAdrMail();
 		$annee = $unEleve->getAnneeDebutBTS();
 		
-		$liste = $dao->RechercheLesEleves();
+		$liste = $dao->RechercheLesEleves($cheminDesVues);
 		
 		$themeFooter = $themeNormal;
 		include_once ($cheminDesVues . 'VueSupprUserAdmin.php');	
