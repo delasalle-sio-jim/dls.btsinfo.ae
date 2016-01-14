@@ -2,6 +2,11 @@
 	// Projet DLS - BTS Info - Anciens élèves
 	// Fonction de la vue vues.html5/VueDemanderCreationCompte.php : visualiser la vue de création de compte élève
 	// Ecrit le 12/1/2016 par Nicolas Esteve
+	
+header('Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0');
+header('Pragma: no-cache');
+header('Content-Tranfer-Encoding: none');
+header('Expires: 0');
 ?>
 <!doctype html>
 <html lang="en">
@@ -10,15 +15,15 @@
 	<?php include_once ('head.php');
 	include_once ('modele/DAO.class.php');
 	$dao = new DAO();?>
-<script>
+		<script>
 			<?php if ($typeMessage != '') { ?>
 				// associe une fonction à l'événement pageinit
 				$(document).bind('pageinit', function() {
 					// affiche la boîte de dialogue 'affichage_message'
-					$.mobile.changePage('#affichage_message', {transition: "<?php echo $transition; ?>"});
+				$.mobile.changePage('#affichage_message', {transition: "<?php echo $transition; ?>"});
 				} );
 			<?php } ?>
-</script>
+		</script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 <script src="//code.jquery.com/jquery-1.10.2.js"></script>
 <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
@@ -48,18 +53,14 @@
 		</script>		
 </head> 
 <body>
-	<div id="page">
-	
-		<div id="header">
-			<div id=header-menu>
-				<ul id="menu-horizontal">
-					<a href="index.php?action=Menu" data-ajax="false" data-transition="<?php echo $transition; ?>">Retour menu</a>
-				</ul>
+	<body>
+		<div data-role="page" id="page_principale">
+			<div data-role="header" data-theme="<?php echo $themeNormal; ?>">
+				<h4>DLS-Info-AE</h4>
+				<a href="index.php?action=Menu" data-ajax="false" data-transition="<?php echo $transition; ?>">Retour menu</a>
 			</div>
-		</div>
-			
-		<div id="content">
-		<h2>Supprimer un Utilisateur</h2>
+			<div data-role="content">
+				<h4 style="text-align: center; margin-top: 10px; margin-bottom: 10px;">Supprimer un utilisateur</h4>
 	<form name="form1" id="form1" action="index.php?action=SupprUserAdmin" method="post">
 				
 				<!--ceci est un prototype de liste déroulante dynamique non utilisée car trop d'objets à gerer
@@ -81,7 +82,6 @@
  					 <input id="listeEleves" value="<?php if($etape == 1 ) echo $mail ; else echo ''; ?>" name="listeEleves" placeholder="recherchez à l'aide de l'email de l'utilisateur">
 				</p>
 				
-					</p>
 				<p>
 					<input type="submit" name="btnDetail" id="btnDetail" value="Obtenir les détails">
 				</p>	
@@ -103,12 +103,11 @@
 					</div>
 					
 					<div data-role="fieldcontain">
-						<label for="txtAdrMailAdmin">Entrez le mail de l'administrateur pour confimer la suppression de celui-ci :</label>
-						<input type="text" name="txtAdrMailAdmin2" id="txtAdrMailAdmin" placeholder="Adresse mail de l'administrateur a supprimer" required>
+						<label for="annee">Année d'entrée en BTS : <?php echo $annee?></label>
 					</div>
 					
 					<div data-role="fieldcontain" class="ui-hide-label">
-					<input type="submit" name="btnSupprimerAdmin"  id="btnSupprimerAdmin" value="Supprimer Administrateur">
+					<input type="submit" name="btnSupprimer"  id="btnSupprimer" value="Supprimer l'utilisateur">
 					</div>
 					<?php } ?>
 				</form>
