@@ -10,32 +10,58 @@ include_once ('modele/Outils.class.php');
 include_once ('modele/DAO.class.php');
 $dao = new DAO();
 // obtention de la collection des fonctions occupées par les anciens élèves (pour liste déroulante)
+if ( empty ($_POST ["mail"]) == true)  $mail = "";  else   $mail = $_POST ["mail"];
 $lesEleves = $dao->getLesEleves();
-if( (! isset ($_POST ["btnDetail"]) == true) && ( ! isset ($_POST ["btnSupprimer"]) == true)){			
+if( (! isset ($_POST ["listeEleves"]) == true) && ( ! isset ($_POST ["btnSupprimer"]) == true)){			
 		// redirection vers la vue si aucune données n'est recu par le controleur
 		
-		$adrMailAdmin = '';
+		$idEleve = '';
 		$adrMailEleve = '';
 		$etape = 0;
+		$liste = $dao->RechercheLesEleves();
 		$themeFooter = $themeNormal;
 		include_once ($cheminDesVues . 'VueSupprUserAdmin.php');
 	}
-	elseif( ! isset ($_POST ["btnSupprimer"]) == true)
-	{	
-		if ( empty ($_POST ["listeEleves"]) == true)  $adrMailEleve = "";  else   $adrmailEleve = $_POST ["listeEleves"];
+	elseif( isset ($_POST ["btnDetail"]) == true &&(! isset($_POST['btnSupprimer']) == true )){
+		
+		if ( empty ($_POST ["listeEleves"]) == true)  $idEleve = "";  else   $idEleve = $_POST ["listeEleves"];
 		
 		$etape=1;
-		$unEleve = $dao->getEleve($adrMailEleve);
+		$unEleve = $dao->getEleve($idEleve);
+		$id=$unEleve->getId();
 		$nom = $unEleve->getNom();
 		$prenom = $unEleve->getPrenom();
 		$mail = $unEleve->getAdrMail();
 		$annee = $unEleve->getAnneeDebutBTS();
 		
+		$liste = $dao->RechercheLesEleves();
+		
 		$themeFooter = $themeNormal;
 		include_once ($cheminDesVues . 'VueSupprUserAdmin.php');	
 	}
-	elseif ( ! isset($_POST['btnDetail']) == true) 
+	elseif (isset($_POST['btnSupprimer']) == true ) 
 	{
-		$etape =0;
+		$etape=0;
+		$ok = $dao->supprimerCompteEleve($_POST ["listeEleves"]);
 		
+		if ( $ok ) {
+				
+			$message = "Suppression effectuée.";
+			$typeMessage = 'information';
+			$themeFooter = $themeNormal;
+			//include_once ($cheminDesVues . 'VueSupprUserAdmin.php');
+		}
+		else
+		{
+			$message = "La supression a échouée.";
+			$typeMessage = 'avertissement';
+			$themeFooter = $themeProbleme;
+			//include_once ($cheminDesVues . 'VueSupprUserAdmin.php');
+		}
+		
+		unset($DAO);
+		include_once ($cheminDesVues . 'VueSupprUserAdmin.php');
 	}
+
+	
+	

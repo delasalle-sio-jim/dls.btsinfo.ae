@@ -334,6 +334,24 @@ class DAO
 		return $ok;
 	}
 	
+	public function supprimerCompteEleve($parametre){
+		//if ( ! Outils::estUnEntierValide($parametre) && ! Outils::estUneAdrMailValide($parametre) ) return null;
+		
+		// préparation de la requete de recherche
+		//if (Outils::estUnEntierValide($parametre)) $txt_req = "Delete from ae_eleves where id = :parametre";
+		if (Outils::estUneAdrMailValide($parametre)) $txt_req = "Delete from ae_eleves where adrMail = :parametre";
+		
+		$req = $this->cnx->prepare($txt_req);
+		// liaison de la requête et de son paramètre
+		//if (Outils::estUnEntierValide($parametre)) $req->bindValue("parametre", $parametre, PDO::PARAM_INT);
+		if (Outils::estUneAdrMailValide($parametre)) $req->bindValue("parametre", $parametre, PDO::PARAM_STR);
+		
+		// extraction des données
+		$ok =$req->execute();
+		
+		return $ok; 
+	}
+	
 	// enregistre dans la bdd l'acceptation ou le rejet d'une demande de création de compte élève
 	// modifié par Jim le 16/11/2015
 	public function validerCreationCompte($idCompte, $decision)
@@ -478,8 +496,35 @@ class DAO
 		return $ok;
 
 	}
+	function RechercheLesEleves()
+	{	// préparation de la requete de recherche
+		$dao = new dao();
+		$txt_req = "Select id, adrMail from ae_eleves order by id";
+		
+		$req = $this->cnx->prepare($txt_req);
+		// extraction des données
+		$req->execute();
+		$uneLigne = $req->fetch(PDO::FETCH_OBJ);
+		
+		// construction d'une collection d'objets Fonction
+		$lesEleves = '"';
+		// tant qu'une ligne est trouvée :
+		while ($uneLigne)
+	{	// création d'un objet Fonction
+		
+		$uneAdrMail = utf8_encode($uneLigne->adrMail);
 	
-	
+		// ajout de la fonction à la collection
+		$lesEleves .= $uneAdrMail.'","';
+		// extrait la ligne suivante
+		$uneLigne = $req->fetch(PDO::FETCH_OBJ);
+		}
+		$lesEleves .= 'fin de liste"';
+		// libère les ressources du jeu de données
+		$req->closeCursor();
+		// fourniture de la collection
+		return $lesEleves;
+	}
 	
 
 	
