@@ -22,7 +22,7 @@
 		<div data-role="page">
 			<div data-role="header" data-theme="<?php echo $themeNormal; ?>">
 				<h4>DLS-Info-AE</h4>
-				<a href="index.php?action=Deconnecter">Accueil</a>
+				<a href="index.php?action=Deconnecter" data-ajax="false">Accueil</a>
 			</div>
 			
 			<div data-role="content">

@@ -1,6 +1,6 @@
 <?php
 	// Projet DLS - BTS Info - Anciens élèves
-	// Fonction de la vue vues.html5/VueDemanderCreationCompte.php : visualiser la vue de création de compte élève
+	// Fonction de la vue vues.html5/VueDemanderCreationCompte.php : visualiser la vue de suppression d'un compte eleve
 	// Ecrit le 12/1/2016 par Nicolas Esteve
 	
 header('Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0');
@@ -14,7 +14,8 @@ header('Expires: 0');
 <meta charset="utf-8">
 	<?php include_once ('head.php');
 	include_once ('modele/DAO.class.php');
-	$dao = new DAO();?>
+	$dao = new DAO();
+	echo $listeMails;?>
 		<script>
 			<?php if ($typeMessage != '') { ?>
 				// associe une fonction à l'événement pageinit
@@ -44,7 +45,13 @@ header('Expires: 0');
 		<script>
 		 $(function() {
 			    var listeEleves  = [ 
-			    <?php echo $liste ?>			         			    
+			     <?php 
+		     	$eleveMails='\"';
+				foreach($lesMails as $listeAdrMail){ 
+					$eleveMails .= $listeAdrMail.'\",\"';
+				 } 
+				 $eleveMails = substr($eleveMails ,0,-2);
+				 echo $eleveMails;?>	         			    
 				];
 			    $( "#listeEleves" ).autocomplete({
 			      source: listeEleves
@@ -61,7 +68,7 @@ header('Expires: 0');
 			</div>
 			<div data-role="content">
 				<h4 style="text-align: center; margin-top: 10px; margin-bottom: 10px;">Supprimer un utilisateur</h4>
-	<form name="form1" id="form1" action="index.php?action=SupprUserAdmin" method="post">
+				<form name="form1" id="form1" data-ajax="false" action="index.php?action=SupprUserAdmin" method="post">
 				
 				<!--ceci est un prototype de liste déroulante dynamique non utilisée car trop d'objets à gerer
 				<p>
@@ -77,25 +84,26 @@ header('Expires: 0');
 				</p> -->
 		
 				<div class="ui-widget">
-				<p>
-					 <label for="listeEleves">Eleves: </label>
- 					 <input id="listeEleves" value="<?php if($etape == 1 ) echo $mail ; else echo ''; ?>" name="listeEleves" placeholder="recherchez à l'aide de l'email de l'utilisateur">
-				</p>
 				
-				<p>
-					<input type="submit" name="btnDetail" id="btnDetail" value="Obtenir les détails">
-				</p>	
+					 <label for="listeEleves">Mail de Eleve à supprimer: </label>
+ 					 <input id="listeEleves" value="<?php if($etape == 1 ) echo $mail ; else echo ''; ?>" name="listeEleves" placeholder="recherchez à l'aide de l'email de l'utilisateur">
+ 					 <?php echo $listeAdrMail;?>	
 				</div>
+	
+				<div data-role="fieldcontain" class="ui-hide-label">
+					<input type="submit" name="btnDetail" id="btnDetail" value="Obtenir les détails">
+				</div>	
+				
 			
 				<?php if ($etape == 1)	
 						{?> 
 					
 					<div data-role="fieldcontain">
-						<label for="txtAdrMailAdmin">Prénom de l'utilisateur  :<?php echo $prenom ?></label>
+						<label for="txtAdrMailAdmin">Prénom   :<?php echo $prenom ?></label>
 					</div>
 					
 					<div data-role="fieldcontain">
-						<label for="txtAdrMailAdmin">Nom de l'utilisateur :<?php echo $nom ?></label>
+						<label for="txtAdrMailAdmin">Nom  :<?php echo $nom ?></label>
 					</div>
 					
 					<div data-role="fieldcontain">
@@ -114,9 +122,9 @@ header('Expires: 0');
 						
 				
 				</div>
-		<div id="footer">
-			<p>Annuaire des anciens élèves du BTS Informatique - Lycée De La Salle (Rennes)</p>
-		</div>		
+				<div data-role="footer" data-position="fixed" data-theme="<?php echo $themeNormal; ?>">
+					<h4>Annuaire des anciens du BTS Informatique<br>Lycée De La Salle (Rennes)</h4>
+				</div>	
 	</div>
 	<?php include_once ('vues.jquery/dialog_message.php'); ?>
 </body>

@@ -131,22 +131,39 @@ class DAO
 	
 	function getLesEleves()
 	{	// préparation de la requete de recherche
-	$dao = new dao();
-	$txt_req = "Select id, adrMail from ae_eleves order by id";
+	
+	$txt_req = "Select * from ae_eleves order by DESC";
 	
 	$req = $this->cnx->prepare($txt_req);
 	// extraction des données
 	$req->execute();
 	$uneLigne = $req->fetch(PDO::FETCH_OBJ);
 	
-	// construction d'une collection d'objets Fonction
+	// construction d'une collection d'objets Eleve
 	$lesEleves = array();
 	// tant qu'une ligne est trouvée :
 	while ($uneLigne)
-	{	// création d'un objet Fonction
-		$unId = utf8_encode($uneLigne->id);
-		$uneAdrMail = utf8_encode($uneLigne->adrMail);
-		$unEleve = $dao->getEleve($unId);
+	{	
+		// création d'un objet Eleve
+			$id = utf8_encode($uneLigne->id);
+			$nom = utf8_encode($uneLigne->nom);
+			$prenom = utf8_encode($uneLigne->prenom);
+			$sexe = utf8_encode($uneLigne->sexe);
+			$anneeDebutBTS = utf8_encode($uneLigne->anneeDebutBTS);
+			$tel = utf8_encode($uneLigne->tel);
+			$adrMail = utf8_encode($uneLigne->adrMail);
+			$rue = utf8_encode($uneLigne->rue);
+			$codePostal = utf8_encode($uneLigne->codePostal);
+			$ville = utf8_encode($uneLigne->ville);
+			$entreprise = utf8_encode($uneLigne->entreprise);
+			$compteAccepte = utf8_encode($uneLigne->compteAccepte);
+			$motDePasse = utf8_encode($uneLigne->motDePasse);
+			$etudesPostBTS = utf8_encode($uneLigne->etudesPostBTS);
+			$dateDerniereMAJ = utf8_encode($uneLigne->dateDerniereMAJ);
+			$idFonction = utf8_encode($uneLigne->idFonction);			
+					
+			$unEleve = new Eleve($id, $nom, $prenom, $sexe, $anneeDebutBTS, $tel, $adrMail, $rue, $codePostal, 
+				$ville, $entreprise, $compteAccepte, $motDePasse, $etudesPostBTS, $dateDerniereMAJ, $idFonction);
 			
 		
 		// ajout de la fonction à la collection
@@ -496,14 +513,13 @@ class DAO
 		return $ok;
 
 	}
-	// le parapetre fait la diffférence enter le Html et le Jquery mobile
-	// la variable utilisée est le chemin dsevues
-	function RechercheLesEleves()
+	
+	
+	function GetLesAdressesMail()
 	{	// préparation de la requete de recherche
-	//	if($parametre == 'vues.jquery/')
-	//	{
-		$dao = new dao();
-		$txt_req = "Select id, adrMail from ae_eleves order by id";
+	
+		
+		$txt_req = "Select id,adrMail from ae_eleves ORDER BY adrMail DESC";
 		
 		$req = $this->cnx->prepare($txt_req);
 		// extraction des données
@@ -511,51 +527,19 @@ class DAO
 		$uneLigne = $req->fetch(PDO::FETCH_OBJ);
 		
 		// construction d'une collection d'objets Fonction
-		$lesEleves = '"';
+		$lesMails = array();
 		// tant qu'une ligne est trouvée :
 		while ($uneLigne)
-	{	// création d'un objet Fonction
-		
-		$uneAdrMail = utf8_encode($uneLigne->adrMail);
-	
-		// ajout de la fonction à la collection
-		$lesEleves .= $uneAdrMail.'","';
-		// extrait la ligne suivante
-		$uneLigne = $req->fetch(PDO::FETCH_OBJ);
+		{	// création d'un objet Fonction
+			$unMail = utf8_encode($uneLigne->adrMail);
+			$lesMails[] = $unMail;
+			// extrait la ligne suivante
+			$uneLigne = $req->fetch(PDO::FETCH_OBJ);
 		}
-		$lesEleves .= '"';
-		// libère les ressources du jeu de données
-		$req->closeCursor();
-		// fourniture de la collection
-		return $lesEleves;
-	//	}
-		//else {
-		//	$dao = new dao();
-		//	$txt_req = "Select id, adrMail from ae_eleves order by id";
-			
-		//	$req = $this->cnx->prepare($txt_req);
-			// extraction des données
-		//	$req->execute();
-		//	$uneLigne = $req->fetch(PDO::FETCH_OBJ);
-			
-			// construction d'une collection d'objets Fonction
-		//	$lesEleves = '"';
-			// tant qu'une ligne est trouvée :
-		//	while ($uneLigne)
-		//	{	// création d'un objet Fonction
-				
-			//	$uneAdrMail = utf8_encode($uneLigne->adrMail);
-				
-				// ajout de la fonction à la collection
-			//	$lesEleves .= '<li><a value="'.$uneAdrMail.'" onclick="submit()">'.$uneAdrMail.'</a></li>';
-				// extrait la ligne suivante
-			//	$uneLigne = $req->fetch(PDO::FETCH_OBJ);
-		//	}
-			// libère les ressources du jeu de données
-		//$req->closeCursor();
-			// fourniture de la collection
-		//	return $lesEleves;
-		//}
+	// libère les ressources du jeu de données
+	$req->closeCursor();
+	// fourniture de la collection
+	return $lesMails;
 	}
 	
 

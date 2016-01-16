@@ -11,14 +11,16 @@ include_once ('modele/DAO.class.php');
 $dao = new DAO();
 // obtention de la collection des fonctions occupées par les anciens élèves (pour liste déroulante)
 if ( empty ($_POST ["mail"]) == true)  $mail = "";  else   $mail = $_POST ["mail"];
-$lesEleves = $dao->getLesEleves();
+
 if( (! isset ($_POST ["listeEleves"]) == true) && ( ! isset ($_POST ["btnSupprimer"]) == true)){			
 		// redirection vers la vue si aucune données n'est recu par le controleur
-		
+		$lesMails = $dao->GetLesAdressesMail();
 		$idEleve = '';
 		$adrMailEleve = '';
+		$message = "";
+		$typeMessage = '';
 		$etape = 0;
-		$liste = $dao->RechercheLesEleves($cheminDesVues);
+		$listeMails = $dao->GetLesAdressesMail();
 		$themeFooter = $themeNormal;
 		include_once ($cheminDesVues . 'VueSupprUserAdmin.php');
 	}
@@ -34,7 +36,7 @@ if( (! isset ($_POST ["listeEleves"]) == true) && ( ! isset ($_POST ["btnSupprim
 		$mail = $unEleve->getAdrMail();
 		$annee = $unEleve->getAnneeDebutBTS();
 		
-		$liste = $dao->RechercheLesEleves($cheminDesVues);
+		$liste = $dao->GetLesAdressesMail();
 		
 		$themeFooter = $themeNormal;
 		include_once ($cheminDesVues . 'VueSupprUserAdmin.php');	
@@ -43,7 +45,7 @@ if( (! isset ($_POST ["listeEleves"]) == true) && ( ! isset ($_POST ["btnSupprim
 	{
 		$etape=0;
 		$ok = $dao->supprimerCompteEleve($_POST ["listeEleves"]);
-		
+		$liste = $dao->GetLesAdressesMail();
 		if ( $ok ) {
 				
 			$message = "Suppression effectuée.";
@@ -53,7 +55,7 @@ if( (! isset ($_POST ["listeEleves"]) == true) && ( ! isset ($_POST ["btnSupprim
 		}
 		else
 		{
-			$message = "La supression a échouée.";
+			$message = "La suppression a échouée.";
 			$typeMessage = 'avertissement';
 			$themeFooter = $themeProbleme;
 			//include_once ($cheminDesVues . 'VueSupprUserAdmin.php');

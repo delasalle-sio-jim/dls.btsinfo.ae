@@ -111,7 +111,8 @@
 					<select size="1" name="listeFonctions" id="listeFonctions">
 						<?php foreach ($lesFonctions as $uneFonction) { ?>
 							<option value="<?php echo $uneFonction->getId(); ?>" <?php if ($idFonction == $uneFonction->getId()) echo 'selected="selected"'; ?>><?php echo $uneFonction->getLibelle(); ?></option>
-						<?php } ?>				
+						<?php } ?>	
+							
 					</select>
 				</p>						
 				<p>

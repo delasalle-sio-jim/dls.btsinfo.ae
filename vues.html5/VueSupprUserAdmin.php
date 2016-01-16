@@ -101,10 +101,10 @@
 				<div class="ui-widget">
 				<p>
 					 <label for="listeEleves">Eleves: </label>
- 					 <input id="listeEleves" value="<?php if($etape == 1 ) echo $mail ; else echo ''; ?>" name="listeEleves" placeholder="recherchez à l'aide de l'email de l'utilisateur">
+ 					 <input id="listeEleves"  value="<?php if($etape == 1 ) echo $mail ; else echo ''; ?>" name="listeEleves" placeholder="recherchez à l'aide de l'email de l'utilisateur">
 				</p>
 				
-					</p>
+					
 				<p>
 					<input type="submit" name="btnDetail" id="btnDetail" value="Obtenir les détails">
 				</p>	
