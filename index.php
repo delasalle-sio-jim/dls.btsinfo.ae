@@ -104,6 +104,9 @@ switch($action){
 	case 'SupprUserAdmin':{
 		include_once ('controleurs/CtrlSupprUserAdmin.php'); break;
 	}
+	case 'ModifUserAdmin':{
+		include_once ('controleurs/CtrlModifUserAdmin.php'); break;
+	}
 	default : {
 		// toute autre tentative est automatiquement redirigée vers le contrôleur d'authentification
 		include_once ('controleurs/CtrlConnecter.php'); break;

@@ -1,7 +1,7 @@
 <?php
-	// Projet DLS - BTS Info - Anciens élèves
-	// Fonction de la vue vues.html5/VueDemanderCreationCompte.php : visualiser la vue de création de compte élève
-	// Ecrit le 12/1/2016 par Nicolas Esteve
+// Projet DLS - BTS Info - Anciens élèves
+// Fonction de la vue vues.html5/VueDemanderCreationCompte.php : visualiser la vue de modification de compte élève par un administrateur
+// Ecrit le 12/1/2016 par Nicolas Esteve
 ?>
 <!doctype html>
 <html lang="en">
@@ -88,8 +88,8 @@
 		</div>
 			
 		<div id="content">
-		<h2>Supprimer un Utilisateur</h2>
-	<form name="form1" id="form1" action="index.php?action=SupprUserAdmin" method="post">
+		<h2>Modifier un Utilisateur</h2>
+	<form name="form1" id="form1" action="index.php?action=ModifUserAdmin" method="post">
 				
 				<!--ceci est un prototype de liste déroulante dynamique non utilisée car trop d'objets à gerer
 				<p>
@@ -107,7 +107,7 @@
 				<div class="ui-widget">
 				<p>
 					 <label for="listeEleves">Eleves: </label>
- 					 <input id="listeEleves"  value="<?php if($etape == 1 ) echo $mail ; else echo ''; ?>" name="listeEleves" placeholder="recherchez à l'aide de l'email de l'utilisateur">
+ 					 <input id="listeEleves"  value="<?php if($etape == 1 ) echo $mail; else echo ''; ?>" name="listeEleves" placeholder="recherchez à l'aide de l'email de l'utilisateur">
 				</p>
 				
 					
@@ -121,22 +121,57 @@
 				{?>
 				
 				<p>
-					<label class="label2" for="prenom">Prénom de l'utilisateur:<?php echo $prenom ?></label>
-				</p>
-				
-				<p>
-					<label class="label2" for="nom">Nom de l'utilisateur:<?php echo $nom ?></label>
-				</p>
-				
-				<p>
-					<label class="label2" for="mail">Mail de l'utilisateur:	<?php echo $mail ?></label>
-				</p>
-				
-				<p>
-					<label class="label2" for="annee">L'année d'entrée en BTS:<?php echo $annee ?></label>
+					<label for="txtNom">Nom (de naissance) *</label>
+					<input type="text" name="txtNom" id="txtNom" maxlength="30" required value="<?php echo $nom; ?>" />
 				</p>
 				<p>
-					<input type="submit" name="btnSupprimer" id="btnSupprimer" value="Supprimer l'utilisateur">
+					<label for="txtPrenom">Prénom *</label>
+					<input type="text" name="txtPrenom" id="txtPrenom" maxlength="30" required value="<?php echo $prenom; ?>" />
+				</p>
+				<p>
+					<label for="txtAnneeDebutBTS">Année d'entrée en BTS *</label>
+					<input type="text" name="txtAnneeDebutBTS" id="txtAnneeDebutBTS" maxlength="4" pattern="^[0-9]{4}$" required value="<?php echo $anneeDebutBTS; ?>" />
+				</p>
+				<p>
+					<label for="txtAdrMail">Adresse mail *</label>
+					<input type="email" name="txtAdrMail" id="txtAdrMail" maxlength="50" required pattern="^.+@.+\..+$" value="<?php echo $mail; ?>" />
+				</p>
+				<p>
+					<label for="txtTel">Téléphone</label>
+					<input type="text" name="txtTel" id="txtTel" maxlength="14" pattern="^([0-9]{2}( |-|\.)?){4}[0-9]{2}$" value="<?php echo $tel; ?>" />
+				</p>
+				<p>
+					<label for="txtRue">Rue</label>
+					<input type="text" name="txtRue" id="txtRue" maxlength="80" value="<?php echo $rue; ?>" />
+				</p>						
+				<p>
+					<label for="txtCodePostal">Code postal</label>
+					<input type="text" name="txtCodePostal" id="txtCodePostal" maxlength="5" pattern="^[0-9]{5}$" value="<?php echo $codePostal; ?>" />
+				</p>
+				<p>
+					<label for="txtVille">Ville</label>
+					<input type="text" name="txtVille" id="txtVille" maxlength="30" value="<?php echo $ville; ?>" />
+				</p>
+				<p>
+					<label for="txtEtudesPostBTS">Etudes post BTS</label>
+					<textarea rows="2" name="txtEtudesPostBTS" id="txtEtudesPostBTS" maxlength="150"><?php echo $etudesPostBTS; ?></textarea>
+				</p>
+				<p>
+					<label for="txtEntreprise">Entreprise actuelle</label>
+					<input type="text" name="txtEntreprise" id="txtEntreprise" maxlength="50" value="<?php echo $entreprise; ?>" />
+				</p>						
+				<p>
+					<label for="listeFonctions">Fonction actuelle</label>
+					
+					<select size="1" name="listeFonctions" id="listeFonctions">
+						<?php foreach ($lesFonctions as $uneFonction) { ?>
+							<option value="<?php echo $uneFonction->getId(); ?>" <?php if ($idFonction == $uneFonction->getId()) echo 'selected="selected"'; ?>><?php echo $uneFonction->getLibelle(); ?></option>
+						<?php } ?>	
+							
+					</select>
+				</p>						
+				<p>
+					<input type="submit" value="Envoyer les données" name="btnEnvoyer" id="btnEnvoyer" />
 				</p>
 				<?php }?>	
 				</form>

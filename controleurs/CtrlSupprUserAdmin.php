@@ -15,10 +15,10 @@ if ( empty ($_POST ["mail"]) == true)  $mail = "";  else   $mail = $_POST ["mail
 if( (! isset ($_POST ["listeEleves"]) == true) && ( ! isset ($_POST ["btnSupprimer"]) == true)){			
 		// redirection vers la vue si aucune données n'est recu par le controleur
 		$lesMails = $dao->GetLesAdressesMail();
-		$idEleve = '';
-		$adrMailEleve = '';
+		$idEleve = "";
+		$adrMailEleve = "";
 		$message = "";
-		$typeMessage = '';
+		$typeMessage = "";
 		$etape = 0;
 		$listeMails = $dao->GetLesAdressesMail();
 		$themeFooter = $themeNormal;

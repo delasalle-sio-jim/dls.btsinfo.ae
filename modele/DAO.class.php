@@ -513,6 +513,64 @@ class DAO
 		return $ok;
 
 	}
+	public function modifierFicheUser($nom,$prenom,$anneeDebutBTS,$mail,$telephone,$rue,$ville,$cp,$etudes,$entreprise,$fonction,$oldMail)
+	{
+		$telephone = Outils::corrigerTelephone($telephone);
+		$nom = strtoupper($nom);
+		$prenom = Outils::corrigerPrenom($prenom);
+		$ville = Outils::corrigerVille($ville);
+	
+		//$txt_req = "UPDATE ae_eleves SET nom = :nom, prenom = :prenom, anneeDebutBTS = :anneeDebutBTS, tel = :tel, codePostal = :cp, ville = :ville, rue = :rue, entreprise = :entreprise, idFonction = :fonction, etudesPostBTS = :etudes WHERE adrMail = :mail;";
+	
+	
+		$txt_req = "UPDATE ae_eleves SET ";
+		$txt_req .= " nom = :nom,";
+		$txt_req .= " prenom = :prenom,";
+		$txt_req .= " anneeDebutBTS = :anneeDebutBTS,";
+		$txt_req .= " tel = :tel,";
+		$txt_req .= " codePostal = :cp,";
+		$txt_req .= " ville = :ville,";
+		$txt_req .= " rue = :rue,";
+		$txt_req .= " entreprise = :entreprise,";
+		$txt_req .= " idFonction = :fonction,";
+		$txt_req .= " etudesPostBTS = :etudes,";
+		$txt_req .= " adrMail = :mail";
+		$txt_req .= " WHERE adrMail = :oldMail;";
+	
+	
+	
+		$req = $this->cnx->prepare($txt_req);
+	
+		//remplissage des variables
+		$req->bindValue("nom", utf8_decode($nom), PDO::PARAM_STR);
+		$req->bindValue("prenom", utf8_decode($prenom), PDO::PARAM_STR);
+		$req->bindValue("anneeDebutBTS", utf8_decode($anneeDebutBTS), PDO::PARAM_STR);
+		$req->bindValue("tel", utf8_decode($telephone), PDO::PARAM_STR);
+		$req->bindValue("cp", utf8_decode($cp), PDO::PARAM_STR);
+		$req->bindValue("ville", utf8_decode($ville), PDO::PARAM_STR);
+		$req->bindValue("rue", utf8_decode($rue), PDO::PARAM_STR);
+		$req->bindValue("entreprise", utf8_decode($entreprise), PDO::PARAM_STR);
+		$req->bindValue("fonction", utf8_decode($fonction), PDO::PARAM_INT);
+		$req->bindValue("etudes", utf8_decode($etudes), PDO::PARAM_STR);
+		$req->bindValue("mail", utf8_decode($mail), PDO::PARAM_STR);
+		$req->bindValue("oldMail", utf8_decode($oldMail), PDO::PARAM_STR);
+		
+	
+		$ok = $req->execute();//execution de la requete
+	
+		if($ok)
+		{
+			$txt_req = "Update ae_eleves SET dateDerniereMAJ = :date where adrMail = :mail";
+			$req = $this->cnx->prepare($txt_req);
+			$date = date('Y-m-d H:i:s', time());
+			$req->bindValue("mail", $mail, PDO::PARAM_STR);//remplissage de la variable
+			$req->bindValue("date", $date, PDO::PARAM_STR);//remplissage de la variable
+			$ok = $req->execute();//execution de la requete
+		}
+		return $ok;
+	
+	}
+	
 	
 	
 	function GetLesAdressesMail()

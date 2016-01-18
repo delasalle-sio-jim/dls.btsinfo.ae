@@ -49,6 +49,7 @@
 					<p><a href="index.php?action=Menu" class="bouton-menu">Envoyer courriels de relance</a></p>
 					<p><a href="index.php?action=Menu" class="bouton-menu">Gérer la galerie des photos de classe</a></p>
 					<p><a href="index.php?action=CreatUserAdmin" class="bouton-menu">Créer un compte utilisateur</a></p>
+					<p><a href="index.php?action=ModifUserAdmin" class="bouton-menu">Modifier un compte utilisateur</a></p>
 					<p><a href="index.php?action=SupprUserAdmin" class="bouton-menu">Supprimer un compte utilisateur</a></p>
 				<?php } ?>
 			</div>			
