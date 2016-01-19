@@ -1,6 +1,6 @@
 <?php
 // Projet DLS - BTS Info - Anciens élèves
-// Fonction du contrôleur CtrlDemanderCreationCompte.php : traiter la demande de création de compte d'un élève
+// Fonction du contrôleur CtrlModifFichePerso.php : traiter la demande de modification des informations d'un d'un élève
 // Ecrit le 11/01/2016 par Nicolas Esteve
 
 

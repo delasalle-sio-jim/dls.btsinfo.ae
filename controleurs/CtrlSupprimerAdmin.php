@@ -1,6 +1,6 @@
 <?php
 // Projet DLS - BTS Info - Anciens élèves
-// Fonction du contrôleur CtrlChangerDeMdp.php : traiter la demande de changement de mot de passe
+// Fonction du contrôleur CtrlSupprimerAdmin.php : traiter la demande de suppression d'un admin
 // Ecrit le 06/01/2016 par Nicolas Esteve
 
 // on vérifie si le demandeur de cette action est bien authentifié

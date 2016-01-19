@@ -1,7 +1,7 @@
 <?php
 	// Projet DLS - BTS Info - Anciens élèves
-	// Fonction de la vue vues.html5/VueDemanderCreationCompte.php : visualiser la vue de suppression d'un compte eleve
-	// Ecrit le 12/1/2016 par Nicolas Esteve
+	// Fonction de la vue vues.html5/VueSuppruUserAdmin.php : visualiser la vue de suppression d'un compte élève
+	// Ecrit le 18/1/2016 par Nicolas Esteve
 	
 header('Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0');
 header('Pragma: no-cache');

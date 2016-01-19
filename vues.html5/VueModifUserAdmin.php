@@ -1,7 +1,7 @@
 <?php
 // Projet DLS - BTS Info - Anciens élèves
-// Fonction de la vue vues.html5/VueDemanderCreationCompte.php : visualiser la vue de modification de compte élève par un administrateur
-// Ecrit le 12/1/2016 par Nicolas Esteve
+// Fonction de la vue vues.html5/VueModifUserAdmin.php : visualiser la vue de modification de compte élève par un administrateur
+// Ecrit le 18/1/2016 par Nicolas Esteve
 ?>
 <!doctype html>
 <html lang="en">

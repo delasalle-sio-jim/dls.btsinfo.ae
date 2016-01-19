@@ -1,6 +1,6 @@
 <?php
 // Projet DLS - BTS Info - Anciens élèves
-// Fonction du contrôleur CtrlChangerDeMdp.php : traiter la demande de changement de mot de passe
+// Fonction du contrôleur CtrlCreerAdmin.php : traiter la création d'un admin par un admin
 // Ecrit le 07/01/2016 par Nicolas Esteve
 
 // on vérifie si le demandeur de cette action est bien authentifié

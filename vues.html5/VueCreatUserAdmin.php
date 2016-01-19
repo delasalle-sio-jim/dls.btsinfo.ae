@@ -1,6 +1,6 @@
 <?php
 	// Projet DLS - BTS Info - Anciens élèves
-	// Fonction de la vue vues.html5/VueCreatUserAdmin.php : visualiser la vue de création de compte élève
+	// Fonction de la vue vues.html5/VueCreatUserAdmin.php : visualiser la vue de création de compte élève par un administrateur
 	// Ecrit le 12/1/2016 par Nicolas Esteve
 ?>
 <!doctype html>

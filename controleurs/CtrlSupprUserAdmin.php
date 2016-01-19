@@ -1,6 +1,6 @@
 <?php
 // Projet DLS - BTS Info - Anciens élèves
-// Fonction du contrôleur CtrlDemanderCreationCompte.php : traiter la demande de création de compte d'un élève
+// Fonction du contrôleur CtrlSupprUserAdmin.php : traiter la suppression d'un compte d'un élève par un admin
 // Ecrit le 12/1/2016 par Nicolas Esteve
 
 // inclusion de la classe Outils

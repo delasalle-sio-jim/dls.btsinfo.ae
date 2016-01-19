@@ -1,6 +1,6 @@
 <?php
 	// Projet DLS - BTS Info - Anciens élèves
-	// Fonction de la vue VueChangerDeMdp.php : visualiser la demande de suppression d'administrateur
+	// Fonction de la vue vue.jquery/VueSuppimerAdmin.php : supprimer un administrateur
 	// Ecrit le 06/01/2016 par Nicolas Esteve
 	
 	// pour obliger la page à se recharger
