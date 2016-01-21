@@ -101,14 +101,14 @@ if( (! isset ($_POST ["listeEleves"]) == true) && ( ! isset ($_POST ["btnEnvoyer
 				$message = 'Modification réussie';
 				$typeMessage = 'information';
 				$themeFooter = $themeNormal;
-				//include_once ($cheminDesVues . 'VueSupprUserAdmin.php');
+				
 			}
 			else
 			{
 				$message = "La modification a échouée.";
 				$typeMessage = 'avertissement';
 				$themeFooter = $themeProbleme;
-				//include_once ($cheminDesVues . 'VueSupprUserAdmin.php');
+				
 			}
 		
 			unset($DAO);

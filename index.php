@@ -107,6 +107,12 @@ switch($action){
 	case 'ModifUserAdmin':{
 		include_once ('controleurs/CtrlModifUserAdmin.php'); break;
 	}
+	case 'DepotStage':{
+		include_once ('controleurs/CtrlDepotStage.php'); break;
+	}
+	case 'ModifSoiree':{
+		include_once ('controleurs/CtrlModifSoiree.php'); break;
+	}
 	default : {
 		// toute autre tentative est automatiquement redirigée vers le contrôleur d'authentification
 		include_once ('controleurs/CtrlConnecter.php'); break;

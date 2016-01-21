@@ -55,6 +55,7 @@
 include_once ('Fonction.class.php');
 include_once ('Eleve.class.php');
 include_once ('Administrateur.class.php');
+include_once ('Soiree.class.php');
 include_once ('Outils.class.php');
 
 // inclusion des paramètres de l'application
@@ -591,6 +592,7 @@ class DAO
 		{	// création d'un objet Fonction
 			$unMail = utf8_encode($uneLigne->adrMail);
 			$lesMails[] = $unMail;
+			
 			// extrait la ligne suivante
 			$uneLigne = $req->fetch(PDO::FETCH_OBJ);
 		}
@@ -600,7 +602,68 @@ class DAO
 	return $lesMails;
 	}
 	
-
+	function GetDonnesSoiree()
+	{
+		if(! isset($_SESSION['Soiree']) == true)
+		{
+			$Soiree = unserialize($_SESSION['Soiree']);
+			return $Soiree;
+		}
+		else
+		{
+			//$date =date("Y");
+			$txt_req = "Select * from ae_soirees order by id";
+			$req = $this->cnx->prepare($txt_req);
+			$req->execute();
+			$uneLigne = $req->fetch(PDO::FETCH_OBJ);
+			
+			if( !$uneLigne)
+			{
+				return null;	
+			}
+			else {
+							
+				$unId= utf8_encode($uneLigne->id);
+				$unNomRestaurant = utf8_encode($uneLigne->nomRestaurant);
+				$uneDate= utf8_encode($uneLigne->date);
+				$uneAdresse=utf8_encode($uneLigne->adresse);
+				$unTarif = utf8_encode($uneLigne->tarif);
+				$unLienMenu = utf8_encode($uneLigne->lienMenu);
+				$uneLatitude = utf8_encode($uneLigne->latitude);
+				$uneLongitude = utf8_encode($uneLigne->longitude);
+				
+				$Soiree = new Soiree($unId, $unNomRestaurant, $uneDate, $uneAdresse, $unTarif, $unLienMenu, $uneLatitude, $uneLongitude);
+				$_SESSION['Soiree'] = serialize($Soiree);
+				return $Soiree;
+			}
+		}
+	}
+	
+	function ModifierDonnesSoiree($unNom, $uneDate, $uneAdresse, $unTarif, $unLienMenu, $uneLatitude, $uneLongitude)
+	{
+	
+		
+		$txt_req = "Update ae_soirees SET nomRestaurant = :nom, date = :date, tarif = :tarif, adresse = :adresse, lienMenu = :lienMenu, latitude = :latitude, longitude = :longitude where id = 1;";
+		
+		$req = $this->cnx->prepare($txt_req);
+		$req->bindValue("date", Outils::convertirEnDateUS($uneDate), PDO::PARAM_STR);
+		$req->bindValue("nom",  utf8_decode($unNom), PDO::PARAM_STR);
+		$req->bindValue("tarif" , utf8_decode($unTarif), PDO::PARAM_STR);
+		$req->bindValue("adresse",utf8_decode($uneAdresse), PDO::PARAM_STR);
+		$req->bindValue("lienMenu", utf8_decode($unLienMenu), PDO::PARAM_STR);
+		$req->bindValue("latitude" , utf8_decode($uneLatitude), PDO::PARAM_STR);
+		$req->bindValue("longitude", utf8_decode($uneLongitude), PDO::PARAM_STR);
+		
+		
+		$ok = $req->execute();
+		
+		return $ok;	
+			
+			
+		
+	}
+	
+	
 	
 } // fin de la classe DAO
 

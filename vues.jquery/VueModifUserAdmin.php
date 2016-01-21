@@ -86,12 +86,12 @@ header('Expires: 0');
 				<div class="ui-widget">
 				
 					 <label for="listeEleves">Mail de Eleve à modifier: </label>
- 					 <input id="listeEleves" value="<?php if($etape == 1 ) echo $mail ; else echo ''; ?>" name="listeEleves" placeholder="recherchez à l'aide de l'email de l'utilisateur">
+ 					 <input id="listeEleves" value="<?php if($etape == 1 ) echo $mail ; else echo ''; ?>" name="listeEleves" placeholder="recherchez à l'aide de l'email de l'utilisateur" data-mini="true">
  					 	
 				</div>
 	
 				<div data-role="fieldcontain" class="ui-hide-label">
-					<input type="submit" name="btnDetail" id="btnDetail" value="Obtenir les détails">
+					<input type="submit" name="btnDetail" id="btnDetail" value="Obtenir les détails" data-mini="true">
 				</div>	
 				
 			
@@ -141,7 +141,7 @@ header('Expires: 0');
 								
 			
 							<div data-role="fieldcontain">
-								<input type="submit" value="Envoyer les données" name="btnEnvoyer" id="btnEnvoyer" data-mini="true">
+								<input type="submit" value="Enregistrer les modifications" name="btnEnvoyer" id="btnEnvoyer" data-mini="true">
 							</div>
 							<?php } ?>
 						</form>

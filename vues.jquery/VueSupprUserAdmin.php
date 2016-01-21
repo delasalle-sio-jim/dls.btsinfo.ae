@@ -87,7 +87,7 @@ header('Expires: 0');
 				
 					 <label for="listeEleves">Mail de Eleve à supprimer: </label>
  					 <input id="listeEleves" value="<?php if($etape == 1 ) echo $mail ; else echo ''; ?>" name="listeEleves" placeholder="recherchez à l'aide de l'email de l'utilisateur">
- 					 <?php echo $eleveMails;?>	
+ 						
 				</div>
 	
 				<div data-role="fieldcontain" class="ui-hide-label">
