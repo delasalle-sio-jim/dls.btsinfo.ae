@@ -31,7 +31,7 @@
 				<?php if ( $typeUtilisateur == "eleve" ) {
 					// menu élève ?>
 					<p><a href="index.php?action=ChangerDeMdp" class="bouton-menu">Modifier mon mot de passe</a></p>
-					<p><a href="index.php?action=Menu" class="bouton-menu">Informations sur la soirée des anciens</a></p>
+					<p><a href="index.php?action=DetailSoiree" class="bouton-menu">Informations sur la soirée des anciens</a></p>
 					<p><a href="index.php?action=Menu" class="bouton-menu">M'inscrire à la soirée des anciens</a></p>
 					<p><a href="index.php?action=Menu" class="bouton-menu">Recherche d'autres anciens élèves</a></p>
 					<p><a href="index.php?action=ModifFichePerso" class="bouton-menu">Mettre à jour mon profil</a></p>

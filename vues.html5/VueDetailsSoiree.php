@@ -27,69 +27,50 @@
 			<h2>Changer les données de la soirée</h2>
 		
 			<?php	
-			$message =	"Bonjour,\n \tComme chaque année, l'association INPACT organise un repas auquel les étudiants, anciens étudiants et professeurs du BTS SIO (ex BTS IG) du Lycée De La Salle sont conviés.\n";
+			if($Soiree->getDate() !== null  ||$Soiree->getNomRestaurant() !== null  ||$Soiree->getAdresse() !== null  ||$Soiree->getLienMenu() !== null  ||$Soiree->getTarif() !== null )
+			{
+			$message =	"Bonjour,<br/>Comme chaque année, l'association INPACT organise un repas auquel les étudiants, anciens étudiants et professeurs du BTS SIO (ex BTS IG) du Lycée De La Salle sont conviés.<br/>";
 					
 				
 				if($Soiree->getDate() !== null)
 						{
-							$message .="Ce repas aura lieu le vendredi".$Soiree->getDate()." à 20h ";
+							$message .="Ce repas aura lieu le vendredi  ".Outils::convertirEnDateFR($Soiree->getDate()) ."  à 20h ";
 						}
 						
 				if($Soiree->getNomRestaurant() !== null)
 						{
 							$message .= "au restaurant ".$Soiree->getNomRestaurant();
+							
+							
+					if($Soiree->getAdresse() !== null)
+							{
+								$message .= " dont les coordonnées sont :<br/> ".$Soiree->getAdresse().". <br/>";
+							}
+							else 
+							{
+								$message .="dont les coordonnées sont précisées dans le lien ci-joint. <br/>";
+							}
 						}
-						
-				if($Soiree->getAdresse() !== null)
-						{
-							$message .= " dont les coordonnées sont ".$Soiree->getAdresse()."\n";
-						}
-						else 
-						{
-							$message .="dont les coordonnées sont précisées dans le lien ci-joint. \n";
-						}
-						
 				if($Soiree->getLienMenu() !== null)
 						{
-							$message.= "Vous pouvez vous renseigner sur les menus proposé à l'aide de ce lien : ".$Soiree->getLienMenu()." \n.";
+							$message.= "Vous pouvez vous renseigner sur les menus proposé à l'aide de ce lien : <br/> ".$Soiree->getLienMenu().". <br/>";
 						}
 						
 				if($Soiree->getTarif() !== null)
 						{
-							$message.= "Le prix prévu pour la soirée est de : ".$Soiree->getTarif()."euros \n .";
+							$message.= "Le prix prévu pour la soirée est de : ".$Soiree->getTarif()."euros. <br/> <br/>";
 						}
 						
-					$message .= 	"Dans l'espoir de vous voir à cette soirée,\n\n\t Cordialement,\n\t L'équipe d'INPACT";
+					$message .= " Dans l'espoir de vous voir à cette soirée,<br/><br/>\t Cordialement,<br/>\t L'équipe d'INPACT";
 					echo $message;
-						
+			}
+			else
+			{
+				echo " Aucun détail a propos de la soirée n'a encore été décidé";
+			}
 				?>
-					
-				Bonjour,
-
-Comme chaque année, l'association INPACT organise un repas auquel les étudiants, anciens étudiants et professeurs du BTS SIO (ex BTS IG) du Lycée De La Salle sont conviés.
-
-Ce repas aura lieu le vendredi 16 octobre à 20h au restaurant Le Wok (spécialités asiatiques) dont les coordonnées sont précisées dans le PDF ci-joint.
-
-Merci de répondre avant le 9 octobre,
-
-Dans l'espoir de vous voir à cette soirée,
-
-Cordialement,
-L'équipe d'INPACT
-				
-				
-				
-				
-				
-				
-				
-				
-				</table>
-				
-				
-				
-				
-		</div>
+			
+			</div>
 		
 		<div id="footer">
 			<p>Annuaire des anciens élèves du BTS Informatique - Lycée De La Salle (Rennes)</p>

@@ -1,7 +1,7 @@
 <?php
 // Projet DLS - BTS Info - Anciens élèves
 // Fonction du contrôleur CtrlModifFichePerso.php : traiter la demande de modification des informations d'un d'un élève
-// Ecrit le 11/01/2016 par Nicolas Esteve
+// Ecrit le 20/01/2016 par Nicolas Esteve
 
 
 // connexion du serveur web à la base MySQL
