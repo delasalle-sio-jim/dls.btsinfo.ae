@@ -22,7 +22,7 @@ else {
 	//$premierAppel = false;
 	// récupération des données postées
 	if ( empty ($_POST ["txtNomRestaurant"]) == true)  $unNom = "";  else   $unNom = $_POST ["txtNomRestaurant"];
-	if ( empty ($_POST ["txtDate"]) == true)  $uneDate = "";  else   $uneDate = $_POST ["txtDate"];
+	if ( empty ($_POST ["txtDate"]) == true)  $uneDate = "00/00/0000";  else   $uneDate = $_POST ["txtDate"];
 	if ( empty ($_POST ["txtAdresse"]) == true)  $uneAdresse = "";  else   $uneAdresse = $_POST ["txtAdresse"];
 	if ( empty ($_POST ["txtTarif"]) == true)  $unTarif = "";  else   $unTarif = $_POST ["txtTarif"];
 	if ( empty ($_POST ["txtLienMenu"]) == true)  $unLienMenu = "";  else   $unLienMenu = $_POST ["txtLienMenu"];

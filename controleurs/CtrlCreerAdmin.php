@@ -49,8 +49,7 @@ else
 		
 	
 		if($ok){
-			$nouveauMdp = Outils::creerMdp();					// création d'un mot de passe aléatoire de 8 caractères
-			$ok = $dao->modifierMdp($adrMailAdmin, $nouveauMdp);
+			
 			// envoi d'un mail d'acceptation à l'intéressé avec son mot de passe
 			$sujet = "Demande de création de votre compte Administrateur dans l'annuaire des anciens du BTS Informatique";
 			$message = "Votre demande de création de compte a bien été validée.\n\n";

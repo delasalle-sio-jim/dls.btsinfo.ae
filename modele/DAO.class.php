@@ -440,10 +440,10 @@ class DAO
 	{ 
 		$txt_req = "INSERT INTO ae_administrateurs(adrMail,motDePasse ,prenom,nom) VALUES(:adrMail,:mdp,:prenom,:nom)";
 		$req = $this->cnx->prepare($txt_req);
-		$req->bindValue("adrMail", $adrMailAdmin, PDO::PARAM_STR);//remplissage de la variable
-		$req->bindValue("prenom", $prenomAdmin, PDO::PARAM_STR);
-		$req->bindValue("mdp", $MdpAdmin, PDO::PARAM_STR);
-		$req->bindValue("nom", strtoupper($nomAdmin), PDO::PARAM_STR);
+		$req->bindValue("adrMail", utf8_decode($adrMailAdmin), PDO::PARAM_STR);//remplissage de la variable
+		$req->bindValue("prenom", utf8_decode($prenomAdmin), PDO::PARAM_STR);
+		$req->bindValue("mdp",  utf8_decode(sha1($MdpAdmin)), PDO::PARAM_STR);
+		$req->bindValue("nom", utf8_decode(strtoupper($nomAdmin)), PDO::PARAM_STR);
 		$ok = $req->execute();//execution de la requete
 		return $ok;
 	}
@@ -604,7 +604,7 @@ class DAO
 	
 	function GetDonnesSoiree()
 	{
-		if(! isset($_SESSION['Soiree']) == true)
+		if( isset($_SESSION['Soiree']) == true)
 		{
 			$Soiree = unserialize($_SESSION['Soiree']);
 			return $Soiree;
@@ -641,7 +641,6 @@ class DAO
 	
 	function ModifierDonnesSoiree($unNom, $uneDate, $uneAdresse, $unTarif, $unLienMenu, $uneLatitude, $uneLongitude)
 	{
-	
 		
 		$txt_req = "Update ae_soirees SET nomRestaurant = :nom, date = :date, tarif = :tarif, adresse = :adresse, lienMenu = :lienMenu, latitude = :latitude, longitude = :longitude where id = 1;";
 		
@@ -658,8 +657,7 @@ class DAO
 		$ok = $req->execute();
 		
 		return $ok;	
-			
-			
+	
 		
 	}
 	
