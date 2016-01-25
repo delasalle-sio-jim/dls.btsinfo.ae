@@ -24,7 +24,7 @@
 		</div>
 			
 		<div id="content">
-			<h2>Changer les données de la soirée</h2>
+			<h2>Les données de la soirée</h2>
 		
 			<?php	
 			if($Soiree->getDate() !== "00-00-0000"  ||$Soiree->getNomRestaurant() !== null  ||$Soiree->getAdresse() !== null  ||$Soiree->getLienMenu() !== null  ||$Soiree->getTarif() !== null )

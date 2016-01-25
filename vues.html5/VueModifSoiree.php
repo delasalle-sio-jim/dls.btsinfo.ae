@@ -68,7 +68,7 @@
 				<table>
 					<p>
 						<label for="txtDate">Date de la soirée :</label>
-						<input type="text" name="txtDate" id="txtDate"  patern="" placeholder="Date de la soirée"  value="<?php if(isset($Soiree)) echo Outils::convertirEnDateFR($Soiree->getDate()); else echo "";?>" >
+						<input type="text	" name="txtDate" id="txtDate"  pattern="^[0-9]{2}(/)[0-9]{2}(/)[0-9]{4}$" placeholder="Date de la soirée"  value="<?php if(isset($Soiree)) echo Outils::convertirEnDateFR($Soiree->getDate()); else echo "";?>" >
 					</p>
 					<p>
 						<label for="txtNomRestaurant">Nom du restaurant:</label>
@@ -107,17 +107,17 @@
 			$message =	"Bonjour,<br/>Comme chaque année, l'association INPACT organise un repas auquel les étudiants, anciens étudiants et professeurs du BTS SIO (ex BTS IG) du Lycée De La Salle sont conviés.<br/>";
 					
 				
-				if($Soiree->getDate() !== null)
+				if($Soiree->getDate() !== "00/00/0000")
 						{
 							$message .="Ce repas aura lieu le vendredi  ".Outils::convertirEnDateFR($Soiree->getDate()) ."  à 20h ";
 						}
 						
-				if($Soiree->getNomRestaurant() !== null)
+				if($Soiree->getNomRestaurant() !== "")
 						{
 							$message .= "au restaurant ".$Soiree->getNomRestaurant();
 							
 							
-					if($Soiree->getAdresse() !== null)
+					if($Soiree->getAdresse() !== "")
 							{
 								$message .= " dont les coordonnées sont :<br/> ".$Soiree->getAdresse().". <br/>";
 							}
@@ -126,14 +126,14 @@
 								$message .="dont les coordonnées sont précisées dans le lien ci-joint. <br/>";
 							}
 						}
-				if($Soiree->getLienMenu() !== null)
+				if($Soiree->getLienMenu() !== "")
 						{
 							$message.= "Vous pouvez vous renseigner sur les menus proposé à l'aide de ce lien : <br/> ".$Soiree->getLienMenu().". <br/>";
 						}
 						
-				if($Soiree->getTarif() !== null)
+				if($Soiree->getTarif() !== "0")
 						{
-							$message.= "Le prix prévu pour la soirée est de : ".$Soiree->getTarif()."euros. <br/> <br/>";
+							$message.= "Le prix prévu pour la soirée est de : ".$Soiree->getTarif()." euros. <br/> <br/>";
 						}
 						
 					$message .= " Dans l'espoir de vous voir à cette soirée,<br/><br/>\t Cordialement,<br/>\t L'équipe d'INPACT";
@@ -145,8 +145,7 @@
 			}
 				?>
 
-				</table>
-	
+			</table>
 				
 		</div>
 		

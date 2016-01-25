@@ -6,11 +6,16 @@
 
 // connexion du serveur web à la base MySQL
 include_once ('modele/DAO.class.php');
+if ( $_SESSION['typeUtilisateur'] != 'administrateur') {
+	// si le demandeur n'est pas authentifié, il s'agit d'une tentative d'accès frauduleux
+	// dans ce cas, on provoque une redirection vers la page de connexion
+	header ("Location: index.php?action=Deconnecter");
+}
 $dao = new DAO();
 // obtention de la collection des fonctions occupées par les anciens élèves (pour liste déroulante)
 
 
-if ( ! isset ($_POST ["btnModifier"]) ) {
+if (! isset ($_POST ["btnModifier"])) {
 	// si les données n'ont pas été postées, c'est le premier appel du formulaire : affichage de la vue sans message d'erreur
 	$Soiree = $dao->GetDonnesSoiree();
 	$message = '';
@@ -19,7 +24,7 @@ if ( ! isset ($_POST ["btnModifier"]) ) {
 	include_once ($cheminDesVues . 'VueModifSoiree.php');
 }
 else {
-	//$premierAppel = false;
+	
 	// récupération des données postées
 	if ( empty ($_POST ["txtNomRestaurant"]) == true)  $unNom = "";  else   $unNom = $_POST ["txtNomRestaurant"];
 	if ( empty ($_POST ["txtDate"]) == true)  $uneDate = "00/00/0000";  else   $uneDate = $_POST ["txtDate"];
@@ -34,7 +39,7 @@ else {
 	$ok = $dao->ModifierDonnesSoiree($unNom, $uneDate, $uneAdresse, $unTarif, $unLienMenu, $uneLatitude, $uneLongitude);
 	
 	$Soiree = $dao->GetDonnesSoiree();
-	
+		
 	if ($ok) 
 		{
 			
@@ -45,7 +50,7 @@ else {
 		}
 		else
 		{
-			$message = "l\'application a rencontré un problème.";
+			$message = "L\'application a rencontré un problème.";
 			$typeMessage = 'avertissement';
 			$themeFooter = $themeProbleme;
 			include_once ($cheminDesVues . 'VueModifSoiree.php');

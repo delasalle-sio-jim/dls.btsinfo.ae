@@ -604,13 +604,13 @@ class DAO
 	
 	function GetDonnesSoiree()
 	{
-		if( isset($_SESSION['Soiree']) == true)
-		{
-			$Soiree = unserialize($_SESSION['Soiree']);
-			return $Soiree;
-		}
-		else
-		{
+		//if( isset($_SESSION['Soiree']) == true)
+	//	{
+		//	$Soiree = unserialize($_SESSION['Soiree']);
+	//		return $Soiree;
+	//	}
+	//	else
+	//	{
 			//$date =date("Y");
 			$txt_req = "Select * from ae_soirees order by id";
 			$req = $this->cnx->prepare($txt_req);
@@ -636,7 +636,7 @@ class DAO
 				$_SESSION['Soiree'] = serialize($Soiree);
 				return $Soiree;
 			}
-		}
+	//	}
 	}
 	
 	function ModifierDonnesSoiree($unNom, $uneDate, $uneAdresse, $unTarif, $unLienMenu, $uneLatitude, $uneLongitude)
@@ -657,12 +657,9 @@ class DAO
 		$ok = $req->execute();
 		
 		return $ok;	
-	
 		
 	}
-	
-	
-	
+		
 } // fin de la classe DAO
 
 // ATTENTION : on ne met pas de balise de fin de script pour ne pas prendre le risque

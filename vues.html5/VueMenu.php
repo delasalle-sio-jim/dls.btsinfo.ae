@@ -44,7 +44,6 @@
 					<p><a href="index.php?action=ChangerDeMdp" class="bouton-menu">Modifier mon mot de passe</a></p>
 					<p><a href="index.php?action=CreerAdmin" class="bouton-menu">Créer un administrateur</a></p>
 					<p><a href="index.php?action=SupprimerAdmin" class="bouton-menu">Supprimer un administrateur</a></p>
-					<p><a href="index.php?action=Menu" class="bouton-menu">Gérer les comptes élèves</a></p>
 					<p><a href="index.php?action=ModifSoiree" class="bouton-menu">MAJ des informations sur la soirée</a></p>
 					<p><a href="index.php?action=Menu" class="bouton-menu">Consulter les inscriptions à la soirée</a></p>
 					<p><a href="index.php?action=Menu" class="bouton-menu">Envoyer courriels de relance</a></p>
