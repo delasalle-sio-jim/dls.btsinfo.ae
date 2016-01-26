@@ -31,10 +31,11 @@
 				<?php if ( $typeUtilisateur == "eleve" ) {
 					// menu élève ?>
 					<p><a href="index.php?action=ChangerDeMdp" class="bouton-menu">Modifier mon mot de passe</a></p>
-					<p><a href="index.php?action=Menu" class="bouton-menu">Informations sur la soirée des anciens</a></p>
+					<p><a href="index.php?action=DetailSoiree" class="bouton-menu">Informations sur la soirée des anciens</a></p>
 					<p><a href="index.php?action=Menu" class="bouton-menu">M'inscrire à la soirée des anciens</a></p>
 					<p><a href="index.php?action=Menu" class="bouton-menu">Recherche d'autres anciens élèves</a></p>
 					<p><a href="index.php?action=ModifFichePerso" class="bouton-menu">Mettre à jour mon profil</a></p>
+					<p><a href="index.php?action=DepotStage" class="bouton-menu">Mettre un stage à disposition</a></p>
 					<p><a href="index.php?action=Menu" class="bouton-menu">Galerie des photos de classe</a></p>
 				<?php } ?>
 				
@@ -43,12 +44,13 @@
 					<p><a href="index.php?action=ChangerDeMdp" class="bouton-menu">Modifier mon mot de passe</a></p>
 					<p><a href="index.php?action=CreerAdmin" class="bouton-menu">Créer un administrateur</a></p>
 					<p><a href="index.php?action=SupprimerAdmin" class="bouton-menu">Supprimer un administrateur</a></p>
-					<p><a href="index.php?action=Menu" class="bouton-menu">Gérer les comptes élèves</a></p>
-					<p><a href="index.php?action=Menu" class="bouton-menu">MAJ des informations sur la soirée</a></p>
+					<p><a href="index.php?action=ModifSoiree" class="bouton-menu">MAJ des informations sur la soirée</a></p>
 					<p><a href="index.php?action=Menu" class="bouton-menu">Consulter les inscriptions à la soirée</a></p>
 					<p><a href="index.php?action=Menu" class="bouton-menu">Envoyer courriels de relance</a></p>
 					<p><a href="index.php?action=Menu" class="bouton-menu">Gérer la galerie des photos de classe</a></p>
 					<p><a href="index.php?action=CreatUserAdmin" class="bouton-menu">Créer un compte utilisateur</a></p>
+					<p><a href="index.php?action=ModifUserAdmin" class="bouton-menu">Modifier un compte utilisateur</a></p>
+					<p><a href="index.php?action=SupprUserAdmin" class="bouton-menu">Supprimer un compte utilisateur</a></p>
 				<?php } ?>
 			</div>			
 		</div>

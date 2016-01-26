@@ -101,6 +101,21 @@ switch($action){
 	case 'CreatUserAdmin':{
 		include_once ('controleurs/CtrlCreatUserAdmin.php'); break;
 	}
+	case 'SupprUserAdmin':{
+		include_once ('controleurs/CtrlSupprUserAdmin.php'); break;
+	}
+	case 'ModifUserAdmin':{
+		include_once ('controleurs/CtrlModifUserAdmin.php'); break;
+	}
+	case 'DepotStage':{
+		include_once ('controleurs/CtrlDepotStage.php'); break;
+	}
+	case 'ModifSoiree':{
+		include_once ('controleurs/CtrlModifSoiree.php'); break;
+	}
+	case 'DetailSoiree':{
+		include_once ('controleurs/CtrlDetailsSoiree.php'); break;
+	}
 	default : {
 		// toute autre tentative est automatiquement redirigée vers le contrôleur d'authentification
 		include_once ('controleurs/CtrlConnecter.php'); break;

@@ -1,57 +1,109 @@
 <?php
 	// Projet DLS - BTS Info - Anciens élèves
-	// Fonction de la vue vues.jquery/VueDemanderCreationCompte.php : visualiser la vue de création de compte élève
-	// Ecrit le 3/1/2016 par Jim
+	// Fonction de la vue vues.html5/VueModifUserAdmin.php : visualiser la vue de modification de compte élève par un administrateur
+	// Ecrit le 18/1/2016 par Nicolas Esteve
+	
+header('Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0');
+header('Pragma: no-cache');
+header('Content-Tranfer-Encoding: none');
+header('Expires: 0');
 ?>
 <!doctype html>
-<html>
-	<head>	
-		<?php include_once ('head.php'); ?>
-		
+<html lang="en">
+<head>	
+<meta charset="utf-8">
+	<?php include_once ('head.php');
+	include_once ('modele/DAO.class.php');
+	$dao = new DAO();
+	//echo $listeMails;?>
 		<script>
 			<?php if ($typeMessage != '') { ?>
 				// associe une fonction à l'événement pageinit
 				$(document).bind('pageinit', function() {
 					// affiche la boîte de dialogue 'affichage_message'
-					$.mobile.changePage('#affichage_message', {transition: "<?php echo $transition; ?>"});
+				$.mobile.changePage('#affichage_message', {transition: "<?php echo $transition; ?>"});
 				} );
 			<?php } ?>
 		</script>
-	</head> 
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<style>
+  .ui-autocomplete {
+    max-height: 100px;
+    overflow-y: auto;
+    /* prevent horizontal scrollbar */
+    overflow-x: hidden;
+  }
+  /* IE 6 doesn't support max-height
+   * we use height instead, but this forces the menu to always be this tall
+   */
+  * html .ui-autocomplete {
+    height: 100px;
+  }
+  </style>
+		<script>
+		 $(function() {
+			    var listeEleves  = [ 
+			     <?php 
+		     	$eleveMails='"';
+				foreach($lesMails as $unMail){ 
+					$eleveMails .= $unMail.'","';
+				 } 
+				 $eleveMails = substr($eleveMails ,0,-2);
+				 echo $eleveMails;?>	         			    
+				];
+			    $( "#listeEleves" ).autocomplete({
+			      source: listeEleves
+			    });
+			  });
+		</script>		
+</head> 
+<body>
 	<body>
-		<div data-role="page">
+		<div data-role="page" id="page_principale">
 			<div data-role="header" data-theme="<?php echo $themeNormal; ?>">
 				<h4>DLS-Info-AE</h4>
-				<a href="index.php?action=Deconnecter" data-ajax="false">Accueil</a>
+				<a href="index.php?action=Menu" data-ajax="false" data-transition="<?php echo $transition; ?>">Retour menu</a>
 			</div>
-			
 			<div data-role="content">
-				<div data-role="collapsible-set">
-					<div data-role="collapsible">
-						<h3>Avertissement...</h3>
-						<p>Après vérification de votre demande par les administrateurs de l'annuaire (cette opération peut prendre quelques jours éventuellement),
-						 vous recevrez un mail de confirmation avec votre mot de passe (que vous pourrez ensuite modifier).</p>
-					</div>
+				<h4 style="text-align: center; margin-top: 10px; margin-bottom: 10px;">Supprimer un utilisateur</h4>
+				<form name="form1" id="form1" data-ajax="false" action="index.php?action=ModifUserAdmin" method="post">
+				
+				<!--ceci est un prototype de liste déroulante dynamique non utilisée car trop d'objets à gerer
+				<p>
+
+					 <select size="1" onchange="submit()" name="listeEleve" id="listeEleve">
+					<option value="<?php //if( isset($mail)) echo $mail ?>"><?php // if( isset($mail)) echo $mail ?></option>
 					
-					<div data-role="collapsible" data-collapsed="false">
-						<h3>Créer mon compte</h3>
-						<p>* indique un champ obligatoire</p>
-						<form name="form1" id="form1" action="index.php?action=DemanderCreationCompte" method="post" data-ajax="false">
-							<div data-role="fieldcontain" class="ui-hide-label">
+						<?php //foreach ($lesEleves as $unEleve) { ?>
+						<option value="<?php //echo $unEleve->getId()?>" <?php //if ($idEleve == $unEleve->getAdrMail()) echo 'selected="selected"'; ?>><?php //echo $unEleve->getAdrMail(); ?></option>					
+						<?php //} ?>	
+										
+					</select>
+				</p> -->
+		
+				<div class="ui-widget">
+				
+					 <label for="listeEleves">Mail de Eleve à modifier: </label>
+ 					 <input id="listeEleves" value="<?php if($etape == 1 ) echo $mail ; else echo ''; ?>" name="listeEleves" placeholder="recherchez à l'aide de l'email de l'utilisateur" data-mini="true">
+ 					 	
+				</div>
+	
+				<div data-role="fieldcontain" class="ui-hide-label">
+					<input type="submit" name="btnDetail" id="btnDetail" value="Obtenir les détails" data-mini="true">
+				</div>	
+				
+			
+				<?php if ($etape == 1)	
+						{?> 
+						<div data-role="fieldcontain" class="ui-hide-label">
 
 								<label for="txtNom">Nom (de naissance) *</label>
 								<input type="text" name="txtNom" id="txtNom" maxlength="30" placeholder="Nom (de naissance) *" data-mini="true" required value="<?php echo $nom; ?>">
 
 								<label for="txtPrenom">Prénom *</label>
 								<input type="text" name="txtPrenom" id="txtPrenom" maxlength="30" placeholder="Prénom *" data-mini="true" required value="<?php echo $prenom; ?>">
-
-								<fieldset data-role="controlgroup" data-type="horizontal" required>
-									<legend data-mini="true">Sexe :</legend>
-									<input type="radio" name="radioSexe" id="radioSexeH" value="H" data-mini="true" <?php if ($sexe == "H") echo 'checked';?> >
-									<label for="radioSexeH">Homme</label>
-									<input type="radio" name="radioSexe" id="radioSexeF" value="F" data-mini="true" <?php if ($sexe == "F") echo 'checked';?> >
-									<label for="radioSexeF">Femme</label>
-								</fieldset>
 								
 								<label for="txtAnneeDebutBTS">Année d'entrée en BTS *</label>
 								<input type="text" name="txtAnneeDebutBTS" id="txtAnneeDebutBTS" maxlength="4" pattern="[0-9]{4,4}" placeholder="Année d'entrée en BTS (4 chiffres) *" data-mini="true" required value="<?php echo $anneeDebutBTS; ?>">
@@ -86,29 +138,13 @@
 								</select>
 
 							</div>
-							
+								
+			
 							<div data-role="fieldcontain">
-								<input type="submit" value="Envoyer les données" name="btnEnvoyer" id="btnEnvoyer" data-mini="true">
+								<input type="submit" value="Enregistrer les modifications" name="btnEnvoyer" id="btnEnvoyer" data-mini="true">
 							</div>
+							<?php } ?>
 						</form>
 					</div>
 
 				</div>
-				
-				<?php if($debug == true) {
-					// en mise au point, on peut afficher certaines variables dans la page
-					echo "<p>typeMessage = " . $typeMessage . "</p>";
-					echo "<p>message = " . $message . "</p>";
-				} ?>
-				
-			</div>
-			
-			<div data-role="footer" data-position="fixed" data-theme="<?php echo $themeNormal; ?>">
-				<h4>Annuaire des anciens du BTS Informatique<br>Lycée De La Salle (Rennes)</h4>
-			</div>
-		</div>
-		
-		<?php include_once ('vues.jquery/dialog_message.php'); ?>
-		
-	</body>
-</html>

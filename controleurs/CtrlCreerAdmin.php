@@ -1,6 +1,6 @@
 <?php
 // Projet DLS - BTS Info - Anciens élèves
-// Fonction du contrôleur CtrlChangerDeMdp.php : traiter la demande de changement de mot de passe
+// Fonction du contrôleur CtrlCreerAdmin.php : traiter la création d'un admin par un admin
 // Ecrit le 07/01/2016 par Nicolas Esteve
 
 // on vérifie si le demandeur de cette action est bien authentifié
@@ -49,8 +49,7 @@ else
 		
 	
 		if($ok){
-			$nouveauMdp = Outils::creerMdp();					// création d'un mot de passe aléatoire de 8 caractères
-			$ok = $dao->modifierMdp($adrMailAdmin, $nouveauMdp);
+			
 			// envoi d'un mail d'acceptation à l'intéressé avec son mot de passe
 			$sujet = "Demande de création de votre compte Administrateur dans l'annuaire des anciens du BTS Informatique";
 			$message = "Votre demande de création de compte a bien été validée.\n\n";

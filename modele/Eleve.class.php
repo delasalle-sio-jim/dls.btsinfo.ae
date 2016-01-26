@@ -36,26 +36,28 @@ class Eleve
 	// ------------------------------------------------------------------------------------------------------
 	// ----------------------------------------- Constructeur -----------------------------------------------
 	// ------------------------------------------------------------------------------------------------------
-
-	public function __construct($unId, $unNom, $unPrenom, $unSexe, $uneAnneeDebutBTS, $unTel, $uneAdrMail, $uneRue, $unCodePostal, 
+	public function __construct($unId, $unNom, $unPrenom, $unSexe, $uneAnneeDebutBTS, $unTel, $uneAdrMail, $uneRue, $unCodePostal,
 			$uneVille, $uneEntreprise, $unCompteAccepte, $unMotDePasse, $desEtudesPostBTS, $uneDateDerniereMAJ, $unIdFonction) {
 		$this->id = $unId;
 		$this->nom = strtoupper($unNom);
 		$this->prenom = Outils::corrigerPrenom($unPrenom);
 		$this->sexe = $unSexe;
 		$this->anneeDebutBTS = $uneAnneeDebutBTS;
-		$this->tel = Outils::corrigerTelephone($unTel);				
+		$this->tel = Outils::corrigerTelephone($unTel);
 		$this->adrMail = $uneAdrMail;
-		$this->rue = $uneRue;		
+		$this->rue = $uneRue;
 		$this->codePostal = $unCodePostal;
 		$this->ville = Outils::corrigerVille($uneVille);
-		$this->entreprise = $uneEntreprise;		
-		$this->compteAccepte = $unCompteAccepte;		
+		$this->entreprise = $uneEntreprise;
+		$this->compteAccepte = $unCompteAccepte;
 		$this->motDePasse = $unMotDePasse;
-		$this->etudesPostBTS = $desEtudesPostBTS;		
+		$this->etudesPostBTS = $desEtudesPostBTS;
 		$this->dateDerniereMAJ = $uneDateDerniereMAJ;
 		$this->idFonction = $unIdFonction;
 	}
+
+	
+	
 	
 	// ------------------------------------------------------------------------------------------------------
 	// ---------------------------------------- Getters et Setters ------------------------------------------

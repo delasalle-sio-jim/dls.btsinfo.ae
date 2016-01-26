@@ -1,12 +1,16 @@
 <?php
 	// Projet DLS - BTS Info - Anciens élèves
-	// Fonction de la vue vues.jquery/VueDemanderCreationCompte.php : visualiser la vue de création de compte élève
+	// Fonction de la vue vues.jquery/VueCreatuserAdmin.php : visualiser la vue de création de compte élève par un Admin
 	// Ecrit le 3/1/2016 par Jim
+header('Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0');
+	header('Pragma: no-cache');
+	header('Content-Tranfer-Encoding: none');
+	header('Expires: 0');
 ?>
 <!doctype html>
 <html>
 	<head>	
-		<?php include_once ('head.php'); ?>
+		<?php include_once ('vues.jquery/head.php'); ?>
 		
 		<script>
 			<?php if ($typeMessage != '') { ?>
@@ -16,27 +20,48 @@
 					$.mobile.changePage('#affichage_message', {transition: "<?php echo $transition; ?>"});
 				} );
 			<?php } ?>
+			
+			// associe une fonction à l'événement click sur la case à cocher 'caseAfficherMdp'
+			$('#caseAfficherMdp').live('click', function() {
+				if ($('#caseAfficherMdp').attr('checked') == true) {
+					('#txtNouveauMdp').attr('type', 'text');
+					('#txtNouveauMdp').input('refresh');
+					('#txtConfirmationMdp').attr('type', 'text');
+					('#txtConfirmationMdp').input('refresh');
+					window.alert('true');
+				}
+				else {
+					('#txtNouveauMdp').attr('type', 'password');
+					('#txtNouveauMdp').input('refresh');
+					('#txtConfirmationMdp').attr('type', 'password');
+					('#txtConfirmationMdp').input('refresh');
+					window.alert('false');
+				};
+			} );
+						
+			function afficherMdp()
+			{	if (document.getElementById("caseAfficherMdp").checked == true)
+				{	document.getElementById("txtNouveauMdp").type="text";
+					document.getElementById("txtConfirmationMdp").type="text";
+					// window.alert('true');
+				}
+				else
+				{	document.getElementById("txtNouveauMdp").type="password";
+					document.getElementById("txtConfirmationMdp").type="password";
+					// window.alert('false');
+				}
+			};
 		</script>
 	</head> 
 	<body>
-		<div data-role="page">
+		<div data-role="page" id="page_principale">
 			<div data-role="header" data-theme="<?php echo $themeNormal; ?>">
 				<h4>DLS-Info-AE</h4>
-				<a href="index.php?action=Deconnecter" data-ajax="false">Accueil</a>
+				<a href="index.php?action=Menu" data-ajax="false" data-transition="<?php echo $transition; ?>">Retour menu</a>
 			</div>
-			
 			<div data-role="content">
-				<div data-role="collapsible-set">
-					<div data-role="collapsible">
-						<h3>Avertissement...</h3>
-						<p>Après vérification de votre demande par les administrateurs de l'annuaire (cette opération peut prendre quelques jours éventuellement),
-						 vous recevrez un mail de confirmation avec votre mot de passe (que vous pourrez ensuite modifier).</p>
-					</div>
-					
-					<div data-role="collapsible" data-collapsed="false">
-						<h3>Créer mon compte</h3>
-						<p>* indique un champ obligatoire</p>
-						<form name="form1" id="form1" action="index.php?action=DemanderCreationCompte" method="post" data-ajax="false">
+				<h4 style="text-align: center; margin-top: 10px; margin-bottom: 10px;">Créer un utilisateur</h4>
+				<form action="index.php?action=CreatUserAdmin" method="post" data-ajax="false" >
 							<div data-role="fieldcontain" class="ui-hide-label">
 
 								<label for="txtNom">Nom (de naissance) *</label>
@@ -91,24 +116,20 @@
 								<input type="submit" value="Envoyer les données" name="btnEnvoyer" id="btnEnvoyer" data-mini="true">
 							</div>
 						</form>
-					</div>
-
-				</div>
-				
-				<?php if($debug == true) {
-					// en mise au point, on peut afficher certaines variables dans la page
-					echo "<p>typeMessage = " . $typeMessage . "</p>";
-					echo "<p>message = " . $message . "</p>";
-				} ?>
-				
-			</div>
-			
-			<div data-role="footer" data-position="fixed" data-theme="<?php echo $themeNormal; ?>">
-				<h4>Annuaire des anciens du BTS Informatique<br>Lycée De La Salle (Rennes)</h4>
-			</div>
+					
 		</div>
 		
-		<?php include_once ('vues.jquery/dialog_message.php'); ?>
-		
-	</body>
+		<div id="footer">
+			<p>Annuaire des anciens élèves du BTS Informatique - Lycée De La Salle (Rennes)</p>
+		</div>		
+	</div>
+	
+	<aside id="affichage_message" class="classe_message">
+		<div>
+			<h2 id="titre_message" class="classe_information">Message</h2>
+			<p id="texte_message" class="classe_texte_message">Texte du message</p>
+			<a href="#close" title="Fermer">Fermer</a>
+		</div>
+	</aside>
+</body>
 </html>

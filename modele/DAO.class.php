@@ -55,6 +55,7 @@
 include_once ('Fonction.class.php');
 include_once ('Eleve.class.php');
 include_once ('Administrateur.class.php');
+include_once ('Soiree.class.php');
 include_once ('Outils.class.php');
 
 // inclusion des paramètres de l'application
@@ -131,22 +132,41 @@ class DAO
 	
 	function getLesEleves()
 	{	// préparation de la requete de recherche
-	$txt_req = "Select id, adrMail from ae_eleves order by id";
+	
+	$txt_req = "Select * from ae_eleves order by DESC";
 	
 	$req = $this->cnx->prepare($txt_req);
 	// extraction des données
 	$req->execute();
 	$uneLigne = $req->fetch(PDO::FETCH_OBJ);
 	
-	// construction d'une collection d'objets Fonction
-	$lesFonctions = array();
+	// construction d'une collection d'objets Eleve
+	$lesEleves = array();
 	// tant qu'une ligne est trouvée :
 	while ($uneLigne)
-	{	// création d'un objet Fonction
-		$unId = utf8_encode($uneLigne->id);
-		$uneAdrMail = utf8_encode($uneLigne->adrMail);
+	{	
+		// création d'un objet Eleve
+			$id = utf8_encode($uneLigne->id);
+			$nom = utf8_encode($uneLigne->nom);
+			$prenom = utf8_encode($uneLigne->prenom);
+			$sexe = utf8_encode($uneLigne->sexe);
+			$anneeDebutBTS = utf8_encode($uneLigne->anneeDebutBTS);
+			$tel = utf8_encode($uneLigne->tel);
+			$adrMail = utf8_encode($uneLigne->adrMail);
+			$rue = utf8_encode($uneLigne->rue);
+			$codePostal = utf8_encode($uneLigne->codePostal);
+			$ville = utf8_encode($uneLigne->ville);
+			$entreprise = utf8_encode($uneLigne->entreprise);
+			$compteAccepte = utf8_encode($uneLigne->compteAccepte);
+			$motDePasse = utf8_encode($uneLigne->motDePasse);
+			$etudesPostBTS = utf8_encode($uneLigne->etudesPostBTS);
+			$dateDerniereMAJ = utf8_encode($uneLigne->dateDerniereMAJ);
+			$idFonction = utf8_encode($uneLigne->idFonction);			
+					
+			$unEleve = new Eleve($id, $nom, $prenom, $sexe, $anneeDebutBTS, $tel, $adrMail, $rue, $codePostal, 
+				$ville, $entreprise, $compteAccepte, $motDePasse, $etudesPostBTS, $dateDerniereMAJ, $idFonction);
 			
-		$unEleve = new Eleve($unId, $uneAdrMail);
+		
 		// ajout de la fonction à la collection
 		$lesEleves[] = $unEleve;
 		// extrait la ligne suivante
@@ -155,8 +175,9 @@ class DAO
 	// libère les ressources du jeu de données
 	$req->closeCursor();
 	// fourniture de la collection
-	return $lesFonctions;
+	return $lesEleves;
 	}
+	
 	// fournit le type d'un utilisateur identifié par $adrMail et $motDePasse
 	// renvoie "eleve" ou "administrateur" si authentification correcte, "inconnu" sinon
 	// modifié par Jim le 16/11/2015
@@ -331,6 +352,24 @@ class DAO
 		return $ok;
 	}
 	
+	public function supprimerCompteEleve($parametre){
+		//if ( ! Outils::estUnEntierValide($parametre) && ! Outils::estUneAdrMailValide($parametre) ) return null;
+		
+		// préparation de la requete de recherche
+		//if (Outils::estUnEntierValide($parametre)) $txt_req = "Delete from ae_eleves where id = :parametre";
+		if (Outils::estUneAdrMailValide($parametre)) $txt_req = "Delete from ae_eleves where adrMail = :parametre";
+		
+		$req = $this->cnx->prepare($txt_req);
+		// liaison de la requête et de son paramètre
+		//if (Outils::estUnEntierValide($parametre)) $req->bindValue("parametre", $parametre, PDO::PARAM_INT);
+		if (Outils::estUneAdrMailValide($parametre)) $req->bindValue("parametre", $parametre, PDO::PARAM_STR);
+		
+		// extraction des données
+		$ok =$req->execute();
+		
+		return $ok; 
+	}
+	
 	// enregistre dans la bdd l'acceptation ou le rejet d'une demande de création de compte élève
 	// modifié par Jim le 16/11/2015
 	public function validerCreationCompte($idCompte, $decision)
@@ -401,10 +440,10 @@ class DAO
 	{ 
 		$txt_req = "INSERT INTO ae_administrateurs(adrMail,motDePasse ,prenom,nom) VALUES(:adrMail,:mdp,:prenom,:nom)";
 		$req = $this->cnx->prepare($txt_req);
-		$req->bindValue("adrMail", $adrMailAdmin, PDO::PARAM_STR);//remplissage de la variable
-		$req->bindValue("prenom", $prenomAdmin, PDO::PARAM_STR);
-		$req->bindValue("mdp", $MdpAdmin, PDO::PARAM_STR);
-		$req->bindValue("nom", strtoupper($nomAdmin), PDO::PARAM_STR);
+		$req->bindValue("adrMail", utf8_decode($adrMailAdmin), PDO::PARAM_STR);//remplissage de la variable
+		$req->bindValue("prenom", utf8_decode($prenomAdmin), PDO::PARAM_STR);
+		$req->bindValue("mdp",  utf8_decode(sha1($MdpAdmin)), PDO::PARAM_STR);
+		$req->bindValue("nom", utf8_decode(strtoupper($nomAdmin)), PDO::PARAM_STR);
 		$ok = $req->execute();//execution de la requete
 		return $ok;
 	}
@@ -475,11 +514,152 @@ class DAO
 		return $ok;
 
 	}
+	public function modifierFicheUser($nom,$prenom,$anneeDebutBTS,$mail,$telephone,$rue,$ville,$cp,$etudes,$entreprise,$fonction,$oldMail)
+	{
+		$telephone = Outils::corrigerTelephone($telephone);
+		$nom = strtoupper($nom);
+		$prenom = Outils::corrigerPrenom($prenom);
+		$ville = Outils::corrigerVille($ville);
+	
+		//$txt_req = "UPDATE ae_eleves SET nom = :nom, prenom = :prenom, anneeDebutBTS = :anneeDebutBTS, tel = :tel, codePostal = :cp, ville = :ville, rue = :rue, entreprise = :entreprise, idFonction = :fonction, etudesPostBTS = :etudes WHERE adrMail = :mail;";
+	
+	
+		$txt_req = "UPDATE ae_eleves SET ";
+		$txt_req .= " nom = :nom,";
+		$txt_req .= " prenom = :prenom,";
+		$txt_req .= " anneeDebutBTS = :anneeDebutBTS,";
+		$txt_req .= " tel = :tel,";
+		$txt_req .= " codePostal = :cp,";
+		$txt_req .= " ville = :ville,";
+		$txt_req .= " rue = :rue,";
+		$txt_req .= " entreprise = :entreprise,";
+		$txt_req .= " idFonction = :fonction,";
+		$txt_req .= " etudesPostBTS = :etudes,";
+		$txt_req .= " adrMail = :mail";
+		$txt_req .= " WHERE adrMail = :oldMail;";
 	
 	
 	
-
+		$req = $this->cnx->prepare($txt_req);
 	
+		//remplissage des variables
+		$req->bindValue("nom", utf8_decode($nom), PDO::PARAM_STR);
+		$req->bindValue("prenom", utf8_decode($prenom), PDO::PARAM_STR);
+		$req->bindValue("anneeDebutBTS", utf8_decode($anneeDebutBTS), PDO::PARAM_STR);
+		$req->bindValue("tel", utf8_decode($telephone), PDO::PARAM_STR);
+		$req->bindValue("cp", utf8_decode($cp), PDO::PARAM_STR);
+		$req->bindValue("ville", utf8_decode($ville), PDO::PARAM_STR);
+		$req->bindValue("rue", utf8_decode($rue), PDO::PARAM_STR);
+		$req->bindValue("entreprise", utf8_decode($entreprise), PDO::PARAM_STR);
+		$req->bindValue("fonction", utf8_decode($fonction), PDO::PARAM_INT);
+		$req->bindValue("etudes", utf8_decode($etudes), PDO::PARAM_STR);
+		$req->bindValue("mail", utf8_decode($mail), PDO::PARAM_STR);
+		$req->bindValue("oldMail", utf8_decode($oldMail), PDO::PARAM_STR);
+		
+	
+		$ok = $req->execute();//execution de la requete
+	
+		if($ok)
+		{
+			$txt_req = "Update ae_eleves SET dateDerniereMAJ = :date where adrMail = :mail";
+			$req = $this->cnx->prepare($txt_req);
+			$date = date('Y-m-d H:i:s', time());
+			$req->bindValue("mail", $mail, PDO::PARAM_STR);//remplissage de la variable
+			$req->bindValue("date", $date, PDO::PARAM_STR);//remplissage de la variable
+			$ok = $req->execute();//execution de la requete
+		}
+		return $ok;
+	
+	}
+	
+	
+	
+	function GetLesAdressesMail()
+	{	// préparation de la requete de recherche
+	
+		
+		$txt_req = "Select id,adrMail from ae_eleves ORDER BY adrMail DESC";
+		
+		$req = $this->cnx->prepare($txt_req);
+		// extraction des données
+		$req->execute();
+		$uneLigne = $req->fetch(PDO::FETCH_OBJ);
+		
+		// construction d'une collection d'objets Fonction
+		$lesMails = array();
+		// tant qu'une ligne est trouvée :
+		while ($uneLigne)
+		{	// création d'un objet Fonction
+			$unMail = utf8_encode($uneLigne->adrMail);
+			$lesMails[] = $unMail;
+			
+			// extrait la ligne suivante
+			$uneLigne = $req->fetch(PDO::FETCH_OBJ);
+		}
+	// libère les ressources du jeu de données
+	$req->closeCursor();
+	// fourniture de la collection
+	return $lesMails;
+	}
+	
+	function GetDonnesSoiree()
+	{
+		//if( isset($_SESSION['Soiree']) == true)
+	//	{
+		//	$Soiree = unserialize($_SESSION['Soiree']);
+	//		return $Soiree;
+	//	}
+	//	else
+	//	{
+			//$date =date("Y");
+			$txt_req = "Select * from ae_soirees order by id";
+			$req = $this->cnx->prepare($txt_req);
+			$req->execute();
+			$uneLigne = $req->fetch(PDO::FETCH_OBJ);
+			
+			if( !$uneLigne)
+			{
+				return null;	
+			}
+			else {
+							
+				$unId= utf8_encode($uneLigne->id);
+				$unNomRestaurant = utf8_encode($uneLigne->nomRestaurant);
+				$uneDate= utf8_encode($uneLigne->date);
+				$uneAdresse=utf8_encode($uneLigne->adresse);
+				$unTarif = utf8_encode($uneLigne->tarif);
+				$unLienMenu = utf8_encode($uneLigne->lienMenu);
+				$uneLatitude = utf8_encode($uneLigne->latitude);
+				$uneLongitude = utf8_encode($uneLigne->longitude);
+				
+				$Soiree = new Soiree($unId, $unNomRestaurant, $uneDate, $uneAdresse, $unTarif, $unLienMenu, $uneLatitude, $uneLongitude);
+				$_SESSION['Soiree'] = serialize($Soiree);
+				return $Soiree;
+			}
+	//	}
+	}
+	
+	function ModifierDonnesSoiree($unNom, $uneDate, $uneAdresse, $unTarif, $unLienMenu, $uneLatitude, $uneLongitude)
+	{
+		
+		$txt_req = "Update ae_soirees SET nomRestaurant = :nom, date = :date, tarif = :tarif, adresse = :adresse, lienMenu = :lienMenu, latitude = :latitude, longitude = :longitude where id = 1;";
+		
+		$req = $this->cnx->prepare($txt_req);
+		$req->bindValue("date", Outils::convertirEnDateUS($uneDate), PDO::PARAM_STR);
+		$req->bindValue("nom",  utf8_decode($unNom), PDO::PARAM_STR);
+		$req->bindValue("tarif" , utf8_decode($unTarif), PDO::PARAM_STR);
+		$req->bindValue("adresse",utf8_decode($uneAdresse), PDO::PARAM_STR);
+		$req->bindValue("lienMenu", utf8_decode($unLienMenu), PDO::PARAM_STR);
+		$req->bindValue("latitude" , utf8_decode($uneLatitude), PDO::PARAM_STR);
+		$req->bindValue("longitude", utf8_decode($uneLongitude), PDO::PARAM_STR);
+		
+		
+		$ok = $req->execute();
+		
+		return $ok;	
+		
+	}
+		
 } // fin de la classe DAO
 
 // ATTENTION : on ne met pas de balise de fin de script pour ne pas prendre le risque

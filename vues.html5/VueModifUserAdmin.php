@@ -1,15 +1,17 @@
 <?php
-	// Projet DLS - BTS Info - Anciens élèves
-	// Fonction de la vue vues.html5/VueCreatUserAdmin.php : visualiser la vue de création de compte élève par un administrateur
-	// Ecrit le 12/1/2016 par Nicolas Esteve
+// Projet DLS - BTS Info - Anciens élèves
+// Fonction de la vue vues.html5/VueModifUserAdmin.php : visualiser la vue de modification de compte élève par un administrateur
+// Ecrit le 18/1/2016 par Nicolas Esteve
 ?>
 <!doctype html>
-<html>
+<html lang="en">
 <head>	
-	<?php include_once ('head.php'); ?>
+<meta charset="utf-8">
+	<?php include_once ('head.php');
+	include_once ('modele/DAO.class.php');
+	$dao = new DAO();?>
 	<script>
 		window.onload = initialisations;
-		
 		function initialisations() {
 			<?php if ($typeMessage == 'avertissement') { ?>
 				afficher_avertissement("<?php echo $message; ?>");
@@ -19,6 +21,46 @@
 				afficher_information("<?php echo $message; ?>");
 			<?php } ?>
 		}
+		
+	</script>
+	
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+	<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+  	<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+  	
+	<style>
+		 .ui-autocomplete {
+			 max-height: 100px;
+			 overflow-y: auto;
+			 /* prevent horizontal scrollbar */
+			 overflow-x: hidden;
+		 }
+		 /* IE 6 doesn't support max-height
+		  * we use height instead, but this forces the menu to always be this tall
+		  */
+		 * html .ui-autocomplete {
+			 height: 100px;
+		 }
+	</style>
+	
+	<script>
+	 $(function() {
+		    var listeEleves  = [ 
+		     <?php 
+	     	$eleveMails='"';
+			foreach($lesMails as $unMail){ 
+				$eleveMails .= $unMail.'","';
+			 } 
+			 $eleveMails = substr($eleveMails ,0,-2);
+			 echo $eleveMails;?>	         			    
+			];
+		    $( "#listeEleves" ).autocomplete({
+		      source: listeEleves
+		    });
+		  });
+	</script>	
+		
+	<script>
 		function afficher_information(msg) {
 			document.getElementById("titre_message").innerHTML = "Information...";
 			document.getElementById("titre_message").className = "classe_information";
@@ -39,7 +81,7 @@
 		<div id="header">
 			<div id=header-menu>
 				<ul id="menu-horizontal">
-					<li><a href="index.php?action=Connecter">Retour accueil</a></li>
+					<li><a href="index.php?action=menu">Retour accueil</a></li>
 				</ul>
 			</div>
 			<div id="header-logos">
@@ -49,11 +91,38 @@
 		</div>
 			
 		<div id="content">
-			 		
-			<h2>Création d'un compte élève (actuel ou ancien)</h2>
-									
-			<form name="form1" id="form1" action="index.php?action=CreatUserAdmin" method="post">
+		<h2>Modifier un Utilisateur</h2>
+	<form name="form1" id="form1" action="index.php?action=ModifUserAdmin" method="post">
+				
+				<!--ceci est un prototype de liste déroulante dynamique non utilisée car trop d'objets à gerer
+				<p>	
 
+					 <select size="1" onchange="submit()" name="listeEleve" id="listeEleve">
+					<option value="<?php //if( isset($mail)) echo $mail ?>"><?php // if( isset($mail)) echo $mail ?></option>
+					
+						<?php //foreach ($lesEleves as $unEleve) { ?>
+						<option value="<?php //echo $unEleve->getId()?>" <?php //if ($idEleve == $unEleve->getAdrMail()) echo 'selected="selected"'; ?>><?php //echo $unEleve->getAdrMail(); ?></option>					
+						<?php //} ?>	
+										
+					</select>
+				</p> -->
+		
+				<div class="ui-widget">
+				<p>
+					 <label for="listeEleves">Eleves: </label>
+ 					 <input id="listeEleves"  value="<?php if($etape == 1 ) echo $mail; else echo ''; ?>" name="listeEleves" placeholder="recherchez à l'aide de l'email de l'utilisateur">
+				</p>
+				
+					
+				<p>
+					<input type="submit" name="btnDetail" id="btnDetail" value="Obtenir les détails">
+				</p>	
+				</div>
+				
+
+				<?php if($etape == 1)
+				{?>
+				
 				<p>
 					<label for="txtNom">Nom (de naissance) *</label>
 					<input type="text" name="txtNom" id="txtNom" maxlength="30" required value="<?php echo $nom; ?>" />
@@ -62,19 +131,13 @@
 					<label for="txtPrenom">Prénom *</label>
 					<input type="text" name="txtPrenom" id="txtPrenom" maxlength="30" required value="<?php echo $prenom; ?>" />
 				</p>
-				<p> 
-					<label for="radioSexe">Sexe *</label>
-					
-  					<input type="radio" name="radioSexe" id="radioSexeH" required value="H" <?php if ($sexe == "H") echo 'checked="checked"';?> />Homme
-              		<input type="radio" name="radioSexe" id="radioSexeF" required value="F" <?php if ($sexe == "F") echo 'checked="checked"';?> />Femme
-				</p>
 				<p>
 					<label for="txtAnneeDebutBTS">Année d'entrée en BTS *</label>
 					<input type="text" name="txtAnneeDebutBTS" id="txtAnneeDebutBTS" maxlength="4" pattern="^[0-9]{4}$" required value="<?php echo $anneeDebutBTS; ?>" />
 				</p>
 				<p>
 					<label for="txtAdrMail">Adresse mail *</label>
-					<input type="email" name="txtAdrMail" id="txtAdrMail" maxlength="50" required pattern="^.+@.+\..+$" value="<?php echo $adrMail; ?>" />
+					<input type="email" name="txtAdrMail" id="txtAdrMail" maxlength="50" required pattern="^.+@.+\..+$" value="<?php echo $mail; ?>" />
 				</p>
 				<p>
 					<label for="txtTel">Téléphone</label>
@@ -106,16 +169,16 @@
 					<select size="1" name="listeFonctions" id="listeFonctions">
 						<?php foreach ($lesFonctions as $uneFonction) { ?>
 							<option value="<?php echo $uneFonction->getId(); ?>" <?php if ($idFonction == $uneFonction->getId()) echo 'selected="selected"'; ?>><?php echo $uneFonction->getLibelle(); ?></option>
-						<?php } ?>				
+						<?php } ?>	
+							
 					</select>
 				</p>						
 				<p>
 					<input type="submit" value="Envoyer les données" name="btnEnvoyer" id="btnEnvoyer" />
 				</p>
-			</form>
-	
-		</div>
-			
+				<?php }?>	
+				</form>
+				</div>
 		<div id="footer">
 			<p>Annuaire des anciens élèves du BTS Informatique - Lycée De La Salle (Rennes)</p>
 		</div>		
@@ -125,9 +188,8 @@
 		<div>
 			<h2 id="titre_message" class="classe_information">Message</h2>
 			<p id="texte_message" class="classe_texte_message">Texte du message</p>
-			<a href="#close" title="Fermer">Fermer</a>
+			<a href="" onclick='window.location.reload(false)' title="Fermer">Fermer</a>
 		</div>
 	</aside>
-	
 </body>
-</html>
+</html>						

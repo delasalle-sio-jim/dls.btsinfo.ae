@@ -1,7 +1,7 @@
 <?php
 	// Projet DLS - BTS Info - Anciens élèves
-	// Fonction de la vue vues.html5/VueDemanderCreationCompte.php : visualiser la vue de création de compte élève
-	// Ecrit le 07/01/2016 par Nicolas esteve
+	// Fonction de la vue vues.html5/VueModifFichePerso.php : visualiser la vue de modification d'un utilisateur qui modifie sa propre fiche perso
+	// Ecrit le 11/01/2016 par Nicolas esteve
 ?>
 <!doctype html>
 <html>

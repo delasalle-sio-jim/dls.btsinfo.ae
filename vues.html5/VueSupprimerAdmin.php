@@ -1,4 +1,4 @@
-<?php
+	<?php
 // Projet DLS - BTS Info - Anciens élèves
 // Fonction de la vue vues.html5/VueSuppimerAdmin.php : supprimer un administrateur
 // Ecrit le 06/01/2016 par Nicolas Esteve

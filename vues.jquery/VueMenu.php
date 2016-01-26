@@ -26,6 +26,7 @@
 						<li><a href="index.php?action=Menu" data-ajax="false" data-transition="<?php echo $transition; ?>">M'inscrire à la soirée des anciens</a></li>
 						<li><a href="index.php?action=Menu" data-ajax="false" data-transition="<?php echo $transition; ?>">Recherche d'autres anciens élèves</a></li>
 						<li><a href="index.php?action=ModifFichePerso" data-ajax="false" data-transition="<?php echo $transition; ?>">Mettre à jour mon profil</a></li>
+						<li><a href="index.php?action=DepotStage" data-ajax="false" data-transition="<?php echo $transition; ?>">Mettre à disposition un stage</a></li>
 						<li><a href="index.php?action=Menu" data-ajax="false" data-transition="<?php echo $transition; ?>">Galerie des photos de classe</a></li>
 					<?php } ?>
 					<?php if ( $typeUtilisateur == "administrateur" ) {
@@ -38,7 +39,12 @@
 						<li><a href="index.php?action=Menu" data-ajax="false" data-transition="<?php echo $transition; ?>">Consulter les inscriptions à la soirée</a></li>
 						<li><a href="index.php?action=Menu" data-ajax="false" data-transition="<?php echo $transition; ?>">Envoyer courriels de relance</a></li>
 						<li><a href="index.php?action=Menu" data-ajax="false" data-transition="<?php echo $transition; ?>">Gérer la galerie des photos de classe</a></li>
-						<li><a href="index.php?action=CreatUserAdmin" data-ajax="false" data-transition="<?php echo $transition; ?>">Créer un compte utilisateur</a></p>
+						<div data-role="collapsible">
+						<h3>Gérer les comptes élèves</h3>
+							<li><a href="index.php?action=CreatUserAdmin" data-ajax="false" data-transition="<?php echo $transition; ?>">Créer un compte utilisateur</a></li>
+							<li><a href="index.php?action=ModifUserAdmin" data-ajax="false" data-transition="<?php echo $transition; ?>">Modifier un compte utilisateur</a></li>
+							<li><a href="index.php?action=SupprUserAdmin" data-ajax="false" data-transition="<?php echo $transition; ?>">Supprimer un compte utilisateur</a></li>
+						</div>
 					<?php } ?>
 				</ul>
 				
