@@ -67,7 +67,7 @@ header('Expires: 0');
 				<a href="index.php?action=Menu" data-ajax="false" data-transition="<?php echo $transition; ?>">Retour menu</a>
 			</div>
 			<div data-role="content">
-				<h4 style="text-align: center; margin-top: 10px; margin-bottom: 10px;">Supprimer un utilisateur</h4>
+				<h4 style="text-align: center; margin-top: 10px; margin-bottom: 10px;">Modifier un utilisateur</h4>
 				<form name="form1" id="form1" data-ajax="false" action="index.php?action=ModifUserAdmin" method="post">
 				
 				<!--ceci est un prototype de liste déroulante dynamique non utilisée car trop d'objets à gerer

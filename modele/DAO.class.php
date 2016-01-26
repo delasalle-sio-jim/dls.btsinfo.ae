@@ -467,7 +467,6 @@ class DAO
 		$prenom = Outils::corrigerPrenom($prenom);
 		$ville = Outils::corrigerVille($ville);
 		
-		//$txt_req = "UPDATE ae_eleves SET nom = :nom, prenom = :prenom, anneeDebutBTS = :anneeDebutBTS, tel = :tel, codePostal = :cp, ville = :ville, rue = :rue, entreprise = :entreprise, idFonction = :fonction, etudesPostBTS = :etudes WHERE adrMail = :mail;";
 		
 
 		$txt_req = "UPDATE ae_eleves SET ";
@@ -521,8 +520,7 @@ class DAO
 		$prenom = Outils::corrigerPrenom($prenom);
 		$ville = Outils::corrigerVille($ville);
 	
-		//$txt_req = "UPDATE ae_eleves SET nom = :nom, prenom = :prenom, anneeDebutBTS = :anneeDebutBTS, tel = :tel, codePostal = :cp, ville = :ville, rue = :rue, entreprise = :entreprise, idFonction = :fonction, etudesPostBTS = :etudes WHERE adrMail = :mail;";
-	
+		
 	
 		$txt_req = "UPDATE ae_eleves SET ";
 		$txt_req .= " nom = :nom,";
@@ -602,16 +600,16 @@ class DAO
 	return $lesMails;
 	}
 	
-	function GetDonnesSoiree()
-	{
-		//if( isset($_SESSION['Soiree']) == true)
-	//	{
-		//	$Soiree = unserialize($_SESSION['Soiree']);
-	//		return $Soiree;
-	//	}
-	//	else
-	//	{
-			//$date =date("Y");
+	function GetDonnesSoiree($urgent)
+		{
+		if( isset($_SESSION['Soiree']) == true && $urgent == false)
+		{
+			$Soiree = unserialize($_SESSION['Soiree']);
+			return $Soiree;
+		}
+		else
+		{
+			
 			$txt_req = "Select * from ae_soirees order by id";
 			$req = $this->cnx->prepare($txt_req);
 			$req->execute();
@@ -636,13 +634,15 @@ class DAO
 				$_SESSION['Soiree'] = serialize($Soiree);
 				return $Soiree;
 			}
-	//	}
+
+		}
 	}
 	
 	function ModifierDonnesSoiree($unNom, $uneDate, $uneAdresse, $unTarif, $unLienMenu, $uneLatitude, $uneLongitude)
 	{
 		
-		$txt_req = "Update ae_soirees SET nomRestaurant = :nom, date = :date, tarif = :tarif, adresse = :adresse, lienMenu = :lienMenu, latitude = :latitude, longitude = :longitude where id = 1;";
+		$txt_req = "Update ae_soirees SET nomRestaurant = :nom, date = :date, tarif = :tarif, adresse = :adresse, ";
+		$txt_req .= "lienMenu = :lienMenu, latitude = :latitude, longitude = :longitude where id = 1;";
 		
 		$req = $this->cnx->prepare($txt_req);
 		$req->bindValue("date", Outils::convertirEnDateUS($uneDate), PDO::PARAM_STR);
@@ -659,7 +659,27 @@ class DAO
 		return $ok;	
 		
 	}
+
+	function Inscription($id,$dateInscription,$nbPersonnes,$montant,$montantRembourse,$idEleve,$idSoiree)
+	{
+		$txt_req = "Insert Into ae_inscriptions values (:id,:dateInscription,:nbPersonnes,:montant,:montantRembourse,:idEleve,:idSoiree);";
 		
+		$req = $this->cnx->prepare($txt_req);
+		$req->bindValue("id",  utf8_decode($id), PDO::PARAM_STR);
+		$req->bindValue("dateInscription",  utf8_decode($dateInscription), PDO::PARAM_STR);
+		$req->bindValue("nbPersonnes",  utf8_decode($nbPersonnes), PDO::PARAM_STR);
+		$req->bindValue("montant",  utf8_decode($montant), PDO::PARAM_STR);
+		$req->bindValue("montantRembourse",  utf8_decode($montantRembourse), PDO::PARAM_STR);	
+		$req->bindValue("idEleve",  utf8_decode($idEleve), PDO::PARAM_STR);
+		$req->bindValue("idSoiree",  utf8_decode($idSoiree), PDO::PARAM_STR);
+		
+		$ok = $req->execute();
+		
+		return $ok;
+		
+	}
+	
+	
 } // fin de la classe DAO
 
 // ATTENTION : on ne met pas de balise de fin de script pour ne pas prendre le risque

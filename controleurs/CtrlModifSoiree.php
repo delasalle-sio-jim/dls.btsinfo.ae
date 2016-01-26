@@ -17,7 +17,8 @@ $dao = new DAO();
 
 if (! isset ($_POST ["btnModifier"])) {
 	// si les données n'ont pas été postées, c'est le premier appel du formulaire : affichage de la vue sans message d'erreur
-	$Soiree = $dao->GetDonnesSoiree();
+	$urgence= true;
+	$Soiree = $dao->GetDonnesSoiree($urgence);
 	$message = '';
 	$typeMessage = '';			// 2 valeurs possibles : 'information' ou 'avertissement'
 	$themeFooter = $themeNormal;
@@ -37,8 +38,8 @@ else {
 	
 			
 	$ok = $dao->ModifierDonnesSoiree($unNom, $uneDate, $uneAdresse, $unTarif, $unLienMenu, $uneLatitude, $uneLongitude);
-	
-	$Soiree = $dao->GetDonnesSoiree();
+	$urgence = true;
+	$Soiree = $dao->GetDonnesSoiree($urgence);
 		
 	if ($ok) 
 		{
