@@ -11,8 +11,8 @@ header('Expires: 0');
 <!doctype html>
 <html lang="en">
 <head>	
-<meta charset="utf-8">
-	<?php include_once ('head.php');
+
+	<?php include_once ('vues.jquery/head.php');
 	include_once ('modele/DAO.class.php');
 	$dao = new DAO();
 	//echo $listeMails;?>
@@ -25,9 +25,9 @@ header('Expires: 0');
 				} );
 			<?php } ?>
 		</script>
-<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-<script src="//code.jquery.com/jquery-1.10.2.js"></script>
-<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+		<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+		<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+		<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 <style>
   .ui-autocomplete {
     max-height: 100px;
@@ -85,7 +85,7 @@ header('Expires: 0');
 		
 				<div class="ui-widget">
 				
-					 <label for="listeEleves">Mail de Eleve à modifier: </label>
+					 <label for="listeEleves">Mail de l'élève à modifier: </label>
  					 <input id="listeEleves" value="<?php if($etape == 1 ) echo $mail ; else echo ''; ?>" name="listeEleves" placeholder="recherchez à l'aide de l'email de l'utilisateur" data-mini="true">
  					 	
 				</div>
@@ -109,7 +109,7 @@ header('Expires: 0');
 								<input type="text" name="txtAnneeDebutBTS" id="txtAnneeDebutBTS" maxlength="4" pattern="[0-9]{4,4}" placeholder="Année d'entrée en BTS (4 chiffres) *" data-mini="true" required value="<?php echo $anneeDebutBTS; ?>">
 
 								<label for="txtAdrMail">Adresse mail *</label>
-								<input type="email" name="txtAdrMail" id="txtAdrMail" maxlength="50" placeholder="Adresse mail *" data-mini="true" required value="<?php echo $adrMail; ?>">
+								<input type="email" name="txtAdrMail" id="txtAdrMail" maxlength="50" placeholder="Adresse mail *" data-mini="true" required value="<?php echo $mail; ?>">
 
 								<label for="txtTel">Téléphone</label>
 								<input type="tel" name="txtTel" id="txtTel" maxlength="14" placeholder="Téléphone" data-mini="true" value="<?php echo $tel; ?>">
@@ -136,15 +136,20 @@ header('Expires: 0');
 										<option value="<?php echo $uneFonction->getId(); ?>" <?php if ($idFonction == $uneFonction->getId()) echo 'selected'; ?>><?php echo $uneFonction->getLibelle(); ?></option>
 									<?php } ?>				
 								</select>
-
-							</div>
-								
-			
-							<div data-role="fieldcontain">
 								<input type="submit" value="Enregistrer les modifications" name="btnEnvoyer" id="btnEnvoyer" data-mini="true">
+								
 							</div>
+							
 							<?php } ?>
 						</form>
 					</div>
-
-				</div>
+					<div data-role="footer" data-position="fixed" data-theme="<?php echo $themeNormal; ?>">
+						<h4>Annuaire des anciens du BTS Informatique<br>Lycée De La Salle (Rennes)</h4>
+					</div>
+			</div>
+		
+			<?php include_once ('vues.jquery/dialog_message.php'); ?>
+		
+	</body>
+</html>
+				

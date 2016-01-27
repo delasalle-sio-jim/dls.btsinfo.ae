@@ -121,19 +121,19 @@
 				{?>
 				
 				<p>
-					<label class="label2" for="prenom">Prénom de l'utilisateur:<?php echo $prenom ?></label>
+					<label class="label2" for="prenom">Prénom de l'utilisateur :<?php echo $prenom ?></label>
 				</p>
 				
 				<p>
-					<label class="label2" for="nom">Nom de l'utilisateur:<?php echo $nom ?></label>
+					<label class="label2" for="nom">Nom de l'utilisateur :<?php echo $nom ?></label>
 				</p>
 				
 				<p>
-					<label class="label2" for="mail">Mail de l'utilisateur:	<?php echo $mail ?></label>
+					<label class="label2" for="mail">Mail de l'utilisateur :	<?php echo $mail ?></label>
 				</p>
 				
 				<p>
-					<label class="label2" for="annee">L'année d'entrée en BTS:<?php echo $annee ?></label>
+					<label class="label2" for="annee">L'année d'entrée en BTS :<?php echo $annee ?></label>
 				</p>
 				<p>
 					<input type="submit" name="btnSupprimer" id="btnSupprimer" value="Supprimer l'utilisateur">

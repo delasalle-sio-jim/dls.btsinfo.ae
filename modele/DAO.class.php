@@ -572,11 +572,10 @@ class DAO
 	
 	
 	
-	function GetLesAdressesMail()
+	function getLesAdressesMail()
 	{	// préparation de la requete de recherche
-	
-		
-		$txt_req = "Select id,adrMail from ae_eleves ORDER BY adrMail DESC";
+		//
+		$txt_req = "Select adrMail from ae_eleves ORDER BY adrMail ASC";
 		
 		$req = $this->cnx->prepare($txt_req);
 		// extraction des données
@@ -594,13 +593,13 @@ class DAO
 			// extrait la ligne suivante
 			$uneLigne = $req->fetch(PDO::FETCH_OBJ);
 		}
-	// libère les ressources du jeu de données
-	$req->closeCursor();
-	// fourniture de la collection
-	return $lesMails;
+		// libère les ressources du jeu de données
+		$req->closeCursor();
+		// fourniture de la collection
+		return $lesMails;
 	}
 	
-	function GetDonnesSoiree($urgent)
+	function getDonnesSoiree($urgent)
 		{
 		if( isset($_SESSION['Soiree']) == true && $urgent == false)
 		{
@@ -638,7 +637,7 @@ class DAO
 		}
 	}
 	
-	function ModifierDonnesSoiree($unNom, $uneDate, $uneAdresse, $unTarif, $unLienMenu, $uneLatitude, $uneLongitude)
+	function modifierDonnesSoiree($unNom, $uneDate, $uneAdresse, $unTarif, $unLienMenu, $uneLatitude, $uneLongitude)
 	{
 		
 		$txt_req = "Update ae_soirees SET nomRestaurant = :nom, date = :date, tarif = :tarif, adresse = :adresse, ";
@@ -660,7 +659,7 @@ class DAO
 		
 	}
 
-	function Inscription($id,$dateInscription,$nbPersonnes,$montant,$montantRembourse,$idEleve,$idSoiree)
+	function inscription($id,$dateInscription,$nbPersonnes,$montant,$montantRembourse,$idEleve,$idSoiree)
 	{
 		$txt_req = "Insert Into ae_inscriptions values (:id,:dateInscription,:nbPersonnes,:montant,:montantRembourse,:idEleve,:idSoiree);";
 		

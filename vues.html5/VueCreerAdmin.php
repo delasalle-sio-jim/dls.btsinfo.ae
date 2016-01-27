@@ -53,24 +53,24 @@
 			 		
 			<h2>Création d'un compte Administrateur </h2>
 			 
-			<h3>Entrez les données nécessaires à la création du compte (tout les champ sont obligatoire) :</h3>
+			<h3>Entrez les données nécessaires à la création du compte (tous les champs sont obligatoires) :</h3>
 						
 			<form name="form1" id="form1" action="index.php?action=CreerAdmin" method="post">
 
 				<p>
-					<label for="txtNom">Nom</label>
+					<label for="txtNom">Nom * :</label>
 					<input type="text" name="txtNom" id="txtNom" maxlength="30" required value="" required/>
 				</p>
 				<p>
-					<label for="txtPrenom">Prénom</label>
+					<label for="txtPrenom">Prénom * :</label>
 					<input type="text" name="txtPrenom" id="txtPrenom" maxlength="30" required value="" required/>
 				</p>
 				<p>
-					<label for="txtAdrMail">Adresse mail</label>
+					<label for="txtAdrMail">Adresse mail * :</label>
 					<input type="email" name="txtAdrMail" id="txtAdrMail" maxlength="50" required pattern="^.+@.+\..+$" value="" required/>
 				</p>
 				<p>
-						<input type="submit" name="btnCreation"  id="btnCeation" value="Creer l'Administrateur" >
+						<input type="submit" name="btnCreation"  id="btnCeation" value="Créer l'Administrateur" >
 					</p>
 			</form>
 				

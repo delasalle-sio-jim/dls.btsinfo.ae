@@ -58,7 +58,7 @@
 						
 				if($Soiree->getTarif() !== null)
 						{
-							$message.= "Le prix prévu pour la soirée est de : ".$Soiree->getTarif()."euros. <br/> <br/>";
+							$message.= "Le prix prévu pour la soirée est de : ".$Soiree->getTarif()." euros. <br/> <br/>";
 						}
 						
 					$message .= " Dans l'espoir de vous voir à cette soirée,<br/><br/>\t Cordialement,<br/>\t L'équipe d'INPACT";

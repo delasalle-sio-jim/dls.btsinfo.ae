@@ -236,10 +236,10 @@ input[type=submit] {
 	background: linear-gradient(to bottom, rgb(255, 255, 255), rgb(210, 210, 210));
 }
 input[type=text]:invalid , input[type=email]:invalid, input[type=password]:invalid, textarea:invalid {
-	background: #fff url(../images/carre-rouge.png) no-repeat 99% center;
+	background: #fff url(../images/rond-rouge.png) no-repeat 99% center;
 }
 input[type=text]:valid , input[type=email]:valid, input[type=password]:valid, textarea:valid {
-	background: #fff url(../images/carre-vert.png) no-repeat 99% center;
+	background: #fff url(../images/rond-vert.png) no-repeat 99% center;
 }
 
 /* zone à mettre à jour */

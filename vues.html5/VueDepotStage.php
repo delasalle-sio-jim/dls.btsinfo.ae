@@ -30,7 +30,7 @@
 			<label class="label2">Si vous souhaitez déposer une offre de stage suivez le lien ci-dessous :</label><br>
 			<p>
 			</p>
-			<a class="lien" href="http://www.lycee-delasalle.com/fr/relations-entreprises/deposer-une-offre-d-emploi.php?type_offre=2">www.lycee-delasalle.com</a><br><p>
+			<a class="lien" Target=_Blank href="http://www.lycee-delasalle.com/fr/relations-entreprises/deposer-une-offre-d-emploi.php?type_offre=2">www.lycee-delasalle.com</a><br><p>
 			<p>
 			</p>
 			<label class="label2">Les élèves et professeurs de BTS SIO vous remercient d'avance pour le temps que vous prenez pour aider la nouvelle génération.</label>

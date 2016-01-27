@@ -79,19 +79,19 @@
 						<input type="text" name="txtAdresse" id="txtAdresse" maxlength="50" placeholder="L'adresse du restautant"  value="<?php if(isset($Soiree)) echo $Soiree->getAdresse(); else echo "";?>" >
 					</p>
 					<p>
-						<label for="txtTarif">Tarif:</label>
+						<label for="txtTarif">Tarif :</label>
 						<input type="text" name="txtTarif" id="txtTarif" maxlength="8" placeholder="Tarif"  value="<?php if(isset($Soiree)) echo $Soiree->getTarif(); else echo "";?>" >
 					</p>
 					<p>
-						<label for="txtLienMenu"> Lien vers le Menu du site du restaurant:</label>
+						<label for="txtLienMenu"> Lien vers le Menu du site du restaurant :</label>
 						<input type="text" name="txtLienMenu" id="txtLienMenu" maxlength="100" placeholder="Lien vers le menu du restaurant"  value="<?php if(isset($Soiree)) echo $Soiree->getLienMenu(); else echo "";?>" >
 					</p>
 					<p>
-						<label for="txtLatitude">Latitude:</label>
+						<label for="txtLatitude">Latitude :</label>
 						<input type="text" name="txtLatitude" id="txtLatitude" maxlength="20" placeholder="Latitude" value="<?php if(isset($Soiree)) echo $Soiree->getLatitude(); else echo "";?>" >
 					</p>
 					<p>
-						<label for="txtLongitude">Longitude:</label>
+						<label for="txtLongitude">Longitude :</label>
 						<input type="text" name="txtLongitude" id="txtLongitude" maxlength="20" placeholder="Longitude"  value="<?php if(isset($Soiree)) echo $Soiree->getLongitude(); else echo "";?>" >
 					</p>			
 					<p>

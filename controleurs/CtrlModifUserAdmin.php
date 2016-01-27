@@ -13,9 +13,9 @@ if ( $_SESSION['typeUtilisateur'] != 'administrateur') {
 // connexion du serveur web à la base MySQL
 include_once ('modele/DAO.class.php');
 $dao = new DAO();
-// obtention de la collection des fonctions occupées par les anciens élèves (pour liste déroulante)
-if ( empty ($_POST ["mail"]) == true)  $mail = "";  else   $mail = $_POST ["mail"];
-$lesFonctions = $dao->getLesFonctions();
+if ( empty ($_POST ["mail"]) == true)  $mail = "";  else   $mail = $_POST ["mail"];// utilité à verifier+++++++++++++++++++++++++++++++++++++++++++++++++++++
+//obtention de la collection des fonctions occupées par les anciens élèves (pour liste déroulante)
+//$lesFonctions = $dao->getLesFonctions(); utilité à verifier++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 if( (! isset ($_POST ["listeEleves"]) == true) && ( ! isset ($_POST ["btnEnvoyer"]) == true)){			
 		// redirection vers la vue si aucune données n'est recu par le controleur
 		$lesMails = $dao->GetLesAdressesMail();
@@ -51,7 +51,7 @@ if( (! isset ($_POST ["listeEleves"]) == true) && ( ! isset ($_POST ["btnEnvoyer
 	
 		$etape=1;
 		$unEleve = $dao->getEleve($idEleve);
-		
+		$lesFonctions = $dao->getLesFonctions();
 		$nom = $unEleve->getNom();
 		$prenom = $unEleve->getPrenom();
 		$sexe = $unEleve->getSexe();
@@ -61,7 +61,7 @@ if( (! isset ($_POST ["listeEleves"]) == true) && ( ! isset ($_POST ["btnEnvoyer
 		$etudesPostBTS = $unEleve->getEtudesPostBTS();
 		$rue = $unEleve->getRue();
 		$codePostal = $unEleve->getCodePostal();
-		$ville = $unEleve->getNom();
+		$ville = $unEleve->getVille();
 		$entreprise = $unEleve->getEntreprise();
 		$idFonction = $unEleve->getIdFonction();
 		

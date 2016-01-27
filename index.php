@@ -116,6 +116,9 @@ switch($action){
 	case 'DetailSoiree':{
 		include_once ('controleurs/CtrlDetailsSoiree.php'); break;
 	}
+	case 'InscriptionSoiree':{
+		include_once ('controleurs/CtrlInscriptionSoiree.php'); break;
+	}
 	default : {
 		// toute autre tentative est automatiquement redirigée vers le contrôleur d'authentification
 		include_once ('controleurs/CtrlConnecter.php'); break;

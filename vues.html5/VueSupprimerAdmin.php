@@ -77,13 +77,13 @@ function afficher_avertissement(msg) {
 					{?>
 					<!--  <form name="form2" id="form1" action="index.php?action=SupprimerAdmin" method="post" > -->
 					<p>
-						<label class="label2" for="prenomAdmin">Prénom de l'administrateur:	<?php echo $prenomAdmin ?></label>
+						<label class="label2" for="prenomAdmin">Prénom de l'administrateur:<?php echo $prenomAdmin ?></label>
 					</p>
 					<p>
-						<label class="label2" for="nomAdmin">Nom de l'adminisrateur:	<?php echo $nomAdmin ?></label>
+						<label class="label2" for="nomAdmin">Nom de l'adminisrateur :<?php echo $nomAdmin ?></label>
 					</p>
 					<p>
-						<label class="label2" for="MailAdmin">Mail de l'administrateur:	<?php echo $txtMailAdmin ?></label>
+						<label class="label2" for="MailAdmin">Mail de l'administrateur :<?php echo $txtMailAdmin ?></label>
 					</p>
 					<p>
 						<label class="label2" for="comfirmation">Entrez le mail de l'administrateur pour confimer la suppression de celui-ci :</label>

@@ -11,7 +11,7 @@ if ( $_SESSION['typeUtilisateur'] != 'eleve') {
 	header ("Location: index.php?action=Deconnecter");
 }
 else {
-	if( (! isset ($_POST ["btnInscription"]) == true) && ! isset($_POST ["confirmation"])){			
+	if( (! isset ($_POST ["btnInscription"]) == true) ){			
 		// redirection vers la vue si aucune données n'est recu par le controleur
 		$urgent = false;
 		$Soiree = $dao->GetDonnesSoiree($urgent);
@@ -20,7 +20,7 @@ else {
 		include_once ($cheminDesVues . 'VueInscriptionSoiree.php');
 	}
 	else {
-		if( (! isset ($_POST ["confirmation"]) == true))
+		if(isset ($_POST ["btnInscription"]) == true)
 		{
 			
 			$urgent = false;
@@ -54,8 +54,12 @@ else {
 			$idSoiree = $Soiree->getId();
 			
 			
-			$dao->Inscription($id, $dateInscription, $nbPersonnes, $montant, $montantRembourse, $idEleve, $idSoiree);
+			$ok = $dao->Inscription($id, $dateInscription, $nbPersonnes, $montant, $montantRembourse, $idEleve, $idSoiree);
 			
+
+			$message = 'Vous êtes inscrit ! <br>Le montant que vous devez payer la soirée est de '.$montant.' euros';
+			$typeMessage = 'avertissement';
+			$themeFooter = $themeNormal;
 			
 			
 		}

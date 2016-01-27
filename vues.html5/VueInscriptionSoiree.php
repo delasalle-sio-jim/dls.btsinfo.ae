@@ -58,7 +58,7 @@
 				<form name="form1" id="form1" action="index.php?action=InscriptionSoiree" method="post">
 
 				<p>
-					<label for="txtNbPlaces">Nombre de places</label>
+					<label for="txtNbPlaces">Nombre de places  :</label>
 					<input type="number"  name="txtNbPlaces" id="txtNbPlaces" maxlength="30" required value="1" required/>
 				</p>
 				<?php if(! empty ($tarif))
@@ -92,11 +92,8 @@
 			<p id="texte_message" class="classe_texte_message">Texte du message</p>
 			<form name="form2" id="form2" action="index.php?action=InscriptionSoiree" method="post">
 			<p>
-			<a href= name="confirmation" onclick="Submit();">Confirmer</a>
-			</p>
-			<p>
-			<a href="#close" title="Fermer">Refuser</a>
-			<form name="form1" id="form1" action="index.php?action=InscriptionSoiree" method="post">
+				<a href="#close" title="Fermer">Refuser</a>
+			</form>
 			</p>
 		</div>
 	</aside>
