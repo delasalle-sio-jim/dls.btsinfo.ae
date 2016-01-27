@@ -120,12 +120,14 @@ header('Expires: 0');
 					<?php } ?>
 				</form>
 						
-				
 				</div>
-				<div data-role="footer" data-position="fixed" data-theme="<?php echo $themeNormal; ?>">
-					<h4>Annuaire des anciens du BTS Informatique<br>Lycée De La Salle (Rennes)</h4>
-				</div>	
-	</div>
-	<?php include_once ('vues.jquery/dialog_message.php'); ?>
-</body>
-</html>						
+					<div data-role="footer" data-position="fixed" data-theme="<?php echo $themeNormal; ?>">
+						<h4>Annuaire des anciens du BTS Informatique<br>Lycée De La Salle (Rennes)</h4>
+					</div>
+			</div>
+		
+			<?php include_once ('vues.jquery/dialog_message.php'); ?>
+		
+	</body>
+</html>
+					

@@ -116,20 +116,14 @@ header('Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-ch
 								<input type="submit" value="Envoyer les données" name="btnEnvoyer" id="btnEnvoyer" data-mini="true">
 							</div>
 						</form>
-					
-		</div>
+						</div>
+					<div data-role="footer" data-position="fixed" data-theme="<?php echo $themeNormal; ?>">
+						<h4>Annuaire des anciens du BTS Informatique<br>Lycée De La Salle (Rennes)</h4>
+					</div>
+			</div>
 		
-		<div id="footer">
-			<p>Annuaire des anciens élèves du BTS Informatique - Lycée De La Salle (Rennes)</p>
-		</div>		
-	</div>
-	
-	<aside id="affichage_message" class="classe_message">
-		<div>
-			<h2 id="titre_message" class="classe_information">Message</h2>
-			<p id="texte_message" class="classe_texte_message">Texte du message</p>
-			<a href="#close" title="Fermer">Fermer</a>
-		</div>
-	</aside>
-</body>
+			<?php include_once ('vues.jquery/dialog_message.php'); ?>
+		
+	</body>
 </html>
+				

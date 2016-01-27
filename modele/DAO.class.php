@@ -659,12 +659,12 @@ class DAO
 		
 	}
 
-	function inscription($id,$dateInscription,$nbPersonnes,$montant,$montantRembourse,$idEleve,$idSoiree)
+	function inscription($dateInscription,$nbPersonnes,$montant,$montantRembourse,$idEleve,$idSoiree)
 	{
-		$txt_req = "Insert Into ae_inscriptions values (:id,:dateInscription,:nbPersonnes,:montant,:montantRembourse,:idEleve,:idSoiree);";
+		$txt_req = "Insert Into ae_inscriptions(dateInscription,nbrePersonnes,montantRegle,montantRembourse,idEleve,idSoiree) values (:dateInscription,:nbPersonnes,:montant,:montantRembourse,:idEleve,:idSoiree);";
 		
 		$req = $this->cnx->prepare($txt_req);
-		$req->bindValue("id",  utf8_decode($id), PDO::PARAM_STR);
+		
 		$req->bindValue("dateInscription",  utf8_decode($dateInscription), PDO::PARAM_STR);
 		$req->bindValue("nbPersonnes",  utf8_decode($nbPersonnes), PDO::PARAM_STR);
 		$req->bindValue("montant",  utf8_decode($montant), PDO::PARAM_STR);

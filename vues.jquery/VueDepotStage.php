@@ -23,7 +23,7 @@
 			<div data-role="content">
 				<h2>Depot de Stage</h2>
 				<label>Si vous souhaitez déposer une offre de stage suivez le lien ci-dessous :</label>
-				<a href="http://www.lycee-delasalle.com/fr/relations-entreprises/deposer-une-offre-d-emploi.php?type_offre=2">www.lycee-delasalle.com</a>
+				<a Target=_Blank href="http://www.lycee-delasalle.com/fr/relations-entreprises/deposer-une-offre-d-emploi.php?type_offre=2">www.lycee-delasalle.com</a>
 				<label class="labelImportant">Les élèves et professeurs de BTS SIO vous remercient d'avance pour le temps que vous prenez pour aider la nouvelle génération.</label>
 			</div>
 			<div data-role="footer" data-position="fixed" data-theme="<?php echo $themeNormal; ?>">

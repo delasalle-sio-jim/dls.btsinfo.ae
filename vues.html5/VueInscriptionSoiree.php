@@ -59,8 +59,14 @@
 
 				<p>
 					<label for="txtNbPlaces">Nombre de places  :</label>
-					<input type="number"  name="txtNbPlaces" id="txtNbPlaces" maxlength="30" required value="1" required/>
+					<input type="number"  name="txtNbPlaces" id="txtNbPlaces" pattern="^[0-9]{2}$" maxlength="30" value="1" required/>
 				</p>
+				<p>
+				<label class ="label2" for="txtNbPlaces">En cochant cette case vous vous vous engagez a payer <?php echo $tarif ?> euros par places réservées. </label>
+				<input type="checkbox" requiered name="validation" id="validation" maxlength="30"  required/>	
+				<label class ="label2" for="txtNbPlaces"> Vous pouvez payer en avance en envoyant un chèque au nom d'INPACT(en précisant votre nom) ou payer au moment où vous arrivez à la soirée.	</label>		
+				</p>
+				
 				<?php if(! empty ($tarif))
 				{?>
 				<p>
@@ -92,7 +98,7 @@
 			<p id="texte_message" class="classe_texte_message">Texte du message</p>
 			<form name="form2" id="form2" action="index.php?action=InscriptionSoiree" method="post">
 			<p>
-				<a href="#close" title="Fermer">Refuser</a>
+				<a href="#close" title="Fermer">X</a>
 			</form>
 			</p>
 		</div>

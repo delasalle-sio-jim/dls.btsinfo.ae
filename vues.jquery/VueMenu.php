@@ -34,16 +34,17 @@
 						<li><a href="index.php?action=ChangerDeMdp" data-ajax="false" data-transition="<?php echo $transition; ?>">Modifier mon mot de passe</a></li>
 						<li><a href="index.php?action=CreerAdmin" data-ajax="false" data-transition="<?php echo $transition; ?>">Créer un administrateur</a></li>
 						<li><a href="index.php?action=SupprimerAdmin" data-ajax="false" data-transition="<?php echo $transition; ?>">Supprimer un administrateur</a></li>
-						<li><a href="index.php?action=Menu" data-ajax="false" data-transition="<?php echo $transition; ?>">Gérer les comptes élèves</a></li>
 						<li><a href="index.php?action=Menu" data-ajax="false" data-transition="<?php echo $transition; ?>">MAJ des informations sur la soirée</a></li>
 						<li><a href="index.php?action=Menu" data-ajax="false" data-transition="<?php echo $transition; ?>">Consulter les inscriptions à la soirée</a></li>
 						<li><a href="index.php?action=Menu" data-ajax="false" data-transition="<?php echo $transition; ?>">Envoyer courriels de relance</a></li>
 						<li><a href="index.php?action=Menu" data-ajax="false" data-transition="<?php echo $transition; ?>">Gérer la galerie des photos de classe</a></li>
 						<div data-role="collapsible">
 						<h3>Gérer les comptes élèves</h3>
-							<li><a href="index.php?action=CreatUserAdmin" data-ajax="false" data-transition="<?php echo $transition; ?>">Créer un compte utilisateur</a></li>
-							<li><a href="index.php?action=ModifUserAdmin" data-ajax="false" data-transition="<?php echo $transition; ?>">Modifier un compte utilisateur</a></li>
-							<li><a href="index.php?action=SupprUserAdmin" data-ajax="false" data-transition="<?php echo $transition; ?>">Supprimer un compte utilisateur</a></li>
+							<div data-role="content">
+								<li><a href="index.php?action=CreatUserAdmin" data-ajax="false" data-transition="<?php echo $transition; ?>">Créer un compte utilisateur</a></li>
+								<li><a href="index.php?action=ModifUserAdmin" data-ajax="false" data-transition="<?php echo $transition; ?>">Modifier un compte utilisateur</a></li>
+								<li><a href="index.php?action=SupprUserAdmin" data-ajax="false" data-transition="<?php echo $transition; ?>">Supprimer un compte utilisateur</a></li>
+							</div>
 						</div>
 					<?php } ?>
 				</ul>
