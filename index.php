@@ -113,7 +113,7 @@ switch($action){
 	case 'ModifSoiree':{
 		include_once ('controleurs/CtrlModifSoiree.php'); break;
 	}
-	case 'DetailSoiree':{
+	case 'DetailsSoiree':{
 		include_once ('controleurs/CtrlDetailsSoiree.php'); break;
 	}
 	case 'InscriptionSoiree':{

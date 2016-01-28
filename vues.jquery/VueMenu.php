@@ -22,8 +22,8 @@
 					<?php if ( $typeUtilisateur == "eleve" ) {
 						// menu élève ?>
 						<li><a href="index.php?action=ChangerDeMdp" data-ajax="false" data-transition="<?php echo $transition; ?>">Modifier mon mot de passe</a></li>
-						<li><a href="index.php?action=Menu" data-ajax="false" data-transition="<?php echo $transition; ?>">Informations sur la soirée des anciens</a></li>
-						<li><a href="index.php?action=Menu" data-ajax="false" data-transition="<?php echo $transition; ?>">M'inscrire à la soirée des anciens</a></li>
+						<li><a href="index.php?action=DetailsSoiree" data-ajax="false" data-transition="<?php echo $transition; ?>">Informations sur la soirée des anciens</a></li>
+						<li><a href="index.php?action=InscriptionSoiree" data-ajax="false" data-transition="<?php echo $transition; ?>">M'inscrire à la soirée des anciens</a></li>
 						<li><a href="index.php?action=Menu" data-ajax="false" data-transition="<?php echo $transition; ?>">Recherche d'autres anciens élèves</a></li>
 						<li><a href="index.php?action=ModifFichePerso" data-ajax="false" data-transition="<?php echo $transition; ?>">Mettre à jour mon profil</a></li>
 						<li><a href="index.php?action=DepotStage" data-ajax="false" data-transition="<?php echo $transition; ?>">Mettre à disposition un stage</a></li>
@@ -34,10 +34,11 @@
 						<li><a href="index.php?action=ChangerDeMdp" data-ajax="false" data-transition="<?php echo $transition; ?>">Modifier mon mot de passe</a></li>
 						<li><a href="index.php?action=CreerAdmin" data-ajax="false" data-transition="<?php echo $transition; ?>">Créer un administrateur</a></li>
 						<li><a href="index.php?action=SupprimerAdmin" data-ajax="false" data-transition="<?php echo $transition; ?>">Supprimer un administrateur</a></li>
-						<li><a href="index.php?action=Menu" data-ajax="false" data-transition="<?php echo $transition; ?>">MAJ des informations sur la soirée</a></li>
+						<li><a href="index.php?action=ModifSoiree" data-ajax="false" data-transition="<?php echo $transition; ?>">MAJ des informations sur la soirée</a></li>
 						<li><a href="index.php?action=Menu" data-ajax="false" data-transition="<?php echo $transition; ?>">Consulter les inscriptions à la soirée</a></li>
 						<li><a href="index.php?action=Menu" data-ajax="false" data-transition="<?php echo $transition; ?>">Envoyer courriels de relance</a></li>
 						<li><a href="index.php?action=Menu" data-ajax="false" data-transition="<?php echo $transition; ?>">Gérer la galerie des photos de classe</a></li>
+						
 						<div data-role="collapsible">
 						<h3>Gérer les comptes élèves</h3>
 							<div data-role="content">

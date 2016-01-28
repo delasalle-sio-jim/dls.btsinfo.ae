@@ -62,18 +62,22 @@
 				<a href="index.php?action=Menu" data-ajax="false" data-transition="<?php echo $transition; ?>">Retour menu</a>
 			</div>
 			<div data-role="content">
-				<h4 style="text-align: center; margin-top: 10px; margin-bottom: 10px;">Inscription à la soirée</h4>
-				<form name="form1" id="form1" action="index.php?action=InscriptionSoiree" method="post">
+				<h4 style="text-align: center; margin-top: 10px; margin-bottom: 10px;">Inscription à la soiree</h4>
+				<form action="index.php?action=InscriptionSoiree" method="post" data-ajax="false" >
 
-				<p>
-					<label for="txtNbPlaces">Nombre de places  :</label>
+				<div data-role="fieldcontain">
+						<label for="txtNbPlaces">Nombre de places  :</label>
 					<input type="number"  name="txtNbPlaces" id="txtNbPlaces" pattern="^[0-9]{2}$" maxlength="30" value="1" required/>
-				</p>
-				<p>
-				<label class ="label2" for="txtNbPlaces">En cochant cette case vous vous vous engagez a payer <?php echo $tarif ?> euros par places réservées. </label>
-				<input type="checkbox" requiered name="validation" id="validation" maxlength="30"  required/>	
-				<label class ="label2" for="txtNbPlaces"> Vous pouvez payer en avance en envoyant un chèque au nom d'INPACT(en précisant votre nom) ou payer au moment où vous arrivez à la soirée.	</label>		
-				</p>
+				</div>
+				<div data-role="fieldcontain">
+						<label class ="label2" for="txtNouveauMdp">En cochant cette case vous vous vous engagez a payer <?php echo $tarif ?> euros par places réservées. </label>
+				</div>
+				<div data-role="fieldcontain">
+						<input type="checkbox" requiered name="validation" id="validation" maxlength="30"  required/>	
+				</div> 
+				<div data-role="fieldcontain">
+						<label class ="label2" for="txtNbPlaces"> Vous pouvez payer en avance en envoyant un chèque au nom d'INPACT(en précisant votre nom) ou payer au moment où vous arrivez à la soirée.	</label>		
+				</div>
 				
 				<?php if(! empty ($tarif))
 				{?>
@@ -95,13 +99,6 @@
 			</form>
 				
 		</div>
-		<div id="footer">
-			<p>Annuaire des anciens élèves du BTS Informatique - Lycée De La Salle (Rennes)</p>
-		</div>		
-	</div>
-	
-
-		
 			<div data-role="footer" data-position="fixed" data-theme="<?php echo $themeNormal; ?>">
 				<h4>Annuaire des anciens du BTS Informatique<br>Lycée De La Salle (Rennes)</h4>
 			</div>
