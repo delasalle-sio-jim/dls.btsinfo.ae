@@ -130,10 +130,12 @@ class DAO
 		return $lesFonctions;
 	}	
 	
+	// fournit la liste de tout les eleves
+	// le résultat est fourni sous forme d'une collection d'objets Eleve
+	// modifié par Nicolas Esteve le XX/01/2016
 	function getLesEleves()
 	{	// préparation de la requete de recherche
-	
-	$txt_req = "Select * from ae_eleves order by DESC";
+	$txt_req = "Select * from ae_eleves order by id";
 	
 	$req = $this->cnx->prepare($txt_req);
 	// extraction des données
@@ -352,16 +354,15 @@ class DAO
 		return $ok;
 	}
 	
+	//fonction qui supprime un compte Eleve
+	// fournit la valeur null si le paramètre n'existe pas ou est incorrect
+	// modifié par Nicolas Esteve  le XX/01/2016
 	public function supprimerCompteEleve($parametre){
-		//if ( ! Outils::estUnEntierValide($parametre) && ! Outils::estUneAdrMailValide($parametre) ) return null;
-		
 		// préparation de la requete de recherche
-		//if (Outils::estUnEntierValide($parametre)) $txt_req = "Delete from ae_eleves where id = :parametre";
 		if (Outils::estUneAdrMailValide($parametre)) $txt_req = "Delete from ae_eleves where adrMail = :parametre";
 		
 		$req = $this->cnx->prepare($txt_req);
 		// liaison de la requête et de son paramètre
-		//if (Outils::estUnEntierValide($parametre)) $req->bindValue("parametre", $parametre, PDO::PARAM_INT);
 		if (Outils::estUneAdrMailValide($parametre)) $req->bindValue("parametre", $parametre, PDO::PARAM_STR);
 		
 		// extraction des données
@@ -417,8 +418,9 @@ class DAO
 		return $ok;
 	}	
 	
-	
-	
+	//fonction qui supprime un administrateur
+	// fournit la valeur null si le paramètre n'existe pas ou est incorrect
+	// modifié par Nicolas Esteve  le XX/01/2016
 	public function supprimerAdministrateur($adrMailAdmin)
 	{
 		if($adrMailAdmin == 'delasalle.sio.profs@gmail.com')
@@ -436,6 +438,9 @@ class DAO
 	
 	}
 	
+	//fonction qui crée un administrateur
+	// fournit la valeur null si le paramètre n'existe pas ou est incorrect
+	// modifié par Nicolas Esteve  le XX/01/2016
 	public function creerAdministrateur($adrMailAdmin, $MdpAdmin,$nomAdmin,$prenomAdmin)
 	{ 
 		$txt_req = "INSERT INTO ae_administrateurs(adrMail,motDePasse ,prenom,nom) VALUES(:adrMail,:mdp,:prenom,:nom)";
@@ -448,6 +453,9 @@ class DAO
 		return $ok;
 	}
 	
+	//fonction qui modifie le mot de passse d'un administrateur
+	// fournit la valeur null si le paramètre n'existe pas ou est incorrect
+	// modifié par Nicolas Esteve  le XX/01/2016
 	public function modifierMdpAdmin($adrMail, $nouveauMdp)
 	{	// préparation de la requête
 		$txt_req = "update ae_administrateurs set motDePasse = :nouveauMdp where adrMail = :adrMail";
@@ -460,15 +468,19 @@ class DAO
 		return $ok;
 	}
 	
+	//fonction qui modifie les données d'un Eleve
+	// fournit la valeur null si le paramètre n'existe pas ou est incorrect
+	// modifié par Nicolas Esteve  le XX/01/2016
 	public function modifierFichePerso($nom,$prenom,$anneeDebutBTS,$mail,$telephone,$rue,$ville,$cp,$etudes,$entreprise,$fonction)
 	{
+		//mise en forme des variables
 		$telephone = Outils::corrigerTelephone($telephone);
 		$nom = strtoupper($nom);	
 		$prenom = Outils::corrigerPrenom($prenom);
 		$ville = Outils::corrigerVille($ville);
 		
 		
-
+		//creation de la requette
 		$txt_req = "UPDATE ae_eleves SET ";
 		$txt_req .= " nom = :nom,";
 		$txt_req .= " prenom = :prenom,";
@@ -513,15 +525,20 @@ class DAO
 		return $ok;
 
 	}
+	
+	//fonction qui permet a un utilisateur de modifier les donnée d'un compte utilisateur
+	// fournit la valeur null si le paramètre n'existe pas ou est incorrect
+	// modifié par Nicolas Esteve  le XX/01/2016
 	public function modifierFicheUser($nom,$prenom,$anneeDebutBTS,$mail,$telephone,$rue,$ville,$cp,$etudes,$entreprise,$fonction,$oldMail)
 	{
+		// mise en forme des variables
 		$telephone = Outils::corrigerTelephone($telephone);
 		$nom = strtoupper($nom);
 		$prenom = Outils::corrigerPrenom($prenom);
 		$ville = Outils::corrigerVille($ville);
 	
 		
-	
+		// préparations de la requete
 		$txt_req = "UPDATE ae_eleves SET ";
 		$txt_req .= " nom = :nom,";
 		$txt_req .= " prenom = :prenom,";
@@ -571,11 +588,13 @@ class DAO
 	}
 	
 	
-	
+	// fournit la liste de tout les mail des eleves
+	// le résultat est fourni sous forme d'une collection d'objets Mail
+	// modifié par Nicolas Esteve le XX/01/2016
 	function getLesAdressesMail()
 	{	// préparation de la requete de recherche
 		//
-		$txt_req = "Select adrMail from ae_eleves ORDER BY adrMail ASC";
+		$txt_req = "Select adrMail from ae_eleves ORDER BY adrMail";
 		
 		$req = $this->cnx->prepare($txt_req);
 		// extraction des données
@@ -586,7 +605,7 @@ class DAO
 		$lesMails = array();
 		// tant qu'une ligne est trouvée :
 		while ($uneLigne)
-		{	// création d'un objet Fonction
+		{	// création d'un objet Fonctiontion
 			$unMail = utf8_encode($uneLigne->adrMail);
 			$lesMails[] = $unMail;
 			
@@ -598,28 +617,36 @@ class DAO
 		// fourniture de la collection
 		return $lesMails;
 	}
-	
+	// fournit un objet Soirée qui contitent tous des détails de la soirée
+	// le résultat est fourni sous forme d'un objet Soiree
+	// modifié par Nicolas Esteve le XX/01/2016
+	//le parametre urgent est la pour savoir si on verifie si les données sont stoquée en session
+	//si urgent est "true" on ne verifie pas la variable de session
 	function getDonnesSoiree($urgent)
 		{
+		
 		if( isset($_SESSION['Soiree']) == true && $urgent == false)
 		{
+			//unserialise sert a traduire la variable de session qui est une chaine de caratères en un objet Soiree
 			$Soiree = unserialize($_SESSION['Soiree']);
 			return $Soiree;
 		}
 		else
 		{
-			
+			// creation de la requete
 			$txt_req = "Select * from ae_soirees order by id";
+			//preparation de la requete
 			$req = $this->cnx->prepare($txt_req);
+			// execution de la requete
 			$req->execute();
 			$uneLigne = $req->fetch(PDO::FETCH_OBJ);
-			
+			//si la requete ne renvoie aucune ligne
 			if( !$uneLigne)
 			{
 				return null;	
 			}
 			else {
-							
+				
 				$unId= utf8_encode($uneLigne->id);
 				$unNomRestaurant = utf8_encode($uneLigne->nomRestaurant);
 				$uneDate= utf8_encode($uneLigne->date);
@@ -630,16 +657,20 @@ class DAO
 				$uneLongitude = utf8_encode($uneLigne->longitude);
 				
 				$Soiree = new Soiree($unId, $unNomRestaurant, $uneDate, $uneAdresse, $unTarif, $unLienMenu, $uneLatitude, $uneLongitude);
+				//serialise sert a traduire l'objet Soiree en une chaine de caratères afin de la mettre dans une variable de session
 				$_SESSION['Soiree'] = serialize($Soiree);
 				return $Soiree;
 			}
 
 		}
 	}
-	
+	// fonction qui sert a modifier les données de la soirée
+	// fournit la valeur null si le paramètre n'existe pas ou est incorrect
+	// modifié par Nicolas Esteve le XX/01/2016
+	// les paramètres sonts les données modifiées pour la soirée
 	function modifierDonnesSoiree($unNom, $uneDate, $uneAdresse, $unTarif, $unLienMenu, $uneLatitude, $uneLongitude)
 	{
-		
+		//creation de la requete sur plusieurs lignes afin d'être plus comréhensible
 		$txt_req = "Update ae_soirees SET nomRestaurant = :nom, date = :date, tarif = :tarif, adresse = :adresse, ";
 		$txt_req .= "lienMenu = :lienMenu, latitude = :latitude, longitude = :longitude where id = 1;";
 		
@@ -652,15 +683,19 @@ class DAO
 		$req->bindValue("latitude" , utf8_decode($uneLatitude), PDO::PARAM_STR);
 		$req->bindValue("longitude", utf8_decode($uneLongitude), PDO::PARAM_STR);
 		
-		
+		// exeution de la requete
 		$ok = $req->execute();
 		
 		return $ok;	
 		
 	}
-
+	// fonction qui sert a s'inscrire à la soirée
+	// fournit la valeur null si le paramètre n'existe pas ou est incorrect
+	// modifié par Nicolas Esteve le XX/01/2016
+	
 	function inscription($dateInscription,$nbPersonnes,$montant,$montantRembourse,$idEleve,$idSoiree)
 	{
+		//creation de la requete
 		$txt_req = "Insert Into ae_inscriptions(dateInscription,nbrePersonnes,montantRegle,montantRembourse,idEleve,idSoiree) values (:dateInscription,:nbPersonnes,:montant,:montantRembourse,:idEleve,:idSoiree);";
 		
 		$req = $this->cnx->prepare($txt_req);

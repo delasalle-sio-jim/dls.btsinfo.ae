@@ -18,13 +18,8 @@ else {
 		$themeFooter = $themeNormal;
 		include_once ($cheminDesVues . 'VueSupprimerAdmin.php');
 	}
-else {
-		
-		//if ( ! isset ($_POST ["btnDetailAdmin"]) ) {
-			// $txtAdrMailAdmin ='';
-	//	}
-		
-		// récupération des données postées
+else {	
+			// récupération des données postées
 			//en cas de données incomplètes
 	if ( empty ($_POST ["txtAdrMailAdmin"]) == true)  $adrMailAdmin = '';  else   $adrMailAdmin = $_POST ["txtAdrMailAdmin"];
 	

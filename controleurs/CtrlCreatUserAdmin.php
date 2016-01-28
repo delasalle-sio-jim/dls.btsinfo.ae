@@ -37,7 +37,6 @@ if ( ! isset ($_POST ["btnEnvoyer"]) ) {
 	include_once ($cheminDesVues . 'VueCreatUserAdmin.php');
 }
 else {
-	//$premierAppel = false;
 	// récupération des données postées
 	if ( empty ($_POST ["txtNom"]) == true)  $nom = "";  else   $nom = $_POST ["txtNom"];
 	if ( empty ($_POST ["txtPrenom"]) == true)  $prenom = "";  else   $prenom = $_POST ["txtPrenom"];

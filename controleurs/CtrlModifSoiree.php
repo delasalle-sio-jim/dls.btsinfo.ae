@@ -36,8 +36,10 @@ else {
 	if ( empty ($_POST ["txtLongitude"]) == true)  $uneLongitude = "";  else   $uneLongitude = $_POST ["txtLongitude"];
 	
 	
-			
+		
 	$ok = $dao->ModifierDonnesSoiree($unNom, $uneDate, $uneAdresse, $unTarif, $unLienMenu, $uneLatitude, $uneLongitude);
+	
+	//recupération des details de la soirée directement depuis la base de donnée
 	$urgence = true;
 	$Soiree = $dao->GetDonnesSoiree($urgence);
 		

@@ -32,7 +32,7 @@ if ( ! isset ($_POST ["btnModifier"]) ) {
 	include_once ($cheminDesVues . 'VueModifFichePerso.php');
 }
 else {
-	//$premierAppel = false;
+
 	// récupération des données postées
 	if ( empty ($_POST ["txtNom"]) == true)  $nom = "";  else   $nom = $_POST ["txtNom"];
 	if ( empty ($_POST ["txtPrenom"]) == true)  $prenom = "";  else   $prenom = $_POST ["txtPrenom"];
@@ -44,10 +44,10 @@ else {
 	if ( empty ($_POST ["txtVille"]) == true)  $ville = "";  else   $ville = $_POST ["txtVille"];
 	if ( empty ($_POST ["txtEntreprise"]) == true)  $entreprise = "";  else   $entreprise = $_POST ["txtEntreprise"];
 	if ( empty ($_POST ["listeFonctions"]) == true)  $idFonction = "";  else   $idFonction = $_POST ["listeFonctions"];	
-	
+	// on recupère l'adresse mail de l'utilisateur afin de l'utiliser comme identifiant dans la requete SQL
 	$mail = $_SESSION['adrMail'];
 
-			
+	
 	$ok = $dao->modifierFichePerso($nom, $prenom, $anneeDebutBTS, $mail, $tel, $rue, $ville, $codePostal, $etudesPostBTS, $entreprise, $idFonction);
 	
 	if ($ok) 
