@@ -69,7 +69,7 @@
 						<label for="txtNbPlaces">Nombre de places  :</label>
 					<input type="number"  name="txtNbPlaces" id="txtNbPlaces" pattern="^[0-9]{2}$" maxlength="30" value="1" required/>
 				</div>
-				<div data-role="fieldcontain">
+					<div data-role="fieldcontain">
 						<label class ="label2" for="txtNouveauMdp">En cochant cette case vous vous vous engagez a payer <?php echo $tarif ?> euros par places réservées. </label>
 				</div>
 				<div data-role="fieldcontain">

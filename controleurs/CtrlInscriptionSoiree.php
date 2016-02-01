@@ -17,13 +17,13 @@ if ( $_SESSION['typeUtilisateur'] != 'eleve') {
 }
 else {
 	if( (! isset ($_POST ["btnInscription"]) == true) ){			
-		// redirection vers la vue si aucune données n'est recu par le controleur
+		// redirection vers la vue si aucune données n'est recu par le controleur	
 	
 		$themeFooter = $themeNormal;
 		include_once ($cheminDesVues . 'VueInscriptionSoiree.php');
 	}
 	else {
-		if(isset ($_POST ["btnInscription"]) == true)
+		if(isset ($_POST ["btnInscription"]) == true && ! isset ($_POST ["btnAnnulation"]) == true )
 		{
 			
 			$urgent = false;
@@ -45,40 +45,38 @@ else {
 			
 			$ok = $dao->Inscription($dateInscription, $nbPersonnes, $montant, $montantRembourse, $idEleve, $idSoiree);
 			
-
-			$message = 'Vous êtes inscrit ! <br>Le montant total que vous devez payer pour soirée est de '.$montant.' euros.';
-			$typeMessage = 'information';
-			$themeFooter = $themeNormal;
-			include_once ($cheminDesVues . 'VueInscriptionSoiree.php');
 		}
-		else 
+		elseif(isset ($_POST ["btnAnnulation"]) == true )
 		{
-			
-			$urgent = false;
-			$Soiree = $dao->GetDonnesSoiree($urgent);
-			$Tarif = $Soiree->getTarif();
-			
-			$nbPersonnes = $_POST ["txtNbPlaceS"];
-			$montant = $Tarif * $nbPersonnes;
 			
 			$adrMail = $_SESSION['adrMail'];
 			$Eleve = $dao->getEleve($adrMail);
-			
 			$idEleve = $Eleve->getId();
-			
-			$dateInscription = date('Y-m-d H:i:s', time());
-			$montantRembourse = 0;
-			$idSoiree = $Soiree->getId();
+			 
+			$ok = $dao->annulation($idEleve);
 			
 			
-			$ok = $dao->Inscription($id, $dateInscription, $nbPersonnes, $montant, $montantRembourse, $idEleve, $idSoiree);
-			
-
-			$message = 'Vous êtes inscrit ! <br>Le montant total que vous devez payer pour soirée est de '.$montant.' euros.';
-			$typeMessage = 'information';
+			if(!$ok)
+			{
+				$message ="L'application à rencontrée un problème";
+				$typeMessage = 'avertissement';
+				$themeFooter = $themeNormal;
+				include_once ($cheminDesVues . 'VueInscriptionSoiree.php');
+			}
+			else 
+			{
+				$message ='Votre réservation à été annulée';
+				$typeMessage = 'information';
+				$themeFooter = $themeNormal;
+				include_once ($cheminDesVues . 'VueInscriptionSoiree.php');
+			}
+		}
+		else 
+		{
+			$message ="L'application à rencontrée un problème";
+			$typeMessage = 'avertissement';
 			$themeFooter = $themeNormal;
-			
-			
+			include_once ($cheminDesVues . 'VueInscriptionSoiree.php');
 		}
 	}
 }

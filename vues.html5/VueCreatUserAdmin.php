@@ -39,7 +39,7 @@
 		<div id="header">
 			<div id=header-menu>
 				<ul id="menu-horizontal">
-					<li><a href="index.php?action=menu">Retour accueil</a></li>
+					<li><a href="index.php?action=Menu">Retour menu</a></li>
 				</ul>
 			</div>
 			<div id="header-logos">

@@ -53,7 +53,7 @@
 						}
 				if($Soiree->getLienMenu() !== null)
 						{
-							$message.= "Vous pouvez vous renseigner sur les menus proposé à l'aide de ce lien : <br/> ".$Soiree->getLienMenu().". <br/>";
+							$message.= 'Vous pouvez vous renseigner sur les menus proposé à l\'aide de ce lien : <br/> <a target="_blank" href="'.$Soiree->getLienMenu().'".>'.$Soiree->getLienMenu().'</a><br/>';
 						}
 						
 				if($Soiree->getTarif() !== null)

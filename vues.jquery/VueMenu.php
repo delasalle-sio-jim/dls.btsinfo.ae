@@ -39,13 +39,12 @@
 						<li><a href="index.php?action=Menu" data-ajax="false" data-transition="<?php echo $transition; ?>">Envoyer courriels de relance</a></li>
 						<li><a href="index.php?action=Menu" data-ajax="false" data-transition="<?php echo $transition; ?>">Gérer la galerie des photos de classe</a></li>
 						
-						<div data-role="collapsible">
+						<div data-role="collapsible" >
 						<h3>Gérer les comptes élèves</h3>
-							<div data-role="content">
-								<li><a href="index.php?action=CreatUserAdmin" data-ajax="false" data-transition="<?php echo $transition; ?>">Créer un compte utilisateur</a></li>
-								<li><a href="index.php?action=ModifUserAdmin" data-ajax="false" data-transition="<?php echo $transition; ?>">Modifier un compte utilisateur</a></li>
-								<li><a href="index.php?action=SupprUserAdmin" data-ajax="false" data-transition="<?php echo $transition; ?>">Supprimer un compte utilisateur</a></li>
-							</div>
+							<li><a href="index.php?action=CreatUserAdmin" data-mini="true" data-role="button" data-ajax="false" data-transition="<?php echo $transition; ?>">Créer un compte utilisateur</a></li>
+							<li><a href="index.php?action=ModifUserAdmin" data-mini="true" data-role="button" data-ajax="false" data-transition="<?php echo $transition; ?>">Modifier un compte utilisateur</a></li>
+							<li><a href="index.php?action=SupprUserAdmin" data-mini="true" data-role="button" data-ajax="false" data-transition="<?php echo $transition; ?>">Supprimer un compte utilisateur</a></li>
+							
 						</div>
 					<?php } ?>
 				</ul>

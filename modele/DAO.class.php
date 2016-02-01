@@ -353,21 +353,35 @@ class DAO
 		$ok = $req->execute();
 		return $ok;
 	}
-	
-	//fonction qui supprime un compte Eleve
+		
+	//fonction qui supprime un compte Eleve ainsi que ses inscriptions si il en a.
 	// fournit la valeur null si le paramètre n'existe pas ou est incorrect
 	// modifié par Nicolas Esteve  le XX/01/2016
 	public function supprimerCompteEleve($parametre){
-		// préparation de la requete de recherche
+		// préparation de la requete de suppression puis de recherche
 		if (Outils::estUneAdrMailValide($parametre)) $txt_req = "Delete from ae_eleves where adrMail = :parametre";
-		
+		if (Outils::estUneAdrMailValide($parametre)) $txt_requete = "Select id from ae_eleves where adrMail = :parametre";
 		$req = $this->cnx->prepare($txt_req);
+		$req2 = $this->cnx->prepare($txt_requete);
+		
 		// liaison de la requête et de son paramètre
 		if (Outils::estUneAdrMailValide($parametre)) $req->bindValue("parametre", $parametre, PDO::PARAM_STR);
-		
-		// extraction des données
+		if (Outils::estUneAdrMailValide($parametre)) $req2->bindValue("parametre", $parametre, PDO::PARAM_STR);
+		// extraction puis supression des données
+		$id = $req2->execute();
 		$ok =$req->execute();
 		
+		if($id){
+			// préparation de la requete de suppression
+			$txt_req = "Delete from ae_inscriptions  where idEleve = :id";
+			$req = $this->cnx->prepare($txt_req);
+			// liaison de la requête et de son paramètre
+			$req->bindValue("id", $id, PDO::PARAM_STR);
+			//supression des données
+			$req->execute();
+		}		
+		
+
 		return $ok; 
 	}
 	
@@ -683,7 +697,7 @@ class DAO
 		$req->bindValue("latitude" , utf8_decode($uneLatitude), PDO::PARAM_STR);
 		$req->bindValue("longitude", utf8_decode($uneLongitude), PDO::PARAM_STR);
 		
-		// exeution de la requete
+		// execution de la requete
 		$ok = $req->execute();
 		
 		return $ok;	
@@ -697,9 +711,9 @@ class DAO
 	{
 		//creation de la requete
 		$txt_req = "Insert Into ae_inscriptions(dateInscription,nbrePersonnes,montantRegle,montantRembourse,idEleve,idSoiree) values (:dateInscription,:nbPersonnes,:montant,:montantRembourse,:idEleve,:idSoiree);";
-		
+		//preparation de la requete
 		$req = $this->cnx->prepare($txt_req);
-		
+		//remplissage de la variable
 		$req->bindValue("dateInscription",  utf8_decode($dateInscription), PDO::PARAM_STR);
 		$req->bindValue("nbPersonnes",  utf8_decode($nbPersonnes), PDO::PARAM_STR);
 		$req->bindValue("montant",  utf8_decode($montant), PDO::PARAM_STR);
@@ -711,6 +725,19 @@ class DAO
 		
 		return $ok;
 		
+	}
+	function annulation($idEleve)
+	{
+		//creation de la requete
+		$txt_req = "Update ae_inscription SET annulation = 1, nbrePersonnes = 0 where idEleve = :id;";
+		//preparation de la requete
+		$req = $this->cnx->prepare($txt_req);
+		//remplissage de la variable
+		$req->bindValue("id",  utf8_decode($idEleve), PDO::PARAM_STR);
+		// execution de la requete
+		$ok = $req->execute();
+		
+		return $ok;
 	}
 	
 	
