@@ -1,7 +1,7 @@
 <?php
 // Projet DLS - BTS Info - Anciens élèves
-// Fonction du contrôleur CtrlSupprimerAdmin.php : traiter la demande de suppression d'un admin
-// Ecrit le 26/01/2016 par Nicolas Esteve
+// Fonction du contrôleur CtrlInscriptionSoiree.php : traiter la demande de d'inscriptions ou d'annulations d'inscription
+// Ecrit le 02/02/2016 par Nicolas Esteve
 include_once ('modele/DAO.class.php');
 $dao = new DAO();
 //mise en place de variable permanantes
@@ -16,22 +16,25 @@ if ( $_SESSION['typeUtilisateur'] != 'eleve') {
 	header ("Location: index.php?action=Deconnecter");
 }
 else {
-	if( (! isset ($_POST ["btnInscription"]) == true) ){			
+	if( (! isset ($_POST ["btnInscription"]) == true) && ! isset ($_POST ["btnAnnulation"]) == true ){			
 		// redirection vers la vue si aucune données n'est recu par le controleur	
 	
 		$themeFooter = $themeNormal;
 		include_once ($cheminDesVues . 'VueInscriptionSoiree.php');
 	}
 	else {
-		if(isset ($_POST ["btnInscription"]) == true && ! isset ($_POST ["btnAnnulation"]) == true )
+		if(isset ($_POST ["btnInscription"]) == true )
 		{
+			
+			
+			$nbPersonnes = $_POST ["txtNbPlaces"];
+			$montant = 0;
 			
 			$urgent = false;
 			$Soiree = $dao->GetDonnesSoiree($urgent);
 			$Tarif = $Soiree->getTarif();
+			$Tarif = $Tarif*$nbPersonnes;
 			
-			$nbPersonnes = $_POST ["txtNbPlaces"];
-			$montant = $Tarif * $nbPersonnes;
 			
 			$adrMail = $_SESSION['adrMail'];
 			$Eleve = $dao->getEleve($adrMail);
@@ -44,7 +47,20 @@ else {
 			
 			
 			$ok = $dao->Inscription($dateInscription, $nbPersonnes, $montant, $montantRembourse, $idEleve, $idSoiree);
-			
+			if(!$ok)
+			{
+				$message ="L'application à rencontrée un problème";
+				$typeMessage = 'avertissement';
+				$themeFooter = $themeNormal;
+				include_once ($cheminDesVues . 'VueInscriptionSoiree.php');
+			}
+			else
+			{
+				$message ='Vous êtes inscrit ! <br>Le montant total que vous devez payer pour soirée est de '.$Tarif.' euros.';
+				$typeMessage = 'information';
+				$themeFooter = $themeNormal;
+				include_once ($cheminDesVues . 'VueInscriptionSoiree.php');
+			}
 		}
 		elseif(isset ($_POST ["btnAnnulation"]) == true )
 		{
@@ -65,7 +81,31 @@ else {
 			}
 			else 
 			{
-				$message ='Votre réservation à été annulée';
+				
+				$inscription = $dao->detailsInscription($idEleve);
+				$montantRegle =$inscription->getmontantRegle();
+				
+				if( $montantRegle < 0)
+				{
+					$sujet ="Remboursement";
+					$message  ="Votre inscription à bien été annulée.\n Un mail a été envoyé a l'administrateur vous allez être remboursé des ".$montantRegle." euros que vous nous aviez envoyé";
+					$message .="Cordialement.\n";
+					$message .="Les administrateurs de l'annuaire";
+					Outils::envoyerMail($adrMail,$sujet, $message,$ADR_MAIL_EMETTEUR);
+				}
+				$sujet ="Annulation";
+				$message ="L'utilisateur ".$Eleve->getPrenom()." ".$Eleve->getNom();
+				$message .=" à annulé son inscription.";
+				
+				if( $montantRegle < 0)
+				{
+					$message .="IMPORTANT :  ".$Eleve->getPrenom()." ".$Eleve->getNom()." à payé ".$montantRegle." euros en avance. Il faut le rebourser au plus tôt";
+				}
+					
+				Outils::envoyerMail($ADR_MAIL_ADMINISTRATEUR, $sujet, $message, $ADR_MAIL_EMETTEUR);
+				
+				
+				$message .='Votre réservation à été annulée';
 				$typeMessage = 'information';
 				$themeFooter = $themeNormal;
 				include_once ($cheminDesVues . 'VueInscriptionSoiree.php');

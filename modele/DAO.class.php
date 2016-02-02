@@ -709,23 +709,40 @@ class DAO
 	
 	function inscription($dateInscription,$nbPersonnes,$montant,$montantRembourse,$idEleve,$idSoiree)
 	{
-		//creation de la requete
-		$txt_req = "Insert Into ae_inscriptions(dateInscription,nbrePersonnes,montantRegle,montantRembourse,idEleve,idSoiree) values (:dateInscription,:nbPersonnes,:montant,:montantRembourse,:idEleve,:idSoiree);";
-		//preparation de la requete
+		$txt_req ="Select * from ae_inscriptions where id = :idEleve";
 		$req = $this->cnx->prepare($txt_req);
-		//remplissage de la variable
-		$req->bindValue("dateInscription",  utf8_decode($dateInscription), PDO::PARAM_STR);
-		$req->bindValue("nbPersonnes",  utf8_decode($nbPersonnes), PDO::PARAM_STR);
-		$req->bindValue("montant",  utf8_decode($montant), PDO::PARAM_STR);
-		$req->bindValue("montantRembourse",  utf8_decode($montantRembourse), PDO::PARAM_STR);	
 		$req->bindValue("idEleve",  utf8_decode($idEleve), PDO::PARAM_STR);
-		$req->bindValue("idSoiree",  utf8_decode($idSoiree), PDO::PARAM_STR);
-		
+		$ok = $req->execute();
+		//creation de la requete
+		if(!empty ($ok))
+		{
+			$txt_req ="Update ae_inscriptions SET nbrePersonnes = :nbPersonnes where idEleve=:idEleve;";
+			//preparation de la requete
+			$req = $this->cnx->prepare($txt_req);
+			//remplissage de la variable
+			$req->bindValue("nbPersonnes",  utf8_decode($nbPersonnes), PDO::PARAM_STR);
+			$req->bindValue("idEleve",  utf8_decode($idEleve), PDO::PARAM_STR);
+		}
+		else 
+		{
+			$txt_req = "Insert Into ae_inscriptions(dateInscription,nbrePersonnes,montantRegle,montantRembourse,idEleve,idSoiree) values (:dateInscription,:nbPersonnes,:montant,:montantRembourse,:idEleve,:idSoiree);";
+			//preparation de la requete
+			$req = $this->cnx->prepare($txt_req);
+			//remplissage de la variable
+			$req->bindValue("dateInscription",  utf8_decode($dateInscription), PDO::PARAM_STR);
+			$req->bindValue("nbPersonnes",  utf8_decode($nbPersonnes), PDO::PARAM_STR);
+			$req->bindValue("montant",  utf8_decode($montant), PDO::PARAM_STR);
+			$req->bindValue("montantRembourse",  utf8_decode($montantRembourse), PDO::PARAM_STR);
+			$req->bindValue("idEleve",  utf8_decode($idEleve), PDO::PARAM_STR);
+			$req->bindValue("idSoiree",  utf8_decode($idSoiree), PDO::PARAM_STR);
+		}
+	
 		$ok = $req->execute();
 		
 		return $ok;
 		
 	}
+	
 	function annulation($idEleve)
 	{
 		//creation de la requete
@@ -738,6 +755,40 @@ class DAO
 		$ok = $req->execute();
 		
 		return $ok;
+	}
+	
+	function detailsInscription($idEleve)
+	{
+		$txt_req = "Select * where idEleve = :id;";
+		//preparation de la requete
+		$req = $this->cnx->prepare($txt_req);
+		//remplissage de la variable
+		$req->bindValue("id",  utf8_decode($idEleve), PDO::PARAM_STR);
+		// execution de la requete
+		$req->execute();
+		$uneLigne = $req->fetch(PDO::FETCH_OBJ);
+		if(!$uneLigne)
+		{
+			return null;
+		}
+		else 
+		{
+			
+			$unId= utf8_encode($uneLigne->id);
+			$uneDateInscription = utf8_encode($uneLigne->dateInscription);
+			$unNbrePers= utf8_encode($uneLigne->nbrePersonnes);
+			$unMontantRegle=utf8_encode($uneLigne->montantRegle);
+			$unMontantRembourse = utf8_encode($uneLigne->montantRembourse);
+			$unIdEleve = utf8_encode($uneLigne->idEleve);
+			$unIdSoiree = utf8_encode($uneLigne->idSoiree);
+			$uneAnnulation = utf8_encode($uneLigne->annule);
+			
+			$Inscription = new Inscription($unId, $uneDateInscription, $unNbrePers, $unMontantRegle, $unMontantRembourse, $unIdEleve, $unIdSoiree, $uneAnnulation);
+			//serialise sert a traduire l'objet Soiree en une chaine de caratères afin de la mettre dans une variable de session
+			
+			return $Inscription;
+		}
+		
 	}
 	
 	
