@@ -10,7 +10,7 @@
 	include_once ('modele/DAO.class.php');
 	$dao = new DAO();?>
 	<script>
-		window.onload = initialisations;
+		window.onload = initialisations;	
 		function initialisations() {
 			<?php if ($typeMessage == 'avertissement') { ?>
 				afficher_avertissement("<?php echo $message; ?>");

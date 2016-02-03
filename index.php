@@ -119,6 +119,9 @@ switch($action){
 	case 'InscriptionSoiree':{
 		include_once ('controleurs/CtrlInscriptionSoiree.php'); break;
 	}
+	case 'Remboursement':{
+		include_once ('controleurs/CtrlRemboursement.php'); break;
+	}
 	default : {
 		// toute autre tentative est automatiquement redirigée vers le contrôleur d'authentification
 		include_once ('controleurs/CtrlConnecter.php'); break;

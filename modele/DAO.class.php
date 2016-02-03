@@ -602,7 +602,7 @@ class DAO
 	}
 	
 	
-	// fournit la liste de tout les mail des eleves
+	// fournit la liste de toutes les mail des eleves
 	// le résultat est fourni sous forme d'une collection d'objets Mail
 	// modifié par Nicolas Esteve le XX/01/2016
 	function getLesAdressesMail()
@@ -746,7 +746,7 @@ class DAO
 	function annulation($idEleve)
 	{
 		//creation de la requete
-		$txt_req = "Update ae_inscription SET annulation = 1, nbrePersonnes = 0 where idEleve = :id;";
+		$txt_req = "Update ae_inscriptions SET annulation = 1, nbrePersonnes = 0 where idEleve = :id;";
 		//preparation de la requete
 		$req = $this->cnx->prepare($txt_req);
 		//remplissage de la variable
@@ -759,7 +759,7 @@ class DAO
 	
 	function detailsInscription($idEleve)
 	{
-		$txt_req = "Select * where idEleve = :id;";
+		$txt_req = "Select * FROM ae_inscriptions where idEleve = :id;";
 		//preparation de la requete
 		$req = $this->cnx->prepare($txt_req);
 		//remplissage de la variable
@@ -789,6 +789,59 @@ class DAO
 			return $Inscription;
 		}
 		
+	}
+	
+	
+	// fournit la liste de toutes les mail des eleves inscrit à la soirée
+	// le résultat est fourni sous forme d'une collection d'objets Mail
+	// modifié par Nicolas Esteve le XX/01/2016
+	function getLesAdressesMailRemboursement()
+	{	// préparation de la requete de recherche
+		//
+		$txt_req = "Select adrMail from ae_eleves, ae_inscriptions Where ae_eleves.id = ae_inscriptions.idEleve ORDER BY adrMail";
+		
+		$req = $this->cnx->prepare($txt_req);
+		// extraction des données
+		$req->execute();
+		$uneLigne = $req->fetch(PDO::FETCH_OBJ);
+		
+		// construction d'une collection d'objets Fonction
+		$lesMails = array();
+		// tant qu'une ligne est trouvée :
+		while ($uneLigne)
+		{	// création d'un objet Fonctiontion
+			$unMail = utf8_encode($uneLigne->adrMail);
+			$lesMails[] = $unMail;
+				
+			// extrait la ligne suivante
+			$uneLigne = $req->fetch(PDO::FETCH_OBJ);
+		}
+		// libère les ressources du jeu de données
+		$req->closeCursor();
+		// fourniture de la collection
+		return $lesMails;
+	}
+	// fonction qui sert a modifier les données de l'inscription
+	// fournit la valeur null si le paramètre n'existe pas ou est incorrect
+	// modifié par Nicolas Esteve le XX/01/2016
+	// les paramètres sonts les données modifiées pour l'inscription
+	function modifierDonneesInscription($montantRembourse,$montantRegle,$idEleve)
+	{
+		//creation de la requete sur plusieurs lignes afin d'être plus comréhensible
+		$txt_req = "Update ae_inscriptions SET montantRembourse = :montantRembourse, montantRegle = :montantRegle where idEleve = :idEleve;";
+	
+		$req = $this->cnx->prepare($txt_req);
+		
+		$req->bindValue("idEleve",  utf8_decode($idEleve), PDO::PARAM_STR);
+		$req->bindValue("montantRembourse" , utf8_decode($montantRembourse), PDO::PARAM_INT);
+		$req->bindValue("montantRegle" , utf8_decode($montantRegle), PDO::PARAM_INT);
+		
+	
+		// execution de la requete
+		$ok = $req->execute();
+	
+		return $ok;
+	
 	}
 	
 	
