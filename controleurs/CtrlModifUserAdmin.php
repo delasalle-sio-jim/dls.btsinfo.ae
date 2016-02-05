@@ -102,7 +102,7 @@ if( (! isset ($_POST ["listeEleves"]) == true) && ( ! isset ($_POST ["btnEnvoyer
 			$liste = $dao->GetLesAdressesMail();
 			if ( $ok ) {
 		
-				$message = 'Modification réussie';
+				$message = 'Modification réussie.';
 				$typeMessage = 'information';
 				$themeFooter = $themeNormal;
 				

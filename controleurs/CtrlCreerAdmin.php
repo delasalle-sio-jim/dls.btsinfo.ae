@@ -60,7 +60,7 @@ else
 			$ok = Outils::envoyerMail($adrMailAdmin, $sujet, $message, $ADR_MAIL_ADMINISTRATEUR);
 				
 			// envoi d'un mail à l'administrateur
-			$message = "Enregistrement effectué, un mail va ête envoyé au nouvel administrateur.";
+			$message = "Enregistrement effectué, un mail va être envoyé au nouvel administrateur.";
 			$typeMessage = 'information';
 			$themeFooter = $themeNormal;
 		

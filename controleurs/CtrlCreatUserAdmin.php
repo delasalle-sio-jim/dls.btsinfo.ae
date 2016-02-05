@@ -91,7 +91,7 @@ else {
 				$ok = $dao->modifierMdp($unEleve->getAdrMail(), $nouveauMdp);
 				// envoi d'un mail d'acceptation à l'intéressé avec son mot de passe
 				$sujet = "Demande de création de votre compte élève dans l'annuaire des anciens du BTS Informatique";
-				$message = "Votre demande de création de compte a bien été validée.\n\n";
+				$message = "Votre compte a bien été crée et validée par un administrateur.\n\n";
 				$message .= "Votre login de connexion est : " . $adrMail . "\n";
 				$message .= "Votre mot de passe est : " . $nouveauMdp . "\n\n";
 				$message .= "Cordialement.\n";
