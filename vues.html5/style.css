@@ -1,39 +1,96 @@
-﻿html {
-	height: 100%;
-}
-body {
-	font: 0.8em Verdana, Arial, Helvetica, sans-serif;
-	margin: 0;
-	padding: 30px 0 0 0;
-	background: -moz-linear-gradient(top, rgb(255, 255, 255), rgb(210, 210, 210));
-	background: -webkit-gradient(linear, left top, left bottom, from(rgb(255, 255, 255)), to(rgb(210, 210, 210)));
-	background: linear-gradient(to bottom, rgb(255, 255, 255), rgb(210, 210, 210));
-}
+﻿/* ----------------- Mise en forme de la structure générale -------------------- */
+
+/* style de la division id="page" */
 div#page {
+	/* largeur, centrage avec des marges auto, padding nul, bordure noire, alignement gauche */
 	width: 800px;
-	margin: 0px auto;
+	margin: 0 auto;
 	padding: 0;
 	border: #000 1px solid; 
 	text-align: left;
+	
+	/* coins arrondis avec un rayon de 15 pixels */
 	-moz-border-radius: 15px;
 	-webkit-border-radius: 15px;
 	-o-border-radius: 15px;
 	-ms-border-radius: 15px;
 	-khtml-border-radius: 15px;
 	border-radius: 15px;
+	
+	/* fond avec un dégradé de couleur (blanc en haut, gris léger en bas) */
 	background: -moz-linear-gradient(top, rgb(255, 255, 255), rgb(210, 210, 210));
 	background: -webkit-gradient(linear, left top, left bottom, from(rgb(255, 255, 255)), to(rgb(210, 210, 210)));
-	background: linear-gradient(to bottom, rgb(255, 255, 255), rgb(225, 225, 225));
+	background: linear-gradient(to bottom, rgb(255, 255, 255), rgb(210, 210, 210));
 }
+
+/* style de la balise <body> */
+body {
+	/* police, marges nulles et padding de 30 pixels en haut */
+	font: 0.8em Verdana, Arial, Helvetica, sans-serif;
+	margin: 0;
+	padding: 30px 0 0 0;
+	
+	/* fond avec un dégradé de couleur (blanc en haut, gris en bas) */
+	background: -moz-linear-gradient(top, rgb(255, 255, 255), rgb(210, 210, 210));
+	background: -webkit-gradient(linear, left top, left bottom, from(rgb(255, 255, 255)), to(rgb(210, 210, 210)));
+	background: linear-gradient(to bottom, rgb(255, 255, 255), rgb(210, 210, 210));
+}
+
+/* style de la page HTML */
+html {
+	/* la page doit occuper toute la hauteur du navigateur */
+	height: 100%;
+}
+
+/* style de la division id="footer" */
+div#footer {
+	/* hauteur, padding, marge en haut, couleur d'arrière-plan */
+	height: 36px;
+	padding: 0; 
+	margin: 20px 0 0 0;
+	background-color: #00A3E4;
+	
+	/* coins arrondis en bas uniquement */
+	-moz-border-radius: 0 0 15px 15px;
+	-webkit-border-radius: 0 0 15px 15px;
+	-o-border-radius: 0 0 15px 15px;
+	-ms-border-radius: 0 0 15px 15px;
+	-khtml-border-radius: 0 0 15px 15px;
+	border-radius: 0 0 15px 15px;
+}
+
+/* style du texte de la division id="footer" */
+div#footer p {
+	padding: 7px 0 0 0;
+	text-align: center;
+	font-weight: bold; 
+	font-size: 1.2em;
+	color: #fff; 	
+}
+
+/* style de la division id="content" */
+div#content {
+	padding: 10px 30px 0 40px;
+	margin: 0;
+}
+
+/* ----------------- Mise en forme du menu horizontal -------------------- */
+
+/* style de la division id="header" */
 div#header {
 	padding: 0; 
 	margin: 0;
 }
+
+/* style de la division id="header-menu" */
 div#header-menu {
+	/* hauteur, padding, marge, couleur d'arrière-plan */
 	height: 36px;
 	padding: 0;
 	margin: 0;
 	background: #00A3E4;
+	
+	/* coins arrondis en haut uniquement */
 	-moz-border-radius: 15px 15px 0 0;
 	-webkit-border-radius: 15px 15px 0 0;
 	-o-border-radius: 15px 15px 0 0;
@@ -41,12 +98,16 @@ div#header-menu {
 	-khtml-border-radius: 15px 15px 0 0;
 	border-radius: 15px 15px 0 0;
 }
+
+/* style de la liste <ul id="menu-horizontal"> */
 ul#menu-horizontal {
 	padding: 0;
 	margin: 0;
 	height: 36px;
 	list-style-type: none; 
 }
+
+/* style des éléments <li> de la liste <ul id="menu-horizontal"> */
 ul#menu-horizontal li {
 	padding: 0;
 	margin: 0;
@@ -54,17 +115,8 @@ ul#menu-horizontal li {
 	float: left; 
 	text-align: center
 }
-ul#menu-horizontal li a:hover {
-	background: #0b4c8e;
-}
-ul#menu-horizontal li:first-child a:hover {
-	-moz-border-radius: 15px 0 0 0;
-	-webkit-border-radius: 15px 0 0 0;
-	-o-border-radius: 15px 0 0 0;
-	-ms-border-radius: 15px 0 0 0;
-	-khtml-border-radius: 15px 0 0 0;
-	border-radius: 15px 0 0 0;
-}
+
+/* style des liens hypertextes contenus dans les éléments <li> de la liste <ul id="menu-horizontal"> */
 ul#menu-horizontal li a {
 	border-right: #fff 2px solid; 
 	display: block; 
@@ -75,79 +127,255 @@ ul#menu-horizontal li a {
 	line-height: 36px; 
 	text-decoration: none
 }
+
+/* modification de couleur au survol de la souris */
+ul#menu-horizontal li a:hover {
+	background: #0b4c8e;
+}
+
+/* ajout d'un coin arrondi (en haut et à gauche) au premier lien uniquement lors du survol de la souris */
+ul#menu-horizontal li:first-child a:hover {
+	-moz-border-radius: 15px 0 0 0;
+	-webkit-border-radius: 15px 0 0 0;
+	-o-border-radius: 15px 0 0 0;
+	-ms-border-radius: 15px 0 0 0;
+	-khtml-border-radius: 15px 0 0 0;
+	border-radius: 15px 0 0 0;
+}
+
+/* ----------------- Positionnement des images -------------------- */
+
+/* style de la division id="header-logos" */
 div#header-logos {
 	padding: 10px 0 0 0; 
 	margin: 0;
 }
-#logo-gauche {
+
+/* style de l'image id="logo-gauche" */
+img#logo-gauche {
 	padding: 0 40px 0 40px;	
 	width: 200px;
 	height: 70px;
 }
-#logo-droite {
+
+/* style de l'image id="logo-droite" */
+img#logo-droite {
 	padding: 0 40px 0 40px;	
 	width: 400px;
 	height: 70px;
 }
-div#footer {
-	height: 36px;
-	padding: 0; 
-	margin: 20px 0 0 0;
-	background: #00A3E4;
-	-moz-border-radius: 0 0 15px 15px;
-	-webkit-border-radius: 0 0 15px 15px;
-	-o-border-radius: 0 0 15px 15px;
-	-ms-border-radius: 0 0 15px 15px;
-	-khtml-border-radius: 0 0 15px 15px;
-	border-radius: 0 0 15px 15px;
-}
-div#footer p {
-	padding: 7px 0 0 0;
-	text-align: center;
-	font-weight: bold; 
-	font-size: 1.2em;
-	color: #fff; 	
-}
-div#content {
-	
-	padding: 10px 30px 0 40px;
-	margin: 0;
 
+/* ----------------- Mise en forme des titres et paragraphes -------------------- */
+
+/* style des balises <h2> de la division <div id="content"> */
+div#content h2 {
+	/* padding à gauche pour pouvoir y placer une image */
+	padding-left: 35px;
+	
+	/* taille et couleur de la police, et hauteur de ligne */
+	font-size: 1.4em;
+	color: #0b4c8e;
+	line-height: 25px;
+	
+	/* ajout d'une image à gauche */
+	background: url(../images/puce.png) no-repeat left bottom;
+	
+	/* ajout d'une bordure au-dessus et en-dessous */
+	border-top: #0b4c8e 1px solid;
+	border-bottom: #0b4c8e 1px solid;
 }
-/* menu vertical */
-div#menu-vertical {
-	padding: 20px 0 20px 0;	
+
+/* style des balises <h3> de la division <div id="content"> */
+div#content h3 {
+	text-indent: 2em;
+	font-size: 1em;
+	color: #000;
+	margin-bottom: 20px; 
 }
-/* transformation des liens hypertextes des menus en boutons */
-a.bouton-menu {
-	font: 1.1em Arial, Helvetica, sans-serif;
-	margin: 20px auto;
-	display: block;
-	width: 300px;
-	background: #ccc;
-	text-align: center;
-	text-decoration: none;
+
+/* style des balises <p> de la division <div id="content"> */
+div#content p {
+	line-height: 1.2em; 
+	text-align: justify;
+}
+
+/* style des balises <a> de la division <div id="content"> */
+div#content a {
+	color: #00a3e4;
+	font-weight: bold;
+}
+
+/* style des balises <a> de la division <div id="content"> lors du survol par la souris */
+div#content a:hover {
 	color: #0b4c8e;
 	font-weight: bold;
+}
+
+/* ----------------- Mise en forme du menu vertical -------------------- */
+
+/* style de la <div id="menu-vertical"> */
+div#menu-vertical {
+	/* padding en haut et en bas */
+	padding: 20px 0 20px 0;
+}
+
+/* transformation en boutons des liens hypertextes <a> avec l'attribut class="bouton-menu" */
+div#menu-vertical a.bouton-menu {
+	/* police, couleur et alignement du texte, style du lien */
+	font: 1.1em Arial, Helvetica, sans-serif;
+	color: #0b4c8e;
+	text-align: center;
+	text-decoration: none;
+	font-weight: bold;
+
+	/* ombre portée du texte du bouton */
+	text-shadow: 0 1px 0 #fff;
+		
+	/* dimensions, margin, padding, type d'affichage, bordure */
+	width: 300px;
+	margin: 20px auto;
 	padding: 5px;
+	display: block;
+	border: 1px solid rgba(0, 0, 0, 0.1);
+	
+	/* coins arrondis */
 	-moz-border-radius: 7px;
 	-webkit-border-radius: 7px;
 	-o-border-radius: 7px;
 	-ms-border-radius: 7px;
 	-khtml-border-radius: 7px;
 	border-radius: 7px;
-	background: -moz-linear-gradient(top, rgb(255, 255, 255), rgb(210, 210, 210));
-	background: -webkit-gradient(linear, right top, right bottom, from(rgb(255, 255, 255)), to(rgb(210, 210, 210)));
-	background: linear-gradient(to bottom, rgb(255, 255, 255), rgb(210, 210, 210));
-	text-shadow: 0 1px 0 #fff;
-	border: 1px solid rgba(0, 0, 0, 0.1);
+	
+	/* fond avec un dégradé de couleur (blanc en haut, gris en bas) */
+	background: -moz-linear-gradient(top, rgb(255, 255, 255), rgb(220, 220, 220));
+	background: -webkit-gradient(linear, right top, right bottom, from(rgb(255, 255, 255)), to(rgb(220, 220, 220)));
+	background: linear-gradient(to bottom, rgb(255, 255, 255), rgb(220, 220, 220));
+	
+	/* ombre portée du bouton */
 	-webkit-box-shadow: 2px 2px 2px 0px rgba(0, 0, 0, 0.3);
 	-moz-box-shadow: 2px 2px 2px 0px rgba(0, 0, 0, 0.3);
 	-o-box-shadow: 2px 2px 2px 0px rgba(0, 0, 0, 0.3);
 	box-shadow: 2px 2px 2px 0px rgba(0, 0, 0, 0.3);
 }
 
-/* champs de formulaires */
+/* modification au survol des liens hypertextes <a> avec l'attribut class="bouton-menu" */
+div#menu-vertical a.bouton-menu:hover {
+	/* fond avec un dégradé de couleur (blanc en haut, gris plus soutenu en bas) */
+	background: -moz-linear-gradient(top, rgb(255, 255, 255), rgb(200, 200, 200));
+	background: -webkit-gradient(linear, right top, right bottom, from(rgb(255, 255, 255)), to(rgb(200, 200, 200)));
+	background: linear-gradient(to bottom, rgb(255, 255, 255), rgb(200, 200, 200));
+}
+
+/* ----------------- Mise en forme des tableaux -------------------- */
+
+/* styles des tableaux */
+table {
+	/* pas d'espace entre les cellules */
+	border-spacing: 0;
+	
+	/* largeur, marges et centrage horizontal */
+	width: 700px;
+	margin: 30px auto 30px auto;
+	
+	/* arrière-plan */
+	background-color: rgb(230, 230, 230);
+}
+
+/* styles des tableaux ayant la propriété class="tableau" */
+.tableau {
+	/* bordure pour l'ensemble du tableau */
+	border: 1px solid #0b4c8e;
+	
+	/* coins arrondis */
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
+	
+	/* ombre légère */
+	-webkit-box-shadow: 1px 3px 3px #ccc;
+	-moz-box-shadow: 1px 3px 3px #ccc;
+	box-shadow: 1px 3px 3px #ccc;
+}
+
+/* styles des cellules des tableaux ayant la propriété class="tableau" */
+.tableau td, .tableau th {
+	/* les cellules sont encadrés en haut et à gauche */
+	border-left: 1px solid #0b4c8e;
+	border-top: 1px solid #0b4c8e;
+	padding: 5px;
+	text-align: center;
+}
+
+/* styles des premières cellules <th> et <td> à gauche */
+.tableau td:first-child, .tableau th:first-child {
+	/* l'encadrement gauche des cellules de gauche est supprimé */
+	border-left: none;
+}
+
+/* styles des cellules <th> */
+.tableau th {
+	/* l'encadrement supérieur des cellules <th> est supprimé */
+	border-top: none;
+}
+
+/* styles des premières cellules <td> à gauche */
+.tableau td:first-child {
+	/* alignement à gauche dans la première colonne */
+	text-align: left;
+	padding-left: 10px;
+}
+
+/* styles de la première et de la dernière ligne */
+.tableau th, .tableau tr:last-child {
+	font-weight: bold; 
+	font-size: 1em;
+
+	/* fond avec un dégradé de couleur (blanc en haut, gris en bas) */
+	background: -moz-linear-gradient(top, rgb(255, 255, 255), rgb(210, 210, 210));
+	background: -webkit-gradient(linear, left top, left bottom, from(rgb(255, 255, 255)), to(rgb(210, 210, 210)));
+	background: linear-gradient(to bottom, rgb(255, 255, 255), rgb(210, 210, 210));
+}
+
+/* styles de la première cellule de la première ligne */
+.tableau th:first-child {
+	/* coin arrondi en haut et à gauche */
+	-moz-border-radius: 10px 0 0 0;
+	-webkit-border-radius: 10px 0 0 0;
+	border-radius: 10px 0 0 0;
+}
+
+/* styles de la dernière cellule de la première ligne */
+.tableau th:last-child {
+	/* coin arrondi en haut et à droite */
+	-moz-border-radius: 0 10px 0 0;
+	-webkit-border-radius: 0 10px 0 0;
+	border-radius: 0 10px 0 0;
+}
+
+/* styles de la première cellule de la dernière ligne */
+.tableau tr:last-child td:first-child {
+	/* coin arrondi en bas et à gauche */
+	-moz-border-radius: 0 0 0 10px;
+	-webkit-border-radius: 0 0 0 10px;
+	border-radius: 0 0 0 10px;
+}
+
+/* styles de la dernière cellule de la dernière ligne */
+.tableau tr:last-child td:last-child {
+	/* coin arrondi en bas et à droite */
+	-moz-border-radius: 0 0 10px 0;
+	-webkit-border-radius: 0 0 10px 0;
+	border-radius: 0 0 10px 0;
+}
+
+/* style au survol des lignes du tableau */
+.tableau tr:hover {
+	background-color: #fbf8e9;
+}
+
+/* ----------------- Mise en forme des formulaires -------------------- */
+
+/* paragraphes dans formulaires */
 form p {
 	padding: 0;
 	margin: 8px 0 0 0;
@@ -158,6 +386,8 @@ input, select {
 	width: 400px;
 	display: inline-block;
 	height: 20px;
+	
+	/* coins arrondis */
 	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px;
 	-o-border-radius: 5px;
@@ -165,11 +395,16 @@ input, select {
 	-khtml-border-radius: 5px;
 	border-radius: 5px;
 }
+select {
+	width: 405px;
+}
 textarea {
 	padding-left: 5px;
 	border: solid 1px grey;
 	width: 398px;
 	display: inline-block;
+	
+	/* coins arrondis */
 	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px;
 	-o-border-radius: 5px;
@@ -182,31 +417,23 @@ label {
 	text-align: left;
 	display: inline-block;
 }
-
 .label2 {
-	position : relative;
-	text-align : left;
+	position: relative;
+	text-align: left;
 	width: 75%;
-	height : 100%;
-	margin : 1% 0 0 10%;
+	height: 100%;
+	margin: 1% 0 0 10%;
 }
 .labelImportant {
-	color : red;
-	position : relative;
-	text-align : left;
+	color: red;
+	position: relative;
+	text-align: left;
 	width: 75%;
-	height : 100%;
-	margin : 1% 0 0 10%;
+	height: 100%;
+	margin: 1% 0 0 10%;
 }
-#txtAdrMailAdmin2 {
-	
+#txtAdrMailAdmin2 {	
 	margin : 1% 0 0 10%;
-}
-
-
-
-select {
-	width: 405px;
 }
 input[type=checkbox] {
 	width: 20px;
@@ -225,12 +452,16 @@ input[type=submit] {
 	width: 230px;
 	height: 25px;
 	margin-left: 300px;
+	
+	/* coins arrondis */
 	-moz-border-radius: 7px;
 	-webkit-border-radius: 7px;
 	-o-border-radius: 7px;
 	-ms-border-radius: 7px;
 	-khtml-border-radius: 7px;
 	border-radius: 7px;
+	
+	/* fond avec un dégradé de couleur (blanc en haut, gris léger en bas) */
 	background: -moz-linear-gradient(top, rgb(255, 255, 255), rgb(210, 210, 210));
 	background: -webkit-gradient(linear, right top, right bottom, from(rgb(255, 255, 255)), to(rgb(210, 210, 210)));
 	background: linear-gradient(to bottom, rgb(255, 255, 255), rgb(210, 210, 210));
@@ -242,30 +473,7 @@ input[type=text]:valid , input[type=email]:valid, input[type=password]:valid, te
 	background: #fff url(../images/rond-vert.png) no-repeat 99% center;
 }
 
-/* zone à mettre à jour */
-div#content h2 {
-	padding-left: 35px;
-	font-size: 1.4em;
-	background: url(../images/puce.png) no-repeat left bottom;
-	border-top: #0b4c8e 1px solid;
-	color: #0b4c8e;
-	line-height: 25px;
-	border-bottom: #0b4c8e 1px solid;
-}
-div#content h3 {
-	text-indent: 2em;
-	font-size: 1em;
-	color: #000;
-	margin-bottom: 20px; 
-}
-div#content p {
-	line-height: 1.2em; 
-	text-align: justify;
-}
-div#content a {
-	color: #0b4c8e;
-	font-weight: bold;
-}
+/* zone utile ??? */
 .lien {
 	position : relative;
 	text-align : left;
@@ -273,14 +481,10 @@ div#content a {
 	height : 100%;
 	margin : 1% 0 0 10%;
 }
-div#content a:hover {
-	color: #0b4c8e;
-	font-weight: bold;
-}
-/* fin de la zone à mettre à jour */
+/* fin de la zone utile ??? */
 
 
-/* ------------------------ styles lies au systeme d'affichage de messages ---------------------------- */
+/* ------------------------ styles liés au système d'affichage de messages ---------------------------- */
 
 /* style du titre du message d'avertissement et son icone */
 #affichage_message h2.classe_avertissement {
@@ -353,9 +557,6 @@ div#content a:hover {
 	opacity: 1;
 	pointer-events: auto;
 }
-
-
-
 * {
   margin: 0; padding: 0;
 }
