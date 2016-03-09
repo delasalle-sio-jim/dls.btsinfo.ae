@@ -14,7 +14,7 @@ class Administrateur
 	// ---------------------------------- Membres privés de la classe ---------------------------------------
 	// ------------------------------------------------------------------------------------------------------
 	
-	private $id;				// identifiant
+	private $id;				// identifiant de l'administrateur
 	private $adrMail;			// adresse mail (utuilisée comme login)
 	private $motDePasse;		// mot de passe
 	private $prenom;			// prénom
