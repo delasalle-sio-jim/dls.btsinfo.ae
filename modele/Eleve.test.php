@@ -1,3 +1,15 @@
+<?php
+// Projet : DLS - BTS Info - Anciens élèves
+// fichier : modele/Eleve.test.php
+// Rôle : test de la classe Eleve
+// Création : 9/11/2015 par JM CARTRON
+// Mise à jour : 9/5/2016 par JM CARTRON
+
+// inclusion de la classe Eleve
+include_once ('Eleve.class.php');
+// inclusion de la classe Outils
+include_once ('Outils.class.php');
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,17 +20,6 @@
 <body>
 
 <?php
-// Projet : DLS - BTS Info - Anciens élèves
-// fichier : modele/Eleve.test.php
-// Rôle : test de la classe Eleve
-// Auteur : JM CARTRON
-// Dernière mise à jour : 9/11/2015
-
-// inclusion de la classe Eleve
-include_once ('Eleve.class.php');
-// inclusion de la classe Outils
-include_once ('Outils.class.php');
-
 $unId = 1;
 $unNom = "fonfec";
 $unPrenom = "sophie";

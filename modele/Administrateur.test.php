@@ -1,3 +1,15 @@
+<?php
+// Projet : DLS - BTS Info - Anciens élèves
+// fichier : modele/Administrateur.test.php
+// Rôle : test de la classe Administrateur
+// Création : 7/11/2015 par JM CARTRON
+// Mise à jour : 9/5/2016 par JM CARTRON
+
+// inclusion de la classe Administrateur
+include_once ('Administrateur.class.php');
+// inclusion de la classe Outils
+include_once ('Outils.class.php');
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,17 +20,6 @@
 <body>
 
 <?php
-// Projet : DLS - BTS Info - Anciens élèves
-// fichier : modele/Administrateur.test.php
-// Rôle : test de la classe Administrateur
-// Auteur : JM CARTRON
-// Dernière mise à jour : 7/11/2015
-
-// inclusion de la classe Administrateur
-include_once ('Administrateur.class.php');
-// inclusion de la classe Outils
-include_once ('Outils.class.php');
-
 $unId = 1;
 $uneAdrMail = "sophie.fonfec@gmail.com";
 $unMotDePasse = Outils::creerMdp();

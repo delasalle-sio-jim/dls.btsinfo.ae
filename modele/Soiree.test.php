@@ -1,3 +1,15 @@
+<?php
+// Projet : DLS - BTS Info - Anciens élèves
+// fichier : modele/Soiree.test.php
+// Rôle : test de la classe Soiree
+// Création : 20/1/2015 par Nicolas Esteve
+// Mise à jour : 9/5/2016 par JM CARTRON
+
+// inclusion de la classe Soiree
+include_once ('Soiree.class.php');
+// inclusion de la classe Outils
+include_once ('Outils.class.php');
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,34 +20,23 @@
 <body>
 
 <?php
-// Projet : DLS - BTS Info - Anciens élèves
-// fichier : modele/Eleve.test.php
-// Rôle : test de la classe Eleve
-// Auteur : JM CARTRON
-// Dernière mise à jour : 9/11/2015
-
-// inclusion de la classe Eleve
-include_once ('Soiree.class.php');
-// inclusion de la classe Outils
-include_once ('Outils.class.php');
-
 $unId = 1;	
-$unNomRestaurant = "Le nom du resto";				
-$uneDate = "21/01/2016";				
-$uneAdresse = "132 rue du resto";				
+$unNomRestaurant = "Le nom du premier resto";				
+$uneDateSoiree = "4/11/2016";				
+$uneAdresse = "132 rue du premier resto";				
 $unTarif = "20";		
 $unLienMenu = "http://www.soburrito.com/menu.php";					
 $uneLatitude = "48.158803" ;			
 $uneLongitude = "-1.686373";			
-$uneSoiree= new Soiree($unId, $unNomRestaurant, $uneDate, $uneAdresse, $unTarif, $unLienMenu, $uneLatitude, $uneLongitude);
+$uneSoiree= new Soiree($unId, $unNomRestaurant, $uneDateSoiree, $uneAdresse, $unTarif, $unLienMenu, $uneLatitude, $uneLongitude);
 
 echo ($uneSoiree->toString());
 echo ('<br>');
 
 $uneSoiree->setId(2);
-$uneSoiree->setNomRestaurant("Le nom du 2nd resto");
-$uneSoiree->setDate("01/01/2016");
-$uneSoiree->setAdresse("132 rue du 2nd resto");
+$uneSoiree->setNomRestaurant("Le nom du second resto");
+$uneSoiree->setDateSoiree("4/11/2016");
+$uneSoiree->setAdresse("132 rue du second resto");
 $uneSoiree->setTarif("27");
 $uneSoiree->setLienMenu("http://www.soburrito.com/menu2.php");
 $uneSoiree->setLatitude("-1.686373");

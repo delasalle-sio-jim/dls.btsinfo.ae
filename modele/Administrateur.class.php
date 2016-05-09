@@ -2,8 +2,8 @@
 // Projet : DLS - BTS Info - Anciens élèves
 // fichier : modele/Administrateur.class.php
 // Rôle : la classe Administrateur représente les administrateurs de l'application
-// Auteur : JM CARTRON
-// Dernière mise à jour : 6/11/2015
+// Création : 6/11/2015 par JM CARTRON
+// Mise à jour : 9/5/2016 par JM CARTRON
 
 // inclusion de la classe Outils
 include_once ('Outils.class.php');
@@ -15,8 +15,8 @@ class Administrateur
 	// ------------------------------------------------------------------------------------------------------
 	
 	private $id;				// identifiant de l'administrateur
-	private $adrMail;			// adresse mail (utuilisée comme login)
-	private $motDePasse;		// mot de passe
+	private $adrMail;			// adresse mail (utilisée comme login)
+	private $motDePasse;		// mot de passe (hashé en SHA1 dans la BDD)
 	private $prenom;			// prénom
 	private $nom;				// nom
 	
@@ -24,7 +24,7 @@ class Administrateur
 	// ----------------------------------------- Constructeur -----------------------------------------------
 	// ------------------------------------------------------------------------------------------------------
 	
-	public function __construct($unId, $uneAdrMail, $unMotDePasse, $unPrenom, $unNom) {
+	public function Administrateur($unId, $uneAdrMail, $unMotDePasse, $unPrenom, $unNom) {
 		$this->id = $unId;
 		$this->adrMail = $uneAdrMail;
 		$this->motDePasse = $unMotDePasse;
@@ -56,7 +56,7 @@ class Administrateur
 	// ------------------------------------------------------------------------------------------------------
 	
 	public function toString() {
-		$msg = 'Administrateur : <br>';
+		$msg  = 'Administrateur : <br>';
 		$msg .= 'id : ' . $this->getId() . '<br>';
 		$msg .= 'adrMail : ' . $this->getAdrMail() . '<br>';
 		$msg .= 'motDePasse : ' . $this->getMotDePasse() . '<br>';

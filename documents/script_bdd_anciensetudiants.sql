@@ -128,9 +128,9 @@ CREATE TABLE IF NOT EXISTS ae_inscriptions (
 -- Structure de la table 'ae_soirees'
 --
 
-CREATE TABLE IF NOT EXISTS ae_soirees (
+CREATE TABLE ae_soirees (
   id int(11) NOT NULL AUTO_INCREMENT,
-  `date` date NOT NULL,
+  dateSoiree date NOT NULL,
   nomRestaurant varchar(50) NOT NULL,
   adresse varchar(150) NOT NULL,
   tarif decimal(10,0) NOT NULL,
@@ -138,7 +138,15 @@ CREATE TABLE IF NOT EXISTS ae_soirees (
   latitude double NOT NULL DEFAULT '0',
   longitude double NOT NULL DEFAULT '0',
   PRIMARY KEY (id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+
+--
+-- Contenu de la table 'ae_soirees'
+--
+
+INSERT INTO ae_soirees (id, dateSoiree, nomRestaurant, adresse, tarif, lienMenu, latitude, longitude) VALUES
+(1, '2016-11-04', 'Cot'' et Boeuf', '1 Ter Route de Fougères, 35510 Cesson-Sévigné', '22', 'http://www.pagesjaunes.fr/pros/51832422', 48.1326846, -1.6339654);
+
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

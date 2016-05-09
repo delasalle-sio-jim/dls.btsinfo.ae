@@ -2,8 +2,8 @@
 // Projet : DLS - BTS Info - Anciens élèves
 // fichier : modele/Eleve.class.php
 // Rôle : la classe Eleve représente les élèves (actuels ou anciens) de l'application
-// Auteur : JM CARTRON
-// Dernière mise à jour : 16/11/2015
+// Création : 16/11/2015 par JM CARTRON
+// Mise à jour : 9/5/2016 par JM CARTRON
 
 // inclusion de la classe Fonction
 include_once ('Fonction.class.php');
@@ -16,19 +16,19 @@ class Eleve
 	// ---------------------------------- Membres privés de la classe ---------------------------------------
 	// ------------------------------------------------------------------------------------------------------
 	
-	private $id;				// identifiant
+	private $id;				// identifiant de l'élève
 	private $nom;				// nom de naissance
 	private $prenom;			// prénom
-	private $sexe;				// sexe "H" ou "F"
-	private $anneeDebutBTS;		// année d'entrée en BTS
-	private $tel;				// numéro de téléphone			
-	private $adrMail;			// adresse mail (utuilisée comme login)
+	private $sexe;				// sexe : "H" ou "F"
+	private $anneeDebutBTS;		// année d'entrée en BTS (sur 4 caractères)
+	private $tel;				// numéro de téléphone (sur 14 caractères)			
+	private $adrMail;			// adresse mail (utilisée comme login)
 	private $rue;				// rue
 	private $codePostal;		// code postal	
 	private $ville;				// ville	
 	private $entreprise;		// nom de l'entreprise actuelle (ou null pour les étudiants et les sans-emplois)	
 	private $compteAccepte;		// false initialement, true quand le compte a été accepté	
-	private $motDePasse;		// mot de passe
+	private $motDePasse;		// mot de passe (hashé en SHA1 dans la BDD)
 	private $etudesPostBTS;		// études suivies après le BTS
 	private $dateDerniereMAJ;	// date de dernière mise à jour des données par l'élève
 	private $idFonction;		// l'identifiant de la fonction actuellement occupée
@@ -36,7 +36,8 @@ class Eleve
 	// ------------------------------------------------------------------------------------------------------
 	// ----------------------------------------- Constructeur -----------------------------------------------
 	// ------------------------------------------------------------------------------------------------------
-	public function __construct($unId, $unNom, $unPrenom, $unSexe, $uneAnneeDebutBTS, $unTel, $uneAdrMail, $uneRue, $unCodePostal,
+
+	public function Eleve($unId, $unNom, $unPrenom, $unSexe, $uneAnneeDebutBTS, $unTel, $uneAdrMail, $uneRue, $unCodePostal,
 			$uneVille, $uneEntreprise, $unCompteAccepte, $unMotDePasse, $desEtudesPostBTS, $uneDateDerniereMAJ, $unIdFonction) {
 		$this->id = $unId;
 		$this->nom = strtoupper($unNom);
@@ -116,7 +117,8 @@ class Eleve
 	// ------------------------------------------------------------------------------------------------------
 	
 	public function toString() {
-		$msg = 'id : ' . $this->getId() . '<br>';
+		$msg  = 'Elève : <br>';
+		$msg .= 'id : ' . $this->getId() . '<br>';
 		$msg .= 'nom : ' . $this->getNom() . '<br>';
 		$msg .= 'prenom : ' . $this->getPrenom() . '<br>';
 		$msg .= 'sexe : ' . $this->getSexe() . '<br>';				

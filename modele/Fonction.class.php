@@ -38,7 +38,7 @@ class Fonction
 	// ------------------------------------------------------------------------------------------------------
 	
 	public function toString() {
-		$msg = 'Fonction : <br>';
+		$msg  = 'Fonction : <br>';
 		$msg .= 'id : ' . $this->getId() . '<br>';
 		$msg .= 'libelle : ' . $this->getLibelle() . '<br>';
 
