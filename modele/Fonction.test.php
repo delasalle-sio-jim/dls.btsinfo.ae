@@ -1,3 +1,13 @@
+<?php
+// Projet : DLS - BTS Info - Anciens élèves
+// fichier : modele/Fonction.test.php
+// Rôle : test de la classe Fonction
+// Création : 5/11/2015 par JM CARTRON
+// Mise à jour : 5/5/2016 par JM CARTRON
+
+// inclusion de la classe Fonction
+include_once ('Fonction.class.php');
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,15 +18,6 @@
 <body>
 
 <?php
-// Projet : DLS - BTS Info - Anciens élèves
-// fichier : modele/Fonction.test.php
-// Rôle : test de la classe Fonction
-// Auteur : JM CARTRON
-// Dernière mise à jour : 5/11/2015
-
-// inclusion de la classe Fonction
-include_once ('Fonction.class.php');
-
 $unId = 1;
 $unLibelle = "Chef de projet";
 $uneFonction = new Fonction($unId, $unLibelle);

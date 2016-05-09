@@ -2,8 +2,8 @@
 // Projet : DLS - BTS Info - Anciens élèves
 // fichier : modele/Fonction.class.php
 // Rôle : la classe Fonction représente les fonctions que peuvent occuper les anciens élèves en entreprise
-// Auteur : JM CARTRON
-// Dernière mise à jour : 5/11/2015
+// Création : 5/11/2015 par JM CARTRON
+// Mise à jour : 5/5/2016 par JM CARTRON
 
 class Fonction
 {
@@ -18,7 +18,7 @@ class Fonction
 	// ----------------------------------------- Constructeur -----------------------------------------------
 	// ------------------------------------------------------------------------------------------------------
 	
-	public function __construct($unId, $unLibelle) {
+	public function Fonction($unId, $unLibelle) {
 		$this->id = $unId;
 		$this->libelle = $unLibelle;
 	}
