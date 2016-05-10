@@ -2,7 +2,7 @@
 // Projet : DLS - BTS Info - Anciens élèves
 // fichier : modele/Soiree.class.php
 // Rôle : la classe Soiree représente la soirée annuelle des anciens élèves
-// Création : 20/1/2015 par Nicolas Esteve
+// Création : 20/1/2016 par Nicolas Esteve
 // Mise à jour : 9/5/2016 par JM CARTRON
 
 // inclusion de la classe Fonction

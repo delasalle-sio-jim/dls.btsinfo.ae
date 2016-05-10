@@ -1,9 +1,9 @@
 <?php
 // Projet : DLS - BTS Info - Anciens élèves
 // fichier : modele/Inscription.class.php
-// Rôle : la classe Soiree représente la soiree de l'application
-// Auteur : Nicolas Esteve
-// Dernière mise à jour : 2/02/2016
+// Rôle : la classe Inscription représente une inscription à une soirée des anciens 
+// Création : 2/2/2016 par Nicolas Esteve
+// Mise à jour : 9/5/2016 par JM CARTRON
 
 // inclusion de la classe Fonction
 include_once ('Fonction.class.php');
@@ -18,7 +18,7 @@ class Inscription
 	
 	private $id;
 	private $dateInscription;
-	private $nbrePersonne;
+	private $nbrePersonnes;
 	private $montantRegle;
 	private $montantRembourse;
 	private $idEleve;
@@ -29,10 +29,10 @@ class Inscription
 	// ----------------------------------------- Constructeur -----------------------------------------------
 	// ------------------------------------------------------------------------------------------------------
 	
-	public function __construct($unId, $dateInscription, $unNbrePersonne, $montantRegle, $montantRembourse, $idEleve, $idSoiree, $annule) {
+	public function Inscription($unId, $dateInscription, $unNbrePersonnes, $montantRegle, $montantRembourse, $idEleve, $idSoiree, $annule) {
 		$this->id = $unId;
 		$this->dateInscription = $dateInscription;
-		$this->nbrePersonne = $unNbrePersonne;
+		$this->nbrePersonnes = $unNbrePersonne;
 		$this->montantRegle = $montantRegle;
 		$this->montantRembourse = $montantRembourse;
 		$this->idEleve = $idEleve;
@@ -53,8 +53,8 @@ class Inscription
 	public function getdateInscription() {return $this->dateInscription;}
 	public function setdateInscription($uneDateInscription) {$this->dateInscription = $uneDateInscription;}
 
-	public function getnbrePersonne() {return $this->nbrePersonne;}
-	public function setnbrePersonne($unNbrePersonne) {$this->nbrePersonne = $unNbrePersonne;}
+	public function getnbrePersonnes() {return $this->nbrePersonnes;}
+	public function setnbrePersonnes($unNbrePersonnes) {$this->nbrePersonnes = $unNbrePersonnes;}
 
 	public function getmontantRegle() {return $this->montantRegle;}
 	public function setmontantRegle($unMontantRegle) {$this->montantRegle = $unMontantRegle;}
@@ -79,7 +79,7 @@ class Inscription
 	public function toString() {
 		$msg = 'id : ' . $this->getId() . '<br>';
 		$msg .= 'dateInscription : ' . $this->getdateInscription() . '<br>';
-		$msg .= 'nbrePersonne : ' . $this->getnbrePersonne() . '<br>';
+		$msg .= 'nbrePersonnes : ' . $this->getnbrePersonnes() . '<br>';
 		$msg .= 'montantRegle : ' . $this->getmontantRegle() . '<br>';
 		$msg .= 'montantRembourse : ' . $this->getmontantRembourse() . '<br>';
 		$msg .= 'idEleve : ' . $this->getidEleve() . '<br>';
@@ -88,7 +88,7 @@ class Inscription
 		return $msg;
 	}
 
-} // fin de la classe Eleve
+} // fin de la classe Inscription
 
 // ATTENTION : on ne met pas de balise de fin de script pour ne pas prendre le risque
 // d'enregistrer d'espaces après la balise de fin de script !!!!!!!!!!!!

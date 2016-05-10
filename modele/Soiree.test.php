@@ -2,7 +2,7 @@
 // Projet : DLS - BTS Info - Anciens élèves
 // fichier : modele/Soiree.test.php
 // Rôle : test de la classe Soiree
-// Création : 20/1/2015 par Nicolas Esteve
+// Création : 20/1/2016 par Nicolas Esteve
 // Mise à jour : 9/5/2016 par JM CARTRON
 
 // inclusion de la classe Soiree
