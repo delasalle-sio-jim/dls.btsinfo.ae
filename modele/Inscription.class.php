@@ -3,12 +3,7 @@
 // fichier : modele/Inscription.class.php
 // Rôle : la classe Inscription représente une inscription à une soirée des anciens 
 // Création : 2/2/2016 par Nicolas Esteve
-// Mise à jour : 9/5/2016 par JM CARTRON
-
-// inclusion de la classe Fonction
-include_once ('Fonction.class.php');
-// inclusion de la classe Outils
-include_once ('Outils.class.php');
+// Mise à jour : 11/5/2016 par JM CARTRON
 
 class Inscription
 {
@@ -16,32 +11,29 @@ class Inscription
 	// ---------------------------------- Membres privés de la classe ---------------------------------------
 	// ------------------------------------------------------------------------------------------------------
 	
-	private $id;
-	private $dateInscription;
-	private $nbrePersonnes;
-	private $montantRegle;
-	private $montantRembourse;
-	private $idEleve;
-	private $idSoiree;
-	private $annule;
+	private $id;					// identifiant (numéro automatique dans la BDD)
+	private $dateInscription;		// date de l'inscription
+	private $nbrePersonnes;			// nombre de personnes inscrites
+	private $montantRegle;			// montant réglé
+	private $montantRembourse;		// montant remboursé (en cas d'annulation)
+	private $idEleve;				// identifiant de l'élève inscrit
+	private $idSoiree;				// identifiant de la soirée
+	private $inscriptionAnnulee;	// true si inscription annulée, false par défaut
 
 	// ------------------------------------------------------------------------------------------------------
 	// ----------------------------------------- Constructeur -----------------------------------------------
 	// ------------------------------------------------------------------------------------------------------
 	
-	public function Inscription($unId, $dateInscription, $unNbrePersonnes, $montantRegle, $montantRembourse, $idEleve, $idSoiree, $annule) {
+	public function Inscription($unId, $dateInscription, $unNbrePersonnes, $montantRegle, $montantRembourse, $idEleve, $idSoiree, $annulee) {
 		$this->id = $unId;
 		$this->dateInscription = $dateInscription;
-		$this->nbrePersonnes = $unNbrePersonne;
+		$this->nbrePersonnes = $unNbrePersonnes;
 		$this->montantRegle = $montantRegle;
 		$this->montantRembourse = $montantRembourse;
 		$this->idEleve = $idEleve;
 		$this->idSoiree = $idSoiree;
-		$this->annule = $annule;
-
-	}
-
-	
+		$this->inscriptionAnnulee = $annulee;
+	}	
 	
 	// ------------------------------------------------------------------------------------------------------
 	// ---------------------------------------- Getters et Setters ------------------------------------------
@@ -50,26 +42,26 @@ class Inscription
 	public function getId()	{return $this->id;}
 	public function setId($unId) {$this->id = $unId;}
 
-	public function getdateInscription() {return $this->dateInscription;}
-	public function setdateInscription($uneDateInscription) {$this->dateInscription = $uneDateInscription;}
+	public function getDateInscription() {return $this->dateInscription;}
+	public function setDateInscription($uneDateInscription) {$this->dateInscription = $uneDateInscription;}
 
-	public function getnbrePersonnes() {return $this->nbrePersonnes;}
-	public function setnbrePersonnes($unNbrePersonnes) {$this->nbrePersonnes = $unNbrePersonnes;}
+	public function getNbrePersonnes() {return $this->nbrePersonnes;}
+	public function setNbrePersonnes($unNbrePersonnes) {$this->nbrePersonnes = $unNbrePersonnes;}
 
-	public function getmontantRegle() {return $this->montantRegle;}
-	public function setmontantRegle($unMontantRegle) {$this->montantRegle = $unMontantRegle;}
+	public function getMontantRegle() {return $this->montantRegle;}
+	public function setMontantRegle($unMontantRegle) {$this->montantRegle = $unMontantRegle;}
 
-	public function getmontantRembourse() {return $this->montantRembourse;}
-	public function setmontantRembourse($unMontantRembourse) {$this->montantRembourse = $unMontantRembourse;}
+	public function getMontantRembourse() {return $this->montantRembourse;}
+	public function setMontantRembourse($unMontantRembourse) {$this->montantRembourse = $unMontantRembourse;}
 
-	public function getidEleve() {return $this->idEleve;}
-	public function setidEleve($unIdEleve) {$this->idEleve = $unIdEleve;}
+	public function getIdEleve() {return $this->idEleve;}
+	public function setIdEleve($unIdEleve) {$this->idEleve = $unIdEleve;}
 
-	public function getidSoiree() {return $this->idSoiree;}
-	public function setidSoiree($unIdSoiree) {$this->idSoiree = $unIdSoiree;}
+	public function getIdSoiree() {return $this->idSoiree;}
+	public function setIdSoiree($unIdSoiree) {$this->idSoiree = $unIdSoiree;}
 
-	public function getannule() {return $this->annule;}
-	public function setannule($uneAnnule) {$this->annule = $uneAnnule;}
+	public function getInscriptionAnnulee() {return $this->inscriptionAnnulee;}
+	public function setInscriptionAnnulee($inscriptionAnnulee) {$this->inscriptionAnnulee = $inscriptionAnnulee;}
 
 
 	// ------------------------------------------------------------------------------------------------------
@@ -77,14 +69,18 @@ class Inscription
 	// ------------------------------------------------------------------------------------------------------
 
 	public function toString() {
-		$msg = 'id : ' . $this->getId() . '<br>';
-		$msg .= 'dateInscription : ' . $this->getdateInscription() . '<br>';
-		$msg .= 'nbrePersonnes : ' . $this->getnbrePersonnes() . '<br>';
-		$msg .= 'montantRegle : ' . $this->getmontantRegle() . '<br>';
-		$msg .= 'montantRembourse : ' . $this->getmontantRembourse() . '<br>';
-		$msg .= 'idEleve : ' . $this->getidEleve() . '<br>';
-		$msg .= 'idSoiree : ' . $this->getidSoiree() . '<br>';
-		$msg .= 'annule : ' . $this->getannule() . '<br>';
+		$msg  = 'Inscription : <br>';
+		$msg .= 'id : ' . $this->getId() . '<br>';
+		$msg .= 'dateInscription : ' . $this->getDateInscription() . '<br>';
+		$msg .= 'nbrePersonnes : ' . $this->getNbrePersonnes() . '<br>';
+		$msg .= 'montantRegle : ' . $this->getMontantRegle() . '<br>';
+		$msg .= 'montantRembourse : ' . $this->getMontantRembourse() . '<br>';
+		$msg .= 'idEleve : ' . $this->getIdEleve() . '<br>';
+		$msg .= 'idSoiree : ' . $this->getIdSoiree() . '<br>';
+		if ($this->getInscriptionAnnulee())
+			$msg .= 'inscriptionAnnulee : OUI <br>';
+		else
+			$msg .= 'inscriptionAnnulee : NON <br>';
 		return $msg;
 	}
 

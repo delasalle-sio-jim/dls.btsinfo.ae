@@ -112,13 +112,14 @@ INSERT INTO ae_fonctions (id, libelle) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS ae_inscriptions (
-  id int(11) NOT NULL,
+  id int(11) NOT NULL AUTO_INCREMENT,
   dateInscription date NOT NULL,
   nbrePersonnes int(11) NOT NULL,
   montantRegle decimal(10,0) NOT NULL,
   montantRembourse decimal(10,0) NOT NULL DEFAULT '0',
   idEleve int(11) NOT NULL,
   idSoiree int(11) NOT NULL,
+  inscriptionAnnulee tinyint(1) NOT NULL,
   PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -128,7 +129,7 @@ CREATE TABLE IF NOT EXISTS ae_inscriptions (
 -- Structure de la table 'ae_soirees'
 --
 
-CREATE TABLE ae_soirees (
+CREATE TABLE IF NOT EXISTS ae_soirees (
   id int(11) NOT NULL AUTO_INCREMENT,
   dateSoiree date NOT NULL,
   nomRestaurant varchar(50) NOT NULL,
