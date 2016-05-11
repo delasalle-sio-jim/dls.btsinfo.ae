@@ -13,20 +13,37 @@
 // __construct                   : le constructeur crée la connexion $cnx à la base de données
 // __destruct                    : le destructeur ferme la connexion $cnx à la base de données
 
-// getLesFonctions() : fournit la liste des fonctions que peut occuper un ancien élève ; le résultat est fourni sous forme d'une collection d'objets Fonction
-// getLesEleves()    : fournit la liste de tout les eleves ; le résultat est fourni sous forme d'une collection d'objets Eleve
+// getLesFonctions() : array
+//   fournit la liste des fonctions que peut occuper un ancien élève ; le résultat est fourni sous forme d'une collection d'objets Fonction
 
+// getTypeUtilisateur ($uneAdrMail, $unMdp) : String
+//   permet d'authentifier un utilisateur ; retourne 'inconnu' ou 'eleve' ou 'administrateur'
 
-
-
-// getTypeUtilisateur ($uneAdrMail, $unMdp) : String			// retourne 'inconnu' ou 'eleve' ou 'administrateur'
-// creerCompteEleve ($unEleve) : bool
-// getEleve ($uneAdrMail) : Eleve
 // existeAdrMail ($uneAdrMail) : bool
+//   fournit true si l'adresse mail ($adrMail) existe dans la table ae_eleves, false sinon
+
+// creerCompteEleve ($unEleve) : bool
+//   enregistre l'élève dans la bdd et retourne true si enregistrement effectué correctement, retourne false en cas de problème
+
+// getEleve ($parametre) : Eleve
+//   recherche et fournit un objet Eleve à partir de son identifiant ou de son adresse mail
+//   fournit la valeur null si le paramètre n'existe pas ou est incorrect
+
+// supprimerCompteEleve($parametre) : bool
+//   supprime un compte Eleve (ainsi que ses inscriptions s'il en a) à partir de son identifiant ou de son adresse mail
+//   retourne true si enregistrement supprimé correctement, retourne false en cas de problème
+
+// getAdministrateur ($parametre) : Administrateur
+//   recherche et fournit un objet Administrateur à partir de son identifiant ou de son adresse mail
+//   fournit la valeur null si le paramètre n'existe pas ou est incorrect
+
+
+
+
+
 // envoyerNouveauMdp ($uneAdrMail, $unNouveauMdp) : bool
 // modifierMdp ($uneAdrMail, $unNouveauMdp) : bool
 // modifierCompteEleve ($unEleve) : bool
-// supprimerCompteEleve ($unEleve) : bool
 // validerCreationCompte ($uneAdrMail) : bool
 // rejeterCreationCompte ($uneAdrMail) : bool
 // estInscritAlaProchaineSoiree ($uneAdrMail) : bool
@@ -35,7 +52,8 @@
 
 
 
-
+// getLesEleves() : array
+//   fournit la liste de tout les eleves ; le résultat est fourni sous forme d'une collection d'objets Eleve
 
 // listeReservations             : fournit la liste des réservations à venir d'un utilisateur ($nomUser)
 // existeReservation             : fournit true si la réservation ($idReservation) existe, false sinon
@@ -141,56 +159,6 @@ class DAO
 		return $lesFonctions;
 	}	
 	
-	// fournit la liste de tout les eleves
-	// le résultat est fourni sous forme d'une collection d'objets Eleve
-	// modifié par Nicolas Esteve le XX/01/2016
-	function getLesEleves()
-	{	// préparation de la requete de recherche
-		$txt_req = "Select * from ae_eleves order by id";
-		
-		$req = $this->cnx->prepare($txt_req);
-		// extraction des données
-		$req->execute();
-		$uneLigne = $req->fetch(PDO::FETCH_OBJ);
-	
-		// construction d'une collection d'objets Eleve
-		$lesEleves = array();
-		// tant qu'une ligne est trouvée :
-		while ($uneLigne)
-		{	
-			// création d'un objet Eleve
-				$id = utf8_encode($uneLigne->id);
-				$nom = utf8_encode($uneLigne->nom);
-				$prenom = utf8_encode($uneLigne->prenom);
-				$sexe = utf8_encode($uneLigne->sexe);
-				$anneeDebutBTS = utf8_encode($uneLigne->anneeDebutBTS);
-				$tel = utf8_encode($uneLigne->tel);
-				$adrMail = utf8_encode($uneLigne->adrMail);
-				$rue = utf8_encode($uneLigne->rue);
-				$codePostal = utf8_encode($uneLigne->codePostal);
-				$ville = utf8_encode($uneLigne->ville);
-				$entreprise = utf8_encode($uneLigne->entreprise);
-				$compteAccepte = utf8_encode($uneLigne->compteAccepte);
-				$motDePasse = utf8_encode($uneLigne->motDePasse);
-				$etudesPostBTS = utf8_encode($uneLigne->etudesPostBTS);
-				$dateDerniereMAJ = utf8_encode($uneLigne->dateDerniereMAJ);
-				$idFonction = utf8_encode($uneLigne->idFonction);			
-						
-				$unEleve = new Eleve($id, $nom, $prenom, $sexe, $anneeDebutBTS, $tel, $adrMail, $rue, $codePostal, 
-					$ville, $entreprise, $compteAccepte, $motDePasse, $etudesPostBTS, $dateDerniereMAJ, $idFonction);
-				
-			
-			// ajout de la fonction à la collection
-			$lesEleves[] = $unEleve;
-			// extrait la ligne suivante
-			$uneLigne = $req->fetch(PDO::FETCH_OBJ);
-		}
-		// libère les ressources du jeu de données
-		$req->closeCursor();
-		// fourniture de la collection
-		return $lesEleves;
-	}
-	
 	// fournit le type d'un utilisateur identifié par $adrMail et $motDePasse
 	// renvoie "eleve" ou "administrateur" si authentification correcte, "inconnu" sinon
 	// modifié par Jim le 16/11/2015
@@ -248,7 +216,36 @@ class DAO
 			return true;
 	}
 
-	// fournit un objet Eleve à partir de son identifiant ou de son adresse mail
+	// enregistre l'élève dans la bdd et retourne true si enregistrement effectué correctement, retourne false en cas de problème
+	// modifié par Jim le 15/11/2015
+	public function creerCompteEleve ($unEleve)
+	{	// préparation de la requete
+		$txt_req = "insert into ae_eleves (nom, prenom, sexe, anneeDebutBTS, tel, adrMail, rue, codePostal, ville, entreprise, compteAccepte, motDePasse, etudesPostBTS, dateDerniereMAJ, idFonction)";
+		$txt_req .= " values (:nom, :prenom, :sexe, :anneeDebutBTS, :tel, :adrMail, :rue, :codePostal, :ville, :entreprise, :compteAccepte, :motDePasse, :etudesPostBTS, :dateDerniereMAJ, :idFonction)";
+		$req = $this->cnx->prepare($txt_req);
+		// liaison de la requête et de ses paramètres
+		$req->bindValue("nom", utf8_decode($unEleve->getNom()), PDO::PARAM_STR);
+		$req->bindValue("prenom", utf8_decode($unEleve->getPrenom()), PDO::PARAM_STR);
+		$req->bindValue("sexe", utf8_decode($unEleve->getSexe()), PDO::PARAM_STR);
+		$req->bindValue("anneeDebutBTS", utf8_decode($unEleve->getAnneeDebutBTS()), PDO::PARAM_STR);
+		$req->bindValue("tel", utf8_decode($unEleve->getTel()), PDO::PARAM_STR);
+		$req->bindValue("adrMail", utf8_decode($unEleve->getAdrMail()), PDO::PARAM_STR);
+		$req->bindValue("rue", utf8_decode($unEleve->getRue()), PDO::PARAM_STR);
+		$req->bindValue("codePostal", utf8_decode($unEleve->getCodePostal()), PDO::PARAM_STR);
+		$req->bindValue("ville", utf8_decode($unEleve->getVille()), PDO::PARAM_STR);
+		$req->bindValue("entreprise", utf8_decode($unEleve->getEntreprise()), PDO::PARAM_STR);
+		$req->bindValue("compteAccepte", utf8_decode($unEleve->getCompteAccepte()), PDO::PARAM_INT);
+		// ATTENTION : le mot de passe est hashé en sha1 avant l'enregistrement dans la bdd
+		$req->bindValue("motDePasse", utf8_decode(sha1($unEleve->getMotDePasse())), PDO::PARAM_STR);
+		$req->bindValue("etudesPostBTS", utf8_decode($unEleve->getEtudesPostBTS()), PDO::PARAM_STR);
+		$req->bindValue("dateDerniereMAJ", utf8_decode($unEleve->getDateDerniereMAJ()), PDO::PARAM_STR);
+		$req->bindValue("idFonction", utf8_decode($unEleve->getIdFonction()), PDO::PARAM_INT);
+		// exécution de la requete
+		$ok = $req->execute();
+		return $ok;
+	}	
+
+	// recherche et fournit un objet Eleve à partir de son identifiant ou de son adresse mail
 	// fournit la valeur null si le paramètre n'existe pas ou est incorrect
 	// modifié par Jim le 16/11/2015
 	public function getEleve($parametre)
@@ -298,6 +295,34 @@ class DAO
 		}
 	}
 
+	// supprime un compte Eleve (ainsi que ses inscriptions s'il en a) à partir de son identifiant ou de son adresse mail
+	// retourne true si enregistrement supprimé correctement, retourne false en cas de problème
+	// modifié par Nicolas Esteve  le XX/01/2016
+	// modifié par Jim le 11/5/2016
+	public function supprimerCompteEleve($parametre)
+	{	$unEleve = $this->getEleve($parametre);
+		// si le paramètre est incorrect ou inexistant, on retourne la valeur FALSE
+		if ( $unEleve == null ) return FALSE;
+		
+		// préparation de la requete de suppression des inscriptions de l'élève à supprimer
+		$txt_req_inscriptions = "Delete from ae_inscriptions where idEleve = :idEleve";
+		$req1 = $this->cnx->prepare($txt_req_inscriptions);	
+		// liaison de la requête et de son paramètre
+		$req1->bindValue("idEleve", $unEleve->getId(), PDO::PARAM_INT);
+		// exécution de la requete
+		$ok = $req1->execute();
+		
+		// préparation de la requete de suppression de l'élève
+		$txt_req_eleve = "Delete from ae_eleves where id = :idEleve";
+		$req2 = $this->cnx->prepare($txt_req_eleve);	
+		// liaison de la requête et de son paramètre
+		$req2->bindValue("idEleve", $unEleve->getId(), PDO::PARAM_INT);
+		// exécution de la requete
+		$ok = $req2->execute();
+		
+		return $ok;
+	}
+	
 	// fournit un objet Administrateur à partir de son identifiant ou de son adresse mail
 	// fournit la valeur null si le paramètre n'existe pas ou est incorrect
 	// modifié par Jim le 23/11/2015
@@ -336,65 +361,9 @@ class DAO
 		}
 	}
 	
-	// enregistre l'élève dans la bdd
-	// modifié par Jim le 15/11/2015
-	public function creerCompteEleve ($unEleve)
-	{	// préparation de la requete
-		$txt_req = "insert into ae_eleves (nom, prenom, sexe, anneeDebutBTS, tel, adrMail, rue, codePostal, ville, entreprise, compteAccepte, motDePasse, etudesPostBTS, dateDerniereMAJ, idFonction)";
-		$txt_req .= " values (:nom, :prenom, :sexe, :anneeDebutBTS, :tel, :adrMail, :rue, :codePostal, :ville, :entreprise, :compteAccepte, :motDePasse, :etudesPostBTS, :dateDerniereMAJ, :idFonction)";
-		$req = $this->cnx->prepare($txt_req);
-		// liaison de la requête et de ses paramètres
-		$req->bindValue("nom", utf8_decode($unEleve->getNom()), PDO::PARAM_STR);
-		$req->bindValue("prenom", utf8_decode($unEleve->getPrenom()), PDO::PARAM_STR);
-		$req->bindValue("sexe", utf8_decode($unEleve->getSexe()), PDO::PARAM_STR);
-		$req->bindValue("anneeDebutBTS", utf8_decode($unEleve->getAnneeDebutBTS()), PDO::PARAM_STR);
-		$req->bindValue("tel", utf8_decode($unEleve->getTel()), PDO::PARAM_STR);
-		$req->bindValue("adrMail", utf8_decode($unEleve->getAdrMail()), PDO::PARAM_STR);
-		$req->bindValue("rue", utf8_decode($unEleve->getRue()), PDO::PARAM_STR);
-		$req->bindValue("codePostal", utf8_decode($unEleve->getCodePostal()), PDO::PARAM_STR);
-		$req->bindValue("ville", utf8_decode($unEleve->getVille()), PDO::PARAM_STR);
-		$req->bindValue("entreprise", utf8_decode($unEleve->getEntreprise()), PDO::PARAM_STR);
-		$req->bindValue("compteAccepte", utf8_decode($unEleve->getCompteAccepte()), PDO::PARAM_INT);
-		// ATTENTION : le mot de passe est hashé en sha1 avant l'enregistrement dans la bdd
-		$req->bindValue("motDePasse", utf8_decode(sha1($unEleve->getMotDePasse())), PDO::PARAM_STR);
-		$req->bindValue("etudesPostBTS", utf8_decode($unEleve->getEtudesPostBTS()), PDO::PARAM_STR);
-		$req->bindValue("dateDerniereMAJ", utf8_decode($unEleve->getDateDerniereMAJ()), PDO::PARAM_STR);
-		$req->bindValue("idFonction", utf8_decode($unEleve->getIdFonction()), PDO::PARAM_INT);
-		// exécution de la requete
-		$ok = $req->execute();
-		return $ok;
-	}
-		
-	//fonction qui supprime un compte Eleve ainsi que ses inscriptions si il en a.
-	// fournit la valeur null si le paramètre n'existe pas ou est incorrect
-	// modifié par Nicolas Esteve  le XX/01/2016
-	public function supprimerCompteEleve($parametre){
-		// préparation de la requete de suppression puis de recherche
-		if (Outils::estUneAdrMailValide($parametre)) $txt_req = "Delete from ae_eleves where adrMail = :parametre";
-		if (Outils::estUneAdrMailValide($parametre)) $txt_requete = "Select id from ae_eleves where adrMail = :parametre";
-		$req = $this->cnx->prepare($txt_req);
-		$req2 = $this->cnx->prepare($txt_requete);
-		
-		// liaison de la requête et de son paramètre
-		if (Outils::estUneAdrMailValide($parametre)) $req->bindValue("parametre", $parametre, PDO::PARAM_STR);
-		if (Outils::estUneAdrMailValide($parametre)) $req2->bindValue("parametre", $parametre, PDO::PARAM_STR);
-		// extraction puis supression des données
-		$id = $req2->execute();
-		$ok =$req->execute();
-		
-		if($id){
-			// préparation de la requete de suppression
-			$txt_req = "Delete from ae_inscriptions  where idEleve = :id";
-			$req = $this->cnx->prepare($txt_req);
-			// liaison de la requête et de son paramètre
-			$req->bindValue("id", $id, PDO::PARAM_STR);
-			//supression des données
-			$req->execute();
-		}		
+
 		
 
-		return $ok; 
-	}
 	
 	// enregistre dans la bdd l'acceptation ou le rejet d'une demande de création de compte élève
 	// modifié par Jim le 16/11/2015
@@ -452,12 +421,12 @@ class DAO
 		{
 			$ok='indestructible';
 		}
-		else{
-		//préparation d'une requete de suppression s'un administrater en fonction de l'adresse mail mise en paramètre
-	$txt_req = "DELETE from ae_administrateurs where adrMail = :adrMailAdmin";
-	$req = $this->cnx->prepare($txt_req);
-	$req->bindValue("adrMailAdmin", $adrMailAdmin, PDO::PARAM_STR);//remplissage de la variable
-	$ok = $req->execute();//execution de la requete
+		else
+		{	//préparation d'une requete de suppression s'un administrater en fonction de l'adresse mail mise en paramètre
+			$txt_req = "DELETE from ae_administrateurs where adrMail = :adrMailAdmin";
+			$req = $this->cnx->prepare($txt_req);
+			$req->bindValue("adrMailAdmin", $adrMailAdmin, PDO::PARAM_STR);//remplissage de la variable
+			$ok = $req->execute();//execution de la requete
 		}
 	return $ok;
 	
@@ -855,6 +824,55 @@ class DAO
 	
 	}
 	
+	// fournit la liste de tout les eleves
+	// le résultat est fourni sous forme d'une collection d'objets Eleve
+	// modifié par Nicolas Esteve le XX/01/2016
+	function getLesEleves()
+	{	// préparation de la requete de recherche
+		$txt_req = "Select * from ae_eleves order by id";
+		
+		$req = $this->cnx->prepare($txt_req);
+		// extraction des données
+		$req->execute();
+		$uneLigne = $req->fetch(PDO::FETCH_OBJ);
+		
+		// construction d'une collection d'objets Eleve
+		$lesEleves = array();
+		// tant qu'une ligne est trouvée :
+		while ($uneLigne)
+		{
+			// création d'un objet Eleve
+			$id = utf8_encode($uneLigne->id);
+			$nom = utf8_encode($uneLigne->nom);
+			$prenom = utf8_encode($uneLigne->prenom);
+			$sexe = utf8_encode($uneLigne->sexe);
+			$anneeDebutBTS = utf8_encode($uneLigne->anneeDebutBTS);
+			$tel = utf8_encode($uneLigne->tel);
+			$adrMail = utf8_encode($uneLigne->adrMail);
+			$rue = utf8_encode($uneLigne->rue);
+			$codePostal = utf8_encode($uneLigne->codePostal);
+			$ville = utf8_encode($uneLigne->ville);
+			$entreprise = utf8_encode($uneLigne->entreprise);
+			$compteAccepte = utf8_encode($uneLigne->compteAccepte);
+			$motDePasse = utf8_encode($uneLigne->motDePasse);
+			$etudesPostBTS = utf8_encode($uneLigne->etudesPostBTS);
+			$dateDerniereMAJ = utf8_encode($uneLigne->dateDerniereMAJ);
+			$idFonction = utf8_encode($uneLigne->idFonction);
+		
+			$unEleve = new Eleve($id, $nom, $prenom, $sexe, $anneeDebutBTS, $tel, $adrMail, $rue, $codePostal,
+					$ville, $entreprise, $compteAccepte, $motDePasse, $etudesPostBTS, $dateDerniereMAJ, $idFonction);
+		
+				
+			// ajout de la fonction à la collection
+			$lesEleves[] = $unEleve;
+			// extrait la ligne suivante
+			$uneLigne = $req->fetch(PDO::FETCH_OBJ);
+		}
+		// libère les ressources du jeu de données
+		$req->closeCursor();
+		// fourniture de la collection
+		return $lesEleves;
+	}
 	
 } // fin de la classe DAO
 

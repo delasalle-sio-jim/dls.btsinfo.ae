@@ -51,7 +51,9 @@ $typeUtilisateur = $dao->getTypeUtilisateur('jean.michel.cartron@gmail.com', 'ad
 echo "TypeUtilisateur de ('jean.michel.cartron@gmail.com', 'adminnnnn') : <b>" . $typeUtilisateur . "</b><br>";
 $typeUtilisateur = $dao->getTypeUtilisateur('jean.michel.cartron@gmail.com', 'passe');
 echo "TypeUtilisateur de ('jean.michel.cartron@gmail.com', 'passe') : <b>" . $typeUtilisateur . "</b><br>";
+*/
 
+/*
 // test de la méthode existeAdrMail ---------------------------------------------------------------
 // modifié par Jim le 12/11/2015
 echo "<h3>Test de existeAdrMail : </h3>";
@@ -59,6 +61,7 @@ if ($dao->existeAdrMail("sophie.fonfec@gmail.com")) $existe = "oui"; else $exist
 echo "<p>Existence de l'adresse 'sophie.fonfec@gmail.com' : <b>" . $existe . "</b><br>";
 if ($dao->existeAdrMail("anna.lyse.durine@gmail.com")) $existe = "oui"; else $existe = "non";
 echo "Existence de l'adresse 'anna.lyse.durine@gmail.com' : <b>" . $existe . "</b></p>";
+*/
 
 /*
 // test de la méthode creerCompteEleve ------------------------------------------------------------
@@ -123,7 +126,70 @@ if ($unEleve == null)
 else
 	echo ($unEleve->toString());
 echo ('<br>');
+*/
 
+/*
+// test de la méthode supprimerCompteEleve --------------------------------------------------------
+// modifié par Jim le 11/05/2016
+echo "<h3>Test de supprimerCompteEleve(adrMail) : </h3>";
+$ok = $dao->supprimerCompteEleve('sophie.fonfec@gmail.com');
+if ( ! $ok )
+	echo ("Adresse mail 'sophie.fonfec@gmail.com' inexistante ! <br>");
+else
+	echo ("Adresse mail 'sophie.fonfec@gmail.com' supprimée ! <br>");
+echo ('<br>');
+
+$ok = $dao->supprimerCompteEleve('sophie.fonfec@gmail.comm');
+if ( ! $ok )
+	echo ("Adresse mail 'sophie.fonfec@gmail.comm' inexistante ! <br>");
+else
+	echo ("Adresse mail 'sophie.fonfec@gmail.comm' supprimée ! <br>");
+echo ('<br>');
+*/
+
+/*
+// test de la méthode getAdministrateur -----------------------------------------------------------
+// modifié par Jim le 11/5/2016
+echo "<h3>Test de getAdministrateur(id) : </h3>";
+$unAdministrateur = $dao->getAdministrateur(1);
+if ($unAdministrateur == null)
+	echo ("Identifiant 1 inexistant ! <br>");
+else
+	echo ($unAdministrateur->toString());
+echo ('<br>');
+
+$unAdministrateur = $dao->getAdministrateur(4);
+if ($unAdministrateur == null)
+	echo ("Identifiant 2 inexistant ! <br>");
+else
+	echo ($unAdministrateur->toString());
+echo ('<br>');
+
+echo "<h3>Test de getAdministrateur(adrMail) : </h3>";
+$unAdministrateur = $dao->getAdministrateur('jean.michel.cartron@gmail.com');
+if ($unAdministrateur == null)
+	echo ("Adresse mail 'jean.michel.cartron@gmail.com' inexistante ! <br>");
+else
+	echo ($unAdministrateur->toString());
+echo ('<br>');
+
+$unAdministrateur = $dao->getAdministrateur('jean.michel.cartron@gmail.commmm');
+if ($unAdministrateur == null)
+	echo ("Adresse mail 'jean.michel.cartron@gmail.commmm' inexistante ! <br>");
+else
+	echo ($unAdministrateur->toString());
+echo ('<br>');
+*/
+
+
+
+
+
+
+
+
+
+/*
 // test de la méthode validerCreationCompte -------------------------------------------------------
 // modifié par Jim le 16/11/2015
 echo "<h3>Test de validerCreationCompte : </h3>";
@@ -154,6 +220,11 @@ else {
 }
 echo ('<br>');
 
+
+
+
+
+/*
 // test de la méthode modifierMdp -----------------------------------------------------------------
 // modifié par Jim le 16/11/2015
 echo "<h3>Test de modifierMdp : </h3>";
@@ -163,10 +234,6 @@ echo ("Nouveau mot de passe : " . $unEleve->getMotDePasse()) . "<br>";
 $dao->modifierMdp(1, "passe");
 $unEleve = $dao->getEleve(1);
 echo ("Nouveau mot de passe : " . $unEleve->getMotDePasse()) . "<br>";
-
-
-
-
 
 
 /*
