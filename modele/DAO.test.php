@@ -1,3 +1,18 @@
+<?php
+// Projet DLS - BTS Info - Anciens élèves
+// Test de la classe DAO
+// Auteur : JM CARTRON
+// Dernière mise à jour : 16/11/2015
+// Création : 16/11/2015 par JM CARTRON
+// Mise à jour : 11/5/2016 par JM CARTRON
+
+include_once ('Fonction.class.php');
+include_once ('Eleve.class.php');
+include_once ('Administrateur.class.php');
+include_once ('Soiree.class.php');
+include_once ('Inscription.class.php');
+include_once ('Outils.class.php');
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,22 +23,13 @@
 <body>
 
 <?php
-// Projet DLS - BTS Info - Anciens élèves
-// Test de la classe DAO
-// Auteur : JM CARTRON
-// Dernière mise à jour : 16/11/2015
-
-include_once ('Fonction.class.php');
-include_once ('Eleve.class.php');
-include_once ('Administrateur.class.php');
-include_once ('Outils.class.php');
-
 // connexion du serveur web à la base MySQL
 include_once ('DAO.class.php');
 $dao = new DAO();
 
+/*
 // test de la méthode getLesFonctions -------------------------------------------------------------
-// modifié par Jim le 10/11/2015
+// modifié par Jim le 11/5/2016
 echo "<h3>Test de getLesFonctions : </h3>";
 $lesFonctions = $dao->getLesFonctions();
 $nbReponses = sizeof($lesFonctions);
@@ -33,7 +39,9 @@ foreach ($lesFonctions as $uneFonction)
 {	echo ($uneFonction->toString());
 	echo ('<br>');
 }
+*/
 
+/*
 // test de la méthode getTypeUtilisateur ----------------------------------------------------------
 // modifié par Jim le 12/11/2015
 echo "<h3>Test de getTypeUtilisateur : </h3>";
@@ -83,6 +91,7 @@ else
 	echo "<p>Echec lors de l'enregistrement de l'élève !</p>";
 */
 
+/*
 // test de la méthode getEleve --------------------------------------------------------------------
 // modifié par Jim le 16/11/2015
 echo "<h3>Test de getEleve(id) : </h3>";

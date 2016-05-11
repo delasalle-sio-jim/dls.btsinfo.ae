@@ -12,6 +12,13 @@
 
 // __construct                   : le constructeur crée la connexion $cnx à la base de données
 // __destruct                    : le destructeur ferme la connexion $cnx à la base de données
+
+// getLesFonctions() : fournit la liste des fonctions que peut occuper un ancien élève ; le résultat est fourni sous forme d'une collection d'objets Fonction
+// getLesEleves()    : fournit la liste de tout les eleves ; le résultat est fourni sous forme d'une collection d'objets Eleve
+
+
+
+
 // getTypeUtilisateur ($uneAdrMail, $unMdp) : String			// retourne 'inconnu' ou 'eleve' ou 'administrateur'
 // creerCompteEleve ($unEleve) : bool
 // getEleve ($uneAdrMail) : Eleve
@@ -23,7 +30,7 @@
 // validerCreationCompte ($uneAdrMail) : bool
 // rejeterCreationCompte ($uneAdrMail) : bool
 // estInscritAlaProchaineSoiree ($uneAdrMail) : bool
-// getLesFonctions () : collection d'objets Fonction
+
 
 
 
@@ -45,17 +52,18 @@
 // enregistrerUtilisateur        : enregistre l'utilisateur dans la bdd
 // aPasseDesReservations         : recherche si l'utilisateur ($name) a passé des réservations à venir
 // supprimerUtilisateur          : supprime l'utilisateur dans la bdd
-//supprimerAdministrateur		 : supprime un administrateur dans la bdd a partir de son adresse mail
+// supprimerAdministrateur		 : supprime un administrateur dans la bdd a partir de son adresse mail
 // creerAdministrateur			 : crée un administrateur dans la bdd
 
 
 // listeSalles                   : fournit la liste des salles disponibles à la réservation
 
-// certaines méthodes nécessitent les fichiers Fonction.class.php, Eleve.class.php, Administrateur.class.php et Outils.class.php
+// certaines méthodes nécessitent les fichiers suivants :
 include_once ('Fonction.class.php');
 include_once ('Eleve.class.php');
 include_once ('Administrateur.class.php');
 include_once ('Soiree.class.php');
+include_once ('Inscription.class.php');
 include_once ('Outils.class.php');
 
 // inclusion des paramètres de l'application
@@ -74,6 +82,8 @@ class DAO
 	// ------------------------------------------------------------------------------------------------------
 	// ---------------------------------- Constructeur et destructeur ---------------------------------------
 	// ------------------------------------------------------------------------------------------------------
+	
+	// le constructeur crée la connexion $cnx à la base de données
 	public function __construct() {
 		global $PARAM_HOTE, $PARAM_PORT, $PARAM_BDD, $PARAM_USER, $PARAM_PWD;
 		try
@@ -90,6 +100,7 @@ class DAO
 		}
 	}
 	
+	// le destructeur ferme la connexion $cnx à la base de données
 	public function __destruct() {
 		unset($this->cnx);
 	}
@@ -135,49 +146,49 @@ class DAO
 	// modifié par Nicolas Esteve le XX/01/2016
 	function getLesEleves()
 	{	// préparation de la requete de recherche
-	$txt_req = "Select * from ae_eleves order by id";
-	
-	$req = $this->cnx->prepare($txt_req);
-	// extraction des données
-	$req->execute();
-	$uneLigne = $req->fetch(PDO::FETCH_OBJ);
-	
-	// construction d'une collection d'objets Eleve
-	$lesEleves = array();
-	// tant qu'une ligne est trouvée :
-	while ($uneLigne)
-	{	
-		// création d'un objet Eleve
-			$id = utf8_encode($uneLigne->id);
-			$nom = utf8_encode($uneLigne->nom);
-			$prenom = utf8_encode($uneLigne->prenom);
-			$sexe = utf8_encode($uneLigne->sexe);
-			$anneeDebutBTS = utf8_encode($uneLigne->anneeDebutBTS);
-			$tel = utf8_encode($uneLigne->tel);
-			$adrMail = utf8_encode($uneLigne->adrMail);
-			$rue = utf8_encode($uneLigne->rue);
-			$codePostal = utf8_encode($uneLigne->codePostal);
-			$ville = utf8_encode($uneLigne->ville);
-			$entreprise = utf8_encode($uneLigne->entreprise);
-			$compteAccepte = utf8_encode($uneLigne->compteAccepte);
-			$motDePasse = utf8_encode($uneLigne->motDePasse);
-			$etudesPostBTS = utf8_encode($uneLigne->etudesPostBTS);
-			$dateDerniereMAJ = utf8_encode($uneLigne->dateDerniereMAJ);
-			$idFonction = utf8_encode($uneLigne->idFonction);			
-					
-			$unEleve = new Eleve($id, $nom, $prenom, $sexe, $anneeDebutBTS, $tel, $adrMail, $rue, $codePostal, 
-				$ville, $entreprise, $compteAccepte, $motDePasse, $etudesPostBTS, $dateDerniereMAJ, $idFonction);
-			
+		$txt_req = "Select * from ae_eleves order by id";
 		
-		// ajout de la fonction à la collection
-		$lesEleves[] = $unEleve;
-		// extrait la ligne suivante
+		$req = $this->cnx->prepare($txt_req);
+		// extraction des données
+		$req->execute();
 		$uneLigne = $req->fetch(PDO::FETCH_OBJ);
-	}
-	// libère les ressources du jeu de données
-	$req->closeCursor();
-	// fourniture de la collection
-	return $lesEleves;
+	
+		// construction d'une collection d'objets Eleve
+		$lesEleves = array();
+		// tant qu'une ligne est trouvée :
+		while ($uneLigne)
+		{	
+			// création d'un objet Eleve
+				$id = utf8_encode($uneLigne->id);
+				$nom = utf8_encode($uneLigne->nom);
+				$prenom = utf8_encode($uneLigne->prenom);
+				$sexe = utf8_encode($uneLigne->sexe);
+				$anneeDebutBTS = utf8_encode($uneLigne->anneeDebutBTS);
+				$tel = utf8_encode($uneLigne->tel);
+				$adrMail = utf8_encode($uneLigne->adrMail);
+				$rue = utf8_encode($uneLigne->rue);
+				$codePostal = utf8_encode($uneLigne->codePostal);
+				$ville = utf8_encode($uneLigne->ville);
+				$entreprise = utf8_encode($uneLigne->entreprise);
+				$compteAccepte = utf8_encode($uneLigne->compteAccepte);
+				$motDePasse = utf8_encode($uneLigne->motDePasse);
+				$etudesPostBTS = utf8_encode($uneLigne->etudesPostBTS);
+				$dateDerniereMAJ = utf8_encode($uneLigne->dateDerniereMAJ);
+				$idFonction = utf8_encode($uneLigne->idFonction);			
+						
+				$unEleve = new Eleve($id, $nom, $prenom, $sexe, $anneeDebutBTS, $tel, $adrMail, $rue, $codePostal, 
+					$ville, $entreprise, $compteAccepte, $motDePasse, $etudesPostBTS, $dateDerniereMAJ, $idFonction);
+				
+			
+			// ajout de la fonction à la collection
+			$lesEleves[] = $unEleve;
+			// extrait la ligne suivante
+			$uneLigne = $req->fetch(PDO::FETCH_OBJ);
+		}
+		// libère les ressources du jeu de données
+		$req->closeCursor();
+		// fourniture de la collection
+		return $lesEleves;
 	}
 	
 	// fournit le type d'un utilisateur identifié par $adrMail et $motDePasse
