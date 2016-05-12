@@ -16,26 +16,22 @@
 // getLesFonctions() : array
 //   fournit la liste des fonctions que peut occuper un ancien élève ; le résultat est fourni sous forme d'une collection d'objets Fonction
 
-// getTypeUtilisateur ($uneAdrMail, $unMdp) : String
+// getTypeUtilisateur($uneAdrMail, $unMdp) : String
 //   permet d'authentifier un utilisateur ; retourne 'inconnu' ou 'eleve' ou 'administrateur'
 
-// existeAdrMail ($uneAdrMail) : bool
+// existeAdrMail($uneAdrMail) : bool
 //   fournit true si l'adresse mail ($adrMail) existe dans la table ae_eleves, false sinon
 
-// creerCompteEleve ($unEleve) : bool
+// creerCompteEleve($unEleve) : bool
 //   enregistre l'élève dans la bdd et retourne true si enregistrement effectué correctement, retourne false en cas de problème
 
-// getEleve ($parametre) : Eleve
+// getEleve($parametre) : Eleve
 //   recherche et fournit un objet Eleve à partir de son identifiant ou de son adresse mail
 //   fournit la valeur null si le paramètre n'existe pas ou est incorrect
 
 // supprimerCompteEleve($parametre) : bool
 //   supprime un compte Eleve (ainsi que ses inscriptions s'il en a) à partir de son identifiant ou de son adresse mail
 //   retourne true si enregistrement supprimé correctement, retourne false en cas de problème
-
-// getAdministrateur ($parametre) : Administrateur
-//   recherche et fournit un objet Administrateur à partir de son identifiant ou de son adresse mail
-//   fournit la valeur null si le paramètre n'existe pas ou est incorrect
 
 // validerCreationCompte($idCompte, $decision) : bool
 //   enregistre dans la bdd l'acceptation ou le rejet d'une demande de création de compte élève
@@ -47,6 +43,21 @@
 // envoyerMdp($adrMail, $nouveauMdp) : bool
 //   envoie un mail à l'utilisateur avec son nouveau mot de passe
 //   retourne true si envoi correct, false en cas de problème d'envoi
+
+// creerCompteAdministrateur($unAdministrateur) : bool
+//   enregistre l'administrateur dans la bdd et retourne true si enregistrement effectué correctement, retourne false en cas de problème
+
+// getAdministrateur($parametre) : Administrateur
+//   recherche et fournit un objet Administrateur à partir de son identifiant ou de son adresse mail
+//   fournit la valeur null si le paramètre n'existe pas ou est incorrect
+
+// supprimerCompteAdministrateur($parametre) : bool
+//    supprime un compte Administrateur à partir de son identifiant ou de son adresse mail
+//    retourne true si enregistrement supprimé correctement, retourne false en cas de problème
+
+
+
+
 
 
 
@@ -64,26 +75,6 @@
 // getLesEleves() : array
 //   fournit la liste de tout les eleves ; le résultat est fourni sous forme d'une collection d'objets Eleve
 
-// listeReservations             : fournit la liste des réservations à venir d'un utilisateur ($nomUser)
-// existeReservation             : fournit true si la réservation ($idReservation) existe, false sinon
-// estLeCreateur                 : teste si un utilisateur ($nomUser) est le créateur d'une réservation ($idReservation)
-// getReservation                : fournit un objet Reservation à partir de son identifiant $idReservation
-// getUtilisateur                : fournit un objet Utilisateur à partir de son nom $nomUser
-// confirmerReservation          : enregistre la confirmation de réservation dans la bdd
-// annulerReservation            : enregistre l'annulation de réservation dans la bdd
-// existeUtilisateur             : fournit true si l'utilisateur ($nomUser) existe, false sinon
-// modifierMdpUser               : enregistre le nouveau mot de passe de l'utilisateur dans la bdd après l'avoir hashé en MD5
-// envoyerMdp                    : envoie un mail à l'utilisateur avec son nouveau mot de passe
-// testerDigicodeSalle           : teste si le digicode saisi ($digicodeSaisi) correspond bien à une réservation
-// testerDigicodeBatiment        : teste si le digicode saisi ($digicodeSaisi) correspond bien à une réservation de salle quelconque
-// enregistrerUtilisateur        : enregistre l'utilisateur dans la bdd
-// aPasseDesReservations         : recherche si l'utilisateur ($name) a passé des réservations à venir
-// supprimerUtilisateur          : supprime l'utilisateur dans la bdd
-// supprimerAdministrateur		 : supprime un administrateur dans la bdd a partir de son adresse mail
-// creerAdministrateur			 : crée un administrateur dans la bdd
-
-
-// listeSalles                   : fournit la liste des salles disponibles à la réservation
 
 // certaines méthodes nécessitent les fichiers suivants :
 include_once ('Fonction.class.php');
@@ -331,44 +322,6 @@ class DAO
 		
 		return $ok;
 	}
-	
-	// fournit un objet Administrateur à partir de son identifiant ou de son adresse mail
-	// fournit la valeur null si le paramètre n'existe pas ou est incorrect
-	// modifié par Jim le 23/11/2015
-	public function getAdministrateur($parametre)
-	{	// si le paramètre n'est ni un nombre entier, ni une adresse mail, on retourne la valeur null
-		if ( ! Outils::estUnEntierValide($parametre) && ! Outils::estUneAdrMailValide($parametre) ) return null;
-		
-		// préparation de la requete de recherche
-		if (Outils::estUnEntierValide($parametre)) $txt_req = "Select * from ae_administrateurs where id = :parametre";
-		if (Outils::estUneAdrMailValide($parametre)) $txt_req = "Select * from ae_administrateurs where adrMail = :parametre";
-		
-		$req = $this->cnx->prepare($txt_req);
-		// liaison de la requête et de son paramètre
-		if (Outils::estUnEntierValide($parametre)) $req->bindValue("parametre", $parametre, PDO::PARAM_INT);
-		if (Outils::estUneAdrMailValide($parametre)) $req->bindValue("parametre", $parametre, PDO::PARAM_STR);
-		
-		// extraction des données
-		$req->execute();
-		$uneLigne = $req->fetch(PDO::FETCH_OBJ);
-		// libère les ressources du jeu de données
-		$req->closeCursor();
-		
-		// traitement de la réponse
-		if ( ! $uneLigne)
-			return null;
-		else
-		{	// création d'un objet Eleve
-			$id = utf8_encode($uneLigne->id);
-			$nom = utf8_encode($uneLigne->nom);
-			$prenom = utf8_encode($uneLigne->prenom);
-			$adrMail = utf8_encode($uneLigne->adrMail);
-			$motDePasse = utf8_encode($uneLigne->motDePasse);
-				
-			$unAdministrateur = new Administrateur($id, $adrMail, $motDePasse, $prenom, $nom);
-			return $unAdministrateur;
-		}
-	}
 		
 	// enregistre dans la bdd l'acceptation ou le rejet d'une demande de création de compte élève
 	// le paramètre $decision doit être égal à "acceptation" ou à "rejet"
@@ -418,7 +371,81 @@ class DAO
 		return $ok;
 	}	
 
-	
+	// enregistre l'administrateur dans la bdd et retourne true si enregistrement effectué correctement, retourne false en cas de problème
+	// créé par Nicolas Esteve  le XX/01/2016
+	// modifié par Jim le 12/5/2016
+	public function creerCompteAdministrateur($unAdministrateur)
+	{	// préparation de la requete
+		$txt_req = "insert into ae_administrateurs (adrMail, motDePasse, prenom, nom) values (:adrMail, :mdp, :prenom, :nom)";
+		$req = $this->cnx->prepare($txt_req);
+		// liaison de la requête et de ses paramètres
+		$req->bindValue("adrMail", utf8_decode($unAdministrateur->getAdrMail()), PDO::PARAM_STR);
+		// ATTENTION : le mot de passe est hashé en sha1 avant l'enregistrement dans la bdd
+		$req->bindValue("mdp", utf8_decode(sha1($unAdministrateur->getMotDePasse())), PDO::PARAM_STR);
+		$req->bindValue("prenom", utf8_decode($unAdministrateur->getPrenom()), PDO::PARAM_STR);
+		$req->bindValue("nom", utf8_decode(strtoupper($unAdministrateur->getNom())), PDO::PARAM_STR);
+		//execution de la requete
+		$ok = $req->execute();
+		return $ok;
+	}	
+
+	// fournit un objet Administrateur à partir de son identifiant ou de son adresse mail
+	// fournit la valeur null si le paramètre n'existe pas ou est incorrect
+	// modifié par Jim le 23/11/2015
+	public function getAdministrateur($parametre)
+	{	// si le paramètre n'est ni un nombre entier, ni une adresse mail, on retourne la valeur null
+		if ( ! Outils::estUnEntierValide($parametre) && ! Outils::estUneAdrMailValide($parametre) ) return null;
+		
+		// préparation de la requete de recherche
+		if (Outils::estUnEntierValide($parametre)) $txt_req = "Select * from ae_administrateurs where id = :parametre";
+		if (Outils::estUneAdrMailValide($parametre)) $txt_req = "Select * from ae_administrateurs where adrMail = :parametre";
+		
+		$req = $this->cnx->prepare($txt_req);
+		// liaison de la requête et de son paramètre
+		if (Outils::estUnEntierValide($parametre)) $req->bindValue("parametre", $parametre, PDO::PARAM_INT);
+		if (Outils::estUneAdrMailValide($parametre)) $req->bindValue("parametre", $parametre, PDO::PARAM_STR);
+		
+		// extraction des données
+		$req->execute();
+		$uneLigne = $req->fetch(PDO::FETCH_OBJ);
+		// libère les ressources du jeu de données
+		$req->closeCursor();
+		
+		// traitement de la réponse
+		if ( ! $uneLigne)
+			return null;
+		else
+		{	// création d'un objet Eleve
+			$id = utf8_encode($uneLigne->id);
+			$nom = utf8_encode($uneLigne->nom);
+			$prenom = utf8_encode($uneLigne->prenom);
+			$adrMail = utf8_encode($uneLigne->adrMail);
+			$motDePasse = utf8_encode($uneLigne->motDePasse);
+			
+			$unAdministrateur = new Administrateur($id, $adrMail, $motDePasse, $prenom, $nom);
+			return $unAdministrateur;
+		}
+	}	
+
+	// supprime un compte Administrateur à partir de son identifiant ou de son adresse mail
+	// retourne true si enregistrement supprimé correctement, retourne false en cas de problème
+	// modifié par Nicolas Esteve  le XX/01/2016
+	// modifié par Jim le 12/5/2016
+	public function supprimerCompteAdministrateur($parametre)
+	{	$unAdministrateur = $this->getAdministrateur($parametre);
+		// si le paramètre est incorrect ou inexistant, on retourne la valeur FALSE
+		if ( $unAdministrateur == null ) return FALSE;
+		
+		// préparation de la requete de suppression
+		$txt_req = "Delete from ae_administrateurs where id = :idAdministrateur";
+		$req = $this->cnx->prepare($txt_req);
+		// liaison de la requête et de son paramètre
+		$req->bindValue("idAdministrateur", $unAdministrateur->getId(), PDO::PARAM_INT);
+		// exécution de la requete
+		$ok = $req->execute();
+		
+		return $ok;
+	}
 
 	
 	
@@ -427,40 +454,7 @@ class DAO
 	
 	
 	
-	//fonction qui supprime un administrateur
-	// fournit la valeur null si le paramètre n'existe pas ou est incorrect
-	// modifié par Nicolas Esteve  le XX/01/2016
-	public function supprimerAdministrateur($adrMailAdmin)
-	{
-		if($adrMailAdmin == 'delasalle.sio.profs@gmail.com')
-		{
-			$ok='indestructible';
-		}
-		else
-		{	//préparation d'une requete de suppression s'un administrater en fonction de l'adresse mail mise en paramètre
-			$txt_req = "DELETE from ae_administrateurs where adrMail = :adrMailAdmin";
-			$req = $this->cnx->prepare($txt_req);
-			$req->bindValue("adrMailAdmin", $adrMailAdmin, PDO::PARAM_STR);//remplissage de la variable
-			$ok = $req->execute();//execution de la requete
-		}
-	return $ok;
-	
-	}
-	
-	//fonction qui crée un administrateur
-	// fournit la valeur null si le paramètre n'existe pas ou est incorrect
-	// modifié par Nicolas Esteve  le XX/01/2016
-	public function creerAdministrateur($adrMailAdmin, $MdpAdmin,$nomAdmin,$prenomAdmin)
-	{ 
-		$txt_req = "INSERT INTO ae_administrateurs(adrMail,motDePasse ,prenom,nom) VALUES(:adrMail,:mdp,:prenom,:nom)";
-		$req = $this->cnx->prepare($txt_req);
-		$req->bindValue("adrMail", utf8_decode($adrMailAdmin), PDO::PARAM_STR);//remplissage de la variable
-		$req->bindValue("prenom", utf8_decode($prenomAdmin), PDO::PARAM_STR);
-		$req->bindValue("mdp",  utf8_decode(sha1($MdpAdmin)), PDO::PARAM_STR);
-		$req->bindValue("nom", utf8_decode(strtoupper($nomAdmin)), PDO::PARAM_STR);
-		$ok = $req->execute();//execution de la requete
-		return $ok;
-	}
+
 	
 	//fonction qui modifie le mot de passse d'un administrateur
 	// fournit la valeur null si le paramètre n'existe pas ou est incorrect

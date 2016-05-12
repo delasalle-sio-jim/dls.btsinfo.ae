@@ -148,40 +148,6 @@ echo ('<br>');
 */
 
 /*
-// test de la méthode getAdministrateur -----------------------------------------------------------
-// modifié par Jim le 11/5/2016
-echo "<h3>Test de getAdministrateur(id) : </h3>";
-$unAdministrateur = $dao->getAdministrateur(1);
-if ($unAdministrateur == null)
-	echo ("Identifiant 1 inexistant ! <br>");
-else
-	echo ($unAdministrateur->toString());
-echo ('<br>');
-
-$unAdministrateur = $dao->getAdministrateur(4);
-if ($unAdministrateur == null)
-	echo ("Identifiant 4 inexistant ! <br>");
-else
-	echo ($unAdministrateur->toString());
-echo ('<br>');
-
-echo "<h3>Test de getAdministrateur(adrMail) : </h3>";
-$unAdministrateur = $dao->getAdministrateur('jean.michel.cartron@gmail.com');
-if ($unAdministrateur == null)
-	echo ("Adresse mail 'jean.michel.cartron@gmail.com' inexistante ! <br>");
-else
-	echo ($unAdministrateur->toString());
-echo ('<br>');
-
-$unAdministrateur = $dao->getAdministrateur('jean.michel.cartron@gmail.commmm');
-if ($unAdministrateur == null)
-	echo ("Adresse mail 'jean.michel.cartron@gmail.commmm' inexistante ! <br>");
-else
-	echo ($unAdministrateur->toString());
-echo ('<br>');
-*/
-
-/*
 // test de la méthode validerCreationCompte -------------------------------------------------------
 // modifié par Jim le 16/11/2015
 echo "<h3>Test de validerCreationCompte : </h3>";
@@ -238,120 +204,101 @@ else
  	echo "<p>Echec lors de l'envoi du mail !</p>";
 */
 
+/*
+// test de la méthode creerCompteAdministrateur --------------------------------------------------
+// modifié par Jim le 12/05/2016
+echo "<h3>Test de creerCompteAdministrateur : </h3>";
+$unId = 0;
+$uneAdrMail = "sophie.fonfec@gmail.com"; 
+$unMotDePasse = "admin";
+$unPrenom = "sophie";
+$unNom = "fonfec";
 
+$unAdministrateur = new Administrateur($unId, $uneAdrMail, $unMotDePasse, $unPrenom, $unNom);
 
-
-
-
-
-
-
-
-
+$ok = $dao->creerCompteAdministrateur($unAdministrateur);
+if ($ok)
+	echo "<p>Administrateur bien enregistré !</p>";
+else
+	echo "<p>Echec lors de l'enregistrement de l'administrateur !</p>";
+*/
 
 /*
-// test de la méthode listeReservations -----------------------------------------------------------
-// modifié par Jim le 30/9/2015
-echo "<h3>Test de listeReservations : </h3>";
-$lesReservations = $dao->listeReservations("jim");
-$nbReponses = sizeof($lesReservations);
-echo "<p>Nombre de réservations de 'jim' : " . $nbReponses . "</p>";
-// affichage des réservations
-foreach ($lesReservations as $uneReservation)
-{	echo ($uneReservation->toString());
-	echo ('<br>');
-}
-$lesReservations = $dao->listeReservations("zenelsy");
-$nbReponses = sizeof($lesReservations);
-echo "<p>Nombre de réservations de 'zenelsy' : " . $nbReponses . "</p>";
-// affichage des réservations
-foreach ($lesReservations as $uneReservation)
-{	echo ($uneReservation->toString());
-	echo ('<br>');
-}
+ // test de la méthode getAdministrateur -----------------------------------------------------------
+ // modifié par Jim le 11/5/2016
+ echo "<h3>Test de getAdministrateur(id) : </h3>";
+ $unAdministrateur = $dao->getAdministrateur(1);
+ if ($unAdministrateur == null)
+ 	echo ("Identifiant 1 inexistant ! <br>");
+ else
+ 	echo ($unAdministrateur->toString());
+ echo ('<br>');
 
+ $unAdministrateur = $dao->getAdministrateur(4);
+ if ($unAdministrateur == null)
+ 	echo ("Identifiant 4 inexistant ! <br>");
+ else
+ 	echo ($unAdministrateur->toString());
+ echo ('<br>');
 
+ echo "<h3>Test de getAdministrateur(adrMail) : </h3>";
+ $unAdministrateur = $dao->getAdministrateur('jean.michel.cartron@gmail.com');
+ if ($unAdministrateur == null)
+ 	echo ("Adresse mail 'jean.michel.cartron@gmail.com' inexistante ! <br>");
+ else
+ 	echo ($unAdministrateur->toString());
+ echo ('<br>');
 
+ $unAdministrateur = $dao->getAdministrateur('jean.michel.cartron@gmail.commmm');
+ if ($unAdministrateur == null)
+ 	echo ("Adresse mail 'jean.michel.cartron@gmail.commmm' inexistante ! <br>");
+ else
+ 	echo ($unAdministrateur->toString());
+ echo ('<br>');
+ */
 
+/*
+// test de la méthode supprimerCompteAdministrateur ------------------------------------------------------------------------
+// modifié par Jim le 12/05/2016
+echo "<h3>Test de supprimerCompteAdministrateur(id) : </h3>";
+$ok = $dao->supprimerCompteAdministrateur(4);
+if ( ! $ok )
+	echo ("Identifiant '4' inexistant ! <br>");
+else
+	echo ("Administrateur '4' supprimé ! <br>");
+echo ('<br>');
 
-// // test de la méthode annulerReservation --------------------------------------------------------
-// // pour ce test, utiliser une réservation existante
-// // modifié par Jim le 28/9/2015
-// echo "<h3>Test de annulerReservation : </h3>";
-// $laReservation = $dao->getReservation("10");
-// if ($laReservation) {
-// 	$dao->annulerReservation("10");
-// 	$laReservation = $dao->getReservation("10");
-// 	if ($laReservation)
-// 		echo "La réservation 10 n'a pas été supprimée !</p>";
-// 	else
-// 		echo "La réservation 10 a bien été supprimée !</p>";
-// }
-// else
-// 	echo "<p>La réservation 10 n'existe pas !</p>";
+$ok = $dao->supprimerCompteAdministrateur(6);
+if ( ! $ok )
+	echo ("Identifiant '6' inexistant ! <br>");
+else
+	echo ("Administrateur '6' supprimé ! <br>");
+echo ('<br>');
 
+echo "<h3>Test de supprimerCompteAdministrateur(adrMail) : </h3>";
+$ok = $dao->supprimerCompteAdministrateur('sophie.fonfec@gmail.com');
+if ( ! $ok )
+	echo ("Adresse mail 'sophie.fonfec@gmail.com' inexistante ! <br>");
+else
+	echo ("Adresse mail 'sophie.fonfec@gmail.com' supprimée ! <br>");
+echo ('<br>');
 
-
-
-
-
-
-
-// test de la méthode testerDigicodeSalle ---------------------------------------------------------
-// modifié par Jim le 28/9/2015
-echo "<h3>Test de testerDigicodeSalle : </h3>";
-$reponse = $dao->testerDigicodeSalle("10", "34214E");
-echo "<p>L'appel de testerDigicodeSalle('10', '34214E') donne : <b>" . $reponse . "</b><br>";
-
-
-// // test de la méthode testerDigicodeBatiment ------------------------------------------------------
-// // modifié par Jim le 28/9/2015
-// echo "<h3>Test de testerDigicodeBatiment : </h3>";
-// $reponse = $dao->testerDigicodeBatiment("34214E");
-// echo "<p>L'appel de testerDigicodeBatiment('34214E') donne : <b>" . $reponse . "</b><br>";
-
-
-
-
-
-// // test de la méthode aPasseDesReservations -------------------------------------------------------
-// // pour ce test, choisir un utilisateur avec des réservations et un autre sans réservation
-// // modifié par Jim le 28/9/2015
-// echo "<h3>Test de aPasseDesReservations : </h3>";
-// $ok = $dao->aPasseDesReservations("zenelsy");
-// if ($ok)
-// 	echo "<p>zenelsy a bien passé des réservations !<br>";
-// else
-// 	echo "<p>zenelsy n'a pas passé de réservations !<br>";
-// $ok = $dao->aPasseDesReservations("admin");
-// if ($ok)
-// 	echo "admin a bien passé des réservations !</p>";
-// else
-// 	echo "admin n'a pas passé de réservations !</p>";
-
-
-// // test de la méthode supprimerUtilisateur --------------------------------------------------------
-// // modifié par Jim le 28/9/2015
-// echo "<h3>Test de supprimerUtilisateur : </h3>";
-// $ok = $dao->supprimerUtilisateur("jim1");
-// if ($ok)
-// 	echo "<p>Utilisateur bien supprimé !</p>";
-// else
-// 	echo "<p>Echec lors de la suppression de l'utilisateur !</p>";
-
-
-// // test de la méthode listeSalles -----------------------------------------------------------------
-// // modifié par Jim le 28/9/2015
-// echo "<h3>Test de listeSalles : </h3>";
-// $lesSalles = $dao->listeSalles();
-// $nbReponses = sizeof($lesSalles);
-// echo "<p>Nombre de salles : " . $nbReponses . "</p>";
-// // affichage des salles
-// foreach ($lesSalles as $uneSalle)
-// {	echo ($uneSalle->getRoom_name());
-// 	echo ('<br>');
-// }
+$ok = $dao->supprimerCompteAdministrateur('sophie.fonfec@gmail.comm');
+if ( ! $ok )
+	echo ("Adresse mail 'sophie.fonfec@gmail.comm' inexistante ! <br>");
+else
+	echo ("Adresse mail 'sophie.fonfec@gmail.comm' supprimée ! <br>");
+echo ('<br>');
 */
+
+
+
+
+
+
+
+
+
 
 // ferme la connexion à MySQL :
 unset($dao);
