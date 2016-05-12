@@ -37,15 +37,24 @@
 //   recherche et fournit un objet Administrateur à partir de son identifiant ou de son adresse mail
 //   fournit la valeur null si le paramètre n'existe pas ou est incorrect
 
+// validerCreationCompte($idCompte, $decision) : bool
+//   enregistre dans la bdd l'acceptation ou le rejet d'une demande de création de compte élève
+//   le paramètre $decision doit être égal à "acceptation" ou à "rejet"
+
+// modifierMdp($adrMail, $nouveauMdp) : bool
+//   enregistre le nouveau mot de passe de l'utilisateur dans la bdd après l'avoir hashé en SHA1
+
+// envoyerMdp($adrMail, $nouveauMdp) : bool
+//   envoie un mail à l'utilisateur avec son nouveau mot de passe
+//   retourne true si envoi correct, false en cas de problème d'envoi
 
 
 
 
-// envoyerNouveauMdp ($uneAdrMail, $unNouveauMdp) : bool
-// modifierMdp ($uneAdrMail, $unNouveauMdp) : bool
+//// envoyerNouveauMdp ($uneAdrMail, $unNouveauMdp) : bool
 // modifierCompteEleve ($unEleve) : bool
-// validerCreationCompte ($uneAdrMail) : bool
-// rejeterCreationCompte ($uneAdrMail) : bool
+//// validerCreationCompte ($uneAdrMail) : bool
+//// rejeterCreationCompte ($uneAdrMail) : bool
 // estInscritAlaProchaineSoiree ($uneAdrMail) : bool
 
 
@@ -360,12 +369,9 @@ class DAO
 			return $unAdministrateur;
 		}
 	}
-	
-
 		
-
-	
 	// enregistre dans la bdd l'acceptation ou le rejet d'une demande de création de compte élève
+	// le paramètre $decision doit être égal à "acceptation" ou à "rejet"
 	// modifié par Jim le 16/11/2015
 	public function validerCreationCompte($idCompte, $decision)
 	{	// vérification de la décision
@@ -398,10 +404,10 @@ class DAO
 	
 	// envoie un mail à l'utilisateur avec son nouveau mot de passe
 	// retourne true si envoi correct, false en cas de problème d'envoi
-	// modifié par Jim le 24/11/2015
+	// modifié par Jim le 12/05/2016
 	public function envoyerMdp($adrMail, $nouveauMdp)
 	{	global $ADR_MAIL_EMETTEUR;
-		// si l'adresse mail n'est pas dans la table mrbs_users :
+		// si l'adresse mail n'est pas dans la table ae_eleves :
 		if ( ! $this->existeAdrMail($adrMail) ) return false;
 		
 		// envoie un mail à l'utilisateur avec son nouveau mot de passe
@@ -411,6 +417,15 @@ class DAO
 		$ok = Outils::envoyerMail ($adrMail, $sujet, $message, $ADR_MAIL_EMETTEUR);
 		return $ok;
 	}	
+
+	
+
+	
+	
+	
+	
+	
+	
 	
 	//fonction qui supprime un administrateur
 	// fournit la valeur null si le paramètre n'existe pas ou est incorrect

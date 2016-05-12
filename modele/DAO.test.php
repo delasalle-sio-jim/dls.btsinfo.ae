@@ -160,7 +160,7 @@ echo ('<br>');
 
 $unAdministrateur = $dao->getAdministrateur(4);
 if ($unAdministrateur == null)
-	echo ("Identifiant 2 inexistant ! <br>");
+	echo ("Identifiant 4 inexistant ! <br>");
 else
 	echo ($unAdministrateur->toString());
 echo ('<br>');
@@ -181,59 +181,72 @@ else
 echo ('<br>');
 */
 
-
-
-
-
-
-
-
-
 /*
 // test de la méthode validerCreationCompte -------------------------------------------------------
 // modifié par Jim le 16/11/2015
 echo "<h3>Test de validerCreationCompte : </h3>";
-$ok = $dao->validerCreationCompte(4, 'acceptation');
+$ok = $dao->validerCreationCompte(5, 'acceptation');
 if ( ! $ok)
-	echo ("Mise à jour (4, 'acceptation') refusée ! <br>");
+	echo ("Mise à jour (5, 'acceptation') refusée ! <br>");
 else {
-	$unEleve = $dao->getEleve(4);
+	$unEleve = $dao->getEleve(5);
 	echo ("compteAccepte : " . $unEleve->getCompteAccepte());
 }
 echo ('<br>');
 
-$ok = $dao->validerCreationCompte(4, 'rejet');
+$ok = $dao->validerCreationCompte(5, 'rejet');
 if ( ! $ok)
-	echo ("Mise à jour (4, 'rejet') refusée ! <br>");
+	echo ("Mise à jour (5, 'rejet') refusée ! <br>");
 else {
-	$unEleve = $dao->getEleve(4);
+	$unEleve = $dao->getEleve(5);
 	echo ("compteAccepte : " . $unEleve->getCompteAccepte());
 }
 echo ('<br>');
 
-$ok = $dao->validerCreationCompte(4, 'rejetee');
+$ok = $dao->validerCreationCompte(5, 'rejetee');
 if ( ! $ok)
-	echo ("Mise à jour (4, 'rejetee') refusée ! <br>");
+	echo ("Mise à jour (5, 'rejetee') refusée ! <br>");
 else {
-	$unEleve = $dao->getEleve(4);
+	$unEleve = $dao->getEleve(5);
 	echo ("compteAccepte : " . $unEleve->getCompteAccepte());
 }
 echo ('<br>');
-
-
-
-
+*/
 
 /*
 // test de la méthode modifierMdp -----------------------------------------------------------------
-// modifié par Jim le 16/11/2015
+// modifié par Jim le 12/05/2016
 echo "<h3>Test de modifierMdp : </h3>";
-$dao->modifierMdp(1, "admin");
-$unEleve = $dao->getEleve(1);
+$dao->modifierMdp('jean.michel.cartron@gmail.com', "admin");
+$unEleve = $dao->getEleve('jean.michel.cartron@gmail.com');
 echo ("Nouveau mot de passe : " . $unEleve->getMotDePasse()) . "<br>";
-$dao->modifierMdp(1, "passe");
-$unEleve = $dao->getEleve(1);
+
+$dao->modifierMdp('jean.michel.cartron@gmail.com', "passe");
+$unEleve = $dao->getEleve('jean.michel.cartron@gmail.com');
 echo ("Nouveau mot de passe : " . $unEleve->getMotDePasse()) . "<br>";
+*/
+
+/*
+// test de la méthode envoyerMdp ------------------------------------------------------------------
+// modifié par Jim le 12/05/2016
+echo "<h3>Test de envoyerMdp : </h3>";
+$dao->modifierMdp('jean.michel.cartron@gmail.com', "passe");
+$ok = $dao->envoyerMdp('jean.michel.cartron@gmail.com', "passe");
+if ($ok)
+ 	echo "<p>Mail bien envoyé !</p>";
+else
+ 	echo "<p>Echec lors de l'envoi du mail !</p>";
+*/
+
+
+
+
+
+
+
+
+
+
 
 
 /*
@@ -281,15 +294,7 @@ foreach ($lesReservations as $uneReservation)
 
 
 
-// // test de la méthode envoyerMdp ------------------------------------------------------------------
-// // modifié par Jim le 28/9/2015
-// echo "<h3>Test de envoyerMdp : </h3>";
-// $dao->modifierMdpUser("jim", "passe");
-// $ok = $dao->envoyerMdp("jim", "passe");
-// if ($ok)
-// 	echo "<p>Mail bien envoyé !</p>";
-// else
-// 	echo "<p>Echec lors de l'envoi du mail !</p>";
+
 
 
 // test de la méthode testerDigicodeSalle ---------------------------------------------------------
