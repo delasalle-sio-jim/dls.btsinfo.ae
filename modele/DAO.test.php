@@ -375,14 +375,73 @@ if ( isset($_SESSION['Soiree']) == true )
 else 
 	echo "La variable de session 'Soiree' n'existe pas";
 echo ('<br>');
+
 $uneSoiree = $dao->getSoiree(true);
-echo $uneSoiree->toString() . "<br>";
+if ($uneSoiree != null) echo $uneSoiree->toString() . "<br>";
+
 if ( isset($_SESSION['Soiree']) == true )
 	echo "La variable de session 'Soiree' existe";
 else
 	echo "La variable de session 'Soiree' n'existe pas";
 echo ('<br>');
 */
+
+/*
+// test de la méthode modifierSoiree --------------------------------------------------------------
+// modifié par Jim le 13/05/2016
+session_start();		// permet d'utiliser des variables de session
+echo "<h3>Test de modifierSoiree : </h3>";
+
+$uneSoiree = $dao->getSoiree(true);
+if ($uneSoiree != null) echo $uneSoiree->toString() . "<br>";
+
+$uneSoiree->setDateSoiree("25/12/2016");
+$uneSoiree->setNomRestaurant("Cot' et Boeuffff");
+$uneSoiree->setAdresse("1 Ter Route de Fougères, 35510 Cesson-Sévignéééé");
+$uneSoiree->setTarif("222");
+$uneSoiree->setLienMenu("http://www.pagesjaunes.fr/pros/51832422++++");
+$uneSoiree->setLatitude("-1.6339654");
+$uneSoiree->setLongitude("48.1326846");
+$dao->modifierSoiree($uneSoiree);
+
+$uneSoiree = $dao->getSoiree(true);
+if ($uneSoiree != null) echo $uneSoiree->toString() . "<br>";
+
+$uneSoiree->setDateSoiree("04/11/2016");
+$uneSoiree->setNomRestaurant("Cot' et Boeuf");
+$uneSoiree->setAdresse("1 Ter Route de Fougères, 35510 Cesson-Sévigné");
+$uneSoiree->setTarif("22");
+$uneSoiree->setLienMenu("http://www.pagesjaunes.fr/pros/51832422");
+$uneSoiree->setLatitude("48.1326846");
+$uneSoiree->setLongitude("-1.6339654");
+$dao->modifierSoiree($uneSoiree);
+
+$uneSoiree = $dao->getSoiree(true);
+if ($uneSoiree != null) echo $uneSoiree->toString() . "<br>";
+*/
+
+// test de la méthode creerInscription ------------------------------------------------------------
+// modifié par Jim le 13/05/2016
+echo "<h3>Test de creerInscription : </h3>";
+$unId = 0;
+$dateInscription = "13/05/2016";
+$unNbrePersonnes = 2;
+$montantRegle = 20.50;
+$montantRembourse = 10.50;
+$idEleve = 5;
+$idSoiree = 1;
+$inscriptionAnnulee = true;
+
+$uneInscription = new Inscription($unId, $dateInscription, $unNbrePersonnes, $montantRegle, $montantRembourse, $idEleve, $idSoiree, $inscriptionAnnulee);
+echo $uneInscription->toString() . "<br>";
+
+$ok = $dao->creerInscription($uneInscription);
+if ($ok)
+	echo "<p>Inscription bien enregistrée !</p>";
+else
+	echo "<p>Echec lors de l'enregistrement de l'inscription !</p>";
+
+
 
 
 

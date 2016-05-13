@@ -24,7 +24,7 @@ class Inscription
 	// ----------------------------------------- Constructeur -----------------------------------------------
 	// ------------------------------------------------------------------------------------------------------
 	
-	public function Inscription($unId, $dateInscription, $unNbrePersonnes, $montantRegle, $montantRembourse, $idEleve, $idSoiree, $annulee) {
+	public function Inscription($unId, $dateInscription, $unNbrePersonnes, $montantRegle, $montantRembourse, $idEleve, $idSoiree, $inscriptionAnnulee) {
 		$this->id = $unId;
 		$this->dateInscription = $dateInscription;
 		$this->nbrePersonnes = $unNbrePersonnes;
@@ -32,7 +32,7 @@ class Inscription
 		$this->montantRembourse = $montantRembourse;
 		$this->idEleve = $idEleve;
 		$this->idSoiree = $idSoiree;
-		$this->inscriptionAnnulee = $annulee;
+		$this->inscriptionAnnulee = $inscriptionAnnulee;
 	}	
 	
 	// ------------------------------------------------------------------------------------------------------

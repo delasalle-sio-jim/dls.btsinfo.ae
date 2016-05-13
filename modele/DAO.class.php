@@ -73,6 +73,14 @@
 //   le paramètre "relire" permet de tester si les données ont déjà été lues et stockées en variable de session
 //   si "relire" est égal à true, on relit la bdd et on recharge la variable de session
 
+// modifierSoiree($uneSoiree) : bool
+//   modifie une soirée dans la bdd et retourne true si mise à jour effectuée correctement, retourne false en cas de problème
+
+// creerInscription($uneInscription) : bool
+//   enregistre une inscription dans la bdd et retourne true si enregistrement effectué correctement, retourne false en cas de problème
+
+// modifierInscription($uneInscription) : bool
+//   modifie l'inscription dans la bdd et retourne true si mise à jour effectuée correctement, retourne false en cas de problème
 
 
 
@@ -599,7 +607,7 @@ class DAO
 		return $ok;
 	}
 
-	// fournit un objet Soiree qui contient tous les détails concernant la PROCHAINE soirée
+	// fournit un objet Soiree qui contient tous les détails concernant la PROCHAINE soirée (un seul enregistrement dans la table ae_soirees)
 	// le résultat est fourni sous forme d'un objet Soiree
 	// le paramètre "relire" permet de tester si les données ont déjà été lues et stockées en variable de session
 	// si "relire" est égal à true, on relit la bdd et on recharge la variable de session
@@ -615,9 +623,8 @@ class DAO
 		}
 		else
 		{	// on relit la bdd et on recharge la variable de session
-			// creation de la requête
-			$txt_req = "Select * from ae_soirees ";
 			// préparation de la requête
+			$txt_req = "Select * from ae_soirees";
 			$req = $this->cnx->prepare($txt_req);
 			// exécution de la requête
 			$req->execute();
@@ -643,10 +650,134 @@ class DAO
 			}
 		}
 	}	
-	
-	
-	
 
+	// modifie une soirée dans la bdd et retourne true si mise à jour effectuée correctement, retourne false en cas de problème
+	// créé par Nicolas Esteve le XX/01/2016
+	// modifié par Jim le 13/05/2016
+	function modifierSoiree($uneSoiree)
+	{
+		// préparation de la requête
+		$txt_req = "UPDATE ae_soirees SET";
+		$txt_req .= " dateSoiree = :dateSoiree,";
+		$txt_req .= " nomRestaurant = :nomRestaurant,";
+		$txt_req .= " adresse = :adresse,";
+		$txt_req .= " tarif = :tarif,";
+		$txt_req .= " lienMenu = :lienMenu,";
+		$txt_req .= " latitude = :latitude,";
+		$txt_req .= " longitude = :longitude";
+		$txt_req .= " WHERE id = :id;";
+
+		$req = $this->cnx->prepare($txt_req);
+		
+		// liaison de la requête et de ses paramètres
+		$req->bindValue("dateSoiree", Outils::convertirEnDateUS($uneSoiree->getDateSoiree()), PDO::PARAM_STR);
+		$req->bindValue("nomRestaurant",  utf8_decode($uneSoiree->getNomRestaurant()), PDO::PARAM_STR);
+		$req->bindValue("adresse",utf8_decode($uneSoiree->getAdresse()), PDO::PARAM_STR);
+		$req->bindValue("tarif" , utf8_decode($uneSoiree->getTarif()), PDO::PARAM_STR);
+		$req->bindValue("lienMenu", utf8_decode($uneSoiree->getLienMenu()), PDO::PARAM_STR);
+		$req->bindValue("latitude" , utf8_decode($uneSoiree->getLatitude()), PDO::PARAM_STR);
+		$req->bindValue("longitude", utf8_decode($uneSoiree->getLongitude()), PDO::PARAM_STR);
+		$req->bindValue("id", utf8_decode($uneSoiree->getId()), PDO::PARAM_STR);
+		
+		// exécution de la requête
+		$ok = $req->execute();
+		return $ok;
+	}	
+
+	// enregistre une inscription dans la bdd et retourne true si enregistrement effectué correctement, retourne false en cas de problème
+	// créé par Nicolas Esteve  le XX/01/2016
+	// modifié par Jim le 13/5/2016
+	public function creerInscription($uneInscription)
+	{	// préparation de la requête
+		$txt_req = "Insert Into ae_inscriptions (dateInscription, nbrePersonnes, montantRegle, montantRembourse, idEleve, idSoiree, inscriptionAnnulee)";
+		$txt_req .= " values (:dateInscription, :nbrePersonnes, :montantRegle, :montantRembourse, :idEleve, :idSoiree, :inscriptionAnnulee);";
+		$req = $this->cnx->prepare($txt_req);
+		// liaison de la requête et de ses paramètres
+		$req->bindValue("dateInscription",  Outils::convertirEnDateUS($uneInscription->getDateInscription()), PDO::PARAM_STR);
+		$req->bindValue("nbrePersonnes",  utf8_decode($uneInscription->getNbrePersonnes()), PDO::PARAM_INT);
+		$req->bindValue("montantRegle",  utf8_decode($uneInscription->getMontantRegle()), PDO::PARAM_INT);
+		$req->bindValue("montantRembourse",  utf8_decode($uneInscription->getMontantRembourse()), PDO::PARAM_INT);
+		$req->bindValue("idEleve",  utf8_decode($uneInscription->getIdEleve()), PDO::PARAM_INT);
+		$req->bindValue("idSoiree",  utf8_decode($uneInscription->getIdSoiree()), PDO::PARAM_INT);
+		$req->bindValue("inscriptionAnnulee",  utf8_decode($uneInscription->getInscriptionAnnulee()), PDO::PARAM_INT);
+		// exécution de la requête
+		$ok = $req->execute();
+		return $ok;
+	}
+	
+	// modifie l'inscription dans la bdd et retourne true si mise à jour effectuée correctement, retourne false en cas de problème
+	// créé par Nicolas Esteve  le XX/01/2016
+	// modifié par Jim le 13/05/2016
+	function modifierInscription($uneInscription)
+	{	// préparation de la requête
+		$txt_req = "UPDATE ae_inscriptions SET ";
+		$txt_req .= " dateInscription = :dateInscription,";
+		$txt_req .= " nbrePersonnes = :nbrePersonnes,";
+		$txt_req .= " montantRegle = :montantRegle,";
+		$txt_req .= " montantRembourse = :montantRembourse,";
+		$txt_req .= " inscriptionAnnulee = :inscriptionAnnulee";
+		$txt_req .= " WHERE idEleve = :idEleve";
+		$txt_req .= " AND idSoiree = :idSoiree";
+		
+		$req = $this->cnx->prepare($txt_req);
+		
+		// liaison de la requête et de ses paramètres
+		$req->bindValue("dateInscription",  Outils::convertirEnDateUS($uneInscription->getDateInscription()), PDO::PARAM_STR);
+		$req->bindValue("nbrePersonnes",  utf8_decode($uneInscription->getNbrePersonnes()), PDO::PARAM_INT);
+		$req->bindValue("montantRegle",  utf8_decode($uneInscription->getMontantRegle()), PDO::PARAM_INT);
+		$req->bindValue("montantRembourse",  utf8_decode($uneInscription->getMontantRembourse()), PDO::PARAM_INT);
+		$req->bindValue("idEleve",  utf8_decode($uneInscription->getIdEleve()), PDO::PARAM_INT);
+		$req->bindValue("idSoiree",  utf8_decode($uneInscription->getIdSoiree()), PDO::PARAM_INT);
+		$req->bindValue("inscriptionAnnulee",  utf8_decode($uneInscription->getInscriptionAnnulee()), PDO::PARAM_INT);
+	
+		// exécution de la requête
+		$ok = $req->execute();
+		return $ok;
+	}	
+
+	
+	
+	
+	
+	
+	
+	
+	// fonction qui sert a s'inscrire à la soirée
+	// fournit la valeur null si le paramètre n'existe pas ou est incorrect
+	// modifié par Nicolas Esteve le XX/01/2016
+	function inscription($dateInscription,$nbPersonnes,$montant,$montantRembourse,$idEleve,$idSoiree)
+	{
+		$txt_req ="Select * from ae_inscriptions where id = :idEleve";
+		$req = $this->cnx->prepare($txt_req);
+		$req->bindValue("idEleve",  utf8_decode($idEleve), PDO::PARAM_STR);
+		$ok = $req->execute();
+		//creation de la requete
+		if(!empty ($ok))
+		{
+			$txt_req ="Update ae_inscriptions SET nbrePersonnes = :nbPersonnes where idEleve=:idEleve;";
+			//preparation de la requete
+			$req = $this->cnx->prepare($txt_req);
+			//remplissage de la variable
+			$req->bindValue("nbPersonnes",  utf8_decode($nbPersonnes), PDO::PARAM_STR);
+			$req->bindValue("idEleve",  utf8_decode($idEleve), PDO::PARAM_STR);
+		}
+		else
+		{
+			$txt_req = "Insert Into ae_inscriptions(dateInscription,nbrePersonnes,montantRegle,montantRembourse,idEleve,idSoiree) values (:dateInscription,:nbPersonnes,:montant,:montantRembourse,:idEleve,:idSoiree);";
+			//preparation de la requete
+			$req = $this->cnx->prepare($txt_req);
+			//remplissage de la variable
+			$req->bindValue("dateInscription",  utf8_decode($dateInscription), PDO::PARAM_STR);
+			$req->bindValue("nbPersonnes",  utf8_decode($nbPersonnes), PDO::PARAM_STR);
+			$req->bindValue("montant",  utf8_decode($montant), PDO::PARAM_STR);
+			$req->bindValue("montantRembourse",  utf8_decode($montantRembourse), PDO::PARAM_STR);
+			$req->bindValue("idEleve",  utf8_decode($idEleve), PDO::PARAM_STR);
+			$req->bindValue("idSoiree",  utf8_decode($idSoiree), PDO::PARAM_STR);
+		}
+	
+		$ok = $req->execute();
+		return $ok;
+	}
 	
 	
 	
@@ -716,70 +847,9 @@ class DAO
 	
 	}
 
-	// fonction qui sert a modifier les données de la soirée
-	// fournit la valeur null si le paramètre n'existe pas ou est incorrect
-	// modifié par Nicolas Esteve le XX/01/2016
-	// les paramètres sonts les données modifiées pour la soirée
-	function modifierDonnesSoiree($unNom, $uneDate, $uneAdresse, $unTarif, $unLienMenu, $uneLatitude, $uneLongitude)
-	{
-		//creation de la requete sur plusieurs lignes afin d'être plus comréhensible
-		$txt_req = "Update ae_soirees SET nomRestaurant = :nom, date = :date, tarif = :tarif, adresse = :adresse, ";
-		$txt_req .= "lienMenu = :lienMenu, latitude = :latitude, longitude = :longitude where id = 1;";
-		
-		$req = $this->cnx->prepare($txt_req);
-		$req->bindValue("date", Outils::convertirEnDateUS($uneDate), PDO::PARAM_STR);
-		$req->bindValue("nom",  utf8_decode($unNom), PDO::PARAM_STR);
-		$req->bindValue("tarif" , utf8_decode($unTarif), PDO::PARAM_STR);
-		$req->bindValue("adresse",utf8_decode($uneAdresse), PDO::PARAM_STR);
-		$req->bindValue("lienMenu", utf8_decode($unLienMenu), PDO::PARAM_STR);
-		$req->bindValue("latitude" , utf8_decode($uneLatitude), PDO::PARAM_STR);
-		$req->bindValue("longitude", utf8_decode($uneLongitude), PDO::PARAM_STR);
-		
-		// execution de la requete
-		$ok = $req->execute();
-		
-		return $ok;	
-		
-	}
 
-	// fonction qui sert a s'inscrire à la soirée
-	// fournit la valeur null si le paramètre n'existe pas ou est incorrect
-	// modifié par Nicolas Esteve le XX/01/2016	
-	function inscription($dateInscription,$nbPersonnes,$montant,$montantRembourse,$idEleve,$idSoiree)
-	{
-		$txt_req ="Select * from ae_inscriptions where id = :idEleve";
-		$req = $this->cnx->prepare($txt_req);
-		$req->bindValue("idEleve",  utf8_decode($idEleve), PDO::PARAM_STR);
-		$ok = $req->execute();
-		//creation de la requete
-		if(!empty ($ok))
-		{
-			$txt_req ="Update ae_inscriptions SET nbrePersonnes = :nbPersonnes where idEleve=:idEleve;";
-			//preparation de la requete
-			$req = $this->cnx->prepare($txt_req);
-			//remplissage de la variable
-			$req->bindValue("nbPersonnes",  utf8_decode($nbPersonnes), PDO::PARAM_STR);
-			$req->bindValue("idEleve",  utf8_decode($idEleve), PDO::PARAM_STR);
-		}
-		else 
-		{
-			$txt_req = "Insert Into ae_inscriptions(dateInscription,nbrePersonnes,montantRegle,montantRembourse,idEleve,idSoiree) values (:dateInscription,:nbPersonnes,:montant,:montantRembourse,:idEleve,:idSoiree);";
-			//preparation de la requete
-			$req = $this->cnx->prepare($txt_req);
-			//remplissage de la variable
-			$req->bindValue("dateInscription",  utf8_decode($dateInscription), PDO::PARAM_STR);
-			$req->bindValue("nbPersonnes",  utf8_decode($nbPersonnes), PDO::PARAM_STR);
-			$req->bindValue("montant",  utf8_decode($montant), PDO::PARAM_STR);
-			$req->bindValue("montantRembourse",  utf8_decode($montantRembourse), PDO::PARAM_STR);
-			$req->bindValue("idEleve",  utf8_decode($idEleve), PDO::PARAM_STR);
-			$req->bindValue("idSoiree",  utf8_decode($idSoiree), PDO::PARAM_STR);
-		}
-	
-		$ok = $req->execute();
-		
-		return $ok;
-		
-	}
+
+
 	
 	function annulation($idEleve)
 	{
@@ -859,28 +929,7 @@ class DAO
 		return $lesMails;
 	}
 
-	// fonction qui sert a modifier les données de l'inscription
-	// fournit la valeur null si le paramètre n'existe pas ou est incorrect
-	// modifié par Nicolas Esteve le XX/01/2016
-	// les paramètres sonts les données modifiées pour l'inscription
-	function modifierDonneesInscription($montantRembourse,$montantRegle,$idEleve)
-	{
-		//creation de la requete sur plusieurs lignes afin d'être plus comréhensible
-		$txt_req = "Update ae_inscriptions SET montantRembourse = :montantRembourse, montantRegle = :montantRegle where idEleve = :idEleve;";
-	
-		$req = $this->cnx->prepare($txt_req);
-		
-		$req->bindValue("idEleve",  utf8_decode($idEleve), PDO::PARAM_STR);
-		$req->bindValue("montantRembourse" , utf8_decode($montantRembourse), PDO::PARAM_INT);
-		$req->bindValue("montantRegle" , utf8_decode($montantRegle), PDO::PARAM_INT);
-		
-	
-		// execution de la requete
-		$ok = $req->execute();
-	
-		return $ok;
-	
-	}
+
 	
 
 	
