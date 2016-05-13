@@ -18,16 +18,16 @@
 // getLesFonctions() : array
 //   fournit la liste des fonctions que peut occuper un ancien élève ; le résultat est fourni sous forme d'une collection d'objets Fonction
 
-// getTypeUtilisateur($uneAdrMail, $unMdp) : String
+// getTypeUtilisateur($uneAdrMail, $unMdp) : Chaine
 //   permet d'authentifier un utilisateur ; retourne 'inconnu' ou 'eleve' ou 'administrateur'
 
-// existeAdrMail($uneAdrMail) : bool
+// existeAdrMail($uneAdrMail) : booléen
 //   fournit true si l'adresse mail ($adrMail) existe dans la table ae_eleves, false sinon
 
-// creerCompteEleve($unEleve) : bool
+// creerCompteEleve($unEleve) : booléen
 //   enregistre l'élève dans la bdd et retourne true si enregistrement effectué correctement, retourne false en cas de problème
 
-// modifierCompteEleve($unEleve) : bool
+// modifierCompteEleve($unEleve) : booléen
 //   modifie l'élève dans la bdd et retourne true si mise à jour effectuée correctement, retourne false en cas de problème
 
 // getEleve($parametre) : Eleve
@@ -40,32 +40,32 @@
 // getLesAdressesMails() : array
 //   fournit la liste de toutes les adresses mails des eleves ; le résultat est fourni sous forme d'une collection d'adresses mails
 
-// supprimerCompteEleve($parametre) : bool
+// supprimerCompteEleve($parametre) : booléen
 //   supprime un compte Eleve (ainsi que ses inscriptions s'il en a) à partir de son identifiant ou de son adresse mail
 //   retourne true si enregistrement supprimé correctement, retourne false en cas de problème
 
-// validerCreationCompte($idCompte, $decision) : bool
+// validerCreationCompte($idCompte, $decision) : booléen
 //   enregistre dans la bdd l'acceptation ou le rejet d'une demande de création de compte élève
 //   le paramètre $decision doit être égal à "acceptation" ou à "rejet"
 
-// modifierMdpEleve($adrMail, $nouveauMdp) : bool
+// modifierMdpEleve($adrMail, $nouveauMdp) : booléen
 //   enregistre le nouveau mot de passe de l'élève dans la bdd après l'avoir hashé en SHA1
 
-// envoyerMdp($adrMail, $nouveauMdp) : bool
+// envoyerMdp($adrMail, $nouveauMdp) : booléen
 //   envoie un mail à l'utilisateur avec son nouveau mot de passe ; retourne true si envoi correct, false en cas de problème d'envoi
 
-// creerCompteAdministrateur($unAdministrateur) : bool
+// creerCompteAdministrateur($unAdministrateur) : booléen
 //   enregistre l'administrateur dans la bdd et retourne true si enregistrement effectué correctement, retourne false en cas de problème
 
 // getAdministrateur($parametre) : Administrateur
 //   recherche et fournit un objet Administrateur à partir de son identifiant ou de son adresse mail
 //   fournit la valeur null si le paramètre n'existe pas ou est incorrect
 
-// supprimerCompteAdministrateur($parametre) : bool
+// supprimerCompteAdministrateur($parametre) : booléen
 //    supprime un compte Administrateur à partir de son identifiant ou de son adresse mail
 //    retourne true si enregistrement supprimé correctement, retourne false en cas de problème
 
-// modifierMdpAdministrateur($adrMail, $nouveauMdp) : bool
+// modifierMdpAdministrateur($adrMail, $nouveauMdp) : booléen
 //   enregistre le nouveau mot de passe de l'administrateur dans la bdd après l'avoir hashé en SHA1
 
 // getSoiree($relire) : Soiree
@@ -73,17 +73,28 @@
 //   le paramètre "relire" permet de tester si les données ont déjà été lues et stockées en variable de session
 //   si "relire" est égal à true, on relit la bdd et on recharge la variable de session
 
-// modifierSoiree($uneSoiree) : bool
+// modifierSoiree($uneSoiree) : booléen
 //   modifie une soirée dans la bdd et retourne true si mise à jour effectuée correctement, retourne false en cas de problème
 
-// creerInscription($uneInscription) : bool
+// creerInscription($uneInscription) : booléen
 //   enregistre une inscription dans la bdd et retourne true si enregistrement effectué correctement, retourne false en cas de problème
 
-// modifierInscription($uneInscription) : bool
+// getInscription($idInscription) : Inscription
+//   fournit un objet Inscription à partir de son identifiant ; fournit la valeur null si l'identifiant n'existe pas
+
+// modifierInscription($uneInscription) : booléen
 //   modifie l'inscription dans la bdd et retourne true si mise à jour effectuée correctement, retourne false en cas de problème
 
+// getIdInscription($idEleve) : entier
+//   fournit l'identifiant de l'inscription à partir de l'identifiant de l'élève
+//   fournit la valeur -1 si aucune inscription ou si l'identifiant élève n'existe pas
 
+// annulerInscription($idInscription) : booléen
+//   annule une inscription dans la bdd et retourne true si enregistrement effectué correctement, retourne false en cas de problème
 
+// getLesAdressesMailsDesInscrits() : array
+//   fournit la liste de toutes les adresses mails des élèves inscrits à la soirée
+//   le résultat est fourni sous forme d'une collection d'adresses mails
 
 
 
@@ -415,7 +426,7 @@ class DAO
 	// le résultat est fourni sous forme d'une collection d'adresses mails
 	// créé par Nicolas Esteve le XX/01/2016
 	// modifié par Jim le 13/05/2016
-	function getLesAdressesMails()
+	public function getLesAdressesMails()
 	{	// préparation de la requete de recherche
 		$txt_req = "Select adrMail from ae_eleves order by adrMail";
 		
@@ -613,7 +624,7 @@ class DAO
 	// si "relire" est égal à true, on relit la bdd et on recharge la variable de session
 	// créé par Nicolas Esteve le XX/01/2016
 	// modifié par Jim le 13/05/2016
-	function getSoiree($relire)
+	public function getSoiree($relire)
 	{
 		if ( isset($_SESSION['Soiree']) == true && $relire == false)
 		{
@@ -654,7 +665,7 @@ class DAO
 	// modifie une soirée dans la bdd et retourne true si mise à jour effectuée correctement, retourne false en cas de problème
 	// créé par Nicolas Esteve le XX/01/2016
 	// modifié par Jim le 13/05/2016
-	function modifierSoiree($uneSoiree)
+	public function modifierSoiree($uneSoiree)
 	{
 		// préparation de la requête
 		$txt_req = "UPDATE ae_soirees SET";
@@ -704,24 +715,61 @@ class DAO
 		$ok = $req->execute();
 		return $ok;
 	}
+
+	// fournit un objet Inscription à partir de son identifiant
+	// fournit la valeur null si l'identifiant n'existe pas
+	// créé par Jim le 13/05/2016
+	public function getInscription($idInscription)
+	{	// préparation de la requête
+		$txt_req = "Select * from ae_inscriptions where id = :idInscription";
+		$req = $this->cnx->prepare($txt_req);
+		// liaison de la requête et de son paramètre
+		$req->bindValue("idInscription", $idInscription, PDO::PARAM_INT);
+		
+		// extraction des données
+		$req->execute();
+		$uneLigne = $req->fetch(PDO::FETCH_OBJ);
+		// libère les ressources du jeu de données
+		$req->closeCursor();
+		
+		// traitement de la réponse
+		if ( ! $uneLigne)
+			return null;
+		else
+		{	// création d'un objet Inscription
+			$unId = utf8_encode($uneLigne->id);
+			$dateInscription = utf8_encode(Outils::convertirEnDateFR($uneLigne->dateInscription));
+			$unNbrePersonnes = utf8_encode($uneLigne->nbrePersonnes);
+			$montantRegle = utf8_encode($uneLigne->montantRegle);
+			$montantRembourse = utf8_encode($uneLigne->montantRembourse);
+			$idEleve = utf8_encode($uneLigne->idEleve);
+			$idSoiree = utf8_encode($uneLigne->idSoiree);
+			$inscriptionAnnulee = utf8_encode($uneLigne->inscriptionAnnulee);
+							
+			$uneInscription = new Inscription($unId, $dateInscription, $unNbrePersonnes, $montantRegle, $montantRembourse, $idEleve, $idSoiree, $inscriptionAnnulee);
+			return $uneInscription;
+		}
+	}
 	
 	// modifie l'inscription dans la bdd et retourne true si mise à jour effectuée correctement, retourne false en cas de problème
 	// créé par Nicolas Esteve  le XX/01/2016
 	// modifié par Jim le 13/05/2016
-	function modifierInscription($uneInscription)
+	public function modifierInscription($uneInscription)
 	{	// préparation de la requête
 		$txt_req = "UPDATE ae_inscriptions SET ";
 		$txt_req .= " dateInscription = :dateInscription,";
 		$txt_req .= " nbrePersonnes = :nbrePersonnes,";
 		$txt_req .= " montantRegle = :montantRegle,";
 		$txt_req .= " montantRembourse = :montantRembourse,";
-		$txt_req .= " inscriptionAnnulee = :inscriptionAnnulee";
-		$txt_req .= " WHERE idEleve = :idEleve";
-		$txt_req .= " AND idSoiree = :idSoiree";
+		$txt_req .= " inscriptionAnnulee = :inscriptionAnnulee,";
+		$txt_req .= " idEleve = :idEleve,";
+		$txt_req .= " idSoiree = :idSoiree";
+		$txt_req .= " WHERE id = :id";
 		
 		$req = $this->cnx->prepare($txt_req);
 		
 		// liaison de la requête et de ses paramètres
+		$req->bindValue("id",  utf8_decode($uneInscription->getId()), PDO::PARAM_INT);
 		$req->bindValue("dateInscription",  Outils::convertirEnDateUS($uneInscription->getDateInscription()), PDO::PARAM_STR);
 		$req->bindValue("nbrePersonnes",  utf8_decode($uneInscription->getNbrePersonnes()), PDO::PARAM_INT);
 		$req->bindValue("montantRegle",  utf8_decode($uneInscription->getMontantRegle()), PDO::PARAM_INT);
@@ -735,16 +783,85 @@ class DAO
 		return $ok;
 	}	
 
+	// fournit l'identifiant de l'inscription à partir de l'identifiant de l'élève
+	// fournit la valeur -1 si aucune inscription ou si l'identifiant élève n'existe pas
+	// créé par Jim le 13/05/2016
+	public function getIdInscription($idEleve)
+	{	// préparation de la requête
+		$txt_req = "Select id from ae_inscriptions where idEleve = :idEleve";
+		$req = $this->cnx->prepare($txt_req);
+		// liaison de la requête et de son paramètre
+		$req->bindValue("idEleve", $idEleve, PDO::PARAM_INT);
+		
+		// extraction des données
+		$req->execute();
+		$uneLigne = $req->fetch(PDO::FETCH_OBJ);
+		// libère les ressources du jeu de données
+		$req->closeCursor();
+		
+		// traitement de la réponse
+		if ( ! $uneLigne)
+			return -1;
+		else
+			return $uneLigne->id;
+	}	
+	
+	// annule une inscription dans la bdd et retourne true si enregistrement effectué correctement, retourne false en cas de problème
+	// créé par Nicolas Esteve  le XX/01/2016
+	// modifié par Jim le 13/5/2016
+	public function annulerInscription($idInscription)
+	{	// préparation de la requête
+		$txt_req = "Update ae_inscriptions SET inscriptionAnnulee = 1 where id = :idInscription;";
+		$req = $this->cnx->prepare($txt_req);
+		// liaison de la requête et de son paramètre
+		$req->bindValue("idInscription",  utf8_decode($idInscription), PDO::PARAM_STR);
+		// exécution de la requête
+		$ok = $req->execute();
+		return $ok;
+	}	
+	
+	// fournit la liste de toutes les adresses mails des élèves inscrits à la soirée
+	// le résultat est fourni sous forme d'une collection d'adresses mails
+	// créé par Nicolas Esteve le XX/01/2016
+	// modifié par Jim le 13/5/2016
+	function getLesAdressesMailsDesInscrits()
+	{	// préparation de la requête
+		$txt_req = "SELECT adrMail FROM ae_eleves, ae_inscriptions WHERE ae_eleves.id = ae_inscriptions.idEleve ORDER BY adrMail";
+		$req = $this->cnx->prepare($txt_req);
+		// extraction des données
+		$req->execute();
+		$uneLigne = $req->fetch(PDO::FETCH_OBJ);
+		
+		// construction d'une collection d'adresses mails
+		$lesAdressesMails = array();
+		// tant qu'une ligne est trouvée :
+		while ($uneLigne)
+		{	$uneAdrMail = utf8_encode($uneLigne->adrMail);
+			$lesAdressesMails[] = $uneAdrMail;
+			
+			// extrait la ligne suivante
+			$uneLigne = $req->fetch(PDO::FETCH_OBJ);
+		}
+		// libère les ressources du jeu de données
+		$req->closeCursor();
+		// retourne la collection
+		return $lesAdressesMails;
+	}	
 	
 	
 	
 	
 	
 	
+	
+	
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 	// fonction qui sert a s'inscrire à la soirée
 	// fournit la valeur null si le paramètre n'existe pas ou est incorrect
-	// modifié par Nicolas Esteve le XX/01/2016
+	// créé par Nicolas Esteve le XX/01/2016
+	// ATTENTION : cette fonction est à priori inutile ; utiliser de préférence creerInscription et modifierInscription ? (Jim)
 	function inscription($dateInscription,$nbPersonnes,$montant,$montantRembourse,$idEleve,$idSoiree)
 	{
 		$txt_req ="Select * from ae_inscriptions where id = :idEleve";
@@ -779,15 +896,9 @@ class DAO
 		return $ok;
 	}
 	
-	
-	
-	
-	
-
-	
 	// fonction qui permet a un utilisateur de modifier les donnée d'un compte utilisateur
 	// fournit la valeur null si le paramètre n'existe pas ou est incorrect
-	// modifié par Nicolas Esteve  le XX/01/2016
+	// créé par Nicolas Esteve  le XX/01/2016
 	// ATTENTION : cette fonction est-elle vraiment utile car elle est presque identique à la fonction modifierCompteEleve ? (Jim)
 	public function modifierFicheUser($nom,$prenom,$anneeDebutBTS,$mail,$telephone,$rue,$ville,$cp,$etudes,$entreprise,$fonction,$oldMail)
 	{
@@ -847,92 +958,40 @@ class DAO
 	
 	}
 
-
-
-
-	
-	function annulation($idEleve)
-	{
-		//creation de la requete
-		$txt_req = "Update ae_inscriptions SET annulation = 1, nbrePersonnes = 0 where idEleve = :id;";
-		//preparation de la requete
-		$req = $this->cnx->prepare($txt_req);
-		//remplissage de la variable
-		$req->bindValue("id",  utf8_decode($idEleve), PDO::PARAM_STR);
-		// execution de la requete
-		$ok = $req->execute();
-		
-		return $ok;
-	}
-	
+	// fournit un objet Inscription à partir de l'identifiant de l'élève
+	// fournit l'objet null si aucune inscription ou si l'identifiant élève n'existe pas
+	// créé par Nicolas Esteve  le XX/01/2016
+	// modifié par Jim le 13/5/2016
+	// ATTENTION : cette fonction est à priori inutile ; utiliser de préférence getIdInscription suivi de getInscription ? (Jim)
 	function detailsInscription($idEleve)
-	{
-		$txt_req = "Select * FROM ae_inscriptions where idEleve = :id;";
-		//preparation de la requete
+	{	// préparation de la requête
+		$txt_req = "Select * FROM ae_inscriptions where idEleve = :idEleve;";
 		$req = $this->cnx->prepare($txt_req);
-		//remplissage de la variable
-		$req->bindValue("id",  utf8_decode($idEleve), PDO::PARAM_STR);
-		// execution de la requete
+		// liaison de la requête et de son paramètre
+		$req->bindValue("idEleve",  utf8_decode($idEleve), PDO::PARAM_STR);
+		// exécution de la requête
 		$req->execute();
 		$uneLigne = $req->fetch(PDO::FETCH_OBJ);
-		if(!$uneLigne)
-		{
-			return null;
-		}
-		else 
-		{
-			
-			$unId= utf8_encode($uneLigne->id);
-			$uneDateInscription = utf8_encode($uneLigne->dateInscription);
-			$unNbrePers= utf8_encode($uneLigne->nbrePersonnes);
-			$unMontantRegle=utf8_encode($uneLigne->montantRegle);
-			$unMontantRembourse = utf8_encode($uneLigne->montantRembourse);
-			$unIdEleve = utf8_encode($uneLigne->idEleve);
-			$unIdSoiree = utf8_encode($uneLigne->idSoiree);
-			$uneAnnulation = utf8_encode($uneLigne->annule);
-			
-			$Inscription = new Inscription($unId, $uneDateInscription, $unNbrePers, $unMontantRegle, $unMontantRembourse, $unIdEleve, $unIdSoiree, $uneAnnulation);
-			//serialise sert a traduire l'objet Soiree en une chaine de caratères afin de la mettre dans une variable de session
-			
-			return $Inscription;
-		}
-		
-	}
-		
-	// fournit la liste de toutes les mail des eleves inscrit à la soirée
-	// le résultat est fourni sous forme d'une collection d'objets Mail
-	// modifié par Nicolas Esteve le XX/01/2016
-	function getLesAdressesMailRemboursement()
-	{	// préparation de la requete de recherche
-		//
-		$txt_req = "Select adrMail from ae_eleves, ae_inscriptions Where ae_eleves.id = ae_inscriptions.idEleve ORDER BY adrMail";
-		
-		$req = $this->cnx->prepare($txt_req);
-		// extraction des données
-		$req->execute();
-		$uneLigne = $req->fetch(PDO::FETCH_OBJ);
-		
-		// construction d'une collection d'objets Fonction
-		$lesMails = array();
-		// tant qu'une ligne est trouvée :
-		while ($uneLigne)
-		{	// création d'un objet Fonctiontion
-			$unMail = utf8_encode($uneLigne->adrMail);
-			$lesMails[] = $unMail;
-				
-			// extrait la ligne suivante
-			$uneLigne = $req->fetch(PDO::FETCH_OBJ);
-		}
 		// libère les ressources du jeu de données
 		$req->closeCursor();
-		// fourniture de la collection
-		return $lesMails;
+		if( ! $uneLigne )
+			return null;
+		else 
+			{	// création d'un objet Inscription
+			$unId = utf8_encode($uneLigne->id);
+			$dateInscription = utf8_encode(Outils::convertirEnDateFR($uneLigne->dateInscription));
+			$unNbrePersonnes = utf8_encode($uneLigne->nbrePersonnes);
+			$montantRegle = utf8_encode($uneLigne->montantRegle);
+			$montantRembourse = utf8_encode($uneLigne->montantRembourse);
+			$idEleve = utf8_encode($uneLigne->idEleve);
+			$idSoiree = utf8_encode($uneLigne->idSoiree);
+			$inscriptionAnnulee = utf8_encode($uneLigne->inscriptionAnnulee);
+							
+			$uneInscription = new Inscription($unId, $dateInscription, $unNbrePersonnes, $montantRegle, $montantRembourse, $idEleve, $idSoiree, $inscriptionAnnulee);
+			return $uneInscription;
+		}
 	}
-
-
-	
-
-	
+			
 } // fin de la classe DAO
 
 // ATTENTION : on ne met pas de balise de fin de script pour ne pas prendre le risque

@@ -420,6 +420,7 @@ $uneSoiree = $dao->getSoiree(true);
 if ($uneSoiree != null) echo $uneSoiree->toString() . "<br>";
 */
 
+/*
 // test de la méthode creerInscription ------------------------------------------------------------
 // modifié par Jim le 13/05/2016
 echo "<h3>Test de creerInscription : </h3>";
@@ -440,12 +441,92 @@ if ($ok)
 	echo "<p>Inscription bien enregistrée !</p>";
 else
 	echo "<p>Echec lors de l'enregistrement de l'inscription !</p>";
+*/
 
+/*
+// test de la méthode getInscription --------------------------------------------------------------
+// modifié par Jim le 13/05/2016
+echo "<h3>Test de getInscription(id) : </h3>";
+$uneInscription = $dao->getInscription(1);
+if ($uneInscription == null)
+	echo ("Identifiant 1 inexistant ! <br>");
+else
+	echo ($uneInscription->toString());
+echo ('<br>');
 
+$uneInscription = $dao->getInscription(2);
+if ($uneInscription == null)
+	echo ("Identifiant 2 inexistant ! <br>");
+else
+	echo ($uneInscription->toString());
+echo ('<br>');
+*/
 
+/*
+// test de la méthode modifierInscription ---------------------------------------------------------
+// modifié par Jim le 13/05/2016
+echo "<h3>Test de modifierInscription : </h3>";
+$unId = 1;
+$dateInscription = "13/05/2015";
+$unNbrePersonnes = 1;
+$montantRegle = 10;
+$montantRembourse = 0;
+$idEleve = 3;
+$idSoiree = 1;
+$inscriptionAnnulee = false;
 
+$uneInscription = new Inscription($unId, $dateInscription, $unNbrePersonnes, $montantRegle, $montantRembourse, $idEleve, $idSoiree, $inscriptionAnnulee);
 
+$ok = $dao->modifierInscription($uneInscription);
+if ($ok)
+	echo "<p>Inscription bien mise à jour !</p>";
+else
+	echo "<p>Echec lors de la mise à jour de l'inscription !</p>";
+echo ('<br>');
 
+$uneInscription = $dao->getInscription(1);
+if ($uneInscription == null)
+	echo ("Identifiant 1 inexistant ! <br>");
+else
+	echo ($uneInscription->toString() . "<br>");
+echo ('<br>');
+*/
+
+/*
+// test de la méthode getIdInscription ------------------------------------------------------------
+// modifié par Jim le 13/05/2016
+echo "<h3>Test de getIdInscription(idEleve) : </h3>";
+$unIdInscription = $dao->getIdInscription(3);
+if ($unIdInscription == -1)
+	echo ("L'élève 3 n'a pas d'inscription ! <br>");
+else
+	echo ("L'élève 3 a  une inscription : " . $unIdInscription . "<br>");
+echo ('<br>');
+
+$unIdInscription = $dao->getIdInscription(33);
+if ($unIdInscription == -1)
+	echo ("L'élève 33 n'a pas d'inscription ! <br>");
+else
+	echo ("L'élève 33 a  une inscription : " . $unIdInscription . "<br>");
+echo ('<br>');
+*/
+
+// test de la méthode annulerInscription ---------------------------------------------------------
+// modifié par Jim le 13/05/2016
+echo "<h3>Test de annulerInscription : </h3>";
+$ok = $dao->annulerInscription(1);
+if ($ok)
+	echo "<p>Annulation de l'inscription 1 !</p>";
+else
+	echo "<p>Echec lors de l'annulation de l'inscription 1 !</p>";
+echo ('<br>');
+
+$ok = $dao->annulerInscription(2);
+if ($ok)
+	echo "<p>Annulation de l'inscription 2 !</p>";
+else
+	echo "<p>Echec lors de l'annulation de l'inscription 2 !</p>";
+echo ('<br>');
 
 
 
