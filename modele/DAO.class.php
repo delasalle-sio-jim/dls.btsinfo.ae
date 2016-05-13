@@ -8,6 +8,8 @@
 //						 Participation de : Nicolas Esteve
 // -------------------------------------------------------------------------------------------------------------------------
 
+// ATTENTION : la position des méthodes dans ce fichier est identique à la position des tests dans la classe DAO.test.php
+
 // liste des méthodes de cette classe (dans l'ordre d'apparition dans la classe) :
 
 // __construct                   : le constructeur crée la connexion $cnx à la base de données
@@ -25,9 +27,18 @@
 // creerCompteEleve($unEleve) : bool
 //   enregistre l'élève dans la bdd et retourne true si enregistrement effectué correctement, retourne false en cas de problème
 
+// modifierCompteEleve($unEleve) : bool
+//   modifie l'élève dans la bdd et retourne true si mise à jour effectuée correctement, retourne false en cas de problème
+
 // getEleve($parametre) : Eleve
 //   recherche et fournit un objet Eleve à partir de son identifiant ou de son adresse mail
 //   fournit la valeur null si le paramètre n'existe pas ou est incorrect
+
+// getLesEleves() : array
+//   fournit la liste de tous les élèves ; le résultat est fourni sous forme d'une collection d'objets Eleve
+
+// getLesAdressesMails() : array
+//   fournit la liste de toutes les adresses mails des eleves ; le résultat est fourni sous forme d'une collection d'adresses mails
 
 // supprimerCompteEleve($parametre) : bool
 //   supprime un compte Eleve (ainsi que ses inscriptions s'il en a) à partir de son identifiant ou de son adresse mail
@@ -37,12 +48,11 @@
 //   enregistre dans la bdd l'acceptation ou le rejet d'une demande de création de compte élève
 //   le paramètre $decision doit être égal à "acceptation" ou à "rejet"
 
-// modifierMdp($adrMail, $nouveauMdp) : bool
-//   enregistre le nouveau mot de passe de l'utilisateur dans la bdd après l'avoir hashé en SHA1
+// modifierMdpEleve($adrMail, $nouveauMdp) : bool
+//   enregistre le nouveau mot de passe de l'élève dans la bdd après l'avoir hashé en SHA1
 
 // envoyerMdp($adrMail, $nouveauMdp) : bool
-//   envoie un mail à l'utilisateur avec son nouveau mot de passe
-//   retourne true si envoi correct, false en cas de problème d'envoi
+//   envoie un mail à l'utilisateur avec son nouveau mot de passe ; retourne true si envoi correct, false en cas de problème d'envoi
 
 // creerCompteAdministrateur($unAdministrateur) : bool
 //   enregistre l'administrateur dans la bdd et retourne true si enregistrement effectué correctement, retourne false en cas de problème
@@ -55,6 +65,14 @@
 //    supprime un compte Administrateur à partir de son identifiant ou de son adresse mail
 //    retourne true si enregistrement supprimé correctement, retourne false en cas de problème
 
+// modifierMdpAdministrateur($adrMail, $nouveauMdp) : bool
+//   enregistre le nouveau mot de passe de l'administrateur dans la bdd après l'avoir hashé en SHA1
+
+// getSoiree($relire) : Soiree
+//   fournit un objet Soiree qui contient tous les détails concernant la PROCHAINE soirée
+//   le paramètre "relire" permet de tester si les données ont déjà été lues et stockées en variable de session
+//   si "relire" est égal à true, on relit la bdd et on recharge la variable de session
+
 
 
 
@@ -63,7 +81,6 @@
 
 
 //// envoyerNouveauMdp ($uneAdrMail, $unNouveauMdp) : bool
-// modifierCompteEleve ($unEleve) : bool
 //// validerCreationCompte ($uneAdrMail) : bool
 //// rejeterCreationCompte ($uneAdrMail) : bool
 // estInscritAlaProchaineSoiree ($uneAdrMail) : bool
@@ -72,8 +89,7 @@
 
 
 
-// getLesEleves() : array
-//   fournit la liste de tout les eleves ; le résultat est fourni sous forme d'une collection d'objets Eleve
+
 
 
 // certaines méthodes nécessitent les fichiers suivants :
@@ -130,7 +146,7 @@ class DAO
 	// fournit la liste des fonctions que peut occuper un ancien élève
 	// le résultat est fourni sous forme d'une collection d'objets Fonction
 	// modifié par Jim le 9/11/2015
-	function getLesFonctions()
+	public function getLesFonctions()
 	{	// préparation de la requete de recherche
 		$txt_req = "Select id, libelle from ae_fonctions order by id";
 		
@@ -219,7 +235,7 @@ class DAO
 	// enregistre l'élève dans la bdd et retourne true si enregistrement effectué correctement, retourne false en cas de problème
 	// modifié par Jim le 15/11/2015
 	public function creerCompteEleve ($unEleve)
-	{	// préparation de la requete
+	{	// préparation de la requête
 		$txt_req = "insert into ae_eleves (nom, prenom, sexe, anneeDebutBTS, tel, adrMail, rue, codePostal, ville, entreprise, compteAccepte, motDePasse, etudesPostBTS, dateDerniereMAJ, idFonction)";
 		$txt_req .= " values (:nom, :prenom, :sexe, :anneeDebutBTS, :tel, :adrMail, :rue, :codePostal, :ville, :entreprise, :compteAccepte, :motDePasse, :etudesPostBTS, :dateDerniereMAJ, :idFonction)";
 		$req = $this->cnx->prepare($txt_req);
@@ -240,11 +256,53 @@ class DAO
 		$req->bindValue("etudesPostBTS", utf8_decode($unEleve->getEtudesPostBTS()), PDO::PARAM_STR);
 		$req->bindValue("dateDerniereMAJ", utf8_decode($unEleve->getDateDerniereMAJ()), PDO::PARAM_STR);
 		$req->bindValue("idFonction", utf8_decode($unEleve->getIdFonction()), PDO::PARAM_INT);
-		// exécution de la requete
+		// exécution de la requête
 		$ok = $req->execute();
 		return $ok;
 	}	
 
+	// modifie l'élève dans la bdd et retourne true si mise à jour effectuée correctement, retourne false en cas de problème
+	// créé par Nicolas Esteve  le XX/01/2016
+	// modifié par Jim le 13/05/2016
+	public function modifierCompteEleve($unEleve)
+	{
+		// préparation de la requête
+		$txt_req = "UPDATE ae_eleves SET ";
+		$txt_req .= " nom = :nom,";
+		$txt_req .= " prenom = :prenom,";
+		$txt_req .= " sexe = :sexe,";
+		$txt_req .= " anneeDebutBTS = :anneeDebutBTS,";
+		$txt_req .= " tel = :tel,";
+		$txt_req .= " rue = :rue,";
+		$txt_req .= " codePostal = :codePostal,";
+		$txt_req .= " ville = :ville,";
+		$txt_req .= " entreprise = :entreprise,";
+		$txt_req .= " idFonction = :idFonction,";
+		$txt_req .= " etudesPostBTS = :etudesPostBTS,";
+		$txt_req .= " dateDerniereMAJ = :dateDerniereMAJ";
+		$txt_req .= " WHERE adrMail = :adrMail;";	
+		$req = $this->cnx->prepare($txt_req);
+	
+		// liaison de la requête et de ses paramètres
+		$req->bindValue("nom", utf8_decode($unEleve->getNom()), PDO::PARAM_STR);
+		$req->bindValue("prenom", utf8_decode($unEleve->getPrenom()), PDO::PARAM_STR);
+		$req->bindValue("sexe", utf8_decode($unEleve->getSexe()), PDO::PARAM_STR);
+		$req->bindValue("anneeDebutBTS", utf8_decode($unEleve->getAnneeDebutBTS()), PDO::PARAM_STR);
+		$req->bindValue("tel", utf8_decode($unEleve->getTel()), PDO::PARAM_STR);
+		$req->bindValue("adrMail", utf8_decode($unEleve->getAdrMail()), PDO::PARAM_STR);
+		$req->bindValue("rue", utf8_decode($unEleve->getRue()), PDO::PARAM_STR);
+		$req->bindValue("codePostal", utf8_decode($unEleve->getCodePostal()), PDO::PARAM_STR);
+		$req->bindValue("ville", utf8_decode($unEleve->getVille()), PDO::PARAM_STR);
+		$req->bindValue("entreprise", utf8_decode($unEleve->getEntreprise()), PDO::PARAM_STR);
+		$req->bindValue("etudesPostBTS", utf8_decode($unEleve->getEtudesPostBTS()), PDO::PARAM_STR);
+		$req->bindValue("dateDerniereMAJ", utf8_decode(date('Y-m-d H:i:s', time())), PDO::PARAM_STR);
+		$req->bindValue("idFonction", utf8_decode($unEleve->getIdFonction()), PDO::PARAM_INT);
+	
+		// exécution de la requête
+		$ok = $req->execute();
+		return $ok;
+	}
+	
 	// recherche et fournit un objet Eleve à partir de son identifiant ou de son adresse mail
 	// fournit la valeur null si le paramètre n'existe pas ou est incorrect
 	// modifié par Jim le 16/11/2015
@@ -295,6 +353,85 @@ class DAO
 		}
 	}
 
+	// fournit la liste de tous les élèves
+	// le résultat est fourni sous forme d'une collection d'objets Eleve
+	// créé par Nicolas Esteve le XX/01/2016
+	// modifié par Jim le 13/5/2016
+	public function getLesEleves()
+	{	// préparation de la requete de recherche
+		$txt_req = "Select * from ae_eleves order by id";
+		
+		$req = $this->cnx->prepare($txt_req);
+		// extraction des données
+		$req->execute();
+		$uneLigne = $req->fetch(PDO::FETCH_OBJ);
+		
+		// construction d'une collection d'objets Eleve
+		$lesEleves = array();
+		// tant qu'une ligne est trouvée :
+		while ($uneLigne)
+		{
+			// création d'un objet Eleve
+			$id = utf8_encode($uneLigne->id);
+			$nom = utf8_encode($uneLigne->nom);
+			$prenom = utf8_encode($uneLigne->prenom);
+			$sexe = utf8_encode($uneLigne->sexe);
+			$anneeDebutBTS = utf8_encode($uneLigne->anneeDebutBTS);
+			$tel = utf8_encode($uneLigne->tel);
+			$adrMail = utf8_encode($uneLigne->adrMail);
+			$rue = utf8_encode($uneLigne->rue);
+			$codePostal = utf8_encode($uneLigne->codePostal);
+			$ville = utf8_encode($uneLigne->ville);
+			$entreprise = utf8_encode($uneLigne->entreprise);
+			$compteAccepte = utf8_encode($uneLigne->compteAccepte);
+			$motDePasse = utf8_encode($uneLigne->motDePasse);
+			$etudesPostBTS = utf8_encode($uneLigne->etudesPostBTS);
+			$dateDerniereMAJ = utf8_encode($uneLigne->dateDerniereMAJ);
+			$idFonction = utf8_encode($uneLigne->idFonction);
+		
+			$unEleve = new Eleve($id, $nom, $prenom, $sexe, $anneeDebutBTS, $tel, $adrMail, $rue, $codePostal,
+					$ville, $entreprise, $compteAccepte, $motDePasse, $etudesPostBTS, $dateDerniereMAJ, $idFonction);
+				
+			// ajout de l'élève à la collection
+			$lesEleves[] = $unEleve;
+			// extrait la ligne suivante
+			$uneLigne = $req->fetch(PDO::FETCH_OBJ);
+		}
+		// libère les ressources du jeu de données
+		$req->closeCursor();
+		// fourniture de la collection
+		return $lesEleves;
+	}
+
+	// fournit la liste de toutes les adresses mails des eleves
+	// le résultat est fourni sous forme d'une collection d'adresses mails
+	// créé par Nicolas Esteve le XX/01/2016
+	// modifié par Jim le 13/05/2016
+	function getLesAdressesMails()
+	{	// préparation de la requete de recherche
+		$txt_req = "Select adrMail from ae_eleves order by adrMail";
+		
+		$req = $this->cnx->prepare($txt_req);
+		// extraction des données
+		$req->execute();
+		$uneLigne = $req->fetch(PDO::FETCH_OBJ);
+		
+		// construction d'une collection d'adresses mail
+		$lesMails = array();
+		// tant qu'une ligne est trouvée :
+		while ($uneLigne)
+		{	$unMail = utf8_encode($uneLigne->adrMail);
+			$lesMails[] = $unMail;
+				
+			// extrait la ligne suivante
+			$uneLigne = $req->fetch(PDO::FETCH_OBJ);
+		}
+		// libère les ressources du jeu de données
+		$req->closeCursor();
+		// fourniture de la collection
+		return $lesMails;
+	}
+	
 	// supprime un compte Eleve (ainsi que ses inscriptions s'il en a) à partir de son identifiant ou de son adresse mail
 	// retourne true si enregistrement supprimé correctement, retourne false en cas de problème
 	// modifié par Nicolas Esteve  le XX/01/2016
@@ -341,9 +478,9 @@ class DAO
 		return $ok;
 	}
 	
-	// enregistre le nouveau mot de passe de l'utilisateur dans la bdd après l'avoir hashé en SHA1
+	// enregistre le nouveau mot de passe de l'élève dans la bdd après l'avoir hashé en SHA1
 	// modifié par Jim le 24/11/2015
-	public function modifierMdp($adrMail, $nouveauMdp)
+	public function modifierMdpEleve($adrMail, $nouveauMdp)
 	{	// préparation de la requête
 		$txt_req = "update ae_eleves set motDePasse = :nouveauMdp where adrMail = :adrMail";
 		$req = $this->cnx->prepare($txt_req);
@@ -447,19 +584,10 @@ class DAO
 		return $ok;
 	}
 
-	
-	
-	
-	
-	
-	
-	
-
-	
-	//fonction qui modifie le mot de passse d'un administrateur
-	// fournit la valeur null si le paramètre n'existe pas ou est incorrect
+	// enregistre le nouveau mot de passe de l'administrateur dans la bdd après l'avoir hashé en SHA1
 	// modifié par Nicolas Esteve  le XX/01/2016
-	public function modifierMdpAdmin($adrMail, $nouveauMdp)
+	// modifié par Jim le 13/5/2016
+	public function modifierMdpAdministrateur($adrMail, $nouveauMdp)
 	{	// préparation de la requête
 		$txt_req = "update ae_administrateurs set motDePasse = :nouveauMdp where adrMail = :adrMail";
 		$req = $this->cnx->prepare($txt_req);
@@ -470,68 +598,66 @@ class DAO
 		$ok = $req->execute();
 		return $ok;
 	}
-	
-	//fonction qui modifie les données d'un Eleve
-	// fournit la valeur null si le paramètre n'existe pas ou est incorrect
-	// modifié par Nicolas Esteve  le XX/01/2016
-	public function modifierFichePerso($nom,$prenom,$anneeDebutBTS,$mail,$telephone,$rue,$ville,$cp,$etudes,$entreprise,$fonction)
+
+	// fournit un objet Soiree qui contient tous les détails concernant la PROCHAINE soirée
+	// le résultat est fourni sous forme d'un objet Soiree
+	// le paramètre "relire" permet de tester si les données ont déjà été lues et stockées en variable de session
+	// si "relire" est égal à true, on relit la bdd et on recharge la variable de session
+	// créé par Nicolas Esteve le XX/01/2016
+	// modifié par Jim le 13/05/2016
+	function getSoiree($relire)
 	{
-		//mise en forme des variables
-		$telephone = Outils::corrigerTelephone($telephone);
-		$nom = strtoupper($nom);	
-		$prenom = Outils::corrigerPrenom($prenom);
-		$ville = Outils::corrigerVille($ville);
-		
-		
-		//creation de la requette
-		$txt_req = "UPDATE ae_eleves SET ";
-		$txt_req .= " nom = :nom,";
-		$txt_req .= " prenom = :prenom,";
-		$txt_req .= " anneeDebutBTS = :anneeDebutBTS,";
-		$txt_req .= " tel = :tel,";
-		$txt_req .= " codePostal = :cp,";
-		$txt_req .= " ville = :ville,";
-		$txt_req .= " rue = :rue,";
-		$txt_req .= " entreprise = :entreprise,";
-		$txt_req .= " idFonction = :fonction,";
-		$txt_req .= " etudesPostBTS = :etudes";
-		$txt_req .= " WHERE adrMail = :mail;";
-		
-
-		
-		$req = $this->cnx->prepare($txt_req);
-		
-		//remplissage des variables
-		$req->bindValue("nom", utf8_decode($nom), PDO::PARAM_STR);
-		$req->bindValue("prenom", utf8_decode($prenom), PDO::PARAM_STR);
-		$req->bindValue("anneeDebutBTS", utf8_decode($anneeDebutBTS), PDO::PARAM_STR);
-		$req->bindValue("tel", utf8_decode($telephone), PDO::PARAM_STR);
-		$req->bindValue("cp", utf8_decode($cp), PDO::PARAM_STR);
-		$req->bindValue("ville", utf8_decode($ville), PDO::PARAM_STR);
-		$req->bindValue("rue", utf8_decode($rue), PDO::PARAM_STR);
-		$req->bindValue("entreprise", utf8_decode($entreprise), PDO::PARAM_STR);
-		$req->bindValue("fonction", utf8_decode($fonction), PDO::PARAM_INT);
-		$req->bindValue("etudes", utf8_decode($etudes), PDO::PARAM_STR);
-		$req->bindValue("mail", utf8_decode($mail), PDO::PARAM_STR);
-		
-		$ok = $req->execute();//execution de la requete
-		
-		if($ok)
+		if ( isset($_SESSION['Soiree']) == true && $relire == false)
 		{
-			$txt_req = "Update ae_eleves SET dateDerniereMAJ = :date where adrMail = :mail";
-			$req = $this->cnx->prepare($txt_req);
-			$date = date('Y-m-d H:i:s', time());
-			$req->bindValue("mail", $mail, PDO::PARAM_STR);//remplissage de la variable
-			$req->bindValue("date", $date, PDO::PARAM_STR);//remplissage de la variable
-			$ok = $req->execute();//execution de la requete
+			// la fonction unserialise sert à convertir la variable de session (de type chaine) en un objet Soiree
+			$Soiree = unserialize($_SESSION['Soiree']);
+			return $Soiree;
 		}
-		return $ok;
-
-	}
+		else
+		{	// on relit la bdd et on recharge la variable de session
+			// creation de la requête
+			$txt_req = "Select * from ae_soirees ";
+			// préparation de la requête
+			$req = $this->cnx->prepare($txt_req);
+			// exécution de la requête
+			$req->execute();
+			$uneLigne = $req->fetch(PDO::FETCH_OBJ);
+			// si la requête ne renvoie aucune ligne
+			if( ! $uneLigne)
+				return null;
+			else
+			{	$unId = utf8_encode($uneLigne->id);
+				$uneDateSoiree = utf8_encode($uneLigne->dateSoiree);
+				$unNomRestaurant = utf8_encode($uneLigne->nomRestaurant);
+				$uneAdresse = utf8_encode($uneLigne->adresse);
+				$unTarif = utf8_encode($uneLigne->tarif);
+				$unLienMenu = utf8_encode($uneLigne->lienMenu);
+				$uneLatitude = utf8_encode($uneLigne->latitude);
+				$uneLongitude = utf8_encode($uneLigne->longitude);
 	
-	//fonction qui permet a un utilisateur de modifier les donnée d'un compte utilisateur
+				$Soiree = new Soiree($unId, $uneDateSoiree, $unNomRestaurant, $uneAdresse, $unTarif, $unLienMenu, $uneLatitude, $uneLongitude);
+				// la fonction serialise sert à convertir l'objet Soiree en une chaine de caratères afin de la mettre dans une variable de session
+				$_SESSION['Soiree'] = serialize($Soiree);
+				// on retourne l'objet Soiree
+				return $Soiree;
+			}
+		}
+	}	
+	
+	
+	
+
+	
+	
+	
+	
+	
+
+	
+	// fonction qui permet a un utilisateur de modifier les donnée d'un compte utilisateur
 	// fournit la valeur null si le paramètre n'existe pas ou est incorrect
 	// modifié par Nicolas Esteve  le XX/01/2016
+	// ATTENTION : cette fonction est-elle vraiment utile car elle est presque identique à la fonction modifierCompteEleve ? (Jim)
 	public function modifierFicheUser($nom,$prenom,$anneeDebutBTS,$mail,$telephone,$rue,$ville,$cp,$etudes,$entreprise,$fonction,$oldMail)
 	{
 		// mise en forme des variables
@@ -589,84 +715,7 @@ class DAO
 		return $ok;
 	
 	}
-	
-	
-	// fournit la liste de toutes les mail des eleves
-	// le résultat est fourni sous forme d'une collection d'objets Mail
-	// modifié par Nicolas Esteve le XX/01/2016
-	function getLesAdressesMail()
-	{	// préparation de la requete de recherche
-		//
-		$txt_req = "Select adrMail from ae_eleves ORDER BY adrMail";
-		
-		$req = $this->cnx->prepare($txt_req);
-		// extraction des données
-		$req->execute();
-		$uneLigne = $req->fetch(PDO::FETCH_OBJ);
-		
-		// construction d'une collection d'objets Fonction
-		$lesMails = array();
-		// tant qu'une ligne est trouvée :
-		while ($uneLigne)
-		{	// création d'un objet Fonctiontion
-			$unMail = utf8_encode($uneLigne->adrMail);
-			$lesMails[] = $unMail;
-			
-			// extrait la ligne suivante
-			$uneLigne = $req->fetch(PDO::FETCH_OBJ);
-		}
-		// libère les ressources du jeu de données
-		$req->closeCursor();
-		// fourniture de la collection
-		return $lesMails;
-	}
-	// fournit un objet Soirée qui contitent tous des détails de la soirée
-	// le résultat est fourni sous forme d'un objet Soiree
-	// modifié par Nicolas Esteve le XX/01/2016
-	//le parametre urgent est la pour savoir si on verifie si les données sont stoquée en session
-	//si urgent est "true" on ne verifie pas la variable de session
-	function getDonnesSoiree($urgent)
-		{
-		
-		if( isset($_SESSION['Soiree']) == true && $urgent == false)
-		{
-			//unserialise sert a traduire la variable de session qui est une chaine de caratères en un objet Soiree
-			$Soiree = unserialize($_SESSION['Soiree']);
-			return $Soiree;
-		}
-		else
-		{
-			// creation de la requete
-			$txt_req = "Select * from ae_soirees order by id";
-			//preparation de la requete
-			$req = $this->cnx->prepare($txt_req);
-			// execution de la requete
-			$req->execute();
-			$uneLigne = $req->fetch(PDO::FETCH_OBJ);
-			//si la requete ne renvoie aucune ligne
-			if( !$uneLigne)
-			{
-				return null;	
-			}
-			else {
-				
-				$unId= utf8_encode($uneLigne->id);
-				$unNomRestaurant = utf8_encode($uneLigne->nomRestaurant);
-				$uneDate= utf8_encode($uneLigne->date);
-				$uneAdresse=utf8_encode($uneLigne->adresse);
-				$unTarif = utf8_encode($uneLigne->tarif);
-				$unLienMenu = utf8_encode($uneLigne->lienMenu);
-				$uneLatitude = utf8_encode($uneLigne->latitude);
-				$uneLongitude = utf8_encode($uneLigne->longitude);
-				
-				$Soiree = new Soiree($unId, $unNomRestaurant, $uneDate, $uneAdresse, $unTarif, $unLienMenu, $uneLatitude, $uneLongitude);
-				//serialise sert a traduire l'objet Soiree en une chaine de caratères afin de la mettre dans une variable de session
-				$_SESSION['Soiree'] = serialize($Soiree);
-				return $Soiree;
-			}
 
-		}
-	}
 	// fonction qui sert a modifier les données de la soirée
 	// fournit la valeur null si le paramètre n'existe pas ou est incorrect
 	// modifié par Nicolas Esteve le XX/01/2016
@@ -692,10 +741,10 @@ class DAO
 		return $ok;	
 		
 	}
+
 	// fonction qui sert a s'inscrire à la soirée
 	// fournit la valeur null si le paramètre n'existe pas ou est incorrect
-	// modifié par Nicolas Esteve le XX/01/2016
-	
+	// modifié par Nicolas Esteve le XX/01/2016	
 	function inscription($dateInscription,$nbPersonnes,$montant,$montantRembourse,$idEleve,$idSoiree)
 	{
 		$txt_req ="Select * from ae_inscriptions where id = :idEleve";
@@ -779,8 +828,7 @@ class DAO
 		}
 		
 	}
-	
-	
+		
 	// fournit la liste de toutes les mail des eleves inscrit à la soirée
 	// le résultat est fourni sous forme d'une collection d'objets Mail
 	// modifié par Nicolas Esteve le XX/01/2016
@@ -810,6 +858,7 @@ class DAO
 		// fourniture de la collection
 		return $lesMails;
 	}
+
 	// fonction qui sert a modifier les données de l'inscription
 	// fournit la valeur null si le paramètre n'existe pas ou est incorrect
 	// modifié par Nicolas Esteve le XX/01/2016
@@ -833,55 +882,7 @@ class DAO
 	
 	}
 	
-	// fournit la liste de tout les eleves
-	// le résultat est fourni sous forme d'une collection d'objets Eleve
-	// modifié par Nicolas Esteve le XX/01/2016
-	function getLesEleves()
-	{	// préparation de la requete de recherche
-		$txt_req = "Select * from ae_eleves order by id";
-		
-		$req = $this->cnx->prepare($txt_req);
-		// extraction des données
-		$req->execute();
-		$uneLigne = $req->fetch(PDO::FETCH_OBJ);
-		
-		// construction d'une collection d'objets Eleve
-		$lesEleves = array();
-		// tant qu'une ligne est trouvée :
-		while ($uneLigne)
-		{
-			// création d'un objet Eleve
-			$id = utf8_encode($uneLigne->id);
-			$nom = utf8_encode($uneLigne->nom);
-			$prenom = utf8_encode($uneLigne->prenom);
-			$sexe = utf8_encode($uneLigne->sexe);
-			$anneeDebutBTS = utf8_encode($uneLigne->anneeDebutBTS);
-			$tel = utf8_encode($uneLigne->tel);
-			$adrMail = utf8_encode($uneLigne->adrMail);
-			$rue = utf8_encode($uneLigne->rue);
-			$codePostal = utf8_encode($uneLigne->codePostal);
-			$ville = utf8_encode($uneLigne->ville);
-			$entreprise = utf8_encode($uneLigne->entreprise);
-			$compteAccepte = utf8_encode($uneLigne->compteAccepte);
-			$motDePasse = utf8_encode($uneLigne->motDePasse);
-			$etudesPostBTS = utf8_encode($uneLigne->etudesPostBTS);
-			$dateDerniereMAJ = utf8_encode($uneLigne->dateDerniereMAJ);
-			$idFonction = utf8_encode($uneLigne->idFonction);
-		
-			$unEleve = new Eleve($id, $nom, $prenom, $sexe, $anneeDebutBTS, $tel, $adrMail, $rue, $codePostal,
-					$ville, $entreprise, $compteAccepte, $motDePasse, $etudesPostBTS, $dateDerniereMAJ, $idFonction);
-		
-				
-			// ajout de la fonction à la collection
-			$lesEleves[] = $unEleve;
-			// extrait la ligne suivante
-			$uneLigne = $req->fetch(PDO::FETCH_OBJ);
-		}
-		// libère les ressources du jeu de données
-		$req->closeCursor();
-		// fourniture de la collection
-		return $lesEleves;
-	}
+
 	
 } // fin de la classe DAO
 

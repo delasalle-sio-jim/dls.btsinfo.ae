@@ -3,12 +3,7 @@
 // fichier : modele/Soiree.class.php
 // Rôle : la classe Soiree représente la soirée annuelle des anciens élèves
 // Création : 20/1/2016 par Nicolas Esteve
-// Mise à jour : 9/5/2016 par JM CARTRON
-
-// inclusion de la classe Fonction
-include_once ('Fonction.class.php');
-// inclusion de la classe Outils
-include_once ('Outils.class.php');
+// Mise à jour : 13/5/2016 par JM CARTRON
 
 class Soiree
 {
@@ -17,8 +12,8 @@ class Soiree
 	// ------------------------------------------------------------------------------------------------------
 	
 	private $id;				// identifiant de la soirée	
-	private $nomRestaurant;		// nom du restaurant
-	private $dateSoiree;		// date de la soirée		
+	private $dateSoiree;		// date de la soirée
+	private $nomRestaurant;		// nom du restaurant	
 	private $adresse;			// adresse du restaurant
 	private $tarif;				// tarif
 	private $lienMenu;			// lien vers une image du menu (ou vers le site du restaurant : à voir)
@@ -29,10 +24,10 @@ class Soiree
 	// ----------------------------------------- Constructeur -----------------------------------------------
 	// ------------------------------------------------------------------------------------------------------
 	
-	public function Soiree($unId, $unNomRestaurant, $uneDateSoiree, $uneAdresse, $unTarif, $unLienMenu, $uneLatitude, $uneLongitude) {
+	public function Soiree($unId, $uneDateSoiree, $unNomRestaurant, $uneAdresse, $unTarif, $unLienMenu, $uneLatitude, $uneLongitude) {
 		$this->id = $unId;
-		$this->nomRestaurant = $unNomRestaurant;
 		$this->dateSoiree = $uneDateSoiree;
+		$this->nomRestaurant = $unNomRestaurant;
 		$this->adresse = $uneAdresse;
 		$this->lienMenu = $unLienMenu;
 		$this->tarif = $unTarif;
@@ -47,11 +42,11 @@ class Soiree
 	public function getId()	{return $this->id;}
 	public function setId($unId) {$this->id = $unId;}
 
+	public function getDateSoiree() {return $this->dateSoiree;}
+	public function setDateSoiree($uneDateSoiree) {$this->dateSoiree = $uneDateSoiree;}
+	
 	public function getNomRestaurant() {return $this->nomRestaurant;}
 	public function setNomRestaurant($unNomRestaurant) {$this->nomRestaurant = $unNomRestaurant;}
-
-	public function getDateSoiree() {return $this->dateSoiree;}
-	public function setDateSoiree($uneDateSoiree) {$this->dateSoiree = $uneDateSoiree;}	
 
 	public function getAdresse() {return $this->adresse;}
 	public function setAdresse($uneAdresse) {$this->adresse = $uneAdresse;}
@@ -75,8 +70,8 @@ class Soiree
 	public function toString() {
 		$msg  = 'Soirée : <br>';
 		$msg .= 'id : ' . $this->getId() . '<br>';
-		$msg .= 'nomRestaurant : ' . $this->getNomRestaurant() . '<br>';
 		$msg .= 'dateSoiree : ' . $this->getDateSoiree() . '<br>';
+		$msg .= 'nomRestaurant : ' . $this->getNomRestaurant() . '<br>';
 		$msg .= 'adresse : ' . $this->getAdresse() . '<br>';				
 		$msg .= 'lienMenu : ' . $this->getLienMenu() . '<br>';
 		$msg .= 'tarif : ' . $this->getTarif() . '<br>';				
