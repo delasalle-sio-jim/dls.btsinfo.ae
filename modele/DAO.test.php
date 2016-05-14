@@ -429,7 +429,7 @@ $dateInscription = "13/05/2016";
 $unNbrePersonnes = 2;
 $montantRegle = 20.50;
 $montantRembourse = 10.50;
-$idEleve = 5;
+$idEleve = 10;
 $idSoiree = 1;
 $inscriptionAnnulee = true;
 
@@ -511,6 +511,7 @@ else
 echo ('<br>');
 */
 
+/*
 // test de la méthode annulerInscription ---------------------------------------------------------
 // modifié par Jim le 13/05/2016
 echo "<h3>Test de annulerInscription : </h3>";
@@ -526,6 +527,20 @@ if ($ok)
 	echo "<p>Annulation de l'inscription 2 !</p>";
 else
 	echo "<p>Echec lors de l'annulation de l'inscription 2 !</p>";
+echo ('<br>');
+*/
+
+// test de la méthode getLesAdressesMailsDesInscrits ---------------------------------------------------------
+// modifié par Jim le 14/5/2016
+echo "<h3>Test de getLesAdressesMailsDesInscrits : </h3>";
+$lesAdressesMails = $dao->getLesAdressesMailsDesInscrits();
+$nbReponses = sizeof($lesAdressesMails);
+echo "<p>Nombre d'adresses mails : " . $nbReponses . "</p>";
+// affichage de la première adresse de la collection
+echo ($lesAdressesMails[0]);
+echo ('<br>');
+// affichage de la dernière adresse de la collection
+echo ($lesAdressesMails[$nbReponses-1]);
 echo ('<br>');
 
 

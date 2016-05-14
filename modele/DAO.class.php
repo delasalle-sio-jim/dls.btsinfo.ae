@@ -4,7 +4,7 @@
 //                                                 DAO : Data Access Object
 //                             Cette classe fournit des méthodes d'accès à la bdd anciensEtudiants
 //                                                 Elle utilise l'objet PDO
-//                       Auteur : JM Cartron                       Dernière modification : 11/01/2016
+//                       Auteur : JM Cartron                       Dernière modification : 14/03/2016
 //						 Participation de : Nicolas Esteve
 // -------------------------------------------------------------------------------------------------------------------------
 
@@ -98,17 +98,8 @@
 
 
 
-
-//// envoyerNouveauMdp ($uneAdrMail, $unNouveauMdp) : bool
-//// validerCreationCompte ($uneAdrMail) : bool
-//// rejeterCreationCompte ($uneAdrMail) : bool
+// méthode prévue mais non écrite /////////////////////////////////////////////////////////////////
 // estInscritAlaProchaineSoiree ($uneAdrMail) : bool
-
-
-
-
-
-
 
 
 // certaines méthodes nécessitent les fichiers suivants :
