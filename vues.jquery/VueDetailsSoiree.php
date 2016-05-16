@@ -23,14 +23,14 @@
 			<div data-role="content">
 			<h4 style="text-align: center; margin-top: 10px; margin-bottom: 10px;">Détails  de la soirée</h4>
 			<?php	
-			if($Soiree->getDate() !== "00-00-0000"  ||$Soiree->getNomRestaurant() !== null  ||$Soiree->getAdresse() !== null  ||$Soiree->getLienMenu() !== null  ||$Soiree->getTarif() !== null )
+			if ($Soiree->getDateSoiree() !== "00-00-0000"  || $Soiree->getNomRestaurant() !== null  || $Soiree->getAdresse() !== null  || $Soiree->getLienMenu() !== null  || $Soiree->getTarif() !== null )
 			{
-			$message =	"Bonjour,<br/>Comme chaque année, l'association INPACT organise un repas auquel les étudiants, anciens étudiants et professeurs du BTS SIO (ex BTS IG) du Lycée De La Salle sont conviés.<br/>";
+				$message =	"Bonjour,<br/>Comme chaque année, l'association INPACT organise un repas auquel les étudiants, anciens étudiants et professeurs du BTS SIO (ex BTS IG) du Lycée De La Salle sont conviés.<br/>";
 					
 				
-				if($Soiree->getDate() !== "00-00-0000")
+				if($Soiree->getDateSoiree() !== "00-00-0000")
 						{
-							$message .="Ce repas aura lieu le vendredi  ".Outils::convertirEnDateFR($Soiree->getDate()) ."  à 20h ";
+							$message .="Ce repas aura lieu le vendredi  ".Outils::convertirEnDateFR($Soiree->getDateSoiree()) ."  à 20h ";
 						}
 						
 				if($Soiree->getNomRestaurant() !== null)

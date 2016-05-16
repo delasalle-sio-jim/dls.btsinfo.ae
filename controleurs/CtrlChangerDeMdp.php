@@ -47,7 +47,7 @@ else {
 				$dao = new DAO();
 
 				// enregistre le nouveau mot de passe de l'utilisateur dans la bdd après l'avoir hashé en SHA1
-				$dao->modifierMdp ($adrMail, $nouveauMdp);
+				$dao->modifierMdpEleve ($adrMail, $nouveauMdp);
 							
 				// envoi d'un mail à l'utilisateur avec son nouveau mot de passe 
 				$ok = $dao->envoyerMdp ($adrMail, $nouveauMdp);

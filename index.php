@@ -1,6 +1,7 @@
 <?php
 // Projet DLS - BTS Info - Anciens élèves
 // Ecrit le 1/12/2015 par Jim
+// Modifié le 15/05/2016 par Jim
 
 // Fonction de la page principale index.php : analyser toutes les demandes et activer le contrôleur chargé de traiter l'action demandée
 
@@ -25,8 +26,8 @@ session_start();		// permet d'utiliser des variables de session
 // si $debug est égal à true, certaines variables sont affichées (pour la mise au point)
 $debug = false;
 
-// choix des styles graphiques pour jQuery mobile
-$version = "1.4.5";			// choix de la version de JQuery Mobile (voir fichier head.php) : 1.2.0,  1.2.1,  1.3.2,  1.4.5
+// choix des styles graphiques pour jQuery mobile :
+$version = "1.4.5";			// choix de la version de JQuery Mobile (voir fichier head.php) parmi les valeurs 1.2.0,  1.2.1,  1.3.2,  1.4.5
 $themeNormal = "a";			// thème de base
 $themeProbleme = "b";		// thème utilisé pour afficher un message en cas de problème
 $transition ="flip";		// transition lors des changements de page (pop, flip, fade, turn, flow, slidefade, slide, slideup, slidedown)
@@ -44,12 +45,18 @@ if ($action == '' || $action == 'Deconnecter')
 }
 
 // tests des variables de session
+
+// pour mémoriser l'adresse mail, le mot de passe et le type d'utilisateur ("eleve" ou "administrateur") :
 if ( isset ($_SESSION['adrMail']) == false)  $adrMail = '';  else  $adrMail = $_SESSION['adrMail'];
 if ( isset ($_SESSION['motDePasse']) == false)  $motDePasse = '';  else  $motDePasse = $_SESSION['motDePasse'];
 if ( isset ($_SESSION['typeUtilisateur']) == false)  $typeUtilisateur = '';  else  $typeUtilisateur = $_SESSION['typeUtilisateur'];
+
+// pour mémoriser le choix d'afficher en clar (ou pas) le mot de passe :
 if ( isset ($_SESSION['afficherMdp']) == false)  $afficherMdp = 'off';  else  $afficherMdp = $_SESSION['afficherMdp'];
+
+// pour mémoriser le chemin d'accès des vues  ("vues.html5/" pour un ordi, "vues.jquery/" pour un mobile) :
 if ( isset ($_SESSION['cheminDesVues']) == false) 
-{	// détection du type de terminal pour le choix des vues
+{	// détection du type de terminal de l'utilisateur
 	require_once 'Mobile_Detect.php';
 	$detect = new Mobile_Detect;
 	if ( $detect->isMobile() ) $cheminDesVues = "vues.jquery/"; else $cheminDesVues = "vues.html5/";
@@ -57,8 +64,8 @@ if ( isset ($_SESSION['cheminDesVues']) == false)
 }
 else
 	 $cheminDesVues = $_SESSION['cheminDesVues'];
-
- $cheminDesVues = "vues.jquery/";	// pour forcer l'affichage de la version mobile (ligne à bloquer normalement)
+// ATTENTION ON TRICHE (EN DEVELOPPEMENT) POUR FORCER L'AFFICHAGE DE LA VERSION MOBILE SUR LE POSTE DE DEVELOPPEMENT :
+$cheminDesVues = "vues.jquery/";	// pour forcer l'affichage de la version mobile (ligne à désactiver dans l'application finale)
 
 // si l'utilisateur n'est pas encore identifié, il sera automatiquement redirigé vers le contrôleur d'authentification
 // (sauf s'il ne peut pas se connecter et demande de se faire envoyer son mot de passe qu'il a oublié ou s'il veut se créer un compte)

@@ -8,7 +8,7 @@
 include_once ('modele/DAO.class.php');
 $dao = new DAO();
 // des détails de la soirée pour afficher un message au eleves avec les détails
-$urgence = false;
-$Soiree = $dao->GetDonnesSoiree($urgence);
+$relire = false;
+$Soiree = $dao->GetSoiree($relire);
 $themeFooter = $themeNormal;
 include_once ($cheminDesVues . 'VueDetailsSoiree.php');
