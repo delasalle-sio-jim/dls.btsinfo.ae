@@ -134,7 +134,7 @@ CREATE TABLE IF NOT EXISTS ae_soirees (
   dateSoiree date NOT NULL,
   nomRestaurant varchar(50) NOT NULL,
   adresse varchar(150) NOT NULL,
-  tarif decimal(10,0) NOT NULL,
+  tarif decimal(10,2) NOT NULL,
   lienMenu varchar(100) DEFAULT NULL,
   latitude double NOT NULL DEFAULT '0',
   longitude double NOT NULL DEFAULT '0',
