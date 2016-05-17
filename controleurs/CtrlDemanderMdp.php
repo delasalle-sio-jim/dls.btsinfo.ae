@@ -2,6 +2,7 @@
 // Projet DLS - BTS Info - Anciens élèves
 // Fonction du contrôleur CtrlDemanderMdp.php : traiter la demande d'envoi d'un nouveau mot de passe
 // Ecrit le 24/11/2015 par Jim
+// Modifié le 18/5/2016 par Jim
 
 // inclusion de la classe Outils
 include_once ('modele/Outils.class.php');
@@ -48,7 +49,7 @@ else {
 			// génération d'un nouveau mot de passe
 			$nouveauMdp = Outils::creerMdp();
 			// enregistre le nouveau mot de passe de l'utilisateur dans la bdd après l'avoir hashé en SHA1
-			$dao->modifierMdp($adrMail, $nouveauMdp);
+			$dao->modifierMdpEleve($adrMail, $nouveauMdp);
 		
 			// envoi d'un mail à l'utilisateur avec son nouveau mot de passe 
 			$ok = $dao->envoyerMdp($adrMail, $nouveauMdp);
