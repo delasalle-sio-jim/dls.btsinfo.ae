@@ -530,6 +530,7 @@ else
 echo ('<br>');
 */
 
+/*
 // test de la méthode getLesAdressesMailsDesInscrits ---------------------------------------------------------
 // modifié par Jim le 14/5/2016
 echo "<h3>Test de getLesAdressesMailsDesInscrits : </h3>";
@@ -542,7 +543,7 @@ echo ('<br>');
 // affichage de la dernière adresse de la collection
 echo ($lesAdressesMails[$nbReponses-1]);
 echo ('<br>');
-
+*/
 
 
 

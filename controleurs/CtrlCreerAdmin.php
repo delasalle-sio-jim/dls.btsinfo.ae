@@ -45,7 +45,8 @@ else
 		include_once ('modele/DAO.class.php');
 		$dao = new DAO();
 		$nouveauMdp = Outils::creerMdp();
-		$ok = $dao->creerAdministrateur($adrMailAdmin, $nouveauMdp, $nomAdmin, $prenomAdmin);
+		$unAdministrateur = new Administrateur(0, $adrMailAdmin, $nouveauMdp, $prenomAdmin, $nomAdmin);
+		$ok = $dao->creerCompteAdministrateur($unAdministrateur);
 		
 	
 		if($ok){
