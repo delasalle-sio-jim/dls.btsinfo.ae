@@ -2,14 +2,17 @@
 // Projet DLS - BTS Info - Anciens élèves
 // Fonction du contrôleur CtrlInscriptionSoiree.php : traiter la demande de d'inscriptions ou d'annulations d'inscription
 // Ecrit le 02/02/2016 par Nicolas Esteve
+// Modifié le 18/5/2016 par Jim
+
 include_once ('modele/DAO.class.php');
 $dao = new DAO();
-//mise en place de variable permanantes
-$urgent = true;
-$Soiree = $dao->GetDonnesSoiree($urgent);
-$tarif = $Soiree->getTarif();
-// on vérifie si le demandeur de cette action est bien authentifié
 
+// mise en place de variable permanentes
+$urgent = true;
+$Soiree = $dao->GetSoiree($urgent);
+$tarif = $Soiree->getTarif();
+
+// on vérifie si le demandeur de cette action est bien authentifié
 if ( $_SESSION['typeUtilisateur'] != 'eleve') {
 	// si le demandeur n'est pas authentifié, il s'agit d'une tentative d'accès frauduleux
 	// dans ce cas, on provoque une redirection vers la page de connexion
@@ -23,18 +26,15 @@ else {
 		include_once ($cheminDesVues . 'VueInscriptionSoiree.php');
 	}
 	else {
-		if(isset ($_POST ["btnInscription"]) == true )
+		if (isset ($_POST ["btnInscription"]) == true )
 		{
-			
-			
 			$nbPersonnes = $_POST ["txtNbPlaces"];
-			$montant = 0;
+			$montantRegle = 0;
 			
 			$urgent = false;
-			$Soiree = $dao->GetDonnesSoiree($urgent);
+			$Soiree = $dao->GetSoiree($urgent);
 			$Tarif = $Soiree->getTarif();
-			$Tarif = $Tarif*$nbPersonnes;
-			
+			$Tarif = $Tarif * $nbPersonnes;
 			
 			$adrMail = $_SESSION['adrMail'];
 			$Eleve = $dao->getEleve($adrMail);
@@ -44,25 +44,27 @@ else {
 			$dateInscription = date('Y-m-d H:i:s', time());
 			$montantRembourse = 0;
 			$idSoiree = $Soiree->getId();
+			$inscriptionAnnulee = false;
 			
+			$uneInscription = new Inscription($idEleve, $dateInscription, $nbPersonnes, $montantRegle, $montantRembourse, $idEleve, $idSoiree, $inscriptionAnnulee);
 			
-			$ok = $dao->Inscription($dateInscription, $nbPersonnes, $montant, $montantRembourse, $idEleve, $idSoiree);
-			if(!$ok)
+			$ok = $dao->creerInscription($uneInscription);
+			if (!$ok)
 			{
-				$message ="L'application à rencontrée un problème";
+				$message ="L'application à rencontré un problème";
 				$typeMessage = 'avertissement';
 				$themeFooter = $themeNormal;
 				include_once ($cheminDesVues . 'VueInscriptionSoiree.php');
 			}
 			else
 			{
-				$message ='Vous êtes inscrit ! <br>Le montant total que vous devez payer pour soirée est de '.$Tarif.' euros.';
+				$message ='Vous êtes inscrit ! <br>Le montant total que vous devez payer pour la soirée est de '. $Tarif . ' euros.';
 				$typeMessage = 'information';
 				$themeFooter = $themeNormal;
 				include_once ($cheminDesVues . 'VueInscriptionSoiree.php');
 			}
 		}
-		elseif(isset ($_POST ["btnAnnulation"]) == true )
+		elseif (isset ($_POST ["btnAnnulation"]) == true )
 		{
 			
 			$adrMail = $_SESSION['adrMail'];
@@ -72,9 +74,9 @@ else {
 			$ok = $dao->annulation($idEleve);
 			
 			
-			if(!$ok)
+			if (!$ok)
 			{
-				$message ="L'application à rencontrée un problème";
+				$message ="L'application à rencontré un problème";
 				$typeMessage = 'avertissement';
 				$themeFooter = $themeNormal;
 				include_once ($cheminDesVues . 'VueInscriptionSoiree.php');

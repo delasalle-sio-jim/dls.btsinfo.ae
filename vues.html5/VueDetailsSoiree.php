@@ -1,7 +1,8 @@
 <?php
 	// Projet DLS - BTS Info - Anciens élèves
 	// Fonction de la vue vues.html5/VueConnecter.php : visualiser la vue de connexion
-	// Ecrit le 6/1/2016 par Jim
+	// Ecrit le 6/1/2016 par Nicolas Esteve
+	// Modifié le 18/5/2016 par Jim
 ?>
 <!doctype html>
 <html>
@@ -27,48 +28,43 @@
 			<h2>Les données de la soirée</h2>
 		
 			<?php	
-			if($Soiree->getDate() !== "00-00-0000"  ||$Soiree->getNomRestaurant() !== null  ||$Soiree->getAdresse() !== null  ||$Soiree->getLienMenu() !== null  ||$Soiree->getTarif() !== null )
-			{
-			$message =	"Bonjour,<br/>Comme chaque année, l'association INPACT organise un repas auquel les étudiants, anciens étudiants et professeurs du BTS SIO (ex BTS IG) du Lycée De La Salle sont conviés.<br/>";
-					
-				
-				if($Soiree->getDate() !== "00-00-0000")
-						{
-							$message .="Ce repas aura lieu le vendredi  ".Outils::convertirEnDateFR($Soiree->getDate()) ."  à 20h ";
-						}
-						
-				if($Soiree->getNomRestaurant() !== null)
-						{
-							$message .= "au restaurant ".$Soiree->getNomRestaurant();
-							
-							
-					if($Soiree->getAdresse() !== null)
-							{
-								$message .= " dont les coordonnées sont :<br/> ".$Soiree->getAdresse().". <br/>";
-							}
-							else 
-							{
-								$message .="dont les coordonnées sont précisées dans le lien ci-joint. <br/>";
-							}
-						}
-				if($Soiree->getLienMenu() !== null)
-						{
-							$message.= 'Vous pouvez vous renseigner sur les menus proposé à l\'aide de ce lien : <br/> <a target="_blank" href="'.$Soiree->getLienMenu().'".>'.$Soiree->getLienMenu().'</a><br/>';
-						}
-						
-				if($Soiree->getTarif() !== null)
-						{
-							$message.= "Le prix prévu pour la soirée est de : ".$Soiree->getTarif()." euros. <br/> <br/>";
-						}
-						
-					$message .= " Dans l'espoir de vous voir à cette soirée,<br/><br/>\t Cordialement,<br/>\t L'équipe d'INPACT";
-					echo $message;
+			if ($Soiree == null )
+			{	echo " Aucun détail a propos de la soirée n'a encore été décidé";
 			}
 			else
 			{
-				echo " Aucun détail a propos de la soirée n'a encore été décidé";
+				$message = "<p>Bonjour,</p>";
+				$message .= "<p>Comme chaque année, l'association INPACT organise un repas auquel les étudiants, anciens étudiants et professeurs du BTS SIO ";
+				$message .= " (ex BTS IG) du Lycée De La Salle sont conviés.</p>";
+										
+				if ($Soiree->getDateSoiree() != "00-00-0000")
+				{	$message .= "<p>Ce repas aura lieu le <b>vendredi " . Outils::convertirEnDateFR($Soiree->getDateSoiree()) . " à 20 h</b>";
+				}
+						
+				if ($Soiree->getNomRestaurant() != null)
+				{	$message .= "<br>au restaurant <b>" . $Soiree->getNomRestaurant() . "</b>";		
+							
+					if ($Soiree->getAdresse() != null)
+					{	$message .= "<br>dont les coordonnées sont :<b> " . $Soiree->getAdresse( ). "</b>.</p>";
+					}
+					else 
+					{	$message .="<br>dont les coordonnées sont précisées dans le lien ci-joint. </p>";
+					}
+				}
+				
+				if ($Soiree->getLienMenu() != null)
+				{	$message .= '<p>Vous pouvez vous renseigner sur les menus proposés à l\'aide de ce lien : <br> <a target="_blank" href="' . $Soiree->getLienMenu() . '".>' . $Soiree->getLienMenu() .'</a></p>';
+				}
+						
+				if ($Soiree->getTarif() != null)
+				{	$message .= "<p>Le prix prévu pour la soirée est de <b>" . $Soiree->getTarif() . " euros</b>. </p>";
+				}
+						
+				$message .= "<p>Dans l'espoir de vous voir à cette soirée,<br/><br/>Cordialement,<br/>L'équipe d'INPACT</p>";
+				echo $message;
 			}
-				?>
+
+			?>
 			
 			</div>
 		

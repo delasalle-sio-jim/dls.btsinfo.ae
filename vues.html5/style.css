@@ -1,4 +1,7 @@
-﻿/* ----------------- Mise en forme de la structure générale -------------------- */
+﻿/* Feuille de styles de la version HTML5 pour terminaux fixes */
+/* Modifié le 18/5/2016 par Jim */
+
+/* ----------------- Mise en forme de la structure générale -------------------- */
 
 * {
   margin: 0; padding: 0;
@@ -74,7 +77,7 @@ div#footer p {
 
 /* style de la division id="content" */
 div#content {
-	padding: 10px 30px 0 40px;
+	padding: 0px 30px 0 40px;
 	margin: 0;
 }
 
@@ -173,6 +176,9 @@ img#logo-droite {
 
 /* style des balises <h2> de la division <div id="content"> */
 div#content h2 {
+	/* marge supérieure */
+	margin-top: 10px;
+	
 	/* padding à gauche pour pouvoir y placer une image */
 	padding-left: 35px;
 	
@@ -191,14 +197,25 @@ div#content h2 {
 
 /* style des balises <h3> de la division <div id="content"> */
 div#content h3 {
-	text-indent: 2em;
-	font-size: 1em;
-	color: #000;
-	margin-bottom: 20px; 
+	/* marges */
+	margin: 10px 0 10px 0;
+	
+	/* taille et couleur de la police, et hauteur de ligne */
+	font: 1em Verdana, Arial, Helvetica, sans-serif;
+	font-weight: bold;
+	color: #0b4c8e;
 }
 
 /* style des balises <p> de la division <div id="content"> */
 div#content p {
+	margin-top: 10px;
+	line-height: 1.2em; 
+	text-align: justify;
+}
+
+/* style des balises <ul> de la division <div id="content"> */
+div#content ul {
+	margin: 5px 0 0 40px;
 	line-height: 1.2em; 
 	text-align: justify;
 }

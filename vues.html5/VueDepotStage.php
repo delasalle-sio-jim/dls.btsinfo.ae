@@ -1,7 +1,8 @@
 <?php
 // Projet DLS - BTS Info - Anciens élèves
-// Fonction de la vue vues.html5/VueDepotStage.php : visualiser la vue de depot de stage
+// Fonction de la vue vues.html5/VueDepotStage.php : visualiser la vue de dépôt de stage
 // Ecrit le 19/01/2016 par Nicolas Esteve
+// Modifié le 18/5/2016 par Jim
 ?>
 <!doctype html>
 <html>
@@ -25,15 +26,13 @@
 			
 		<div id="content">
 		
-			<h2>Depot de Stage</h2>
+			<h2>Dépôt de Stage</h2>
 			
-			<label class="label2">Si vous souhaitez déposer une offre de stage suivez le lien ci-dessous :</label><br>
-			<p>
-			</p>
-			<a class="lien" Target=_Blank href="http://www.lycee-delasalle.com/fr/relations-entreprises/deposer-une-offre-d-emploi.php?type_offre=2">www.lycee-delasalle.com</a><br><p>
-			<p>
-			</p>
-			<label class="label2">Les élèves et professeurs de BTS SIO vous remercient d'avance pour le temps que vous prenez pour aider la nouvelle génération.</label>
+			<p>Vous pouvez déposer une offre de stage sur le site web du lycée avec le lien ci-dessous :</p>
+			
+			<p><a class="lien" Target=_Blank href="http://www.lycee-delasalle.com/fr/relations-entreprises/deposer-une-offre-d-emploi.php?type_offre=2">www.lycee-delasalle.com</a></p>
+
+			<p>Les élèves et professeurs de BTS SIO vous remercient d'avance pour le temps que vous prenez pour aider la nouvelle génération.</p>
 			
 		</div>
 		<div id="footer">
