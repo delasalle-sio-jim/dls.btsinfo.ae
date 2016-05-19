@@ -25,11 +25,11 @@
 		</div>
 			
 		<div id="content">
-			<h2>Les données de la soirée</h2>
+			<h2>La prochaine soirée des anciens</h2>
 		
 			<?php	
 			if ($Soiree == null )
-			{	echo " Aucun détail a propos de la soirée n'a encore été décidé";
+			{	echo "La prochaine soirée des anciens n'a pas encore été programmée à ce jour !";
 			}
 			else
 			{
@@ -45,27 +45,25 @@
 				{	$message .= "<br>au restaurant <b>" . $Soiree->getNomRestaurant() . "</b>";		
 							
 					if ($Soiree->getAdresse() != null)
-					{	$message .= "<br>dont les coordonnées sont :<b> " . $Soiree->getAdresse( ). "</b>.</p>";
+					{	$message .= "<br>situé <b> " . $Soiree->getAdresse( ). "</b>.</p>";
 					}
 					else 
-					{	$message .="<br>dont les coordonnées sont précisées dans le lien ci-joint. </p>";
+					{	$message .="<br>dont l'adresse est précisée dans le lien ci-joint. </p>";
 					}
+				}
+
+				if ($Soiree->getTarif() != null)
+				{	$message .= "<p>Le tarif est de <b>" . $Soiree->getTarif() . " euros</b> par personne. </p>";
 				}
 				
 				if ($Soiree->getLienMenu() != null)
-				{	$message .= '<p>Vous pouvez vous renseigner sur les menus proposés à l\'aide de ce lien : <br> <a target="_blank" href="' . $Soiree->getLienMenu() . '".>' . $Soiree->getLienMenu() .'</a></p>';
-				}
-						
-				if ($Soiree->getTarif() != null)
-				{	$message .= "<p>Le prix prévu pour la soirée est de <b>" . $Soiree->getTarif() . " euros</b>. </p>";
+				{	$message .= '<p>Informations plus détaillées sur le restaurant ou sur les menus proposés : <br> <a target="_blank" href="' . $Soiree->getLienMenu() . '".>' . $Soiree->getLienMenu() .'</a></p>';
 				}
 						
 				$message .= "<p>Dans l'espoir de vous voir à cette soirée,<br/><br/>Cordialement,<br/>L'équipe d'INPACT</p>";
 				echo $message;
 			}
-
 			?>
-			
 			</div>
 		
 		<div id="footer">
