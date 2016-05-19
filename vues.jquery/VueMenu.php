@@ -4,6 +4,7 @@
 	// cette vue est appelée par le lien "index.php?action=Menu"
 	// la barre d'entête possède un lien de déconnexion permettant de retourner à la page de connexion
 	// Ecrit le 29/11/2015 par Jim
+	// Modifié le 20/5/2016 par Jim
 ?>
 <!doctype html>
 <html>
@@ -18,9 +19,10 @@
 			</div>
 			<div data-role="content">
 				<h4 style="text-align: center; margin-top: 20px; margin-bottom: 20px;"><?php echo $titre . $prenom . ' ' . $nom; ?></h4>
-				<ul data-role="listview" data-inset="true">
-					<?php if ( $typeUtilisateur == "eleve" ) {
-						// menu élève ?>
+				
+					<?php if ( $typeUtilisateur == "eleveeeeee" ) {
+					// menu élève ?>
+					<ul data-role="listview" data-inset="true">
 						<li><a href="index.php?action=ChangerDeMdp" data-ajax="false" data-transition="<?php echo $transition; ?>">Modifier mon mot de passe</a></li>
 						<li><a href="index.php?action=DetailsSoiree" data-ajax="false" data-transition="<?php echo $transition; ?>">Informations sur la soirée des anciens</a></li>
 						<li><a href="index.php?action=InscriptionSoiree" data-ajax="false" data-transition="<?php echo $transition; ?>">M'inscrire à la soirée des anciens</a></li>
@@ -28,9 +30,46 @@
 						<li><a href="index.php?action=ModifFichePerso" data-ajax="false" data-transition="<?php echo $transition; ?>">Mettre à jour mon profil</a></li>
 						<li><a href="index.php?action=DepotStage" data-ajax="false" data-transition="<?php echo $transition; ?>">Mettre à disposition un stage</a></li>
 						<li><a href="index.php?action=Menu" data-ajax="false" data-transition="<?php echo $transition; ?>">Galerie des photos de classe</a></li>
+					</ul>
 					<?php } ?>
+					
+					<?php if ( $typeUtilisateur == "eleve" ) {
+					// menu élève ?>
+					<div data-role="collapsible-set">
+						<div data-role="collapsible">
+							<h3>Gérer mon compte...</h3>
+							<ul data-role="listview" data-inset="true">
+								<li><a href="index.php?action=ChangerDeMdp" data-mini="true" data-ajax="false" data-transition="<?php echo $transition; ?>">Modifier mon mot de passe</a></li>
+								<li><a href="index.php?action=ModifFichePerso" data-mini="true" data-ajax="false" data-transition="<?php echo $transition; ?>">Mettre à jour mon profil</a></li>						
+							</ul>
+						</div>
+					
+						<div data-role="collapsible">
+							<h3>La soirée annuelle des anciens...</h3>
+							<ul data-role="listview" data-inset="true">
+								<li><a href="index.php?action=InscriptionSoiree" data-mini="true" data-ajax="false" data-transition="<?php echo $transition; ?>">M'inscrire à la soirée des anciens</a></li>
+								<li><a href="index.php?action=DetailsSoiree" data-mini="true" data-ajax="false" data-transition="<?php echo $transition; ?>">Consulter les infos sur la soirée</a></li>
+								<li><a href="index.php?action=Menu" data-mini="true" data-ajax="false" data-transition="<?php echo $transition; ?>">Consulter la liste des inscriptions</a></li>
+								<li><a href="index.php?action=Menu" data-mini="true" data-ajax="false" data-transition="<?php echo $transition; ?>">Modifier mon inscription</a></li>
+								<li><a href="index.php?action=Menu" data-mini="true" data-ajax="false" data-transition="<?php echo $transition; ?>">Annuler mon inscription</a></li>
+							</ul>
+						</div>	
+													
+						<div data-role="collapsible">
+							<h3>Le réseau des anciens élèves...</h3>
+							<ul data-role="listview" data-inset="true">								
+								<li><a href="index.php?action=Menu" data-mini="true" data-ajax="false" data-transition="<?php echo $transition; ?>">Rechercher d'autres anciens élèves</a></li>
+								<li><a href="index.php?action=DepotStage" data-mini="true" data-ajax="false" data-transition="<?php echo $transition; ?>">Proposer un stage à un étudiant</a></li>
+								<li><a href="index.php?action=Menu" data-mini="true" data-ajax="false" data-transition="<?php echo $transition; ?>">Consulter la galerie de photos</a></li>
+							</ul>
+						</div>
+					</div>
+					<?php } ?>
+					
+					
 					<?php if ( $typeUtilisateur == "administrateur" ) {
-						// menu administrateur ?>
+					// menu administrateur ?>
+					<ul data-role="listview" data-inset="true">
 						<li><a href="index.php?action=ChangerDeMdp" data-ajax="false" data-transition="<?php echo $transition; ?>">Modifier mon mot de passe</a></li>
 						<li><a href="index.php?action=CreerAdmin" data-ajax="false" data-transition="<?php echo $transition; ?>">Créer un administrateur</a></li>
 						<li><a href="index.php?action=SupprimerAdmin" data-ajax="false" data-transition="<?php echo $transition; ?>">Supprimer un administrateur</a></li>
@@ -38,7 +77,7 @@
 						<li><a href="index.php?action=Menu" data-ajax="false" data-transition="<?php echo $transition; ?>">Consulter les inscriptions à la soirée</a></li>
 						<li><a href="index.php?action=Menu" data-ajax="false" data-transition="<?php echo $transition; ?>">Envoyer courriels de relance</a></li>
 						<li><a href="index.php?action=Menu" data-ajax="false" data-transition="<?php echo $transition; ?>">Gérer la galerie des photos de classe</a></li>
-						
+
 						<div data-role="collapsible" >
 						<h3>Gérer les comptes élèves</h3>
 							<li><a href="index.php?action=CreatUserAdmin" data-mini="true" data-role="button" data-ajax="false" data-transition="<?php echo $transition; ?>">Créer un compte utilisateur</a></li>
@@ -46,8 +85,8 @@
 							<li><a href="index.php?action=SupprUserAdmin" data-mini="true" data-role="button" data-ajax="false" data-transition="<?php echo $transition; ?>">Supprimer un compte utilisateur</a></li>
 							
 						</div>
+					</ul>	
 					<?php } ?>
-				</ul>
 				
 				<?php if($debug == true) {
 					// en mise au point, on peut afficher certaines variables dans la page
