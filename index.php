@@ -1,7 +1,7 @@
 <?php
 // Projet DLS - BTS Info - Anciens élèves
 // Ecrit le 1/12/2015 par Jim
-// Modifié le 15/05/2016 par Jim
+// Modifié le 20/05/2016 par Jim
 
 // Fonction de la page principale index.php : analyser toutes les demandes et activer le contrôleur chargé de traiter l'action demandée
 
@@ -19,7 +19,7 @@
 // il faut être administrateur pour les 2 actions suivantes :
 //    index.php?action=ModifierCompteEleve    : pour afficher la page de modification d'un compte élève 
 //    index.php?action=SupprimerCompteEleve   : pour afficher la page de suppression d'un compte élève 
-//    index.php?action=SupprimerAdmin		  : pour afficher la page de suppression d'un compte administateur
+//    index.php?action=SupprimerCompteAdmin	  : pour afficher la page de suppression d'un compte administateur
 
 session_start();		// permet d'utiliser des variables de session
 
@@ -72,6 +72,7 @@ $cheminDesVues = "vues.jquery/";	// pour forcer l'affichage de la version mobile
 if ($adrMail == '' && $action != 'DemanderMdp' && $action != 'DemanderCreationCompte') $action = 'Connecter';
 
 switch($action){
+	// options accessibles aux élèves (et parfois proposées aux administrateurs)
 	case 'Connecter': {
 		include_once ('controleurs/CtrlConnecter.php'); break;
 	}
@@ -87,8 +88,25 @@ switch($action){
 	case 'ChangerDeMdp': {
 		include_once ('controleurs/CtrlChangerDeMdp.php'); break;
 	}
-	case 'ModifierFicheEleve': {
-		include_once ('controleurs/CtrlModifierFicheEleve.php'); break;
+	case 'ModifierMaFichePersoEleve': {
+		include_once ('controleurs/CtrlModifierMaFichePersoEleve.php'); break;
+	}
+	case 'VoirDetailsSoiree':{
+		include_once ('controleurs/CtrlVoirDetailsSoiree.php'); break;
+	}
+	case 'CreerMonInscription':{
+		include_once ('controleurs/CtrlCreerMonInscription.php'); break;
+	}
+	case 'ProposerStage':{
+		include_once ('controleurs/CtrlProposerStage.php'); break;
+	}
+	
+	// options accessibles uniquement aux administrateurs
+	case 'ModifierMaFichePersoAdmin': {
+		include_once ('controleurs/CtrlModifierMaFichePersoAdmin.php'); break;
+	}
+	case 'CreerCompteEleve':{
+		include_once ('controleurs/CtrlCreerCompteEleve.php'); break;
 	}
 	case 'ModifierCompteEleve': {
 		include_once ('controleurs/CtrlModifierCompteEleve.php'); break;
@@ -96,41 +114,24 @@ switch($action){
 	case 'SupprimerCompteEleve': {
 		include_once ('controleurs/CtrlSupprimerCompteEleve.php'); break;
 	}
-	case 'SupprimerAdmin':{
-		include_once ('controleurs/CtrlSupprimerAdmin.php'); break;
+	case 'CreerCompteAdmin':{
+		include_once ('controleurs/CtrlCreerCompteAdmin.php'); break;
 	}
-	case 'CreerAdmin':{
-		include_once ('controleurs/CtrlCreerAdmin.php'); break;
+	case 'ModifierCompteAdmin': {
+		include_once ('controleurs/CtrlModifierCompteAdmin.php'); break;
 	}
-	case 'ModifFichePerso':{
-		include_once ('controleurs/CtrlModifFichePerso.php'); break;
+	case 'SupprimerCompteAdmin':{
+		include_once ('controleurs/CtrlSupprimerCompteAdmin.php'); break;
 	}
-	case 'CreatUserAdmin':{
-		include_once ('controleurs/CtrlCreatUserAdmin.php'); break;
+	case 'ModifierDetailsSoiree':{
+		include_once ('controleurs/CtrlModifierDetailsSoiree.php'); break;
 	}
-	case 'SupprUserAdmin':{
-		include_once ('controleurs/CtrlSupprUserAdmin.php'); break;
+	case 'ModifierReglementsRemboursements':{
+		include_once ('controleurs/CtrlModifierReglementsRemboursements.php'); break;
 	}
-	case 'ModifUserAdmin':{
-		include_once ('controleurs/CtrlModifUserAdmin.php'); break;
-	}
-	case 'DepotStage':{
-		include_once ('controleurs/CtrlDepotStage.php'); break;
-	}
-	case 'ModifSoiree':{
-		include_once ('controleurs/CtrlModifSoiree.php'); break;
-	}
-	case 'DetailsSoiree':{
-		include_once ('controleurs/CtrlDetailsSoiree.php'); break;
-	}
-	case 'InscriptionSoiree':{
-		include_once ('controleurs/CtrlInscriptionSoiree.php'); break;
-	}
-	case 'Remboursement':{
-		include_once ('controleurs/CtrlRemboursement.php'); break;
-	}
+	
+	// toute autre tentative est automatiquement redirigée vers le contrôleur d'authentification	
 	default : {
-		// toute autre tentative est automatiquement redirigée vers le contrôleur d'authentification
 		include_once ('controleurs/CtrlConnecter.php'); break;
 	}
 }
