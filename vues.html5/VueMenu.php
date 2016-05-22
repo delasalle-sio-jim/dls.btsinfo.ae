@@ -3,7 +3,9 @@
 	// Fonction de la vue VueMenu.php : visualiser le menu de l'élève ou de l'administrateur
 	// cette vue est appelée par le lien "index.php?action=Menu"
 	// la barre d'entête possède un lien de déconnexion permettant de retourner à la page de connexion
+	// version de base avec une liste de boutons (critique : la liste est trop longue)
 	// Ecrit le 30/12/2015 par Jim
+	// Modifié le 22/5/2016 par Jim
 ?>
 <!doctype html>
 <html>
@@ -30,28 +32,80 @@
 			<div id="menu-vertical">				
 				<?php if ( $typeUtilisateur == "eleve" ) {
 					// menu élève ?>
-					<p><a href="index.php?action=ChangerDeMdp" class="bouton-menu">Modifier mon mot de passe</a></p>
-					<p><a href="index.php?action=DetailsSoiree" class="bouton-menu">Informations sur la soirée des anciens</a></p>
-					<p><a href="index.php?action=InscriptionSoiree" class="bouton-menu">M'inscrire à la soirée des anciens</a></p>
-					<p><a href="index.php?action=Menu" class="bouton-menu">Recherche d'autres anciens élèves</a></p>
-					<p><a href="index.php?action=ModifFichePerso" class="bouton-menu">Mettre à jour mon profil</a></p>
-					<p><a href="index.php?action=DepotStage" class="bouton-menu">Mettre un stage à disposition</a></p>
-					<p><a href="index.php?action=Menu" class="bouton-menu">Galerie des photos de classe</a></p>
+					<div id="menu1" class="menu">
+						<h3><a href="#menu1">Gérer mon compte...</a></h3>
+						<div>
+							<p><a href="index.php?action=ChangerDeMdp" class="bouton-menu">Modifier mon mot de passe</a></p>
+							<p><a href="index.php?action=ModifierMaFichePersoEleve" class="bouton-menu">Mettre à jour mon profil</a></p>						
+						</div>
+					</div>
+					
+					<div id="menu2" class="menu">
+						<h3><a href="#menu2">La soirée annuelle des anciens...</a></h3>
+						<div>
+							<p><a href="index.php?action=CreerMonInscription" class="bouton-menu"">M'inscrire à la soirée des anciens</a></p>
+							<p><a href="index.php?action=VoirDetailsSoiree" class="bouton-menu"">Consulter les infos sur la soirée</a></p>
+							<p><a href="index.php?action=VoirListeInscrits" class="bouton-menu"">Consulter la liste des inscriptions</a></p>
+							<p><a href="index.php?action=ModifierMonInscription" class="bouton-menu">Modifier mon inscription</a></p>
+							<p><a href="index.php?action=SupprimerMonInscription" class="bouton-menu">Annuler mon inscription</a></p>
+						</div>
+					</div>
+					
+					<div id="menu3" class="menu">
+						<h3><a href="#menu3">Le réseau des anciens élèves...</a></h3>
+						<div>
+							<p><a href="index.php?action=RechercherAnciens" class="bouton-menu">Rechercher d'autres anciens élèves</a></p>
+							<p><a href="index.php?action=ProposerStage" class="bouton-menu">Proposer un stage à un étudiant</a></p>
+							<p><a href="index.php?action=VoirPhotos" class="bouton-menu">Consulter la galerie de photos</a></p>
+						</div>
+					</div>
 				<?php } ?>
 				
 				<?php if ( $typeUtilisateur == "administrateur" ) {
 					// menu administrateur ?>
-					<p><a href="index.php?action=ChangerDeMdp" class="bouton-menu">Modifier mon mot de passe</a></p>
-					<p><a href="index.php?action=CreerAdmin" class="bouton-menu">Créer un administrateur</a></p>
-					<p><a href="index.php?action=SupprimerAdmin" class="bouton-menu">Supprimer un administrateur</a></p>
-					<p><a href="index.php?action=ModifSoiree" class="bouton-menu">MAJ des informations sur la soirée</a></p>
-					<p><a href="index.php?action=Menu" class="bouton-menu">Consulter les inscriptions à la soirée</a></p>
-					<p><a href="index.php?action=Menu" class="bouton-menu">Envoyer courriels de relance</a></p>
-					<p><a href="index.php?action=Menu" class="bouton-menu">Gérer la galerie des photos de classe</a></p>
-					<p><a href="index.php?action=Remboursement" class="bouton-menu">Gérer les remboursements</a></p>
-					<p><a href="index.php?action=CreatUserAdmin" class="bouton-menu">Créer un compte utilisateur</a></p>
-					<p><a href="index.php?action=ModifUserAdmin" class="bouton-menu">Modifier un compte utilisateur</a></p>
-					<p><a href="index.php?action=SupprUserAdmin" class="bouton-menu">Supprimer un compte utilisateur</a></p>
+					<div id="menu1" class="menu">
+						<h3><a href="#menu1">Gérer mon compte...</a></h3>
+						<div>
+							<p><a href="index.php?action=ChangerDeMdp" class="bouton-menu">Modifier mon mot de passe</a></p>
+							<p><a href="index.php?action=ModifierMaFichePersoAdmin" class="bouton-menu">Mettre à jour mon profil</a></p>						
+						</div>
+					</div>
+					
+					<div id="menu2" class="menu">
+						<h3><a href="#menu2">La soirée annuelle des anciens...</a></h3>
+						<div>
+							<p><a href="index.php?action=ModifierDetailsSoiree" class="bouton-menu">Modifier les infos sur la soirée</a></p>
+							<p><a href="index.php?action=VoirListeInscrits" class="bouton-menu">Consulter la liste des inscriptions</a></p>
+							<p><a href="index.php?action=EnvoyerCourriel" class="bouton-menu">Envoyer un courriel de relance</a></p>
+							<p><a href="index.php?action=ModifierReglementsRemboursements" class="bouton-menu">Mettre à jour réglements et remboursements</a></p>
+						</div>
+					</div>
+					
+					<div id="menu3" class="menu">
+						<h3><a href="#menu3">Le réseau des anciens élèves...</a></h3>
+						<div>
+							<p><a href="index.php?action=RechercherAnciens" class="bouton-menu">Rechercher d'autres anciens élèves</a></p>
+							<p><a href="index.php?action=GererPhotos" class="bouton-menu">Gérer la galerie de photos</a></p>
+						</div>
+					</div>
+					
+					<div id="menu4" class="menu">
+						<h3><a href="#menu4">Gérer les comptes élèves...</a></h3>
+						<div>
+							<p><a href="index.php?action=CreerCompteEleve" class="bouton-menu">Créer un compte élève</a></p>
+							<p><a href="index.php?action=ModifierCompteEleve" class="bouton-menu">Modifier un compte élève</a></p>
+							<p><a href="index.php?action=SupprimerCompteEleve" class="bouton-menu">Supprimer un compte élève</a></p>
+						</div>
+					</div>
+					
+					<div id="menu5" class="menu">
+						<h3><a href="#menu5">Gérer les comptes administrateurs...</a></h3>
+						<div>
+							<p><a href="index.php?action=CreerCompteAdmin" class="bouton-menu">Créer un compte administrateur</a></p>
+							<p><a href="index.php?action=ModifierCompteAdmin" class="bouton-menu">Modifier un compte administrateur</a></p>
+							<p><a href="index.php?action=SupprimerCompteAdmin" class="bouton-menu">Supprimer un compte administrateur</a></p>
+						</div>
+					</div>
 				<?php } ?>
 			</div>			
 		</div>

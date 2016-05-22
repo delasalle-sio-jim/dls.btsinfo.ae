@@ -1,5 +1,5 @@
 ﻿/* Feuille de styles de la version HTML5 pour terminaux fixes */
-/* Modifié le 18/5/2016 par Jim */
+/* Modifié le 22/5/2016 par Jim */
 
 /* ----------------- Mise en forme de la structure générale -------------------- */
 
@@ -200,7 +200,7 @@ div#content h3 {
 	/* marges */
 	margin: 10px 0 10px 0;
 	
-	/* taille et couleur de la police, et hauteur de ligne */
+	/* taille et couleur de la police */
 	font: 1em Verdana, Arial, Helvetica, sans-serif;
 	font-weight: bold;
 	color: #0b4c8e;
@@ -238,7 +238,46 @@ div#content a:hover {
 div#menu-vertical {
 	/* padding en haut et en bas */
 	padding: 20px 0 20px 0;
+	width: 450px;
+	height: 300px;
+	margin: 0 auto;
 }
+
+/* style des titres <h3> de la <div id="menu-vertical"> */
+div#menu-vertical h3 {
+	margin: 0;
+	padding: 5px;
+	
+	/* taille et couleur de la police */
+	font: 1.2em Verdana, Arial, Helvetica, sans-serif;
+	font-weight: bold;
+	color: #0b4c8e;
+}
+
+/* style des balises <a> contenues dans les titres <h3> de la <div id="menu-vertical"> */
+div#menu-vertical h3 a {
+	text-decoration: none;
+	color: grey;
+}
+
+/* style des divisions de classe "menu" */
+div#menu-vertical .menu {
+	/* border-bottom: 1px solid #333; */
+}
+
+/* style des <div> qui suivent immédiatement un <h3> */
+div#menu-vertical h3 + div {
+	/* hauteur nulle pour fermer la boîte */
+	height: 0;
+	/* masquage du débordement */
+	overflow: hidden;
+}
+
+/* style des <div> qui suivent immédiatement un <h3> ciblées (target) par les liens hypertextes */
+div#menu-vertical :target h3 + div {
+	/* hauteur de la boîte */
+	height: auto;
+}	
 
 /* transformation en boutons des liens hypertextes <a> avec l'attribut class="bouton-menu" */
 div#menu-vertical a.bouton-menu {
@@ -253,8 +292,8 @@ div#menu-vertical a.bouton-menu {
 	text-shadow: 0 1px 0 #fff;
 		
 	/* dimensions, margin, padding, type d'affichage, bordure */
-	width: 300px;
-	margin: 20px auto;
+	width: 350px;
+	margin: 10px auto;
 	padding: 5px;
 	display: block;
 	border: 1px solid rgba(0, 0, 0, 0.1);
