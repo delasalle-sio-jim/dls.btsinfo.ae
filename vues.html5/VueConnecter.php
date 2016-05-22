@@ -2,6 +2,7 @@
 	// Projet DLS - BTS Info - Anciens élèves
 	// Fonction de la vue vues.html5/VueConnecter.php : visualiser la vue de connexion
 	// Ecrit le 6/1/2016 par Jim
+	// Modifié le 22/5/2016 par Jim
 ?>
 <!doctype html>
 <html>
@@ -73,7 +74,7 @@
 			 vous recevrez un mail de confirmation avec votre mot de passe (que vous pourrez ensuite modifier).</p>
 			 		
 			<h2>Accéder à mon compte</h2>
-			<form name="form1" id="form1" action="index.php?action=Connecter" method="post">
+			<form name="form1" id="form1" action="index.php?action=Connecter#menu2" method="post">
 				<p>
 					<label for="txtAdrMail">Adresse mail :</label>
 					<input type="email" name="txtAdrMail" id="txtAdrMail" maxlength="50" placeholder="Mon adresse mail" required value="<?php echo $adrMail; ?>" >

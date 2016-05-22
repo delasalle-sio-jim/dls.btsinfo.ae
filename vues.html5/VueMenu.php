@@ -35,7 +35,7 @@
 					<div id="menu1" class="menu">
 						<h3><a href="#menu1">Gérer mon compte...</a></h3>
 						<div>
-							<p><a href="index.php?action=ChangerDeMdp" class="bouton-menu">Modifier mon mot de passe</a></p>
+							<p><a href="index.php?action=ChangerDeMdpEleve" class="bouton-menu">Modifier mon mot de passe</a></p>
 							<p><a href="index.php?action=ModifierMaFichePersoEleve" class="bouton-menu">Mettre à jour mon profil</a></p>						
 						</div>
 					</div>
@@ -66,7 +66,7 @@
 					<div id="menu1" class="menu">
 						<h3><a href="#menu1">Gérer mon compte...</a></h3>
 						<div>
-							<p><a href="index.php?action=ChangerDeMdp" class="bouton-menu">Modifier mon mot de passe</a></p>
+							<p><a href="index.php?action=ChangerDeMdpAdmin" class="bouton-menu">Modifier mon mot de passe</a></p>
 							<p><a href="index.php?action=ModifierMaFichePersoAdmin" class="bouton-menu">Mettre à jour mon profil</a></p>						
 						</div>
 					</div>

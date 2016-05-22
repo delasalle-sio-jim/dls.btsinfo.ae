@@ -26,7 +26,7 @@
 						<div data-role="collapsible">
 							<h3>Gérer mon compte...</h3>
 							<ul data-role="listview" data-inset="true">
-								<li><a href="index.php?action=ChangerDeMdp" data-mini="true" data-role="button" data-ajax="false" data-transition="<?php echo $transition; ?>">Modifier mon mot de passe</a></li>
+								<li><a href="index.php?action=ChangerDeMdpEleve" data-mini="true" data-role="button" data-ajax="false" data-transition="<?php echo $transition; ?>">Modifier mon mot de passe</a></li>
 								<li><a href="index.php?action=ModifierMaFichePersoEleve" data-mini="true" data-role="button" data-ajax="false" data-transition="<?php echo $transition; ?>">Mettre à jour mon profil</a></li>						
 							</ul>
 						</div>
@@ -59,7 +59,7 @@
 						<div data-role="collapsible">
 							<h3>Gérer mon compte...</h3>
 							<ul data-role="listview" data-inset="true">
-								<li><a href="index.php?action=ChangerDeMdp" data-mini="true" data-role="button" data-ajax="false" data-transition="<?php echo $transition; ?>">Modifier mon mot de passe</a></li>
+								<li><a href="index.php?action=ChangerDeMdpAdmin" data-mini="true" data-role="button" data-ajax="false" data-transition="<?php echo $transition; ?>">Modifier mon mot de passe</a></li>
 								<li><a href="index.php?action=ModifierMaFichePersoAdmin" data-mini="true" data-role="button" data-ajax="false" data-transition="<?php echo $transition; ?>">Mettre à jour mon profil</a></li>						
 							</ul>
 						</div>					

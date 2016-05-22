@@ -1,10 +1,10 @@
 <?php
 // Projet DLS - BTS Info - Anciens élèves
-// Fonction du contrôleur CtrlChangerDeMdp.php : traiter la demande de changement de mot de passe
+// Fonction du contrôleur CtrlChangerDeMdpEleve.php : traiter la demande de changement de mot de passe par l'élève
 // Ecrit le 1/12/2015 par Jim
 
 // on vérifie si le demandeur de cette action est bien authentifié
-if ( $_SESSION['typeUtilisateur'] != 'eleve' && $_SESSION['typeUtilisateur'] != 'administrateur') {
+if ( $_SESSION['typeUtilisateur'] != 'eleve' ) {
 	// si le demandeur n'est pas authentifié, il s'agit d'une tentative d'accès frauduleux
 	// dans ce cas, on provoque une redirection vers la page de connexion
 	header ("Location: index.php?action=Deconnecter");
@@ -18,7 +18,7 @@ else {
 		$message = '';
 		$typeMessage = '';			// 2 valeurs possibles : 'information' ou 'avertissement'
 		$themeFooter = $themeNormal;
-		include_once ($cheminDesVues . 'VueChangerDeMdp.php');
+		include_once ($cheminDesVues . 'VueChangerDeMdpEleve.php');
 	}
 	else {
 		// récupération des données postées
@@ -31,7 +31,7 @@ else {
 			$message = 'Données incomplètes !';
 			$typeMessage = 'avertissement';
 			$themeFooter = $themeProbleme;
-			include_once ($cheminDesVues . 'VueChangerDeMdp.php');
+			include_once ($cheminDesVues . 'VueChangerDeMdpEleve.php');
 		}
 		else {
 			if ( $nouveauMdp != $confirmationMdp ) {
@@ -39,7 +39,7 @@ else {
 				$message = 'Le nouveau mot de passe et<br>sa confirmation sont différents !';
 				$typeMessage = 'avertissement';
 				$themeFooter = $themeProbleme;
-				include_once ($cheminDesVues . 'VueChangerDeMdp.php');
+				include_once ($cheminDesVues . 'VueChangerDeMdpEleve.php');
 			}
 			else {
 				// connexion du serveur web à la base MySQL
@@ -63,7 +63,7 @@ else {
 					$themeFooter = $themeProbleme;
 				}
 				unset($dao);		// fermeture de la connexion à MySQL
-				include_once ($cheminDesVues . 'VueChangerDeMdp.php');
+				include_once ($cheminDesVues . 'VueChangerDeMdpEleve.php');
 			}
 		}
 	}

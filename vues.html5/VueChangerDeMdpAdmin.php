@@ -1,7 +1,8 @@
 <?php
 	// Projet DLS - BTS Info - Anciens élèves
-	// Fonction de la vue vues.html5/VueConnecter.php : visualiser la vue de connexion
+	// Fonction de la vue vues.html5/VueChangerDeMdpAdmin.php : visualiser la vue de changement de mot de passe par l'administrateur
 	// Ecrit le 6/1/2016 par Jim
+	// Modifié le 22/5/2016 par Jim
 ?>
 <!doctype html>
 <html>
@@ -53,7 +54,7 @@
 		<div id="header">
 			<div id="header-menu">
 				<ul id="menu-horizontal">
-					<li><a href="index.php?action=Menu" data-ajax="false">Retour menu</a></li>
+					<li><a href="index.php?action=Menu#menu1" data-ajax="false">Retour menu</a></li>
 				</ul>
 			</div>
 			<div id="header-logos">
@@ -63,9 +64,8 @@
 		</div>
 			
 		<div id="content">
-		
-			<h2>Changer mon mot de passe</h2>
-			<form name="form1" id="form1" action="index.php?action=ChangerDeMdp" method="post">
+			<h2>Modifier mon mot de passe</h2>
+			<form name="form1" id="form1" action="index.php?action=ChangerDeMdpAdmin" method="post">
 				<p>
 					<label for="txtNouveauMdp">Nouveau mot de passe :</label>
 					<input type="<?php if ($afficherMdp == 'off') echo 'password'; else echo 'text'; ?>" name="txtNouveauMdp" id="txtNouveauMdp" maxlength="20" placeholder="Mon nouveau mot de passe" required value="<?php echo $nouveauMdp; ?>" >
@@ -77,13 +77,11 @@
 				<p>
 					<input type="checkbox" name="caseAfficherMdp" id="caseAfficherMdp" onclick="afficherMdp();" <?php if ($afficherMdp == 'on') echo 'checked'; ?>>
 					<label for="caseAfficherMdp">Afficher en clair</label>
-					
 				</p>
 				<p>
-					<input type="submit" name="btnChangerDeMdp" id="btnChangerDeMdp" value="Changer le mot de passe">
+					<input type="submit" name="btnChangerDeMdp" id="btnChangerDeMdp" value="Envoyer les données">
 				</p>
 			</form>
-			
 		</div>
 		
 		<div id="footer">

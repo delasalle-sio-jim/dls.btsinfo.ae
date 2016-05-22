@@ -1,7 +1,8 @@
 <?php
 	// Projet DLS - BTS Info - Anciens élèves
-	// Fonction de la vue VueChangerDeMdp.php : visualiser la demande de changement de mot de passe
+	// Fonction de la vue vues.jquery/VueChangerDeMdpAdmin.php : visualiser la demande de changement de mot de passe par l'administrateur
 	// Ecrit le 1/12/2015 par Jim
+	// Modifié le 22/5/2016 par Jim
 	
 	// pour obliger la page à se recharger
 	header('Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0');
@@ -62,8 +63,8 @@
 				<a href="index.php?action=Menu" data-ajax="false" data-transition="<?php echo $transition; ?>">Retour menu</a>
 			</div>
 			<div data-role="content">
-				<h4 style="text-align: center; margin-top: 10px; margin-bottom: 10px;">Changer mon mot de passe</h4>
-				<form action="index.php?action=ChangerDeMdp" method="post" data-ajax="false" >
+				<h4 style="text-align: center; margin-top: 10px; margin-bottom: 10px;">Modifier mon mot de passe</h4>
+				<form action="index.php?action=ChangerDeMdpAdmin" method="post" data-ajax="false" >
 					<div data-role="fieldcontain">
 						<label for="txtNouveauMdp">Nouveau mot de passe :</label>
 						<input type="<?php if ($afficherMdp == 'off') echo 'password'; else echo 'text'; ?>" name="txtNouveauMdp" id="txtNouveauMdp" placeholder="Mon nouveau mot de passe" required value="<?php echo $nouveauMdp; ?>">
@@ -77,7 +78,7 @@
 						<input type="checkbox" name="caseAfficherMdp" id="caseAfficherMdp" onclick="afficherMdp();" data-mini="true" <?php if ($afficherMdp == 'on') echo 'checked'; ?>>
 					</div>
 					<div data-role="fieldcontain">
-						<input type="submit" name="btnChangerDeMdp" id="btnChangerDeMdp" value="Changer mon mot de passe">
+						<input type="submit" name="btnChangerDeMdp" id="btnChangerDeMdp" value="Envoyer les données" data-mini="true">
 					</div>
 				</form>
 

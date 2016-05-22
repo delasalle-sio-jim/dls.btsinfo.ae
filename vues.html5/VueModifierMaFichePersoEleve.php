@@ -40,7 +40,7 @@
 		<div id="header">
 			<div id=header-menu>
 				<ul id="menu-horizontal">
-					<li><a href="index.php?action=Menu">Retour au Menu</a></li>
+					<li><a href="index.php?action=Menu#menu1">Retour au Menu</a></li>
 				</ul>
 			</div>
 			<div id="header-logos">
@@ -51,25 +51,26 @@
 		
 		<div id="content">
 			 		
-			<h2>Modification de votre compte</h2>
+			<h2>Mettre à jour mon profil</h2>
+			<p>Vous pouvez à tout moment modifier les informations liées à votre compte.</p>
+			<h3>Modifiez les données de votre profil (* indique un champ obligatoire) :</h3>
 			
-			<p>Vous pouvez modifier les informations liées à votre compte.</p>
-			
-			 
-			<h3>Entrez les données que vous voulez modifier de votre profil :</h3>
-			
-		<form name="form1" id="form1" action="index.php?action=ModifFichePerso" method="post">
-
+			<form name="form1" id="form1" action="index.php?action=ModifierMaFichePersoEleve" method="post">
 				<p>
-					<label for="txtNom">Nom (de naissance) :</label>
+					<label for="txtNom">Nom (de naissance) * :</label>
 					<input type="text" name="txtNom" id="txtNom" maxlength="30" value="<?php echo $nom; ?>" />
 				</p>
 				<p>
-					<label for="txtPrenom">Prénom :</label>
+					<label for="txtPrenom">Prénom * :</label>
 					<input type="text" name="txtPrenom" id="txtPrenom" maxlength="30" value="<?php echo $prenom; ?>" />
 				</p>
 				<p>
-					<label for="txtAnneeDebutBTS">Année d'entrée en BTS :</label>
+					<label for="radioSexe">Sexe * :</label>
+  					<input type="radio" name="radioSexe" id="radioSexeH" required value="H" <?php if ($sexe == "H") echo 'checked="checked"';?> />Homme
+              		<input type="radio" name="radioSexe" id="radioSexeF" required value="F" <?php if ($sexe == "F") echo 'checked="checked"';?> />Femme
+				</p>
+				<p>
+					<label for="txtAnneeDebutBTS">Année d'entrée en BTS * :</label>
 					<input type="text" name="txtAnneeDebutBTS" id="txtAnneeDebutBTS" maxlength="4" pattern="^[0-9]{4}$" value="<?php echo $anneeDebutBTS; ?>" />
 				</p>
 				<p>

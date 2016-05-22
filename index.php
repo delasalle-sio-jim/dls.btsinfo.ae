@@ -65,7 +65,7 @@ if ( isset ($_SESSION['cheminDesVues']) == false)
 else
 	 $cheminDesVues = $_SESSION['cheminDesVues'];
 // ATTENTION ON TRICHE (EN DEVELOPPEMENT) POUR FORCER L'AFFICHAGE DE LA VERSION MOBILE SUR LE POSTE DE DEVELOPPEMENT :
-//$cheminDesVues = "vues.jquery/";	// pour forcer l'affichage de la version mobile (ligne à désactiver dans l'application finale)
+$cheminDesVues = "vues.jquery/";	// pour forcer l'affichage de la version mobile (ligne à désactiver dans l'application finale)
 
 // si l'utilisateur n'est pas encore identifié, il sera automatiquement redirigé vers le contrôleur d'authentification
 // (sauf s'il ne peut pas se connecter et demande de se faire envoyer son mot de passe qu'il a oublié ou s'il veut se créer un compte)
@@ -85,8 +85,8 @@ switch($action){
 	case 'DemanderMdp': {
 		include_once ('controleurs/CtrlDemanderMdp.php'); break;
 	}
-	case 'ChangerDeMdp': {
-		include_once ('controleurs/CtrlChangerDeMdp.php'); break;
+	case 'ChangerDeMdpEleve': {
+		include_once ('controleurs/CtrlChangerDeMdpEleve.php'); break;
 	}
 	case 'ModifierMaFichePersoEleve': {
 		include_once ('controleurs/CtrlModifierMaFichePersoEleve.php'); break;
@@ -102,6 +102,9 @@ switch($action){
 	}
 	
 	// options accessibles uniquement aux administrateurs
+	case 'ChangerDeMdpAdmin': {
+		include_once ('controleurs/CtrlChangerDeMdpAdmin.php'); break;
+	}
 	case 'ModifierMaFichePersoAdmin': {
 		include_once ('controleurs/CtrlModifierMaFichePersoAdmin.php'); break;
 	}

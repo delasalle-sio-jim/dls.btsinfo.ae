@@ -198,7 +198,7 @@ div#content h2 {
 /* style des balises <h3> de la division <div id="content"> */
 div#content h3 {
 	/* marges */
-	margin: 10px 0 10px 0;
+	margin: 10px 0 15px 0;
 	
 	/* taille et couleur de la police */
 	font: 1em Verdana, Arial, Helvetica, sans-serif;
