@@ -719,7 +719,7 @@ class DAO
 		$txt_req .= " values (:dateInscription, :nbrePersonnes, :montantRegle, :montantRembourse, :idEleve, :idSoiree, :inscriptionAnnulee);";
 		$req = $this->cnx->prepare($txt_req);
 		// liaison de la requête et de ses paramètres
-		$req->bindValue("dateInscription",  Outils::convertirEnDateUS($uneInscription->getDateInscription()), PDO::PARAM_STR);
+		$req->bindValue("dateInscription",  ($uneInscription->getDateInscription()), PDO::PARAM_STR);
 		$req->bindValue("nbrePersonnes",  utf8_decode($uneInscription->getNbrePersonnes()), PDO::PARAM_INT);
 		$req->bindValue("montantRegle",  utf8_decode($uneInscription->getMontantRegle()), PDO::PARAM_INT);
 		$req->bindValue("montantRembourse",  utf8_decode($uneInscription->getMontantRembourse()), PDO::PARAM_INT);

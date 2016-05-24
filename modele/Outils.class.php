@@ -172,6 +172,7 @@ class Outils
 		}
 	}
 	
+	
 	// La fonction dateUS convertit une date française (j/m/a) au format US (a-m-j)
 	// par exemple, le paramètre '16/05/2007' donnera '2007-05-16'
 	public static function convertirEnDateUS ($laDate)
@@ -181,6 +182,19 @@ class Outils
 		$an = $tableau[2];
 		return ($an . "-" . $mois . "-" . $jour);		// on les reconcatène dans un ordre différent
 	}
+	
+	/*
+	public static function convertirEnDateUS ($laDate)
+	{
+		$laPositionDuPoint = stripos($laDate, " ");
+		$laDateBien = substr($laDate, 0, $laPositionDuPoint);
+		$tableau = explode ("-", $laDateBien);		// on extrait les segments de la chaine $laDate séparés par des "/"
+		$an = $tableau[0];
+		$mois = $tableau[1];
+		$jour = $tableau[2];
+		return ($an . "-" . $mois . "-" . $jour);		// on les reconcatène dans un ordre différent
+	}
+	*/
 		
 	// La fonction dateFR convertit une date US (a-m-j) au format Français (j/m/a)
 	// par exemple, le paramètre '2007-05-16' donnera '16/05/2007'
