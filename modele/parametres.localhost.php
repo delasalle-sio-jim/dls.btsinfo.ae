@@ -9,8 +9,8 @@ global $PARAM_HOTE, $PARAM_PORT, $PARAM_BDD, $PARAM_USER, $PARAM_PWD;
 $PARAM_HOTE = "localhost";			// si le sgbd est sur la même machine que le serveur php
 $PARAM_PORT = "3306";				// le port utilisé par le serveur MySql
 $PARAM_BDD = "anciensEtudiants";	// nom de la base de données
-$PARAM_USER = "cartron";			// nom de l'utilisateur
-$PARAM_PWD = "cartron";				// son mot de passe
+$PARAM_USER = "root";			// nom de l'utilisateur
+$PARAM_PWD = "";				// son mot de passe
 
 // Autres paramètres -----------------------------------------------------------------------------------------
 global $ADR_MAIL_EMETTEUR, $ADR_MAIL_ADMINISTRATEUR, $ADR_SERVICE_WEB;
@@ -19,8 +19,9 @@ global $ADR_MAIL_EMETTEUR, $ADR_MAIL_ADMINISTRATEUR, $ADR_SERVICE_WEB;
 // autres adresses fictives "delasalle.sio.emetteur@gmail.com" et "delasalle.sio.destinataire@gmail.com"
 $ADR_MAIL_EMETTEUR = "delasalle.sio.eleves@gmail.com";// mot de pase sio1sio2 (boite mail test)
 // adresse de l'administrateur lors d'un envoi de courriel
-$ADR_MAIL_ADMINISTRATEUR = "jean.michel.cartron@gmail.com";
+// $ADR_MAIL_ADMINISTRATEUR = "jean.michel.cartron@gmail.com";
 // $ADR_MAIL_ADMINISTRATEUR = "delasalle.sio.profs@gmail.com";
+	$ADR_MAIL_ADMINISTRATEUR = "delasalle.sio.boutin.k@gmail.com";
 // adresse du service web
 $ADR_SERVICE_WEB = "http://localhost/ws-php-cartron/dls.btsinfo.ae/services/";
 

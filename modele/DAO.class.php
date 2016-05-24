@@ -534,8 +534,32 @@ class DAO
 		//execution de la requete
 		$ok = $req->execute();
 		return $ok;
-	}	
-
+	}
+	
+	// modifie l'admnistrateur dans la bdd et retourne true si mise à jour effectuée correctement, retourne false en cas de problème
+	// créé par Killian BOUTIN le 24/05/2016
+	// ----------------------------------------   getAdrMail() NE FONCTIONNE PAS   -----------------------------------------------
+	public function modifierCompteAdmin($unAdministrateur)
+	{
+		// préparation de la requête
+		$txt_req = "UPDATE ae_administrateurs SET ";
+		$txt_req .= " nom = :nom,";
+		$txt_req .= " prenom = :prenom";
+		$txt_req .= " WHERE adrMail = :adrMail;";
+		//echo $txt_req;
+		
+		$req = $this->cnx->prepare($txt_req);
+	
+		// liaison de la requête et de ses paramètres
+		$req->bindValue("nom", utf8_decode($unAdministrateur->getNom()), PDO::PARAM_STR);
+		$req->bindValue("prenom", utf8_decode($unAdministrateur->getPrenom()), PDO::PARAM_STR);
+		$req->bindValue("adrMail", utf8_decode($unAdministrateur->getAdrMail()), PDO::PARAM_STR);
+	
+		// exécution de la requête
+		$ok = $req->execute();
+		return $ok;
+	}
+	
 	// fournit un objet Administrateur à partir de son identifiant ou de son adresse mail
 	// fournit la valeur null si le paramètre n'existe pas ou est incorrect
 	// modifié par Jim le 23/11/2015

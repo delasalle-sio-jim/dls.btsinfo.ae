@@ -284,6 +284,25 @@ else
 	echo "<p>Echec lors de l'enregistrement de l'administrateur !</p>";
 */
 
+
+// test de la méthode modifierCompteAdmin ---------------------------------------------------------
+// créé par Killian BOUTIN le 24/05/16
+echo "<h3>Test de modifierCompteAdmin : </h3>";
+$unId = 4;
+$uneAdrMail = "jean.michel.cartron@gmail.com";
+$unMotDePasse = "passe";
+$unPrenom = "Eddy";
+$unNom = "TAVULEUR";
+
+$unAdministrateur = new Administrateur($unId, $uneAdrMail, $unMotDePasse, $unPrenom, $unNom);
+
+$ok = $dao->modifierCompteAdmin($unAdministrateur);
+if ($ok)
+	echo "<p>Administrateur bien mis à jour !</p>";
+else
+	echo "<p>Echec de la mise à jour</p>" . ' UPDATE ae_administrateurs SET nom = "' . $unAdministrateur->getNom() . '", prenom = "' . $unAdministrateur->getPrenom() . '" WHERE adrMail = "' . $unAdministrateur->getAdrMail() . '"';
+
+
 /*
  // test de la méthode getAdministrateur ----------------------------------------------------------
  // modifié par Jim le 11/5/2016

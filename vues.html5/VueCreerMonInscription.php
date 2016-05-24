@@ -64,7 +64,7 @@
 		</div>
 			<div id="content">
 				<h2>Inscription à la soirée</h2>
-				<form name="form1" id="form1" action="index.php?action=InscriptionSoiree" method="post">
+				<form name="form1" id="form1" action="index.php?action=CreerMonInscription" method="post">
 
 					<p>
 						<label for="txtNbPlaces">Nombre de places  :</label>
