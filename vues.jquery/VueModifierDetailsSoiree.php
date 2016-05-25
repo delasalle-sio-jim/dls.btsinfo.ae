@@ -2,7 +2,7 @@
 	// Projet DLS - BTS Info - Anciens élèves
 	// Fonction de la vue vues.jquery/VueModifierDetailsSoiree : afficher le formulaire de modification des infos sur la soirée
 	// Ecrit le 6/1/2016 par Nicolas Esteve
-	// Modifié le 20/5/2016 par Jim
+	// Modifié le 25/05/2016
 	
 	// pour obliger la page à se recharger
 	header('Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0');
@@ -24,36 +24,6 @@
 				} );
 			<?php } ?>
 			
-			// associe une fonction à l'événement click sur la case à cocher 'caseAfficherMdp'
-			$('#caseAfficherMdp').live('click', function() {
-				if ($('#caseAfficherMdp').attr('checked') == true) {
-					('#txtNouveauMdp').attr('type', 'text');
-					('#txtNouveauMdp').input('refresh');
-					('#txtConfirmationMdp').attr('type', 'text');
-					('#txtConfirmationMdp').input('refresh');
-					window.alert('true');
-				}
-				else {
-					('#txtNouveauMdp').attr('type', 'password');
-					('#txtNouveauMdp').input('refresh');
-					('#txtConfirmationMdp').attr('type', 'password');
-					('#txtConfirmationMdp').input('refresh');
-					window.alert('false');
-				};
-			} );
-						
-			function afficherMdp()
-			{	if (document.getElementById("caseAfficherMdp").checked == true)
-				{	document.getElementById("txtNouveauMdp").type="text";
-					document.getElementById("txtConfirmationMdp").type="text";
-					// window.alert('true');
-				}
-				else
-				{	document.getElementById("txtNouveauMdp").type="password";
-					document.getElementById("txtConfirmationMdp").type="password";
-					// window.alert('false');
-				}
-			};
 		</script>
 	</head> 
 	<body>
@@ -99,54 +69,7 @@
 					</p>
 				</table>
 			</form>
-				<table>
-				
-			<?php	
-			if($uneSoiree->getDateSoiree() !== null  ||$uneSoiree->getNomRestaurant() !== null  ||$uneSoiree->getAdresse() !== null  ||$uneSoiree->getLienMenu() !== null  ||$uneSoiree->getTarif() !== null )
-			{
-			$message =	"Bonjour,<br/>Comme chaque année, l'association INPACT organise un repas auquel les étudiants, anciens étudiants et professeurs du BTS SIO (ex BTS IG) du Lycée De La Salle sont conviés.<br/>";
-					
-				
-				if($uneSoiree->getDateSoiree() !== "00/00/0000")
-						{
-							$message .="Ce repas aura lieu le vendredi  ".Outils::convertirEnDateFR($uneSoiree->getDateSoiree()) ."  à 20h ";
-						}
-						
-				if($uneSoiree->getNomRestaurant() !== "")
-						{
-							$message .= "au restaurant ".$uneSoiree->getNomRestaurant();
-							
-							
-					if($uneSoiree->getAdresse() !== "")
-							{
-								$message .= " dont les coordonnées sont :<br/> ".$uneSoiree->getAdresse().". <br/>";
-							}
-							else 
-							{
-								$message .="dont les coordonnées sont précisées dans le lien ci-joint. <br/>";
-							}
-						}
-				if($uneSoiree->getLienMenu() !== "")
-						{
-							$message.= "Vous pouvez vous renseigner sur les menus proposé à l'aide de ce lien : <br/> ".$uneSoiree->getLienMenu().". <br/>";
-						}
-						
-				if($uneSoiree->getTarif() !== "0")
-						{
-							$message.= "Le prix prévu pour la soirée est de : ".$uneSoiree->getTarif()." euros. <br/> <br/>";
-						}
-						
-					$message .= " Dans l'espoir de vous voir à cette soirée,<br/><br/>\t Cordialement,<br/>\t L'équipe d'INPACT";
-					echo $message;
-			}
-			else
-			{
-				echo " Aucun détail a propos de la soirée n'a encore été décidé";
-			}
-				?>
 
-			</table>
-				
 		</div>
 		
 			<div data-role="footer" data-position="fixed" data-theme="<?php echo $themeNormal; ?>">

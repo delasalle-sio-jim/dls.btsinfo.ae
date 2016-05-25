@@ -88,55 +88,7 @@
 						<input type="submit" name="btnModifier" id="btnModifier" value="Changer les données de la soirée">
 					</p>
 				</table>
-			</form>
-				<table>
-				
-					<?php	
-					if($uneSoiree->getDateSoiree() !== null  ||$uneSoiree->getNomRestaurant() !== null  ||$uneSoiree->getAdresse() !== null  ||$uneSoiree->getLienMenu() !== null  ||$uneSoiree->getTarif() !== null )
-					{
-					$message =	"Bonjour,<br/>Comme chaque année, l'association INPACT organise un repas auquel les étudiants, anciens étudiants et professeurs du BTS SIO (ex BTS IG) du Lycée De La Salle sont conviés.<br/>";
-							
-						
-						if($uneSoiree->getDateSoiree() !== "00/00/0000")
-								{
-									$message .="Ce repas aura lieu le vendredi  ".Outils::convertirEnDateFR($uneSoiree->getDateSoiree()) ."  à 20h ";
-								}
-								
-						if($uneSoiree->getNomRestaurant() !== "")
-								{
-									$message .= "au restaurant ".$uneSoiree->getNomRestaurant();
-									
-									
-							if($uneSoiree->getAdresse() !== "")
-									{
-										$message .= " dont les coordonnées sont :<br/> ".$uneSoiree->getAdresse().". <br/>";
-									}
-									else 
-									{
-										$message .="dont les coordonnées sont précisées dans le lien ci-joint. <br/>";
-									}
-								}
-						if($uneSoiree->getLienMenu() !== "")
-								{
-									$message.= "Vous pouvez vous renseigner sur les menus proposé à l'aide de ce lien : <br/> ".$uneSoiree->getLienMenu().". <br/>";
-								}
-								
-						if($uneSoiree->getTarif() !== "0")
-								{
-									$message.= "Le prix prévu pour la soirée est de : ".$uneSoiree->getTarif()." euros. <br/> <br/>";
-								}
-								
-							$message .= " Dans l'espoir de vous voir à cette soirée,<br/><br/>\t Cordialement,<br/>\t L'équipe d'INPACT";
-							echo $message;
-					}
-					else
-					{
-						echo " Aucun détail a propos de la soirée n'a encore été décidé";
-					}
-						?>
-
-			</table>
-				
+			</form>				
 		</div>
 		
 		<div id="footer">
