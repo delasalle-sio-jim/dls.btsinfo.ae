@@ -644,8 +644,8 @@ class DAO
 		if ( isset($_SESSION['Soiree']) == true && $relire == false)
 		{
 			// la fonction unserialise sert à convertir la variable de session (de type chaine) en un objet Soiree
-			$Soiree = unserialize($_SESSION['Soiree']);
-			return $Soiree;
+			$uneSoiree = unserialize($_SESSION['Soiree']);
+			return $uneSoiree;
 		}
 		else
 		{	// on relit la bdd et on recharge la variable de session
@@ -668,11 +668,11 @@ class DAO
 				$uneLatitude = utf8_encode($uneLigne->latitude);
 				$uneLongitude = utf8_encode($uneLigne->longitude);
 	
-				$Soiree = new Soiree($unId, $uneDateSoiree, $unNomRestaurant, $uneAdresse, $unTarif, $unLienMenu, $uneLatitude, $uneLongitude);
+				$uneSoiree = new Soiree($unId, $uneDateSoiree, $unNomRestaurant, $uneAdresse, $unTarif, $unLienMenu, $uneLatitude, $uneLongitude);
 				// la fonction serialise sert à convertir l'objet Soiree en une chaine de caratères afin de la mettre dans une variable de session
-				$_SESSION['Soiree'] = serialize($Soiree);
+				$_SESSION['Soiree'] = serialize($uneSoiree);
 				// on retourne l'objet Soiree
-				return $Soiree;
+				return $uneSoiree;
 			}
 		}
 	}	
@@ -719,7 +719,7 @@ class DAO
 		$txt_req .= " values (:dateInscription, :nbrePersonnes, :montantRegle, :montantRembourse, :idEleve, :idSoiree, :inscriptionAnnulee);";
 		$req = $this->cnx->prepare($txt_req);
 		// liaison de la requête et de ses paramètres
-		$req->bindValue("dateInscription",  ($uneInscription->getDateInscription()), PDO::PARAM_STR);
+		$req->bindValue("dateInscription",  $uneInscription->getDateInscription(), PDO::PARAM_STR);
 		$req->bindValue("nbrePersonnes",  utf8_decode($uneInscription->getNbrePersonnes()), PDO::PARAM_INT);
 		$req->bindValue("montantRegle",  utf8_decode($uneInscription->getMontantRegle()), PDO::PARAM_INT);
 		$req->bindValue("montantRembourse",  utf8_decode($uneInscription->getMontantRembourse()), PDO::PARAM_INT);

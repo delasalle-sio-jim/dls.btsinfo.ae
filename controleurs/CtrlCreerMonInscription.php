@@ -9,8 +9,8 @@ $dao = new DAO();
 
 // mise en place de variable permanentes
 $urgent = true;
-$Soiree = $dao->GetSoiree($urgent);
-$tarif = $Soiree->getTarif();
+$uneSoiree = $dao->getSoiree($urgent);
+$tarif = $uneSoiree->getTarif();
 
 // on vérifie si le demandeur de cette action est bien authentifié
 if ( $_SESSION['typeUtilisateur'] != 'eleve') {
@@ -32,8 +32,8 @@ else {
 			$montantRegle = 0;
 			
 			$urgent = false;
-			$Soiree = $dao->GetSoiree($urgent);
-			$Tarif = $Soiree->getTarif();
+			$uneSoiree = $dao->GetSoiree($urgent);
+			$Tarif = $uneSoiree->getTarif();
 			$Tarif = $Tarif * $nbPersonnes;
 			
 			$adrMail = $_SESSION['adrMail'];
@@ -41,9 +41,9 @@ else {
 			
 			$idEleve = $Eleve->getId();
 			
-			$dateInscription = date('Y-m-d H:i:s', time());
+			$dateInscription = date('Y-m-d', time());
 			$montantRembourse = 0;
-			$idSoiree = $Soiree->getId();
+			$idSoiree = $uneSoiree->getId();
 			$inscriptionAnnulee = false;
 			
 			$uneInscription = new Inscription($idEleve, $dateInscription, $nbPersonnes, $montantRegle, $montantRembourse, $idEleve, $idSoiree, $inscriptionAnnulee);
