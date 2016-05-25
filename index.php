@@ -65,7 +65,7 @@ if ( isset ($_SESSION['cheminDesVues']) == false)
 else
 	 $cheminDesVues = $_SESSION['cheminDesVues'];
 // ATTENTION ON TRICHE (EN DEVELOPPEMENT) POUR FORCER L'AFFICHAGE DE LA VERSION MOBILE SUR LE POSTE DE DEVELOPPEMENT :
-$cheminDesVues = "vues.jquery/";	// pour forcer l'affichage de la version mobile (ligne à désactiver dans l'application finale)
+//$cheminDesVues = "vues.jquery/";	// pour forcer l'affichage de la version mobile (ligne à désactiver dans l'application finale)
 
 // si l'utilisateur n'est pas encore identifié, il sera automatiquement redirigé vers le contrôleur d'authentification
 // (sauf s'il ne peut pas se connecter et demande de se faire envoyer son mot de passe qu'il a oublié ou s'il veut se créer un compte)
@@ -91,11 +91,14 @@ switch($action){
 	case 'ModifierMaFichePersoEleve': {
 		include_once ('controleurs/CtrlModifierMaFichePersoEleve.php'); break;
 	}
+	case 'CreerMonInscription':{
+		include_once ('controleurs/CtrlCreerMonInscription.php'); break;
+	}
 	case 'VoirDetailsSoiree':{
 		include_once ('controleurs/CtrlVoirDetailsSoiree.php'); break;
 	}
-	case 'CreerMonInscription':{
-		include_once ('controleurs/CtrlCreerMonInscription.php'); break;
+	case 'VoirListeInscrits':{
+		include_once ('controleurs/CtrlVoirListeInscrits.php'); break;
 	}
 	case 'ProposerStage':{
 		include_once ('controleurs/CtrlProposerStage.php'); break;

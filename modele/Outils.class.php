@@ -1,7 +1,8 @@
 <?php
 // -------------------------------------------------------------------------------------------------------------------------
 //                                         boite à outils de fonctions courantes
-//                       Auteur : JM Cartron                       Dernière modification : 16/11/2015
+//                       Auteur : JM Cartron              	       Avant-dernière modification : 16/11/2015
+//						 Modification : Killian BOUTIN		   	   Dernière modification : 25/05/2016
 // -------------------------------------------------------------------------------------------------------------------------
 
 // liste des méthodes statiques de cette classe (dans l'ordre d'apparition dans le fichier) :
@@ -182,19 +183,6 @@ class Outils
 		$an = $tableau[2];
 		return ($an . "-" . $mois . "-" . $jour);		// on les reconcatène dans un ordre différent
 	}
-	
-	/*
-	public static function convertirEnDateUS ($laDate)
-	{
-		$laPositionDuPoint = stripos($laDate, " ");
-		$laDateBien = substr($laDate, 0, $laPositionDuPoint);
-		$tableau = explode ("-", $laDateBien);		// on extrait les segments de la chaine $laDate séparés par des "/"
-		$an = $tableau[0];
-		$mois = $tableau[1];
-		$jour = $tableau[2];
-		return ($an . "-" . $mois . "-" . $jour);		// on les reconcatène dans un ordre différent
-	}
-	*/
 		
 	// La fonction dateFR convertit une date US (a-m-j) au format Français (j/m/a)
 	// par exemple, le paramètre '2007-05-16' donnera '16/05/2007'

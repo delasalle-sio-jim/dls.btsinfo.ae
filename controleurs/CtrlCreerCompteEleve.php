@@ -2,7 +2,7 @@
 // Projet DLS - BTS Info - Anciens élèves
 // Fonction du contrôleur CtrlCreerCompteEleve.php : traiter la demande de création d'un compte élève par un administrateur
 // Ecrit le 12/01/2016 par Nicolas Esteve
-// Modifié le 20/5/2016 par Jim
+// Modifié le 25/05/2016
 
 // inclusion de la classe Outils
 include_once ('modele/Outils.class.php');
@@ -89,10 +89,10 @@ else {
 			else {
 				// lecture de la bdd pour récupérer l'id attribué au compte élève
 				$nouveauMdp = Outils::creerMdp();					// création d'un mot de passe aléatoire de 8 caractères
-				$ok = $dao->modifierMdp($unEleve->getAdrMail(), $nouveauMdp);
+				$ok = $dao->modifierMdpEleve($unEleve->getAdrMail(), $nouveauMdp);
 				// envoi d'un mail d'acceptation à l'intéressé avec son mot de passe
 				$sujet = "Demande de création de votre compte élève dans l'annuaire des anciens du BTS Informatique";
-				$message = "Votre compte a bien été crée et validée par un administrateur.\n\n";
+				$message = "Votre compte a bien été créé et validé par un administrateur.\n\n";
 				$message .= "Votre login de connexion est : " . $adrMail . "\n";
 				$message .= "Votre mot de passe est : " . $nouveauMdp . "\n\n";
 				$message .= "Cordialement.\n";

@@ -42,7 +42,7 @@ else {
 		// modification de l'objet Admin
 		$unAdministrateur->setNom($nom);
 		$unAdministrateur->setPrenom($prenom);
-		$unAdministrateur->setAdrMail($adrMail);
+		//$unAdministrateur->setAdrMail($adrMail);
 		
 		$ok = $dao->modifierCompteAdmin($unAdministrateur);
 		if ($ok)

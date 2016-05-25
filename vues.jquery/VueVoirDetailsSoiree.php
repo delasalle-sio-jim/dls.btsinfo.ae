@@ -2,7 +2,7 @@
 	// Projet DLS - BTS Info - Anciens élèves
 	// Fonction de la vue vues.jquery/VueVoirDetailsSoiree.php : visualiser les infos sur la soirée
 	// Ecrit le 6/1/2016 par Nicolas Esteve
-	// Modifié le 18/5/2016 par Jim
+	// Modifié le 25/05/2016 par Killian BOUTIN
 	
 	// pour obliger la page à se recharger
 	header('Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0');
@@ -26,7 +26,7 @@
 			<h4 style="text-align: center; margin-top: 10px; margin-bottom: 10px;">La prochaine soirée des anciens</h4>
 			
 			<?php	
-			if ($Soiree == null )
+			if ($uneSoiree == null )
 			{	echo "La prochaine soirée des anciens n'a pas encore été programmée à ce jour !";
 			}
 			else
@@ -35,27 +35,27 @@
 				$message .= "<p>Comme chaque année, l'association INPACT organise un repas auquel les étudiants, anciens étudiants et professeurs du BTS SIO ";
 				$message .= " (ex BTS IG) du Lycée De La Salle sont conviés.</p>";
 										
-				if ($Soiree->getDateSoiree() != "00-00-0000")
-				{	$message .= "<p>Ce repas aura lieu le <b>vendredi " . Outils::convertirEnDateFR($Soiree->getDateSoiree()) . " à 20 h</b>";
+				if ($uneSoiree->getDateSoiree() != "00-00-0000")
+				{	$message .= "<p>Ce repas aura lieu le <b>vendredi " . Outils::convertirEnDateFR($uneSoiree->getDateSoiree()) . " à 20 h</b>";
 				}
 						
-				if ($Soiree->getNomRestaurant() != null)
-				{	$message .= "<br>au restaurant <b>" . $Soiree->getNomRestaurant() . "</b>";		
+				if ($uneSoiree->getNomRestaurant() != null)
+				{	$message .= "<br>au restaurant <b>" . $uneSoiree->getNomRestaurant() . "</b>";		
 							
-					if ($Soiree->getAdresse() != null)
-					{	$message .= "<br>situé <b> " . $Soiree->getAdresse( ). "</b>.</p>";
+					if ($uneSoiree->getAdresse() != null)
+					{	$message .= "<br>situé <b> " . $uneSoiree->getAdresse( ). "</b>.</p>";
 					}
 					else 
 					{	$message .="<br>dont l'adresse est précisée dans le lien ci-joint. </p>";
 					}
 				}
 
-				if ($Soiree->getTarif() != null)
-				{	$message .= "<p>Le tarif est de <b>" . $Soiree->getTarif() . " euros</b> par personne. </p>";
+				if ($uneSoiree->getTarif() != null)
+				{	$message .= "<p>Le tarif est de <b>" . $uneSoiree->getTarif() . " euros</b> par personne. </p>";
 				}
 				
-				if ($Soiree->getLienMenu() != null)
-				{	$message .= '<p>Informations plus détaillées sur le restaurant ou sur les menus proposés : <br> <a target="_blank" href="' . $Soiree->getLienMenu() . '".>' . $Soiree->getLienMenu() .'</a></p>';
+				if ($uneSoiree->getLienMenu() != null)
+				{	$message .= '<p>Informations plus détaillées sur le restaurant ou sur les menus proposés : <br> <a target="_blank" href="' . $uneSoiree->getLienMenu() . '".>' . $uneSoiree->getLienMenu() .'</a></p>';
 				}
 						
 				$message .= "<p>Dans l'espoir de vous voir à cette soirée,<br/><br/>Cordialement,<br/>L'équipe d'INPACT</p>";

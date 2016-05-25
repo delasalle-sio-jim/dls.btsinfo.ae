@@ -644,8 +644,8 @@ class DAO
 		if ( isset($_SESSION['Soiree']) == true && $relire == false)
 		{
 			// la fonction unserialise sert à convertir la variable de session (de type chaine) en un objet Soiree
-			$Soiree = unserialize($_SESSION['Soiree']);
-			return $Soiree;
+			$uneSoiree = unserialize($_SESSION['Soiree']);
+			return $uneSoiree;
 		}
 		else
 		{	// on relit la bdd et on recharge la variable de session
@@ -668,11 +668,11 @@ class DAO
 				$uneLatitude = utf8_encode($uneLigne->latitude);
 				$uneLongitude = utf8_encode($uneLigne->longitude);
 	
-				$Soiree = new Soiree($unId, $uneDateSoiree, $unNomRestaurant, $uneAdresse, $unTarif, $unLienMenu, $uneLatitude, $uneLongitude);
+				$uneSoiree = new Soiree($unId, $uneDateSoiree, $unNomRestaurant, $uneAdresse, $unTarif, $unLienMenu, $uneLatitude, $uneLongitude);
 				// la fonction serialise sert à convertir l'objet Soiree en une chaine de caratères afin de la mettre dans une variable de session
-				$_SESSION['Soiree'] = serialize($Soiree);
+				$_SESSION['Soiree'] = serialize($uneSoiree);
 				// on retourne l'objet Soiree
-				return $Soiree;
+				return $uneSoiree;
 			}
 		}
 	}	
@@ -712,14 +712,14 @@ class DAO
 
 	// enregistre une inscription dans la bdd et retourne true si enregistrement effectué correctement, retourne false en cas de problème
 	// créé par Nicolas Esteve  le XX/01/2016
-	// modifié par Jim le 13/5/2016
+	
 	public function creerInscription($uneInscription)
 	{	// préparation de la requête
 		$txt_req = "Insert Into ae_inscriptions (dateInscription, nbrePersonnes, montantRegle, montantRembourse, idEleve, idSoiree, inscriptionAnnulee)";
 		$txt_req .= " values (:dateInscription, :nbrePersonnes, :montantRegle, :montantRembourse, :idEleve, :idSoiree, :inscriptionAnnulee);";
 		$req = $this->cnx->prepare($txt_req);
 		// liaison de la requête et de ses paramètres
-		$req->bindValue("dateInscription",  ($uneInscription->getDateInscription()), PDO::PARAM_STR);
+		$req->bindValue("dateInscription", Outils::convertirEnDateUS($uneInscription->getDateInscription()), PDO::PARAM_STR);
 		$req->bindValue("nbrePersonnes",  utf8_decode($uneInscription->getNbrePersonnes()), PDO::PARAM_INT);
 		$req->bindValue("montantRegle",  utf8_decode($uneInscription->getMontantRegle()), PDO::PARAM_INT);
 		$req->bindValue("montantRembourse",  utf8_decode($uneInscription->getMontantRembourse()), PDO::PARAM_INT);
@@ -734,6 +734,7 @@ class DAO
 	// fournit un objet Inscription à partir de son identifiant
 	// fournit la valeur null si l'identifiant n'existe pas
 	// créé par Jim le 13/05/2016
+	
 	public function getInscription($idInscription)
 	{	// préparation de la requête
 		$txt_req = "Select * from ae_inscriptions where id = :idInscription";
@@ -765,6 +766,146 @@ class DAO
 			return $uneInscription;
 		}
 	}
+	
+	// fournit toutes les inscriptions de la BDD
+	// créé par Killian le 25/05/2016
+	
+	/*
+	public function getLesInscriptions(){
+		
+		$idInscription = 1;
+		$uneInscription = getInscription($idInscription);
+		
+		// construction d'une collection d'objets Inscription
+		$lesInscriptions = array();
+		
+		while ($uneInscription){
+			
+			// préparation de la requete de recherche
+			$txt_req = "Select nom, prenom from ae_eleves where id = :id ";
+			
+			$req = $this->cnx->prepare($txt_req);
+			// extraction des données
+			$req->execute();
+			$uneLigne = $req->fetch(PDO::FETCH_OBJ);
+			
+			// liaison de la requête et de ses paramètres
+			$req->bindValue("id",  utf8_decode($uneLigne->getIdEleve()), PDO::PARAM_INT);
+			
+			
+		}
+		
+		return 
+		
+	}
+	*/
+	
+	
+	public function getLesInscriptions()
+	{	// préparation de la requête d'extraction de l'id des élèves inscrits
+		$txt_req = "Select * from ae_inscriptions where inscriptionAnnulee = 0";
+		$req = $this->cnx->prepare($txt_req);
+		
+		// extraction des données
+		$req->execute();
+		$uneLigne = $req->fetch(PDO::FETCH_OBJ);
+
+		// construction d'une collection d'objets Inscription
+		$lesInscriptions = array();
+		
+		// tant qu'une ligne est trouvée :
+		while ($uneLigne)
+			{
+				
+				// création d'un objet Inscription
+				$unId = utf8_encode($uneLigne->id);
+				$dateInscription = utf8_encode($uneLigne->dateInscription);
+				$unNbrePersonnes = utf8_encode($uneLigne->nbrePersonnes);
+				$montantRegle = utf8_encode($uneLigne->montantRegle);
+				$montantRembourse = utf8_encode($uneLigne->montantRembourse);
+				$idEleve = utf8_encode($uneLigne->idEleve);
+				$idSoiree = utf8_encode($uneLigne->idSoiree);
+				$inscriptionAnnulee = utf8_encode($uneLigne->inscriptionAnnulee);
+				
+				$uneInscription = new Inscription($unId, $dateInscription, $unNbrePersonnes, $montantRegle, $montantRembourse, $idEleve, $idSoiree, $inscriptionAnnulee);
+				// ajout de l'inscription à la collection
+				$lesInscriptions[] = $uneInscription;
+				// extraction de la ligne suivante
+				$uneLigne = $req->fetch(PDO::FETCH_OBJ);
+			}
+		// libère les ressources du jeu de données
+		$req->closeCursor();
+		
+		return $lesInscriptions;
+	}
+	
+	/*
+	public function getLesInscriptions()
+	{	// préparation de la requête d'extraction de l'id des élèves inscrits
+		$txt_req = "Select * from ae_inscriptions where inscriptionAnnulee = 0";
+		$req = $this->cnx->prepare($txt_req);
+		
+		// extraction des données
+		$req->execute();
+		$uneLigne = $req->fetch(PDO::FETCH_OBJ);
+		
+		// construction d'une collection d'objets Inscription
+		$lesInscriptions = array();
+		
+		// tant qu'une ligne est trouvée :
+		while ($uneLigne)
+		{
+		
+			// création d'un objet Inscription
+			$unId = utf8_encode($uneLigne->id);
+			$dateInscription = utf8_encode($uneLigne->dateInscription);
+			$unNbrePersonnes = utf8_encode($uneLigne->nbrePersonnes);
+			$montantRegle = utf8_encode($uneLigne->montantRegle);
+			$montantRembourse = utf8_encode($uneLigne->montantRembourse);
+			$idEleve = utf8_encode($uneLigne->idEleve);
+			$idSoiree = utf8_encode($uneLigne->idSoiree);
+			$inscriptionAnnulee = utf8_encode($uneLigne->inscriptionAnnulee);
+		
+			$uneInscription = new Inscription($unId, $dateInscription, $unNbrePersonnes, $montantRegle, $montantRembourse, $idEleve, $idSoiree, $inscriptionAnnulee);
+			// ajout de l'inscription à la collection
+			$lesInscriptions[] = $uneInscription;
+			// extraction de la ligne suivante
+			$uneLigne = $req->fetch(PDO::FETCH_OBJ);
+		}
+	
+		foreach ($lesInscriptions as $uneInscription)
+		{
+			// construction d'une collection d'objets Inscription
+			$lesInscriptionsNoms = array();
+			
+			// préparation de la requete de recherche
+			$txt_req = "Select nom, prenom from ae_eleves where id = :id ";
+			
+			$req = $this->cnx->prepare($txt_req);
+			// extraction des données
+			$req->execute();
+			$uneLigne = $req->fetch(PDO::FETCH_OBJ);
+				
+			// liaison de la requête et de ses paramètres
+			$req->bindValue("id",  utf8_decode($uneInscription->getIdEleve()), PDO::PARAM_INT);
+			
+		}
+		
+		// libère les ressources du jeu de données
+		$req->closeCursor();
+		
+		return $lesInscriptions;
+	}
+	*/
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	// modifie l'inscription dans la bdd et retourne true si mise à jour effectuée correctement, retourne false en cas de problème
 	// créé par Nicolas Esteve  le XX/01/2016

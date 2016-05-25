@@ -2,7 +2,7 @@
 	// Projet DLS - BTS Info - Anciens élèves
 	// Fonction de la vue vues.jquery/VueCreerCompteAdmin.php : visualiser la vue de création de compte administrateur
 	// Ecrit le 07/01/2016 par Nicolas Esteve
-	// Modifié le 20/5/par Jim
+	// Modifié le 25/05/2016 par Killian BOUTIN
 ?>
 <!doctype html>
 <html>
@@ -27,7 +27,7 @@
 			</div>
 			<div data-role="content">
 				<h4 style="text-align: center; margin-top: 10px; margin-bottom: 10px;">Creer un administrateur</h4>
-				<form action="index.php?action=CreerAdmin" method="post" data-ajax="false" >
+				<form action="index.php?action=CreerCompteAdmin" method="post" data-ajax="false" >
 				
 					<div data-role="fieldcontain" >
 						<label for="txtAdrMailAdmin">Nom :</label>
@@ -45,7 +45,7 @@
 					</div>
 										
 					<div data-role="fieldcontain">
-						<input type="submit" name="btnCreation" id="btnCreation" value="Creer l'Administrateur">
+						<input type="submit" name="btnCreation" id="btnCreation" value="Creer l'administrateur">
 					</div>
 					
 				</form>

@@ -2,6 +2,7 @@
 	// Projet DLS - BTS Info - Anciens élèves
 	// Fonction de la vue vues.html5/VueCreerCompteEleve.php : afficher la vue de création d'un compte élève par un administrateur
 	// Ecrit le 12/1/2016 par Nicolas Esteve
+	// Modifié le 25/05/2016 par Killian BOUTIN 
 ?>
 <!doctype html>
 <html>
@@ -52,7 +53,7 @@
 			 		
 			<h2>Création d'un compte élève (actuel ou ancien)</h2>
 									
-			<form name="form1" id="form1" action="index.php?action=CreatUserAdmin" method="post">
+			<form name="form1" id="form1" action="index.php?action=CreerCompteEleve" method="post">
 
 				<p>
 					<label for="txtNom">Nom (de naissance) * :</label>

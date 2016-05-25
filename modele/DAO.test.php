@@ -284,7 +284,7 @@ else
 	echo "<p>Echec lors de l'enregistrement de l'administrateur !</p>";
 */
 
-
+/*
 // test de la méthode modifierCompteAdmin ---------------------------------------------------------
 // créé par Killian BOUTIN le 24/05/16
 echo "<h3>Test de modifierCompteAdmin : </h3>";
@@ -301,7 +301,7 @@ if ($ok)
 	echo "<p>Administrateur bien mis à jour !</p>";
 else
 	echo "<p>Echec de la mise à jour</p>" . ' UPDATE ae_administrateurs SET nom = "' . $unAdministrateur->getNom() . '", prenom = "' . $unAdministrateur->getPrenom() . '" WHERE adrMail = "' . $unAdministrateur->getAdrMail() . '"';
-
+*/
 
 /*
  // test de la méthode getAdministrateur ----------------------------------------------------------
@@ -480,6 +480,20 @@ else
 	echo ($uneInscription->toString());
 echo ('<br>');
 */
+
+
+// test de la méthode getLesInscriptions ---------------------------------------------------------
+// créé par Killian BOUTIN le 25/05/2016
+echo "<h3>Test de getLesInscriptions : </h3>";
+$lesInscriptions = $dao->getLesInscriptions();
+$nbReponses = sizeof($lesInscriptions);
+echo "<p>Nombre d'inscriptions : " . $nbReponses . "</p>";
+// affichage des fonctions
+foreach ($lesInscriptions as $uneInscription)
+{	echo ($uneInscription->toString());
+	echo ('<br>');
+}
+
 
 /*
 // test de la méthode modifierInscription ---------------------------------------------------------

@@ -2,7 +2,7 @@
 // Projet DLS - BTS Info - Anciens élèves
 // Fonction de la vue vues.html5/VueCreerMonInscription.php : visualiser le formulaire d'inscription à la soirée
 // Ecrit le 02/02/2016 par Nicolas Esteve
-// Modifié le 20/5/2016 par Jim
+// Modifié le 24/05/2016
 ?>
 <!doctype html>
 <html>
@@ -12,7 +12,6 @@
 		window.onload = initialisations;
 		
 		function initialisations() {
-			document.getElementById("caseAfficherMdp").onchange = afficherMdp;
 
 			<?php if ($typeMessage == 'avertissement') { ?>
 				afficher_avertissement("<?php echo $message; ?>");
@@ -23,16 +22,6 @@
 			<?php } ?>
 		}
 		
-		function afficherMdp()
-		{	if (document.getElementById("caseAfficherMdp").checked == true)
-			{	document.getElementById("txtNouveauMdp").type="text";
-				document.getElementById("txtConfirmationMdp").type="text";
-			}
-			else
-			{	document.getElementById("txtNouveauMdp").type="password";
-				document.getElementById("txtConfirmationMdp").type="password";
-			}
-		}
 		function afficher_information(msg) {
 			document.getElementById("titre_message").innerHTML = "Information...";
 			document.getElementById("titre_message").className = "classe_information";
@@ -97,7 +86,7 @@
 						<label class ="labelImportant"  for="txtNbinformation">Si vous avez déjà fait une reservation celle-ci écrasera la précédente </label>		
 					</p>
 					<p>
-						<input type="submit" name="btnAnnulation"  id="btnAnnulation" value="Annuler mon insription" >
+						<input type="submit" name="btnAnnulation"  id="btnAnnulation" value="Annuler mon inscription" >
 					</p>
 				</form>
 				

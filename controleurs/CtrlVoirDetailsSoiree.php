@@ -10,7 +10,7 @@ $dao = new DAO();
 
 // récupère les détails de la soirée pour les afficher
 $relire = false;
-$Soiree = $dao->getSoiree($relire);
+$uneSoiree = $dao->getSoiree($relire);
 $themeFooter = $themeNormal;
 
 include_once ($cheminDesVues . 'VueVoirDetailsSoiree.php');
