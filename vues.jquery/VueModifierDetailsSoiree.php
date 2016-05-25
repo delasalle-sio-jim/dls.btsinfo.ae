@@ -64,35 +64,35 @@
 			</div>
 			<div data-role="content">
 				<h4 style="text-align: center; margin-top: 10px; margin-bottom: 10px;">Modifier les détails de la soirée</h4>
-				<form action="index.php?action=ModifSoiree" method="post" data-ajax="false" >
+				<form action="index.php?action=ModifierDetailsSoiree" method="post" data-ajax="false" >
 				<table>
 					<p>
 						<label for="txtDate">Date de la soirée :</label>
-						<input type="text	" name="txtDate" id="txtDate"  pattern="^[0-9]{2}(/)[0-9]{2}(/)[0-9]{4}$" placeholder="Date de la soirée"  value="<?php if(isset($Soiree)) echo Outils::convertirEnDateFR($Soiree->getDate()); else echo "";?>" >
+						<input type="text" name="txtDate" id="txtDate"  pattern="^[0-9]{2}(/)[0-9]{2}(/)[0-9]{4}$" placeholder="Date de la soirée"  value="<?php if(isset($uneSoiree)) echo Outils::convertirEnDateFR($uneSoiree->getDateSoiree()); else echo "";?>" >
 					</p>
 					<p>
 						<label for="txtNomRestaurant">Nom du restaurant:</label>
-						<input type="text" name="txtNomRestaurant" id="txtNomRestaurant" maxlength="50" placeholder="Nom du restaurant" value="<?php if(isset($Soiree)) echo $Soiree->getNomRestaurant(); else echo "";?>" >
+						<input type="text" name="txtNomRestaurant" id="txtNomRestaurant" maxlength="50" placeholder="Nom du restaurant" value="<?php if(isset($uneSoiree)) echo $uneSoiree->getNomRestaurant(); else echo "";?>" >
 					</p>
 					<p>
 						<label for="txtNom">adressse du restaurant :</label>
-						<input type="text" name="txtAdresse" id="txtAdresse" maxlength="50" placeholder="L'adresse du restautant"  value="<?php if(isset($Soiree)) echo $Soiree->getAdresse(); else echo "";?>" >
+						<input type="text" name="txtAdresse" id="txtAdresse" maxlength="50" placeholder="L'adresse du restautant"  value="<?php if(isset($uneSoiree)) echo $uneSoiree->getAdresse(); else echo "";?>" >
 					</p>
 					<p>
 						<label for="txtTarif">Tarif :</label>
-						<input type="text" name="txtTarif" id="txtTarif" maxlength="8" placeholder="Tarif"  value="<?php if(isset($Soiree)) echo $Soiree->getTarif(); else echo "";?>" >
+						<input type="text" name="txtTarif" id="txtTarif" maxlength="8" placeholder="Tarif"  value="<?php if(isset($uneSoiree)) echo $uneSoiree->getTarif(); else echo "";?>" >
 					</p>
 					<p>
 						<label for="txtLienMenu"> Lien vers le Menu du site du restaurant :</label>
-						<input type="text" name="txtLienMenu" id="txtLienMenu" maxlength="100" placeholder="Lien vers le menu du restaurant"  value="<?php if(isset($Soiree)) echo $Soiree->getLienMenu(); else echo "";?>" >
+						<input type="text" name="txtLienMenu" id="txtLienMenu" maxlength="100" placeholder="Lien vers le menu du restaurant"  value="<?php if(isset($uneSoiree)) echo $uneSoiree->getLienMenu(); else echo "";?>" >
 					</p>
 					<p>
 						<label for="txtLatitude">Latitude :</label>
-						<input type="text" name="txtLatitude" id="txtLatitude" maxlength="20" placeholder="Latitude" value="<?php if(isset($Soiree)) echo $Soiree->getLatitude(); else echo "";?>" >
+						<input type="text" name="txtLatitude" id="txtLatitude" maxlength="20" placeholder="Latitude" value="<?php if(isset($uneSoiree)) echo $uneSoiree->getLatitude(); else echo "";?>" >
 					</p>
 					<p>
 						<label for="txtLongitude">Longitude :</label>
-						<input type="text" name="txtLongitude" id="txtLongitude" maxlength="20" placeholder="Longitude"  value="<?php if(isset($Soiree)) echo $Soiree->getLongitude(); else echo "";?>" >
+						<input type="text" name="txtLongitude" id="txtLongitude" maxlength="20" placeholder="Longitude"  value="<?php if(isset($uneSoiree)) echo $uneSoiree->getLongitude(); else echo "";?>" >
 					</p>			
 					<p>
 						<input type="submit" name="btnModifier" id="btnModifier" value="Changer les données de la soirée">
@@ -102,38 +102,38 @@
 				<table>
 				
 			<?php	
-			if($Soiree->getDate() !== null  ||$Soiree->getNomRestaurant() !== null  ||$Soiree->getAdresse() !== null  ||$Soiree->getLienMenu() !== null  ||$Soiree->getTarif() !== null )
+			if($uneSoiree->getDateSoiree() !== null  ||$uneSoiree->getNomRestaurant() !== null  ||$uneSoiree->getAdresse() !== null  ||$uneSoiree->getLienMenu() !== null  ||$uneSoiree->getTarif() !== null )
 			{
 			$message =	"Bonjour,<br/>Comme chaque année, l'association INPACT organise un repas auquel les étudiants, anciens étudiants et professeurs du BTS SIO (ex BTS IG) du Lycée De La Salle sont conviés.<br/>";
 					
 				
-				if($Soiree->getDate() !== "00/00/0000")
+				if($uneSoiree->getDateSoiree() !== "00/00/0000")
 						{
-							$message .="Ce repas aura lieu le vendredi  ".Outils::convertirEnDateFR($Soiree->getDate()) ."  à 20h ";
+							$message .="Ce repas aura lieu le vendredi  ".Outils::convertirEnDateFR($uneSoiree->getDateSoiree()) ."  à 20h ";
 						}
 						
-				if($Soiree->getNomRestaurant() !== "")
+				if($uneSoiree->getNomRestaurant() !== "")
 						{
-							$message .= "au restaurant ".$Soiree->getNomRestaurant();
+							$message .= "au restaurant ".$uneSoiree->getNomRestaurant();
 							
 							
-					if($Soiree->getAdresse() !== "")
+					if($uneSoiree->getAdresse() !== "")
 							{
-								$message .= " dont les coordonnées sont :<br/> ".$Soiree->getAdresse().". <br/>";
+								$message .= " dont les coordonnées sont :<br/> ".$uneSoiree->getAdresse().". <br/>";
 							}
 							else 
 							{
 								$message .="dont les coordonnées sont précisées dans le lien ci-joint. <br/>";
 							}
 						}
-				if($Soiree->getLienMenu() !== "")
+				if($uneSoiree->getLienMenu() !== "")
 						{
-							$message.= "Vous pouvez vous renseigner sur les menus proposé à l'aide de ce lien : <br/> ".$Soiree->getLienMenu().". <br/>";
+							$message.= "Vous pouvez vous renseigner sur les menus proposé à l'aide de ce lien : <br/> ".$uneSoiree->getLienMenu().". <br/>";
 						}
 						
-				if($Soiree->getTarif() !== "0")
+				if($uneSoiree->getTarif() !== "0")
 						{
-							$message.= "Le prix prévu pour la soirée est de : ".$Soiree->getTarif()." euros. <br/> <br/>";
+							$message.= "Le prix prévu pour la soirée est de : ".$uneSoiree->getTarif()." euros. <br/> <br/>";
 						}
 						
 					$message .= " Dans l'espoir de vous voir à cette soirée,<br/><br/>\t Cordialement,<br/>\t L'équipe d'INPACT";

@@ -2,7 +2,7 @@
 // Projet DLS - BTS Info - Anciens élèves
 // Fonction du contrôleur CtrlModifierDetailsSoiree.php : traiter la demande de modification des détails sur la soirée
 // Ecrit le 20/01/2016 par Nicolas Esteve
-// Modifié le 20/5/2016 par Jim
+// Modifié le 25/05/2016 par Killian BOUTIN
 
 // connexion du serveur web à la base MySQL
 include_once ('modele/DAO.class.php');
@@ -18,7 +18,7 @@ $dao = new DAO();
 if (! isset ($_POST ["btnModifier"])) {
 	// si les données n'ont pas été postées, c'est le premier appel du formulaire : affichage de la vue sans message d'erreur
 	$urgence= true;
-	$Soiree = $dao->GetDonnesSoiree($urgence);
+	$uneSoiree = $dao->getSoiree($urgence);
 	$message = '';
 	$typeMessage = '';			// 2 valeurs possibles : 'information' ou 'avertissement'
 	$themeFooter = $themeNormal;
@@ -26,8 +26,11 @@ if (! isset ($_POST ["btnModifier"])) {
 }
 else {
 	
+	$urgence=false;
+	$uneSoiree = $dao->getSoiree($urgence);
+
 	// récupération des données postées
-	if ( empty ($_POST ["txtNomRestaurant"]) == true)  $unNom = "";  else   $unNom = $_POST ["txtNomRestaurant"];
+	if ( empty ($_POST ["txtNomRestaurant"]) == true)  $unNomRestaurant = "";  else   $unNomRestaurant = $_POST ["txtNomRestaurant"];
 	if ( empty ($_POST ["txtDate"]) == true)  $uneDate = "00/00/0000";  else   $uneDate = $_POST ["txtDate"];
 	if ( empty ($_POST ["txtAdresse"]) == true)  $uneAdresse = "";  else   $uneAdresse = $_POST ["txtAdresse"];
 	if ( empty ($_POST ["txtTarif"]) == true)  $unTarif = "";  else   $unTarif = $_POST ["txtTarif"];
@@ -35,17 +38,22 @@ else {
 	if ( empty ($_POST ["txtLatitude"]) == true)  $uneLatitude = "";  else   $uneLatitude = $_POST ["txtLatitude"];
 	if ( empty ($_POST ["txtLongitude"]) == true)  $uneLongitude = "";  else   $uneLongitude = $_POST ["txtLongitude"];
 	
+	$uneSoiree->setDateSoiree($uneDate);
+	$uneSoiree->setNomRestaurant($unNomRestaurant);
+	$uneSoiree->setAdresse($uneAdresse);
+	$uneSoiree->setTarif($unTarif);
+	$uneSoiree->setLienMenu($unLienMenu);
+	$uneSoiree->setLatitude($uneLatitude);
+	$uneSoiree->setLongitude($uneLongitude);
 	
-		
-	$ok = $dao->ModifierDonnesSoiree($unNom, $uneDate, $uneAdresse, $unTarif, $unLienMenu, $uneLatitude, $uneLongitude);
+	$ok = $dao->modifierSoiree($uneSoiree);
 	
 	//recupération des details de la soirée directement depuis la base de donnée
 	$urgence = true;
-	$Soiree = $dao->GetDonnesSoiree($urgence);
-		
+	$uneSoiree = $dao->getSoiree($urgence);
+	
 	if ($ok) 
 		{
-			
 			$message = "Modifications effectuées.";
 			$typeMessage = 'information';
 			$themeFooter = $themeNormal;

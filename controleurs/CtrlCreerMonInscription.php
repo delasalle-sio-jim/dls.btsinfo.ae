@@ -2,7 +2,7 @@
 // Projet DLS - BTS Info - Anciens élèves
 // Fonction du contrôleur CtrlCreerMonInscription.php : traiter la demande d'inscription ou d'annulation d'une inscription
 // Ecrit le 02/02/2016 par Nicolas Esteve
-// Modifié le 20/5/2016 par Jim
+// Modifié le 24/05/2016 par Killian BOUTIN
 
 include_once ('modele/DAO.class.php');
 $dao = new DAO();
@@ -71,7 +71,7 @@ else {
 			$Eleve = $dao->getEleve($adrMail);
 			$idEleve = $Eleve->getId();
 			 
-			$ok = $dao->annulation($idEleve);
+			$ok = $dao->annulerInscription($idEleve);
 			
 			
 			if (!$ok)
@@ -90,24 +90,24 @@ else {
 				if( $montantRegle < 0)
 				{
 					$sujet ="Remboursement";
-					$message  ="Votre inscription à bien été annulée.\n Un mail a été envoyé a l'administrateur vous allez être remboursé des ".$montantRegle." euros que vous nous aviez envoyé";
+					$message  ="Votre inscription a bien été annulée.\n Un mail a été envoyé à l'administrateur vous allez être remboursé des ".$montantRegle." euros que vous nous aviez envoyée";
 					$message .="Cordialement.\n";
 					$message .="Les administrateurs de l'annuaire";
 					Outils::envoyerMail($adrMail,$sujet, $message,$ADR_MAIL_EMETTEUR);
 				}
 				$sujet ="Annulation";
 				$message ="L'utilisateur ".$Eleve->getPrenom()." ".$Eleve->getNom();
-				$message .=" à annulé son inscription.";
+				$message .=" a annulé son inscription.<br>";
 				
 				if( $montantRegle < 0)
 				{
-					$message .="IMPORTANT :  ".$Eleve->getPrenom()." ".$Eleve->getNom()." à payé ".$montantRegle." euros en avance. Il faut le rebourser au plus tôt";
+					$message .="IMPORTANT :  ".$Eleve->getPrenom()." ".$Eleve->getNom()." a payé ".$montantRegle." euros en avance. Il faut le rembourser au plus tôt";
 				}
 					
 				Outils::envoyerMail($ADR_MAIL_ADMINISTRATEUR, $sujet, $message, $ADR_MAIL_EMETTEUR);
 				
 				
-				$message .='Votre réservation à été annulée';
+				$message .='Votre réservation a été annulée';
 				$typeMessage = 'information';
 				$themeFooter = $themeNormal;
 				include_once ($cheminDesVues . 'VueCreerMonInscription.php');
@@ -115,7 +115,7 @@ else {
 		}
 		else 
 		{
-			$message ="L'application à rencontrée un problème";
+			$message ="L'application a rencontrée un problème";
 			$typeMessage = 'avertissement';
 			$themeFooter = $themeNormal;
 			include_once ($cheminDesVues . 'VueCreerMonInscription.php');

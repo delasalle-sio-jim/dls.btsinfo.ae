@@ -52,7 +52,7 @@ else {
 				// envoi d'un mail à l'utilisateur avec son nouveau mot de passe 
 				$ok = $dao->envoyerMdp ($adrMail, $nouveauMdp);
 							
-				if ( $ok ) {
+				if ($ok) {
 					$message = "Enregistrement effectué.<br>Vous allez recevoir un mail de confirmation.";
 					$typeMessage = 'information';
 					$themeFooter = $themeNormal;

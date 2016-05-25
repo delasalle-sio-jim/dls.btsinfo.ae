@@ -712,7 +712,8 @@ class DAO
 
 	// enregistre une inscription dans la bdd et retourne true si enregistrement effectué correctement, retourne false en cas de problème
 	// créé par Nicolas Esteve  le XX/01/2016
-	// modifié par Jim le 13/5/2016
+	// modifié par Killian BOUTIN le 24/05/2016
+	
 	public function creerInscription($uneInscription)
 	{	// préparation de la requête
 		$txt_req = "Insert Into ae_inscriptions (dateInscription, nbrePersonnes, montantRegle, montantRembourse, idEleve, idSoiree, inscriptionAnnulee)";
@@ -734,6 +735,7 @@ class DAO
 	// fournit un objet Inscription à partir de son identifiant
 	// fournit la valeur null si l'identifiant n'existe pas
 	// créé par Jim le 13/05/2016
+	
 	public function getInscription($idInscription)
 	{	// préparation de la requête
 		$txt_req = "Select * from ae_inscriptions where id = :idInscription";
