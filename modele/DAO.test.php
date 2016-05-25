@@ -484,16 +484,23 @@ echo ('<br>');
 
 // test de la méthode getLesInscriptions ---------------------------------------------------------
 // créé par Killian BOUTIN le 25/05/2016
+// modifié par Jim le 25/05/2016
 echo "<h3>Test de getLesInscriptions : </h3>";
 $lesInscriptions = $dao->getLesInscriptions();
 $nbReponses = sizeof($lesInscriptions);
 echo "<p>Nombre d'inscriptions : " . $nbReponses . "</p>";
-// affichage des fonctions
+// affichage des inscriptions
 foreach ($lesInscriptions as $uneInscription)
 {	echo ($uneInscription->toString());
 	echo ('<br>');
 }
-
+// affichage des noms et prénoms des élèves inscrits
+foreach ($lesInscriptions as $uneInscription)
+{	// recherche de l'élève à partir de son identifiant
+	$unEleve = $dao->getEleve($uneInscription->getIdEleve());
+	echo ($uneInscription->getId() . " " . $unEleve->getNom() . " " . $unEleve->getPrenom());
+	echo ('<br>');
+}
 
 /*
 // test de la méthode modifierInscription ---------------------------------------------------------

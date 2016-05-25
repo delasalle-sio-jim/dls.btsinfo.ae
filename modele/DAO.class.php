@@ -800,9 +800,10 @@ class DAO
 	}
 	*/
 	
-	
+	// fournit toutes les inscriptions (non annulées) de la BDD
+	// créé par Killian le 25/05/2016
 	public function getLesInscriptions()
-	{	// préparation de la requête d'extraction de l'id des élèves inscrits
+	{	// préparation de la requête d'extraction des inscriptions non annulées
 		$txt_req = "Select * from ae_inscriptions where inscriptionAnnulee = 0";
 		$req = $this->cnx->prepare($txt_req);
 		
@@ -815,9 +816,7 @@ class DAO
 		
 		// tant qu'une ligne est trouvée :
 		while ($uneLigne)
-			{
-				
-				// création d'un objet Inscription
+			{	// création d'un objet Inscription
 				$unId = utf8_encode($uneLigne->id);
 				$dateInscription = utf8_encode($uneLigne->dateInscription);
 				$unNbrePersonnes = utf8_encode($uneLigne->nbrePersonnes);
