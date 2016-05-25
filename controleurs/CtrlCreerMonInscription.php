@@ -2,7 +2,7 @@
 // Projet DLS - BTS Info - Anciens élèves
 // Fonction du contrôleur CtrlCreerMonInscription.php : traiter la demande d'inscription ou d'annulation d'une inscription
 // Ecrit le 02/02/2016 par Nicolas Esteve
-// Modifié le 24/05/2016 par Killian BOUTIN
+// Modifié le 25/05/2016 par Killian BOUTIN
 
 include_once ('modele/DAO.class.php');
 $dao = new DAO();
@@ -41,7 +41,7 @@ else {
 			
 			$idEleve = $Eleve->getId();
 			
-			$dateInscription = date('Y-m-d', time());
+			$dateInscription = date('d/m/Y', time());
 			$montantRembourse = 0;
 			$idSoiree = $uneSoiree->getId();
 			$inscriptionAnnulee = false;

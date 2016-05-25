@@ -70,13 +70,6 @@
 			<p>Annuaire des anciens élèves du BTS Informatique - Lycée De La Salle (Rennes)</p>
 		</div>		
 	</div>
-	
-	<aside id="affichage_message" class="classe_message">
-		<div>
-			<h2 id="titre_message" class="classe_information">Message</h2>
-			<p id="texte_message" class="classe_texte_message">Texte du message</p>
-			<a href="#close" title="Fermer">Fermer</a>
-		</div>
-	</aside>
+
 </body>
 </html>

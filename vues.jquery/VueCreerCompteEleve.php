@@ -2,6 +2,7 @@
 	// Projet DLS - BTS Info - Anciens élèves
 	// Fonction de la vue vues.jquery/VueCreerCompteEleve.php : afficher la vue de création d'un compte élève par un administrateur
 	// Ecrit le 3/1/2016 par Jim
+	// Modifié le 25/05/2016 par Killian BOUTIN
 header('Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0');
 	header('Pragma: no-cache');
 	header('Content-Tranfer-Encoding: none');
@@ -20,37 +21,7 @@ header('Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-ch
 					$.mobile.changePage('#affichage_message', {transition: "<?php echo $transition; ?>"});
 				} );
 			<?php } ?>
-			
-			// associe une fonction à l'événement click sur la case à cocher 'caseAfficherMdp'
-			$('#caseAfficherMdp').live('click', function() {
-				if ($('#caseAfficherMdp').attr('checked') == true) {
-					('#txtNouveauMdp').attr('type', 'text');
-					('#txtNouveauMdp').input('refresh');
-					('#txtConfirmationMdp').attr('type', 'text');
-					('#txtConfirmationMdp').input('refresh');
-					window.alert('true');
-				}
-				else {
-					('#txtNouveauMdp').attr('type', 'password');
-					('#txtNouveauMdp').input('refresh');
-					('#txtConfirmationMdp').attr('type', 'password');
-					('#txtConfirmationMdp').input('refresh');
-					window.alert('false');
-				};
-			} );
-						
-			function afficherMdp()
-			{	if (document.getElementById("caseAfficherMdp").checked == true)
-				{	document.getElementById("txtNouveauMdp").type="text";
-					document.getElementById("txtConfirmationMdp").type="text";
-					// window.alert('true');
-				}
-				else
-				{	document.getElementById("txtNouveauMdp").type="password";
-					document.getElementById("txtConfirmationMdp").type="password";
-					// window.alert('false');
-				}
-			};
+
 		</script>
 	</head> 
 	<body>
@@ -61,7 +32,7 @@ header('Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-ch
 			</div>
 			<div data-role="content">
 				<h4 style="text-align: center; margin-top: 10px; margin-bottom: 10px;">Créer un utilisateur</h4>
-				<form action="index.php?action=CreatUserAdmin" method="post" data-ajax="false" >
+				<form action="index.php?action=CreerCompteEleve" method="post" data-ajax="false" >
 							<div data-role="fieldcontain" class="ui-hide-label">
 
 								<label for="txtNom">Nom (de naissance) *</label>

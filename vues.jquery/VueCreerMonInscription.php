@@ -2,7 +2,7 @@
 // Projet DLS - BTS Info - Anciens élèves
 // Fonction de la vue VueCreerMonInscription.php : visualiser le formulaire d'inscription à la soirée
 // Ecrit le 02/02/2016 par Nicolas Esteve
-// Modifié le 20/5/2016 par Jim
+// Modifié le 25/05/2016 par Killian BOUTIN
 	
 // pour obliger la page à se recharger
 header('Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0');
@@ -24,36 +24,6 @@ header('Expires: 0');
 				} );
 			<?php } ?>
 			
-			// associe une fonction à l'événement click sur la case à cocher 'caseAfficherMdp'
-			$('#caseAfficherMdp').live('click', function() {
-				if ($('#caseAfficherMdp').attr('checked') == true) {
-					('#txtNouveauMdp').attr('type', 'text');
-					('#txtNouveauMdp').input('refresh');
-					('#txtConfirmationMdp').attr('type', 'text');
-					('#txtConfirmationMdp').input('refresh');
-					window.alert('true');
-				}
-				else {
-					('#txtNouveauMdp').attr('type', 'password');
-					('#txtNouveauMdp').input('refresh');
-					('#txtConfirmationMdp').attr('type', 'password');
-					('#txtConfirmationMdp').input('refresh');
-					window.alert('false');
-				};
-			} );
-						
-			function afficherMdp()
-			{	if (document.getElementById("caseAfficherMdp").checked == true)
-				{	document.getElementById("txtNouveauMdp").type="text";
-					document.getElementById("txtConfirmationMdp").type="text";
-					// window.alert('true');
-				}
-				else
-				{	document.getElementById("txtNouveauMdp").type="password";
-					document.getElementById("txtConfirmationMdp").type="password";
-					// window.alert('false');
-				}
-			};
 		</script>
 	</head> 
 	<body>
@@ -64,7 +34,7 @@ header('Expires: 0');
 			</div>
 			<div data-role="content">
 				<h4 style="text-align: center; margin-top: 10px; margin-bottom: 10px;">Inscription à la soiree</h4>
-				<form action="index.php?action=InscriptionSoiree" method="post" data-ajax="false" >
+				<form action="index.php?action=CreerMonInscription" method="post" data-ajax="false" >
 
 				<div data-role="fieldcontain">
 						<label for="txtNbPlaces">Nombre de places  :</label>

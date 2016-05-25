@@ -2,6 +2,7 @@
 // Projet DLS - BTS Info - Anciens élèves
 // Fonction de la vue vues.html5/VueCreerCompteAdmin.php : créer un administrateur
 // Ecrit le 07/01/2016 par Nicolas Esteve
+// Modifié le 25/05/2016 par Killian BOUTIN
 ?>
 <!doctype html>
 <html>
@@ -55,7 +56,7 @@
 			 
 			<h3>Entrez les données nécessaires à la création du compte (tous les champs sont obligatoires) :</h3>
 						
-			<form name="form1" id="form1" action="index.php?action=CreerAdmin" method="post">
+			<form name="form1" id="form1" action="index.php?action=CreerCompteAdmin" method="post">
 
 				<p>
 					<label for="txtNom">Nom * :</label>

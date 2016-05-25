@@ -2,7 +2,7 @@
 // Projet DLS - BTS Info - Anciens élèves
 // Fonction du contrôleur CtrlCreerCompteAdmin.php : traiter la création d'un compte administrateur par un administrateur
 // Ecrit le 07/01/2016 par Nicolas Esteve
-// Modifié le 20/5/2016 par Jim
+// Modifié le 25/05/2016
 
 // on vérifie si le demandeur de cette action est bien authentifié
 if ( $_SESSION['typeUtilisateur'] != 'administrateur') {
@@ -53,8 +53,8 @@ else
 		if($ok){
 			
 			// envoi d'un mail d'acceptation à l'intéressé avec son mot de passe
-			$sujet = "Demande de création de votre compte Administrateur dans l'annuaire des anciens du BTS Informatique";
-			$message = "Votre demande de création de compte a bien été validée.\n\n";
+			$sujet = "Création de votre compte Administrateur dans l'annuaire des anciens du BTS Informatique";
+			$message = "Votre compte administrateur vient d'être créé.\n\n";
 			$message .= "Votre login de connexion est : " . $adrMailAdmin . "\n";
 			$message .= "Votre mot de passe est : " . $nouveauMdp . "\n\n";
 			$message .= "Cordialement.\n";
