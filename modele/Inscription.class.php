@@ -5,6 +5,9 @@
 // Création : 2/2/2016 par Nicolas Esteve
 // Mise à jour : 26/05/2015 par Killian BOUTIN
 
+// inclusion de la classe Outils
+include_once ('Outils.class.php');
+
 class Inscription
 {
 	// ------------------------------------------------------------------------------------------------------
@@ -28,8 +31,8 @@ class Inscription
 	
 	public function Inscription($unId, $unNom, $unPrenom, $dateInscription, $unNbrePersonnes, $montantRegle, $montantRembourse, $idEleve, $idSoiree, $inscriptionAnnulee) {
 		$this->id = $unId;
-		$this->nom = $unNom;
-		$this->prenom = $unPrenom;
+		$this->nom = strtoupper($unNom);
+		$this->prenom = Outils::corrigerPrenom($unPrenom);
 		$this->dateInscription = $dateInscription;
 		$this->nbrePersonnes = $unNbrePersonnes;
 		$this->montantRegle = $montantRegle;
@@ -68,10 +71,10 @@ class Inscription
 	public function setInscriptionAnnulee($inscriptionAnnulee) {$this->inscriptionAnnulee = $inscriptionAnnulee;}
 	
 	public function getNom() {return $this->nom;}
-	public function setNom($unNom) {$this->nom = $unNom;}
+	public function setNom($unNom) {$this->nom = strtoupper($unNom);}
 	
 	public function getPrenom() {return $this->prenom;}
-	public function setPrenom($unPrenom) {$this->prenom = $unPrenom;}
+	public function setPrenom($unPrenom) {$this->prenom = Outils::corrigerPrenom($unPrenom);}
 
 
 	// ------------------------------------------------------------------------------------------------------

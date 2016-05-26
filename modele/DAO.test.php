@@ -481,7 +481,7 @@ else
 echo ('<br>');
 */
 
-/*
+
 // test de la méthode getLesInscriptions ---------------------------------------------------------
 // créé par le 25/05/2016 Killian BOUTIN
 // modifié le 26/05/2015 par Killian BOUTIN 
@@ -505,7 +505,7 @@ foreach ($lesInscriptions as $uneInscription)
 	echo ($numInscription . " " . $uneInscription->getNom() . " " . $uneInscription->getPrenom());
 	echo ('<br>');
 }
-*/
+
 
 
 /*

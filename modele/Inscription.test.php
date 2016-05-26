@@ -28,7 +28,7 @@ $montantRembourse = 0;
 $idEleve = 5;
 $idSoiree = 1;
 $inscriptionAnnulee = FALSE;
-$unNom = "BOUTIN";
+$unNom = "boutin";
 $unPrenom = "Killian";
 
 $uneInscription = new Inscription($unId, $unNom, $unPrenom, $dateInscription, $nbrePersonnes, $montantRegle, $montantRembourse, $idEleve, $idSoiree, $inscriptionAnnulee);
@@ -44,7 +44,7 @@ $uneInscription->setMontantRembourse(40);
 $uneInscription->setIdEleve(6);
 $uneInscription->setIdSoiree(1);
 $uneInscription->setInscriptionAnnulee(TRUE);
-$uneInscription->setNom("CARTRON");
+$uneInscription->setNom("cartron");
 $uneInscription->setPrenom("Jean-Michel");
 
 echo ($uneInscription->toString());

@@ -808,12 +808,14 @@ class DAO
 	
 	public function getLesInscriptions()
 	{	// préparation de la requête d'extraction des inscriptions non annulées
-		// le GROUP BY permet de retenir que 1 exemplaire des inscriptions pour chaque membres au cas où il y aurait des doublons. 
+		// le GROUP BY permet de ne retenir qu'un seul exemplaire des inscriptions pour chaque membre au cas où il y aurait des doublons. 
 		// |=> A supprimer quand on aura modifié le fait qu'une 2ème inscription supprime la première
-		$txt_req = "SELECT nom, prenom, ae_inscriptions.id, dateInscription, nbrePersonnes, montantRegle, montantRembourse, idEleve, idSoiree, inscriptionAnnulee FROM ae_eleves, ae_inscriptions"; 
-		$txt_req .= " WHERE inscriptionAnnulee = 0 AND ae_eleves.id = ae_inscriptions.idEleve";
-		$txt_req .=	" GROUP BY ae_eleves.nom, ae_eleves.prenom";
-		$txt_req .=	" ORDER BY ae_eleves.nom, ae_eleves.prenom"; 
+		$txt_req = "SELECT nom, prenom, ae_inscriptions.id, dateInscription, nbrePersonnes, montantRegle, montantRembourse, idEleve, idSoiree, inscriptionAnnulee";
+		$txt_req .= " FROM ae_eleves, ae_inscriptions"; 
+		$txt_req .= " WHERE ae_eleves.id = ae_inscriptions.idEleve";
+		$txt_req .= " AND inscriptionAnnulee = 0";
+		$txt_req .=	" GROUP BY ae_eleves.nom, ae_eleves.prenom";	// à supprimer plus tard !
+		$txt_req .=	" ORDER BY nom, prenom"; 
 		$req = $this->cnx->prepare($txt_req);
 		
 		// extraction des données
