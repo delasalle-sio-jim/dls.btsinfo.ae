@@ -2,7 +2,7 @@
 // Projet DLS - BTS Info - Anciens élèves
 // Fonction de la vue vues.html5/VueModifierCompteEleve.php : visualiser la vue de modification de compte élève par un administrateur
 // Ecrit le 18/1/2016 par Nicolas Esteve
-// Modifié le 20/5/2016 par Jim
+// Modifié le 26/05/2016 par Killian BOUTIN
 	
 header('Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0');
 header('Pragma: no-cache');
@@ -69,7 +69,7 @@ header('Expires: 0');
 			</div>
 			<div data-role="content">
 				<h4 style="text-align: center; margin-top: 10px; margin-bottom: 10px;">Modifier un utilisateur</h4>
-				<form name="form1" id="form1" data-ajax="false" action="index.php?action=ModifUserAdmin" method="post">
+				<form name="form1" id="form1" data-ajax="false" action="index.php?action=ModifierCompteEleve" method="post">
 				
 				<!--ceci est un prototype de liste déroulante dynamique non utilisée car trop d'objets à gerer
 				<p>

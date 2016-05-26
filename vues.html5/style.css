@@ -433,6 +433,21 @@ table {
 	background-color: #fbf8e9;
 }
 
+/* style de la première ligne du tableau de la vue "VueVoirListeInscrits */
+.inscription tr:nth-child(1){
+	background: #A0A0A0 ;
+}
+
+/* style des lignes paires du tableau de la vue "VueVoirListeInscrits */
+.inscription tr:nth-child(even){
+    background: #ffffff;
+}
+
+/* style des td du tableau de la vue "VueVoirListeInscrits */
+.inscription td{
+	width: 25%;
+}
+
 /* ----------------- Mise en forme des formulaires -------------------- */
 
 /* paragraphes dans formulaires */

@@ -2,7 +2,7 @@
 // Projet DLS - BTS Info - Anciens élèves
 // Fonction de la vue vue.jquery/VueSupprimerCompteAdmin.php : supprimer un administrateur
 // Ecrit le 06/01/2016 par Nicolas Esteve
-// Modifié le 20/05/2016 par Jim
+// Modifié le 26/05/2016
 	
 // pour obliger la page à se recharger
 header('Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0');
@@ -33,7 +33,7 @@ header('Expires: 0');
 			</div>
 			<div data-role="content">
 				<h4 style="text-align: center; margin-top: 10px; margin-bottom: 10px;">Supprimer un administrateur</h4>
-				<form action="index.php?action=SupprimerAdmin" method="post" data-ajax="false" >
+				<form action="index.php?action=SupprimerCompteAdmin" method="post" data-ajax="false" >
 				
 					<div data-role="fieldcontain" class="ui-hide-label">
 						<label for="txtAdrMailAdmin">Adresse mail de l'administrateur à supprimer :</label>

@@ -2,7 +2,7 @@
 // Projet DLS - BTS Info - Anciens élèves
 // Fonction de la vue vues.html5/VueSupprimerCompteAdmin.php : supprimer un administrateur
 // Ecrit le 06/01/2016 par Nicolas Esteve
-// Modifié le 20/05/2016 par Jim
+// Modifié le 25/05/2016 par Killian BOUTIN
 ?>
 <!doctype html>
 <html>
@@ -64,7 +64,7 @@ function afficher_avertissement(msg) {
 		</div>
 		<div id="content">	
 		<h2>Supprimer un Administrateur</h2>
-			<form name="form1" id="form1" action="index.php?action=SupprimerAdmin" method="post" >
+			<form name="form1" id="form1" action="index.php?action=SupprimerCompteAdmin" method="post" >
 					<p>
 						<label for="txtAdrMailAdmin">Adresse Mail de l'administrateur à supprimer :</label>
 						<input type="text" name="txtAdrMailAdmin" id="txtAdrMailAdmin" maxlength="50" pattern="^.+@.+\..+$" placeholder="Adresse Mail de l'administrateur à supprimer" class="normal" value="<?php if($etape == 1 ) echo $txtMailAdmin ; else echo ''; ?>" required>

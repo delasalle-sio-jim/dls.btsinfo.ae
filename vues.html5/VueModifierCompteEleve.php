@@ -93,7 +93,7 @@
 			
 		<div id="content">
 		<h2>Modifier un Utilisateur</h2>
-	<form name="form1" id="form1" action="index.php?action=ModifUserAdmin" method="post">
+	<form name="form1" id="form1" action="index.php?action=ModifierCompteEleve" method="post">
 				
 				<!--ceci est un prototype de liste déroulante dynamique non utilisée car trop d'objets à gerer
 				<p>	

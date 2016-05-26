@@ -2,7 +2,7 @@
 	// Projet DLS - BTS Info - Anciens élèves
 	// Fonction de la vue vues.html5/VueVoirDetailsSoiree.php : visualiser les infos sur la soirée
 	// Ecrit le 6/1/2016 par Nicolas Esteve
-	// Modifié le 18/5/2016 par Jim
+	// Modifié le 26/05/2016 par Killian BOUTIN
 ?>
 <!doctype html>
 <html>
@@ -37,12 +37,15 @@
 				$message .= "<p>Comme chaque année, l'association INPACT organise un repas auquel les étudiants, anciens étudiants et professeurs du BTS SIO ";
 				$message .= " (ex BTS IG) du Lycée De La Salle sont conviés.</p>";
 										
-				if ($uneSoiree->getDateSoiree() != "00-00-0000")
-				{	$message .= "<p>Ce repas aura lieu le <b>vendredi " . Outils::convertirEnDateFR($uneSoiree->getDateSoiree()) . " à 20 h</b>";
+				if ($uneSoiree->getDateSoiree() != 00-00-0000)
+				{	$message .= "<p>Ce repas aura lieu le <b>vendredi " . Outils::convertirEnDateFR($uneSoiree->getDateSoiree()) . " à 20 h</b><br>";
+				}
+				else{
+					$message .= "La date de ce repas n'est pas encore programmée mais aura lieu ";
 				}
 						
 				if ($uneSoiree->getNomRestaurant() != null)
-				{	$message .= "<br>au restaurant <b>" . $uneSoiree->getNomRestaurant() . "</b>";		
+				{	$message .= "au restaurant <b>" . $uneSoiree->getNomRestaurant() . "</b>";		
 							
 					if ($uneSoiree->getAdresse() != null)
 					{	$message .= "<br>situé <b> " . $uneSoiree->getAdresse( ). "</b>.</p>";
