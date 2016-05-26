@@ -30,8 +30,9 @@ $idSoiree = 1;
 $inscriptionAnnulee = FALSE;
 $unNom = "boutin";
 $unPrenom = "Killian";
+$anneeEntreeBTS = "2015";
 
-$uneInscription = new Inscription($unId, $unNom, $unPrenom, $dateInscription, $nbrePersonnes, $montantRegle, $montantRembourse, $idEleve, $idSoiree, $inscriptionAnnulee);
+$uneInscription = new Inscription($unId, $unNom, $unPrenom, $anneeEntreeBTS, $dateInscription, $nbrePersonnes, $montantRegle, $montantRembourse, $idEleve, $idSoiree, $inscriptionAnnulee);
 
 echo ($uneInscription->toString());
 echo ('<br>');
@@ -46,6 +47,7 @@ $uneInscription->setIdSoiree(1);
 $uneInscription->setInscriptionAnnulee(TRUE);
 $uneInscription->setNom("cartron");
 $uneInscription->setPrenom("Jean-Michel");
+$uneInscription->setAnneeDebutBTS("1990");
 
 echo ($uneInscription->toString());
 echo ('<br>');
