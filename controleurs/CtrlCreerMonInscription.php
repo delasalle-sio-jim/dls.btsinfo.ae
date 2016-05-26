@@ -45,13 +45,14 @@ else {
 
 			$unNom = $Eleve->getNom();
 			$unPrenom = $Eleve->getPrenom();
+			$anneeDebutBTS = $Eleve->getAnneeDebutBTS();
 			
 			$dateInscription = date('d/m/Y', time());
 			$montantRembourse = 0;
 			$idSoiree = $uneSoiree->getId();
 			$inscriptionAnnulee = false;
 			
-			$uneInscription = new Inscription($idEleve, $unNom, $unPrenom, $dateInscription, $nbPersonnes, $montantRegle, $montantRembourse, $idEleve, $idSoiree, $inscriptionAnnulee);
+			$uneInscription = new Inscription($idEleve, $unNom, $unPrenom, $anneeDebutBTS, $dateInscription, $nbPersonnes, $montantRegle, $montantRembourse, $idEleve, $idSoiree, $inscriptionAnnulee);
 			
 			$ok = $dao->creerInscription($uneInscription);
 			if (!$ok)

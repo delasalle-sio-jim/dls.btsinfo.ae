@@ -803,19 +803,19 @@ class DAO
 	}
 		
 	// fournit toutes les inscriptions (non annulées) de la BDD
-	// créé par Killian le 25/05/2016
+	// créé par Killian BOUTIN le 25/05/2016
 	// modifié par Killian BOUTIN le 26/05/2016
 	
 	public function getLesInscriptions()
 	{	// préparation de la requête d'extraction des inscriptions non annulées
 		// le GROUP BY permet de ne retenir qu'un seul exemplaire des inscriptions pour chaque membre au cas où il y aurait des doublons. 
 		// |=> A supprimer quand on aura modifié le fait qu'une 2ème inscription supprime la première
-		$txt_req = "SELECT nom, prenom, ae_inscriptions.id, dateInscription, nbrePersonnes, montantRegle, montantRembourse, idEleve, idSoiree, inscriptionAnnulee";
+		$txt_req = "SELECT nom, prenom, anneeDebutBTS, ae_inscriptions.id, dateInscription, nbrePersonnes, montantRegle, montantRembourse, idEleve, idSoiree, inscriptionAnnulee";
 		$txt_req .= " FROM ae_eleves, ae_inscriptions"; 
 		$txt_req .= " WHERE ae_eleves.id = ae_inscriptions.idEleve";
 		$txt_req .= " AND inscriptionAnnulee = 0";
 		$txt_req .=	" GROUP BY ae_eleves.nom, ae_eleves.prenom";	// à supprimer plus tard !
-		$txt_req .=	" ORDER BY nom, prenom"; 
+		$txt_req .=	" ORDER BY nom, prenom";
 		$req = $this->cnx->prepare($txt_req);
 		
 		// extraction des données
@@ -831,6 +831,7 @@ class DAO
 				$unId = utf8_encode($uneLigne->id);
 				$unNom = utf8_encode($uneLigne->nom);
 				$unPrenom = utf8_encode($uneLigne->prenom);
+				$anneeDebutBTS = utf8_encode($uneLigne->anneeDebutBTS);
 				$dateInscription = utf8_encode($uneLigne->dateInscription);
 				$unNbrePersonnes = utf8_encode($uneLigne->nbrePersonnes);
 				$montantRegle = utf8_encode($uneLigne->montantRegle);
@@ -839,7 +840,7 @@ class DAO
 				$idSoiree = utf8_encode($uneLigne->idSoiree);
 				$inscriptionAnnulee = utf8_encode($uneLigne->inscriptionAnnulee);
 				
-				$uneInscription = new Inscription($unId, $unNom, $unPrenom, $dateInscription, $unNbrePersonnes, $montantRegle, $montantRembourse, $idEleve, $idSoiree, $inscriptionAnnulee);
+				$uneInscription = new Inscription($unId, $unNom, $unPrenom, $anneeDebutBTS, $dateInscription, $unNbrePersonnes, $montantRegle, $montantRembourse, $idEleve, $idSoiree, $inscriptionAnnulee);
 				// ajout de l'inscription à la collection
 				$lesInscriptions[] = $uneInscription;
 				// extraction de la ligne suivante

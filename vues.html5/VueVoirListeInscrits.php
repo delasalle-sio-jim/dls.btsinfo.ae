@@ -29,7 +29,7 @@
 			<h2>Liste des inscrits à la prochaine soirée des anciens</h2>
 			
 			<!-- création d'un tableau de 1 pixel permettant de contourer le tableau pour qu'il soit plus visible -->
-			<table class="inscription" style= "border: 1px solid black";>
+			<table class="tableau">
 			
 			<?php	
 			/* s'il n'y a pas d'inscription */
@@ -44,12 +44,14 @@
 				$message = "<p> La liste des inscrits à la prochaine soirée des anciens est la suivante : </p>";
 				$numInscription = 0;
 				/* création de la première ligne dans le tableau */
-				$message .= "<tr>
-								<td>Numéro</td>
-								<td>Entrée BTS</td>
-								<td>Nom</td>
-								<td>Prénom</td>
-							</tr>";
+				$message .= "<thead>
+								<tr>
+									<th>Numéro</th>
+									<th>Entrée BTS</th>
+									<th>Nom</th>
+									<th>Prénom</th>
+								</tr>
+							</thead>";
 			
 				/* pour chaque $uneInscription de la collection $lesInscriptions */
 				foreach ($lesInscriptions as $uneInscription)
@@ -62,18 +64,22 @@
 					$message .= "<tr>";
 						// affichage d'un numéro incrémenté, du nom et du prénom de chaque "$uneInscription" dans la collection "$lesInscriptions"
 						$message .= "<td>" . $numInscription . "</td>";
-						$message .= "<td>" . $unEleve->getAnneeDebutBTS() . "</td>";
 						$message .= "<td>" . $uneInscription->getNom() . "</td>";
 						$message .= "<td>" . $uneInscription->getPrenom() . "</td>";
+						$message .= "<td>" . $uneInscription->getAnneeDebutBTS() . "</td>";
 					$message .= "</tr>";
 				}
 				
-				$message .= "</table>";
-				
 				/* récupération du nombre d'inscriptions */
 				$nbReponses = sizeof($lesInscriptions);
-				$message .= "Le nombre d'inscrits est de <b>" . $nbReponses . "</b>.";
-				
+				$message .= "<tr>
+								<td>&nbsp;</td>
+								<td>&nbsp;</td>
+								<td>Total</td>
+								<td>$nbReponses</td>
+							</tr>";
+				$message .= "</table>";
+
 				echo $message;
 				
 			}

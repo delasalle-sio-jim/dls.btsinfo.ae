@@ -24,15 +24,17 @@ class Inscription
 	private $inscriptionAnnulee;	// true si inscription annulée, false par défaut
 	private $nom;					// le nom de l'ancien élève inscrit
 	private $prenom;				// le prénom de l'ancien élève inscrit
+	private $anneeDebutBTS;			// année d'entrée en BTS (sur 4 caractères)
 
 	// ------------------------------------------------------------------------------------------------------
 	// ----------------------------------------- Constructeur -----------------------------------------------
 	// ------------------------------------------------------------------------------------------------------
 	
-	public function Inscription($unId, $unNom, $unPrenom, $dateInscription, $unNbrePersonnes, $montantRegle, $montantRembourse, $idEleve, $idSoiree, $inscriptionAnnulee) {
+	public function Inscription($unId, $unNom, $unPrenom, $anneeDebutBTS, $dateInscription, $unNbrePersonnes, $montantRegle, $montantRembourse, $idEleve, $idSoiree, $inscriptionAnnulee) {
 		$this->id = $unId;
 		$this->nom = strtoupper($unNom);
 		$this->prenom = Outils::corrigerPrenom($unPrenom);
+		$this->anneeDebutBTS = $anneeDebutBTS;
 		$this->dateInscription = $dateInscription;
 		$this->nbrePersonnes = $unNbrePersonnes;
 		$this->montantRegle = $montantRegle;
@@ -75,6 +77,9 @@ class Inscription
 	
 	public function getPrenom() {return $this->prenom;}
 	public function setPrenom($unPrenom) {$this->prenom = Outils::corrigerPrenom($unPrenom);}
+	
+	public function getAnneeDebutBTS() {return $this->anneeDebutBTS;}
+	public function setAnneeDebutBTS($uneAnneeDebutBTS) {$this->anneeDebutBTS = $uneAnneeDebutBTS;}
 
 
 	// ------------------------------------------------------------------------------------------------------
@@ -86,6 +91,7 @@ class Inscription
 		$msg .= 'id : ' . $this->getId() . '<br>';
 		$msg .= 'nom : ' . $this->getNom() . '<br>';
 		$msg .= 'prenom : ' . $this->getPrenom() . '<br>';
+		$msg .= 'anneeDebutBTS : ' . $this->getAnneeDebutBTS() . '<br>';
 		$msg .= 'dateInscription : ' . $this->getDateInscription() . '<br>';
 		$msg .= 'nbrePersonnes : ' . $this->getNbrePersonnes() . '<br>';
 		$msg .= 'montantRegle : ' . $this->getMontantRegle() . '<br>';
