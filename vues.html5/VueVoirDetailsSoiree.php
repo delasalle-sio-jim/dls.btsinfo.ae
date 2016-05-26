@@ -15,7 +15,7 @@
 		<div id="header">
 			<div id="header-menu">
 				<ul id="menu-horizontal">
-					<li><a href="index.php?action=Menu" data-ajax="false">Retour menu</a></li>
+					<li><a href="index.php?action=Menu#menu2" data-ajax="false">Retour menu</a></li>
 				</ul>
 			</div>
 			<div id="header-logos">

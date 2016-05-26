@@ -2,7 +2,7 @@
 // Projet DLS - BTS Info - Anciens élèves
 // Fonction du contrôleur CtrlCreerMonInscription.php : traiter la demande d'inscription ou d'annulation d'une inscription
 // Ecrit le 02/02/2016 par Nicolas Esteve
-// Modifié le 25/05/2016 par Killian BOUTIN
+// Modifié le 26/05/2016 par Killian BOUTIN
 
 include_once ('modele/DAO.class.php');
 $dao = new DAO();
@@ -12,6 +12,12 @@ $urgent = true;
 $uneSoiree = $dao->getSoiree($urgent);
 $tarif = $uneSoiree->getTarif();
 
+//obtention de l'adresseMail, puis de l'id de l'élève, puis de la situation de l'inscription de cet élève
+$adrMail = $_SESSION['adrMail'];
+$Eleve = $dao->getEleve($adrMail);
+$idEleve = $Eleve->getId();
+$eleveInscrit = $dao->getInscriptionEleve($idEleve);
+
 // on vérifie si le demandeur de cette action est bien authentifié
 if ( $_SESSION['typeUtilisateur'] != 'eleve') {
 	// si le demandeur n'est pas authentifié, il s'agit d'une tentative d'accès frauduleux
@@ -19,6 +25,7 @@ if ( $_SESSION['typeUtilisateur'] != 'eleve') {
 	header ("Location: index.php?action=Deconnecter");
 }
 else {
+	
 	if( (! isset ($_POST ["btnInscription"]) == true) && ! isset ($_POST ["btnAnnulation"]) == true ){			
 		// redirection vers la vue si aucune données n'est recu par le controleur	
 	
@@ -32,21 +39,19 @@ else {
 			$montantRegle = 0;
 			
 			$urgent = false;
-			$uneSoiree = $dao->GetSoiree($urgent);
+			$uneSoiree = $dao->getSoiree($urgent);
 			$Tarif = $uneSoiree->getTarif();
 			$Tarif = $Tarif * $nbPersonnes;
-			
-			$adrMail = $_SESSION['adrMail'];
-			$Eleve = $dao->getEleve($adrMail);
-			
-			$idEleve = $Eleve->getId();
+
+			$unNom = $Eleve->getNom();
+			$unPrenom = $Eleve->getPrenom();
 			
 			$dateInscription = date('d/m/Y', time());
 			$montantRembourse = 0;
 			$idSoiree = $uneSoiree->getId();
 			$inscriptionAnnulee = false;
 			
-			$uneInscription = new Inscription($idEleve, $dateInscription, $nbPersonnes, $montantRegle, $montantRembourse, $idEleve, $idSoiree, $inscriptionAnnulee);
+			$uneInscription = new Inscription($idEleve, $unNom, $unPrenom, $dateInscription, $nbPersonnes, $montantRegle, $montantRembourse, $idEleve, $idSoiree, $inscriptionAnnulee);
 			
 			$ok = $dao->creerInscription($uneInscription);
 			if (!$ok)

@@ -3,7 +3,7 @@
 // fichier : modele/Inscription.class.php
 // Rôle : la classe Inscription représente une inscription à une soirée des anciens 
 // Création : 2/2/2016 par Nicolas Esteve
-// Mise à jour : 11/5/2016 par JM CARTRON
+// Mise à jour : 26/05/2015 par Killian BOUTIN
 
 class Inscription
 {
@@ -19,13 +19,17 @@ class Inscription
 	private $idEleve;				// identifiant de l'élève inscrit
 	private $idSoiree;				// identifiant de la soirée
 	private $inscriptionAnnulee;	// true si inscription annulée, false par défaut
+	private $nom;					// le nom de l'ancien élève inscrit
+	private $prenom;				// le prénom de l'ancien élève inscrit
 
 	// ------------------------------------------------------------------------------------------------------
 	// ----------------------------------------- Constructeur -----------------------------------------------
 	// ------------------------------------------------------------------------------------------------------
 	
-	public function Inscription($unId, $dateInscription, $unNbrePersonnes, $montantRegle, $montantRembourse, $idEleve, $idSoiree, $inscriptionAnnulee) {
+	public function Inscription($unId, $unNom, $unPrenom, $dateInscription, $unNbrePersonnes, $montantRegle, $montantRembourse, $idEleve, $idSoiree, $inscriptionAnnulee) {
 		$this->id = $unId;
+		$this->nom = $unNom;
+		$this->prenom = $unPrenom;
 		$this->dateInscription = $dateInscription;
 		$this->nbrePersonnes = $unNbrePersonnes;
 		$this->montantRegle = $montantRegle;
@@ -62,6 +66,12 @@ class Inscription
 
 	public function getInscriptionAnnulee() {return $this->inscriptionAnnulee;}
 	public function setInscriptionAnnulee($inscriptionAnnulee) {$this->inscriptionAnnulee = $inscriptionAnnulee;}
+	
+	public function getNom() {return $this->nom;}
+	public function setNom($unNom) {$this->nom = $unNom;}
+	
+	public function getPrenom() {return $this->prenom;}
+	public function setPrenom($unPrenom) {$this->prenom = $unPrenom;}
 
 
 	// ------------------------------------------------------------------------------------------------------
@@ -71,6 +81,8 @@ class Inscription
 	public function toString() {
 		$msg  = 'Inscription : <br>';
 		$msg .= 'id : ' . $this->getId() . '<br>';
+		$msg .= 'nom : ' . $this->getNom() . '<br>';
+		$msg .= 'prenom : ' . $this->getPrenom() . '<br>';
 		$msg .= 'dateInscription : ' . $this->getDateInscription() . '<br>';
 		$msg .= 'nbrePersonnes : ' . $this->getNbrePersonnes() . '<br>';
 		$msg .= 'montantRegle : ' . $this->getMontantRegle() . '<br>';

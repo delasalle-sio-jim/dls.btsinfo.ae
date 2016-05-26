@@ -3,7 +3,7 @@
 // fichier : modele/Inscription.test.php
 // Rôle : test de la classe Inscription
 // Création : 2/2/2016 par Nicolas Esteve
-// Mise à jour : 11/5/2016 par JM CARTRON
+// Mise à jour : 26/05/2016 par Killian BOUTIN
 
 // inclusion de la classe Inscription
 include_once ('Inscription.class.php');
@@ -28,8 +28,10 @@ $montantRembourse = 0;
 $idEleve = 5;
 $idSoiree = 1;
 $inscriptionAnnulee = FALSE;
+$unNom = "BOUTIN";
+$unPrenom = "Killian";
 
-$uneInscription = new Inscription($unId, $dateInscription, $nbrePersonnes, $montantRegle, $montantRembourse, $idEleve, $idSoiree, $inscriptionAnnulee);
+$uneInscription = new Inscription($unId, $unNom, $unPrenom, $dateInscription, $nbrePersonnes, $montantRegle, $montantRembourse, $idEleve, $idSoiree, $inscriptionAnnulee);
 
 echo ($uneInscription->toString());
 echo ('<br>');
@@ -42,6 +44,8 @@ $uneInscription->setMontantRembourse(40);
 $uneInscription->setIdEleve(6);
 $uneInscription->setIdSoiree(1);
 $uneInscription->setInscriptionAnnulee(TRUE);
+$uneInscription->setNom("CARTRON");
+$uneInscription->setPrenom("Jean-Michel");
 
 echo ($uneInscription->toString());
 echo ('<br>');
