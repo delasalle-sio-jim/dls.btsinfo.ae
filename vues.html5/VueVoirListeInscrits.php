@@ -33,14 +33,15 @@
 			
 			<?php	
 			/* s'il n'y a pas d'inscription */
-			if ($lesInscriptions == null )
+			// if ($lesInscriptions == null )
+			if (sizeof($lesInscriptions) == 0 )
 			{	echo "Aucun élève n'est inscrit à ce jour.";
 			}
 			/* sinon */
 			else
 			{
 				/* récupération de la collection $lesInscriptions */
-				$lesInscriptions = $dao->getLesInscriptions();
+				// $lesInscriptions = $dao->getLesInscriptions();	// déjà fait dans le contrôleur
 				$message = "<p> La liste des inscrits à la prochaine soirée des anciens est la suivante : </p>";
 				$numInscription = 0;
 				/* création de la première ligne dans le tableau */
