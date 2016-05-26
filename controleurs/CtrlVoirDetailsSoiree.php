@@ -9,7 +9,7 @@ include_once ('modele/DAO.class.php');
 $dao = new DAO();
 
 // récupère les détails de la soirée pour les afficher
-$relire = false;
+$relire = true;
 $uneSoiree = $dao->getSoiree($relire);
 $themeFooter = $themeNormal;
 

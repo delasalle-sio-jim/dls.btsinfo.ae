@@ -2,7 +2,7 @@
 // Projet DLS - BTS Info - Anciens élèves
 // Fonction de la vue vues.html5/VueSupprimerCompteEleve.php : visualiser la vue de suppression d'un compte élève
 // Ecrit le 18/1/2016 par Nicolas Esteve
-// Modifié le 20/5/2016 par Jim
+// Modifié le 26/05/2016 par Killian BOUTIN
 ?>
 <!doctype html>
 <html lang="en">
@@ -90,7 +90,7 @@
 			
 		<div id="content">
 		<h2>Supprimer un Utilisateur</h2>
-	<form name="form1" id="form1" action="index.php?action=SupprUserAdmin" method="post">
+	<form name="form1" id="form1" action="index.php?action=SupprimerCompteEleve" method="post">
 				
 				<!--ceci est un prototype de liste déroulante dynamique non utilisée car trop d'objets à gerer
 				<p>

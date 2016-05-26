@@ -72,10 +72,10 @@ header('Expires: 0');
 							<input type="submit" name="btnInscription"  id="btnInscription" value="S'inscrire" >
 						</p>
 					</form>
-					<?php }
-					else{ ?>
-						Vous êtes déjà inscrit à la soirée. Si vous souhaitez modifier votre inscription, merci de vous rendre sur <a href=index.php?action=ModifierMonInscription >cette page</a>
-					<?php } ?>
+				<?php }
+				else{ ?>
+					Vous êtes déjà inscrit à la soirée. Si vous souhaitez modifier votre inscription, merci de vous rendre sur <a href=index.php?action=ModifierMonInscription >cette page</a>
+				<?php } ?>
 				
 			</div>
 			<div data-role="footer" data-position="fixed" data-theme="<?php echo $themeNormal; ?>">

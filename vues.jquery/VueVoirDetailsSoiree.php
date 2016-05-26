@@ -2,7 +2,7 @@
 	// Projet DLS - BTS Info - Anciens élèves
 	// Fonction de la vue vues.jquery/VueVoirDetailsSoiree.php : visualiser les infos sur la soirée
 	// Ecrit le 6/1/2016 par Nicolas Esteve
-	// Modifié le 25/05/2016 par Killian BOUTIN
+	// Modifié le 26/05/2016 par Killian BOUTIN
 	
 	// pour obliger la page à se recharger
 	header('Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0');
@@ -35,8 +35,11 @@
 				$message .= "<p>Comme chaque année, l'association INPACT organise un repas auquel les étudiants, anciens étudiants et professeurs du BTS SIO ";
 				$message .= " (ex BTS IG) du Lycée De La Salle sont conviés.</p>";
 										
-				if ($uneSoiree->getDateSoiree() != "00-00-0000")
-				{	$message .= "<p>Ce repas aura lieu le <b>vendredi " . Outils::convertirEnDateFR($uneSoiree->getDateSoiree()) . " à 20 h</b>";
+			if ($uneSoiree->getDateSoiree() != 00-00-0000)
+				{	$message .= "<p>Ce repas aura lieu le <b>vendredi " . Outils::convertirEnDateFR($uneSoiree->getDateSoiree()) . " à 20 h</b><br>";
+				}
+				else{
+					$message .= "La date de ce repas n'est pas encore programmée mais aura lieu ";
 				}
 						
 				if ($uneSoiree->getNomRestaurant() != null)

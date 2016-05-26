@@ -53,42 +53,48 @@
 		</div>
 			<div id="content">
 				<h2>Inscription à la soirée</h2>
-				<form name="form1" id="form1" action="index.php?action=CreerMonInscription" method="post">
-
-					<p>
-						<label for="txtNbPlaces">Nombre de places  :</label>
-						<input type="number"  name="txtNbPlaces" id="txtNbPlaces" pattern="^[0-9]{2}$" maxlength="30" value="1" required/>
-					</p>
-					<p>
-						<label class ="label2" for="txtNbPlaces">En cochant cette case vous vous vous engagez a payer <?php echo $tarif ?> euros par places réservées. </label>
-						<input type="checkbox" requiered name="validation" id="validation" maxlength="30"  required/>	
-						<label class ="label2" for="txtNbPlaces"> Vous pouvez payer en avance en envoyant un chèque au nom d'INPACT(en précisant votre nom) ou payer au moment où vous arrivez à la soirée.	</label>		
-					</p>
-					
-					<?php if(! empty ($tarif))
-					{?>
-					<p>
-						<label class="label2" for="txtTarif">Le prix pour une place est de <?php echo $tarif ?> euros</label>
+				<?php if ($eleveInscrit == null){ ?>
+					<form name="form1" id="form1" action="index.php?action=CreerMonInscription" method="post">
+	
+						<p>
+							<label for="txtNbPlaces">Nombre de places  :</label>
+							<input type="number"  name="txtNbPlaces" id="txtNbPlaces" pattern="^[0-9]{2}$" maxlength="30" value="1" required/>
+						</p>
+						<p>
+							<label class ="label2" for="txtNbPlaces">En cochant cette case vous vous vous engagez a payer <?php echo $tarif ?> euros par places réservées. </label>
+							<input type="checkbox" requiered name="validation" id="validation" maxlength="30"  required/>	
+							<label class ="label2" for="txtNbPlaces"> Vous pouvez payer en avance en envoyant un chèque au nom d'INPACT(en précisant votre nom) ou payer au moment où vous arrivez à la soirée.	</label>		
+						</p>
 						
-					</p>
-					<?php }
-					else 
-					{?>
-					<p>
-						<label class="label2" for="txtTarif">Le prix pour la soirée n'a pas été fixé</label>
-						
-					</p>
-					<?php }?>
-					<p>
-						<input type="submit" name="btnInscription"  id="btnInscription" value="S'inscrire" >
-					</p>
-					<p>
-						<label class ="labelImportant"  for="txtNbinformation">Si vous avez déjà fait une reservation celle-ci écrasera la précédente </label>		
-					</p>
-					<p>
-						<input type="submit" name="btnAnnulation"  id="btnAnnulation" value="Annuler mon inscription" >
-					</p>
-				</form>
+						<?php if(! empty ($tarif))
+						{?>
+						<p>
+							<label class="label2" for="txtTarif">Le prix pour une place est de <?php echo $tarif ?> euros</label>
+							
+						</p>
+						<?php }
+						else 
+						{?>
+						<p>
+							<label class="label2" for="txtTarif">Le prix pour la soirée n'a pas été fixé</label>
+							
+						</p>
+						<?php }?>
+						<p>
+							<input type="submit" name="btnInscription"  id="btnInscription" value="S'inscrire" >
+						</p>
+						<p>
+							<label class ="labelImportant"  for="txtNbinformation">Si vous avez déjà fait une reservation celle-ci écrasera la précédente </label>		
+						</p>
+						<p>
+							<input type="submit" name="btnAnnulation"  id="btnAnnulation" value="Annuler mon inscription" >
+						</p>
+					</form>
+				<?php }
+				else{ ?>
+					Vous êtes déjà inscrit à la soirée. Si vous souhaitez modifier votre inscription, merci de vous rendre sur <a href=index.php?action=ModifierMonInscription >cette page</a>
+				<?php } ?>
+				
 				
 		</div>
 		
@@ -101,7 +107,7 @@
 		<div>
 			<h2 id="titre_message" class="classe_information">Message</h2>
 			<p id="texte_message" class="classe_texte_message">Texte du message</p>
-			<a href="#close" title="Fermer">Fermer</a>
+			<a href="" onclick='window.location.reload(false)' title="Fermer">Fermer</a>
 		</div>
 	</aside>
 </body>

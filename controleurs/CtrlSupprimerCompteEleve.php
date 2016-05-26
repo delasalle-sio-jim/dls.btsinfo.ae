@@ -2,7 +2,7 @@
 // Projet DLS - BTS Info - Anciens élèves
 // Fonction du contrôleur CtrlSupprimerCompteEleve.php : traiter la suppression d'un compte d'un élève par un administrateur
 // Ecrit le 12/1/2016 par Nicolas Esteve
-// Modifié le 20/5/2016 par Jim
+// Modifié le 26/05/2016
 
 // inclusion de la classe Outils
 include_once ('modele/Outils.class.php');
@@ -19,13 +19,13 @@ if ( empty ($_POST ["mail"]) == true)  $mail = "";  else   $mail = $_POST ["mail
 
 if( (! isset ($_POST ["listeEleves"]) == true) && ( ! isset ($_POST ["btnSupprimer"]) == true)){			
 		// redirection vers la vue si aucune données n'est recu par le controleur
-		$lesMails = $dao->GetLesAdressesMail();
+		$lesMails = $dao->GetLesAdressesMails();
 		$idEleve = "";
 		$adrMailEleve = "";
 		$message = "";
 		$typeMessage = "";
 		$etape = 0;
-		$listeMails = $dao->GetLesAdressesMail();
+		$listeMails = $dao->GetLesAdressesMails();
 		$themeFooter = $themeNormal;
 		include_once ($cheminDesVues . 'VueSupprimerCompteEleve.php');
 	}
@@ -41,7 +41,7 @@ if( (! isset ($_POST ["listeEleves"]) == true) && ( ! isset ($_POST ["btnSupprim
 		$mail = $unEleve->getAdrMail();
 		$annee = $unEleve->getAnneeDebutBTS();
 		
-		$liste = $dao->GetLesAdressesMail();
+		$liste = $dao->GetLesAdressesMails();
 		
 		$themeFooter = $themeNormal;
 		include_once ($cheminDesVues . 'VueSupprimerCompteEleve.php');	
@@ -50,7 +50,7 @@ if( (! isset ($_POST ["listeEleves"]) == true) && ( ! isset ($_POST ["btnSupprim
 	{
 		$etape=0;
 		$ok = $dao->supprimerCompteEleve($_POST ["listeEleves"]);
-		$liste = $dao->GetLesAdressesMail();
+		$liste = $dao->GetLesAdressesMails();
 		if ( $ok ) {
 				
 			$message = "Suppression effectuée.";

@@ -65,7 +65,7 @@ if ( isset ($_SESSION['cheminDesVues']) == false)
 else
 	 $cheminDesVues = $_SESSION['cheminDesVues'];
 // ATTENTION ON TRICHE (EN DEVELOPPEMENT) POUR FORCER L'AFFICHAGE DE LA VERSION MOBILE SUR LE POSTE DE DEVELOPPEMENT :
- $cheminDesVues = "vues.jquery/";	// pour forcer l'affichage de la version mobile (ligne à désactiver dans l'application finale)
+// $cheminDesVues = "vues.jquery/";	// pour forcer l'affichage de la version mobile (ligne à désactiver dans l'application finale)
 
 // si l'utilisateur n'est pas encore identifié, il sera automatiquement redirigé vers le contrôleur d'authentification
 // (sauf s'il ne peut pas se connecter et demande de se faire envoyer son mot de passe qu'il a oublié ou s'il veut se créer un compte)
@@ -91,16 +91,16 @@ switch($action){
 	case 'ModifierMaFichePersoEleve': {
 		include_once ('controleurs/CtrlModifierMaFichePersoEleve.php'); break;
 	}
-	case 'CreerMonInscription':{
+	case 'CreerMonInscription': {
 		include_once ('controleurs/CtrlCreerMonInscription.php'); break;
 	}
-	case 'VoirDetailsSoiree':{
+	case 'VoirDetailsSoiree': {
 		include_once ('controleurs/CtrlVoirDetailsSoiree.php'); break;
 	}
-	case 'VoirListeInscrits':{
+	case 'VoirListeInscrits': {
 		include_once ('controleurs/CtrlVoirListeInscrits.php'); break;
 	}
-	case 'ProposerStage':{
+	case 'ProposerStage': {
 		include_once ('controleurs/CtrlProposerStage.php'); break;
 	}
 	
@@ -111,7 +111,7 @@ switch($action){
 	case 'ModifierMaFichePersoAdmin': {
 		include_once ('controleurs/CtrlModifierMaFichePersoAdmin.php'); break;
 	}
-	case 'CreerCompteEleve':{
+	case 'CreerCompteEleve': {
 		include_once ('controleurs/CtrlCreerCompteEleve.php'); break;
 	}
 	case 'ModifierCompteEleve': {
@@ -120,19 +120,19 @@ switch($action){
 	case 'SupprimerCompteEleve': {
 		include_once ('controleurs/CtrlSupprimerCompteEleve.php'); break;
 	}
-	case 'CreerCompteAdmin':{
+	case 'CreerCompteAdmin': {
 		include_once ('controleurs/CtrlCreerCompteAdmin.php'); break;
 	}
 	case 'ModifierCompteAdmin': {
 		include_once ('controleurs/CtrlModifierCompteAdmin.php'); break;
 	}
-	case 'SupprimerCompteAdmin':{
+	case 'SupprimerCompteAdmin': {
 		include_once ('controleurs/CtrlSupprimerCompteAdmin.php'); break;
 	}
-	case 'ModifierDetailsSoiree':{
+	case 'ModifierDetailsSoiree': {
 		include_once ('controleurs/CtrlModifierDetailsSoiree.php'); break;
 	}
-	case 'ModifierReglementsRemboursements':{
+	case 'ModifierReglementsRemboursements': {
 		include_once ('controleurs/CtrlModifierReglementsRemboursements.php'); break;
 	}
 	

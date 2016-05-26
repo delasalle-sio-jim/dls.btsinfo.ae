@@ -2,7 +2,7 @@
 // Projet DLS - BTS Info - Anciens élèves
 // Fonction du contrôleur CtrlModifierCompteEleve.php : traiter la modification d'un compte élève par un administrateur
 // Ecrit le 12/1/2016 par Nicolas Esteve
-// Modifié le 20/5/2016 par Jim
+// Modifié le 26/05/2016 par Killian BOUTIN
 
 // inclusion de la classe Outils
 include_once ('modele/Outils.class.php');
@@ -19,12 +19,12 @@ if ( empty ($_POST ["mail"]) == true)  $mail = "";  else   $mail = $_POST ["mail
 //$lesFonctions = $dao->getLesFonctions(); utilité à verifier++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 if( (! isset ($_POST ["listeEleves"]) == true) && ( ! isset ($_POST ["btnEnvoyer"]) == true)){			
 		// redirection vers la vue si aucune données n'est recu par le controleur
-		$lesMails = $dao->GetLesAdressesMail();
+		$lesMails = $dao->getLesAdressesMails();
 		$idEleve = "";
 		$message = "";
 		$typeMessage = "";
 		$etape = 0;
-		$listeMails = $dao->GetLesAdressesMail();
+		$listeMails = $dao->getLesAdressesMails();
 		
 		//mise a zéro des variables de modifications de l'eleve
 		$nom = '';
@@ -67,7 +67,7 @@ if( (! isset ($_POST ["listeEleves"]) == true) && ( ! isset ($_POST ["btnEnvoyer
 		$idFonction = $unEleve->getIdFonction();
 		
 		
-		$liste = $dao->GetLesAdressesMail();
+		$liste = $dao->getLesAdressesMails();
 		
 		$themeFooter = $themeNormal;
 		include_once ($cheminDesVues . 'VueModifierCompteEleve.php');
@@ -100,7 +100,7 @@ if( (! isset ($_POST ["listeEleves"]) == true) && ( ! isset ($_POST ["btnEnvoyer
 			$etape=0;
 			$oldMail = ($_POST ["listeEleves"]);
 			$ok = $dao->modifierFicheUser($nom, $prenom, $anneeDebutBTS, $mail, $tel, $rue, $ville, $cp, $etudes, $entreprise, $fonction, $oldMail);
-			$liste = $dao->GetLesAdressesMail();
+			$liste = $dao->getLesAdressesMails();
 			if ( $ok ) {
 		
 				$message = 'Modification réussie.';
