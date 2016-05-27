@@ -16,7 +16,7 @@
 //    index.php?action=ChangerDeMdp           : pour afficher la page de changement de mot de passe
 //    index.php?action=ModifierFicheEleve     : pour afficher la page de modification de sa fiche personnelle
 
-// il faut être administrateur pour les 2 actions suivantes :
+// il faut être administrateur pour les actions suivantes :
 //    index.php?action=ModifierCompteEleve    : pour afficher la page de modification d'un compte élève 
 //    index.php?action=SupprimerCompteEleve   : pour afficher la page de suppression d'un compte élève 
 //    index.php?action=SupprimerCompteAdmin	  : pour afficher la page de suppression d'un compte administateur
@@ -66,7 +66,7 @@ else
 	 $cheminDesVues = $_SESSION['cheminDesVues'];
 
 // ATTENTION ON TRICHE (EN DEVELOPPEMENT) POUR FORCER L'AFFICHAGE DE LA VERSION MOBILE SUR LE POSTE DE DEVELOPPEMENT :
-$cheminDesVues = "vues.jquery/";	// pour forcer l'affichage de la version mobile (ligne à désactiver dans l'application finale)
+//$cheminDesVues = "vues.jquery/";	// pour forcer l'affichage de la version mobile (ligne à désactiver dans l'application finale)
 
 // si l'utilisateur n'est pas encore identifié, il sera automatiquement redirigé vers le contrôleur d'authentification
 // (sauf s'il ne peut pas se connecter et demande de se faire envoyer son mot de passe qu'il a oublié ou s'il veut se créer un compte)

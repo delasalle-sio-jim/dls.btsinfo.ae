@@ -4,7 +4,12 @@
 // Ecrit le 02/02/2016 par Nicolas Esteve
 // Modifié le 25/05/2016 par Killian BOUTIN
 
-// Ligne 48 : => <label class ="label2" for="txtNouveauMdp"> <= ?????????? (Killian)
+/* FAIRE UN TEST :
+ - si il est autre que élève, il ne peut pas accéder à cette page
+ - si il est élève mais qu'il est déjà inscrit, il ne peut pas accéder à cette page
+ */
+
+// Ligne 53 : => <label class ="label2" for="txtNouveauMdp"> <= ?????????? (Killian)
 	
 // pour obliger la page à se recharger
 header('Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0');

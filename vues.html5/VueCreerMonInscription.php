@@ -2,7 +2,12 @@
 // Projet DLS - BTS Info - Anciens élèves
 // Fonction de la vue vues.html5/VueCreerMonInscription.php : visualiser le formulaire d'inscription à la soirée
 // Ecrit le 02/02/2016 par Nicolas Esteve
-// Modifié le 24/05/2016
+// Modifié le 27/05/2016 par Killian BOUTIN
+
+/* FAIRE UN TEST :
+	- si il est autre que élève, il ne peut pas accéder à cette page
+	- si il est élève mais qu'il est déjà inscrit, il ne peut pas accéder à cette page
+*/
 ?>
 <!doctype html>
 <html>
@@ -53,7 +58,9 @@
 		</div>
 			<div id="content">
 				<h2>Inscription à la soirée</h2>
-				<?php if ($idInscription == -1){ ?>
+				<?php
+				/* if ($idInscription == -1){ 
+				*/ ?>
 					<form name="form1" id="form1" action="index.php?action=CreerMonInscription" method="post">
 	
 						<p>
@@ -87,13 +94,15 @@
 							<input type="submit" name="btnAnnulation"  id="btnAnnulation" value="Annuler mon inscription" >
 						</p>
 					</form>
-				<?php }
+				<?php 
+				/*}
 				else{ ?>
 					<h3 class="titre_inscription">Vous êtes déjà inscrit à la soirée.<br><br></h3>
 					<h3><a href=index.php?action=ModifierMonInscription >- Modifier mon inscription</a><br></h3>
 					<h3><a href=index.php?action=SupprimerMonInscription >- Annuler mon inscription</a><br></h3>
 					<h3><a href=index.php?action=VoirListeInscritsEleve >- Consulter la liste des inscrits</a><br></h3>
-				<?php } ?>
+				<?php } 
+				*/?>
 				
 				
 		</div>
@@ -107,7 +116,7 @@
 		<div>
 			<h2 id="titre_message" class="classe_information">Message</h2>
 			<p id="texte_message" class="classe_texte_message">Texte du message</p>
-			<a href="" onclick='window.location.reload(false)' title="Fermer">Fermer</a>
+			<a href="index.php?action=Menu#menu2" title="Fermer">Fermer</a>
 		</div>
 	</aside>
 </body>
