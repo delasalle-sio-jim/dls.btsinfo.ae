@@ -48,7 +48,7 @@ header('Expires: 0');
 							<label class ="label2" for="txtNouveauMdp">En cochant cette case vous vous vous engagez a payer <?php echo $tarif ?> euros par places réservées. </label>
 						
 						<div data-role="fieldcontain">
-							<input type="checkbox" requiered name="validation" id="validation" maxlength="30"  required/>	
+							<input type="checkbox" required name="validation" id="validation" maxlength="30"  required/>	
 						</div> 
 						<div data-role="fieldcontain">
 							<label class ="label2" for="txtNbPlaces"> Vous pouvez payer en avance en envoyant un chèque au nom d'INPACT(en précisant votre nom) ou payer au moment où vous arrivez à la soirée.	</label>		

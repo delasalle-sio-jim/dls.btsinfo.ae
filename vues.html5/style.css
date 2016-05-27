@@ -1,5 +1,5 @@
 ﻿/* Feuille de styles de la version HTML5 pour terminaux fixes */
-/* Modifié le 22/5/2016 par Jim */
+/* Modifié le 27/05/2016 par Killian BOUTIN */
 
 /* ----------------- Mise en forme de la structure générale -------------------- */
 
@@ -206,6 +206,11 @@ div#content h3 {
 	color: #0b4c8e;
 }
 
+div#content h3.titre_inscription{
+	margin-bottom: -12px;
+	text-align: center;
+}
+
 /* style des balises <p> de la division <div id="content"> */
 div#content p {
 	margin-top: 10px;
@@ -357,6 +362,33 @@ table {
 	box-shadow: 1px 3px 3px #ccc;
 }
 
+/* le style de class="inscription" est placé avant le style de class="tableau" pour que les modifications des couleurs n'affectent pas la première et la dernière ligne (avec even et odd) */
+
+/* style des lignes paires du tableau de la vue "VueVoirListeInscrits */
+.inscription tr:nth-child(even){
+    background: #c0c0c0;
+}
+
+/* style au survol des lignes paires du tableau */
+.inscription tr:nth-child(even):hover {
+	background-color: #b3b3b3;
+}
+
+/* style des lignes impaires du tableau de la vue "VueVoirListeInscrits */
+.inscription tr:nth-child(odd){
+    background: #a6a6a6;
+}
+
+/* style au survol des lignes impaires du tableau */
+.inscription tr:nth-child(odd):hover {
+	background-color: #999999;
+}
+
+/* style des td du tableau de la vue "VueVoirListeInscrits */
+.inscriptionEleve td{
+	width: 25%;
+}
+
 /* styles des cellules des tableaux ayant la propriété class="tableau" */
 .tableau td, .tableau th {
 	/* les cellules sont encadrés en haut et à gauche */
@@ -426,26 +458,6 @@ table {
 	-moz-border-radius: 0 0 10px 0;
 	-webkit-border-radius: 0 0 10px 0;
 	border-radius: 0 0 10px 0;
-}
-
-/* style au survol des lignes du tableau */
-.tableau tr:hover {
-	background-color: #fbf8e9;
-}
-
-/* style de la première ligne du tableau de la vue "VueVoirListeInscrits */
-.inscription tr:nth-child(1){
-	background: #A0A0A0 ;
-}
-
-/* style des lignes paires du tableau de la vue "VueVoirListeInscrits */
-.inscription tr:nth-child(even){
-    background: #ffffff;
-}
-
-/* style des td du tableau de la vue "VueVoirListeInscrits */
-.inscription td{
-	width: 25%;
 }
 
 /* ----------------- Mise en forme des formulaires -------------------- */

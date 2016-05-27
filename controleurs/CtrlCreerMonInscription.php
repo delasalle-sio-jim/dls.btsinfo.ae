@@ -14,9 +14,16 @@ $tarif = $uneSoiree->getTarif();
 
 //obtention de l'adresseMail, puis de l'id de l'élève, puis de la situation de l'inscription de cet élève
 $adrMail = $_SESSION['adrMail'];
-$Eleve = $dao->getEleve($adrMail);
-$idEleve = $Eleve->getId();
+$unEleve = $dao->getEleve($adrMail);
+$idEleve = $unEleve->getId();
 $eleveInscrit = $dao->getInscriptionEleve($idEleve);
+
+$lesInscriptions = $dao->getLesInscriptions();
+
+/* récupération du tarif */
+foreach ($lesInscriptions as $uneInscription){
+	$unTarif = $uneInscription->getTarif();
+}
 
 // on vérifie si le demandeur de cette action est bien authentifié
 if ( $_SESSION['typeUtilisateur'] != 'eleve') {
@@ -39,20 +46,18 @@ else {
 			$montantRegle = 0;
 			
 			$urgent = false;
-			$uneSoiree = $dao->getSoiree($urgent);
-			$Tarif = $uneSoiree->getTarif();
-			$Tarif = $Tarif * $nbPersonnes;
+			$Tarif = $unTarif * $nbPersonnes;
 
-			$unNom = $Eleve->getNom();
-			$unPrenom = $Eleve->getPrenom();
-			$anneeDebutBTS = $Eleve->getAnneeDebutBTS();
+			$unNom = $unEleve->getNom();
+			$unPrenom = $unEleve->getPrenom();
+			$anneeDebutBTS = $unEleve->getAnneeDebutBTS();
 			
 			$dateInscription = date('d/m/Y', time());
 			$montantRembourse = 0;
 			$idSoiree = $uneSoiree->getId();
 			$inscriptionAnnulee = false;
 			
-			$uneInscription = new Inscription($idEleve, $unNom, $unPrenom, $anneeDebutBTS, $dateInscription, $nbPersonnes, $montantRegle, $montantRembourse, $idEleve, $idSoiree, $inscriptionAnnulee);
+			$uneInscription = new Inscription($idEleve, $unNom, $unPrenom, $anneeDebutBTS, $dateInscription, $nbPersonnes, $montantRegle, $montantRembourse, $idEleve, $idSoiree, $inscriptionAnnulee, $unTarif);
 			
 			$ok = $dao->creerInscription($uneInscription);
 			if (!$ok)
@@ -74,8 +79,8 @@ else {
 		{
 			
 			$adrMail = $_SESSION['adrMail'];
-			$Eleve = $dao->getEleve($adrMail);
-			$idEleve = $Eleve->getId();
+			$unEleve = $dao->getEleve($adrMail);
+			$idEleve = $unEleve->getId();
 			 
 			$ok = $dao->annulerInscription($idEleve);
 			
@@ -102,12 +107,12 @@ else {
 					Outils::envoyerMail($adrMail,$sujet, $message,$ADR_MAIL_EMETTEUR);
 				}
 				$sujet ="Annulation";
-				$message ="L'utilisateur ".$Eleve->getPrenom()." ".$Eleve->getNom();
+				$message ="L'utilisateur ".$unEleve->getPrenom()." ".$unEleve->getNom();
 				$message .=" a annulé son inscription.<br>";
 				
 				if( $montantRegle < 0)
 				{
-					$message .="IMPORTANT :  ".$Eleve->getPrenom()." ".$Eleve->getNom()." a payé ".$montantRegle." euros en avance. Il faut le rembourser au plus tôt";
+					$message .="IMPORTANT :  ".$unEleve->getPrenom()." ".$unEleve->getNom()." a payé ".$montantRegle." euros en avance. Il faut le rembourser au plus tôt";
 				}
 					
 				Outils::envoyerMail($ADR_MAIL_ADMINISTRATEUR, $sujet, $message, $ADR_MAIL_EMETTEUR);

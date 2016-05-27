@@ -810,8 +810,8 @@ class DAO
 	{	// préparation de la requête d'extraction des inscriptions non annulées
 		// le GROUP BY permet de ne retenir qu'un seul exemplaire des inscriptions pour chaque membre au cas où il y aurait des doublons. 
 		// |=> A supprimer quand on aura modifié le fait qu'une 2ème inscription supprime la première
-		$txt_req = "SELECT nom, prenom, anneeDebutBTS, ae_inscriptions.id, dateInscription, nbrePersonnes, montantRegle, montantRembourse, idEleve, idSoiree, inscriptionAnnulee";
-		$txt_req .= " FROM ae_eleves, ae_inscriptions"; 
+		$txt_req = "SELECT nom, prenom, anneeDebutBTS, ae_soirees.tarif , ae_inscriptions.id, dateInscription, nbrePersonnes, montantRegle, montantRembourse, idEleve, idSoiree, inscriptionAnnulee";
+		$txt_req .= " FROM ae_eleves, ae_inscriptions, ae_soirees"; 
 		$txt_req .= " WHERE ae_eleves.id = ae_inscriptions.idEleve";
 		$txt_req .= " AND inscriptionAnnulee = 0";
 		$txt_req .=	" GROUP BY ae_eleves.nom, ae_eleves.prenom";	// à supprimer plus tard !
@@ -839,8 +839,9 @@ class DAO
 				$idEleve = utf8_encode($uneLigne->idEleve);
 				$idSoiree = utf8_encode($uneLigne->idSoiree);
 				$inscriptionAnnulee = utf8_encode($uneLigne->inscriptionAnnulee);
+				$unTarif = utf8_encode($uneLigne->tarif);
 				
-				$uneInscription = new Inscription($unId, $unNom, $unPrenom, $anneeDebutBTS, $dateInscription, $unNbrePersonnes, $montantRegle, $montantRembourse, $idEleve, $idSoiree, $inscriptionAnnulee);
+				$uneInscription = new Inscription($unId, $unNom, $unPrenom, $anneeDebutBTS, $dateInscription, $unNbrePersonnes, $montantRegle, $montantRembourse, $idEleve, $idSoiree, $inscriptionAnnulee, $unTarif);
 				// ajout de l'inscription à la collection
 				$lesInscriptions[] = $uneInscription;
 				// extraction de la ligne suivante

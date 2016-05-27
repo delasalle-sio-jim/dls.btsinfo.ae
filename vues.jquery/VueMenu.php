@@ -36,7 +36,7 @@
 							<ul data-role="listview" data-inset="true">
 								<li><a href="index.php?action=CreerMonInscription" data-mini="true" data-role="button" data-ajax="false" data-transition="<?php echo $transition; ?>">M'inscrire à la soirée des anciens</a></li>
 								<li><a href="index.php?action=VoirDetailsSoiree" data-mini="true" data-role="button" data-ajax="false" data-transition="<?php echo $transition; ?>">Consulter les infos sur la soirée</a></li>
-								<li><a href="index.php?action=VoirListeInscrits" data-mini="true" data-role="button" data-ajax="false" data-transition="<?php echo $transition; ?>">Consulter la liste des inscriptions</a></li>
+								<li><a href="index.php?action=VoirListeInscritsEleve" data-mini="true" data-role="button" data-ajax="false" data-transition="<?php echo $transition; ?>">Consulter la liste des inscriptions</a></li>
 								<li><a href="index.php?action=ModifierMonInscription" data-mini="true" data-role="button" data-ajax="false" data-transition="<?php echo $transition; ?>">Modifier mon inscription</a></li>
 								<li><a href="index.php?action=SupprimerMonInscription" data-mini="true" data-role="button" data-ajax="false" data-transition="<?php echo $transition; ?>">Annuler mon inscription</a></li>
 							</ul>
@@ -68,7 +68,7 @@
 							<h3>La soirée annuelle des anciens...</h3>
 							<ul data-role="listview" data-inset="true">	
 								<li><a href="index.php?action=ModifierDetailsSoiree" data-mini="true" data-role="button" data-ajax="false" data-transition="<?php echo $transition; ?>">Modifier les infos sur la soirée</a></li>
-								<li><a href="index.php?action=VoirListeInscrits" data-mini="true" data-role="button" data-ajax="false" data-transition="<?php echo $transition; ?>">Consulter la liste des inscriptions</a></li>
+								<li><a href="index.php?action=VoirListeInscritsAdmin" data-mini="true" data-role="button" data-ajax="false" data-transition="<?php echo $transition; ?>">Consulter la liste des inscriptions</a></li>
 								<li><a href="index.php?action=EnvoyerCourriel" data-mini="true" data-role="button" data-ajax="false" data-transition="<?php echo $transition; ?>">Envoyer un courriel de relance</a></li>
 								<li><a href="index.php?action=ModifierReglementsRemboursements" data-mini="true" data-role="button" data-ajax="false" data-transition="<?php echo $transition; ?>">Mettre à jour réglements et remboursements</a></li>
 							</ul>

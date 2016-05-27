@@ -1,7 +1,7 @@
 <?php
 // Projet DLS - BTS Info - Anciens élèves
 // Ecrit le 1/12/2015 par Jim
-// Modifié le 20/05/2016 par Jim
+// Modifié le 27/05/2016 par Jim
 
 // Fonction de la page principale index.php : analyser toutes les demandes et activer le contrôleur chargé de traiter l'action demandée
 
@@ -97,8 +97,8 @@ switch($action){
 	case 'VoirDetailsSoiree': {
 		include_once ('controleurs/CtrlVoirDetailsSoiree.php'); break;
 	}
-	case 'VoirListeInscrits': {
-		include_once ('controleurs/CtrlVoirListeInscrits.php'); break;
+	case 'VoirListeInscritsEleve': {
+		include_once ('controleurs/CtrlVoirListeInscritsEleve.php'); break;
 	}
 	case 'ProposerStage': {
 		include_once ('controleurs/CtrlProposerStage.php'); break;
@@ -131,6 +131,9 @@ switch($action){
 	}
 	case 'ModifierDetailsSoiree': {
 		include_once ('controleurs/CtrlModifierDetailsSoiree.php'); break;
+	}
+	case 'VoirListeInscritsAdmin': {
+		include_once ('controleurs/CtrlVoirListeInscritsAdmin.php'); break;
 	}
 	case 'ModifierReglementsRemboursements': {
 		include_once ('controleurs/CtrlModifierReglementsRemboursements.php'); break;

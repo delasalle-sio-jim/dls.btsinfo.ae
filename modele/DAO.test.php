@@ -1,6 +1,7 @@
 <?php
 // Projet DLS - BTS Info - Anciens élèves
 // Test de la classe DAO
+// fichier : modele/DAO.test.php
 // Création : 16/11/2015 par JM CARTRON
 // Mise à jour : 13/5/2016 par JM CARTRON
 
