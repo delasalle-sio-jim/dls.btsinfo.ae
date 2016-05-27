@@ -3,7 +3,7 @@
 // fichier : modele/Inscription.class.php
 // Rôle : la classe Inscription représente une inscription à une soirée des anciens 
 // Création : 2/2/2016 par Nicolas Esteve
-// Mise à jour : 26/05/2015 par Killian BOUTIN
+// Mise à jour : 27/05/2015 par Killian BOUTIN
 
 // inclusion de la classe Outils
 include_once ('Outils.class.php');
@@ -25,12 +25,13 @@ class Inscription
 	private $nom;					// le nom de l'ancien élève inscrit
 	private $prenom;				// le prénom de l'ancien élève inscrit
 	private $anneeDebutBTS;			// année d'entrée en BTS (sur 4 caractères)
+	private $tarif;					// tarif
 
 	// ------------------------------------------------------------------------------------------------------
 	// ----------------------------------------- Constructeur -----------------------------------------------
 	// ------------------------------------------------------------------------------------------------------
 	
-	public function Inscription($unId, $unNom, $unPrenom, $anneeDebutBTS, $dateInscription, $unNbrePersonnes, $montantRegle, $montantRembourse, $idEleve, $idSoiree, $inscriptionAnnulee) {
+	public function Inscription($unId, $unNom, $unPrenom, $anneeDebutBTS, $dateInscription, $unNbrePersonnes, $montantRegle, $montantRembourse, $idEleve, $idSoiree, $inscriptionAnnulee, $unTarif) {
 		$this->id = $unId;
 		$this->nom = strtoupper($unNom);
 		$this->prenom = Outils::corrigerPrenom($unPrenom);
@@ -42,6 +43,7 @@ class Inscription
 		$this->idEleve = $idEleve;
 		$this->idSoiree = $idSoiree;
 		$this->inscriptionAnnulee = $inscriptionAnnulee;
+		$this->tarif = $unTarif;
 	}	
 	
 	// ------------------------------------------------------------------------------------------------------
@@ -80,6 +82,9 @@ class Inscription
 	
 	public function getAnneeDebutBTS() {return $this->anneeDebutBTS;}
 	public function setAnneeDebutBTS($uneAnneeDebutBTS) {$this->anneeDebutBTS = $uneAnneeDebutBTS;}
+	
+	public function getTarif() {return $this->tarif;}
+	public function setTarif($unTarif) {$this->tarif = $unTarif;}
 
 
 	// ------------------------------------------------------------------------------------------------------
@@ -98,6 +103,7 @@ class Inscription
 		$msg .= 'montantRembourse : ' . $this->getMontantRembourse() . '<br>';
 		$msg .= 'idEleve : ' . $this->getIdEleve() . '<br>';
 		$msg .= 'idSoiree : ' . $this->getIdSoiree() . '<br>';
+		$msg .= 'Tarif : ' . $this->getTarif() . '<br>';
 		if ($this->getInscriptionAnnulee())
 			$msg .= 'inscriptionAnnulee : OUI <br>';
 		else

@@ -17,7 +17,7 @@ include_once ('modele/DAO.class.php');
 $dao = new DAO();
 if( (! isset ($_POST ["listeEleves"]) == true) && ( ! isset ($_POST ["btnModifier"]) == true)){
 	// redirection vers la vue si aucune données n'est recu par le controleur
-		$lesMails = $dao->getLesAdressesMailRemboursement();
+		$lesMails = $dao->getLesAdressesMailsDesInscrits();
 		$idEleve = "";
 		$message = "";
 		$typeMessage = "";
@@ -65,7 +65,7 @@ if( (! isset ($_POST ["listeEleves"]) == true) && ( ! isset ($_POST ["btnModifie
 		}
 		else 
 		{
-			$message = "invalise";
+			$message = "invalide";
 			$typeMessage = "avertissement";
 		}
 		include_once ($cheminDesVues . 'VueModifierReglementsRemboursements.php');

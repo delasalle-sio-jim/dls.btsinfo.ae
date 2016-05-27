@@ -37,7 +37,7 @@ header('Expires: 0');
 			<div data-role="content">
 				<h4 style="text-align: center; margin-top: 10px; margin-bottom: 10px;">Inscription à la soiree</h4>
 				
-				<?php if ($eleveInscrit == null){ ?>
+				<?php if ($idInscription == -1){ ?>
 					<form action="index.php?action=CreerMonInscription" method="post" data-ajax="false" >
 					
 						<div data-role="fieldcontain">
@@ -48,7 +48,7 @@ header('Expires: 0');
 							<label class ="label2" for="txtNouveauMdp">En cochant cette case vous vous vous engagez a payer <?php echo $tarif ?> euros par places réservées. </label>
 						
 						<div data-role="fieldcontain">
-							<input type="checkbox" requiered name="validation" id="validation" maxlength="30"  required/>	
+							<input type="checkbox" required name="validation" id="validation" maxlength="30"  required/>	
 						</div> 
 						<div data-role="fieldcontain">
 							<label class ="label2" for="txtNbPlaces"> Vous pouvez payer en avance en envoyant un chèque au nom d'INPACT(en précisant votre nom) ou payer au moment où vous arrivez à la soirée.	</label>		

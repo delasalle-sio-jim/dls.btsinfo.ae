@@ -1,7 +1,7 @@
 <?php
 // Projet DLS - BTS Info - Anciens élèves
 // Ecrit le 1/12/2015 par Jim
-// Modifié le 20/05/2016 par Jim
+// Modifié le 27/05/2016 par Jim
 
 // Fonction de la page principale index.php : analyser toutes les demandes et activer le contrôleur chargé de traiter l'action demandée
 
@@ -51,7 +51,7 @@ if ( isset ($_SESSION['adrMail']) == false)  $adrMail = '';  else  $adrMail = $_
 if ( isset ($_SESSION['motDePasse']) == false)  $motDePasse = '';  else  $motDePasse = $_SESSION['motDePasse'];
 if ( isset ($_SESSION['typeUtilisateur']) == false)  $typeUtilisateur = '';  else  $typeUtilisateur = $_SESSION['typeUtilisateur'];
 
-// pour mémoriser le choix d'afficher en clar (ou pas) le mot de passe :
+// pour mémoriser le choix d'afficher en clair (ou pas) le mot de passe :
 if ( isset ($_SESSION['afficherMdp']) == false)  $afficherMdp = 'off';  else  $afficherMdp = $_SESSION['afficherMdp'];
 
 // pour mémoriser le chemin d'accès des vues  ("vues.html5/" pour un ordi, "vues.jquery/" pour un mobile) :
@@ -64,6 +64,7 @@ if ( isset ($_SESSION['cheminDesVues']) == false)
 }
 else
 	 $cheminDesVues = $_SESSION['cheminDesVues'];
+
 // ATTENTION ON TRICHE (EN DEVELOPPEMENT) POUR FORCER L'AFFICHAGE DE LA VERSION MOBILE SUR LE POSTE DE DEVELOPPEMENT :
 $cheminDesVues = "vues.jquery/";	// pour forcer l'affichage de la version mobile (ligne à désactiver dans l'application finale)
 
@@ -94,11 +95,14 @@ switch($action){
 	case 'CreerMonInscription': {
 		include_once ('controleurs/CtrlCreerMonInscription.php'); break;
 	}
+	case 'ModifierMonInscription': {
+		include_once ('controleurs/CtrlModifierMonInscription.php'); break;
+	}
 	case 'VoirDetailsSoiree': {
 		include_once ('controleurs/CtrlVoirDetailsSoiree.php'); break;
 	}
-	case 'VoirListeInscrits': {
-		include_once ('controleurs/CtrlVoirListeInscrits.php'); break;
+	case 'VoirListeInscritsEleve': {
+		include_once ('controleurs/CtrlVoirListeInscritsEleve.php'); break;
 	}
 	case 'ProposerStage': {
 		include_once ('controleurs/CtrlProposerStage.php'); break;
@@ -131,6 +135,9 @@ switch($action){
 	}
 	case 'ModifierDetailsSoiree': {
 		include_once ('controleurs/CtrlModifierDetailsSoiree.php'); break;
+	}
+	case 'VoirListeInscritsAdmin': {
+		include_once ('controleurs/CtrlVoirListeInscritsAdmin.php'); break;
 	}
 	case 'ModifierReglementsRemboursements': {
 		include_once ('controleurs/CtrlModifierReglementsRemboursements.php'); break;
