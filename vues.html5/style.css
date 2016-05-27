@@ -77,7 +77,7 @@ div#footer p {
 
 /* style de la division id="content" */
 div#content {
-	padding: 0px 30px 0 40px;
+	padding: 0px 40px 0 40px;
 	margin: 0;
 }
 
@@ -366,22 +366,22 @@ table {
 
 /* style des lignes paires du tableau de la vue "VueVoirListeInscrits */
 .inscription tr:nth-child(even){
-    background: #c0c0c0;
+    background: #e6e6e6;
 }
 
 /* style au survol des lignes paires du tableau */
 .inscription tr:nth-child(even):hover {
-	background-color: #b3b3b3;
+	background-color: #d9d9d9;
 }
 
 /* style des lignes impaires du tableau de la vue "VueVoirListeInscrits */
 .inscription tr:nth-child(odd){
-    background: #a6a6a6;
+    background: #cccccc;
 }
 
 /* style au survol des lignes impaires du tableau */
 .inscription tr:nth-child(odd):hover {
-	background-color: #999999;
+	background-color: #bfbfbf;
 }
 
 /* style des td du tableau de la vue "VueVoirListeInscrits */
@@ -511,6 +511,11 @@ label {
 	height: 100%;
 	margin: 1% 0 0 10%;
 }
+
+input[type="checkbox"]{
+	margin-left: -20px;
+}
+
 .labelImportant {
 	color: red;
 	position: relative;

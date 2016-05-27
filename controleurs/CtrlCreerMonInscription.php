@@ -2,28 +2,26 @@
 // Projet DLS - BTS Info - Anciens élèves
 // Fonction du contrôleur CtrlCreerMonInscription.php : traiter la demande d'inscription ou d'annulation d'une inscription
 // Ecrit le 02/02/2016 par Nicolas Esteve
-// Modifié le 26/05/2016 par Killian BOUTIN
+// Modifié le 27/05/2016 par Killian BOUTIN
+
+// A modifier quand la partie "SupprimerMonInscription" sera faite !
 
 include_once ('modele/DAO.class.php');
 $dao = new DAO();
 
 // mise en place de variable permanentes
+// placement de la variable $urgent à true pour avoir les données les plus récentes, elles seront directement prise de la base de donnée et non de la variable de SESSION
 $urgent = true;
 $uneSoiree = $dao->getSoiree($urgent);
-$tarif = $uneSoiree->getTarif();
 
 //obtention de l'adresseMail, puis de l'id de l'élève, puis de la situation de l'inscription de cet élève
 $adrMail = $_SESSION['adrMail'];
 $unEleve = $dao->getEleve($adrMail);
 $idEleve = $unEleve->getId();
-$eleveInscrit = $dao->getInscriptionEleve($idEleve);
+$idInscription = $dao->getIdInscription($idEleve);
 
 $lesInscriptions = $dao->getLesInscriptions();
-
-/* récupération du tarif */
-foreach ($lesInscriptions as $uneInscription){
-	$unTarif = $uneInscription->getTarif();
-}
+$unTarif = $uneSoiree->getTarif();
 
 // on vérifie si le demandeur de cette action est bien authentifié
 if ( $_SESSION['typeUtilisateur'] != 'eleve') {

@@ -51,7 +51,7 @@ if ( isset ($_SESSION['adrMail']) == false)  $adrMail = '';  else  $adrMail = $_
 if ( isset ($_SESSION['motDePasse']) == false)  $motDePasse = '';  else  $motDePasse = $_SESSION['motDePasse'];
 if ( isset ($_SESSION['typeUtilisateur']) == false)  $typeUtilisateur = '';  else  $typeUtilisateur = $_SESSION['typeUtilisateur'];
 
-// pour mémoriser le choix d'afficher en clar (ou pas) le mot de passe :
+// pour mémoriser le choix d'afficher en clair (ou pas) le mot de passe :
 if ( isset ($_SESSION['afficherMdp']) == false)  $afficherMdp = 'off';  else  $afficherMdp = $_SESSION['afficherMdp'];
 
 // pour mémoriser le chemin d'accès des vues  ("vues.html5/" pour un ordi, "vues.jquery/" pour un mobile) :
@@ -64,8 +64,9 @@ if ( isset ($_SESSION['cheminDesVues']) == false)
 }
 else
 	 $cheminDesVues = $_SESSION['cheminDesVues'];
+
 // ATTENTION ON TRICHE (EN DEVELOPPEMENT) POUR FORCER L'AFFICHAGE DE LA VERSION MOBILE SUR LE POSTE DE DEVELOPPEMENT :
-//$cheminDesVues = "vues.jquery/";	// pour forcer l'affichage de la version mobile (ligne à désactiver dans l'application finale)
+// $cheminDesVues = "vues.jquery/";	// pour forcer l'affichage de la version mobile (ligne à désactiver dans l'application finale)
 
 // si l'utilisateur n'est pas encore identifié, il sera automatiquement redirigé vers le contrôleur d'authentification
 // (sauf s'il ne peut pas se connecter et demande de se faire envoyer son mot de passe qu'il a oublié ou s'il veut se créer un compte)
@@ -93,6 +94,9 @@ switch($action){
 	}
 	case 'CreerMonInscription': {
 		include_once ('controleurs/CtrlCreerMonInscription.php'); break;
+	}
+	case 'ModifierMonInscription': {
+		include_once ('controleurs/CtrlModifierMonInscription.php'); break;
 	}
 	case 'VoirDetailsSoiree': {
 		include_once ('controleurs/CtrlVoirDetailsSoiree.php'); break;

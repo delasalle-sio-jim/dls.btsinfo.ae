@@ -17,7 +17,7 @@ else {
 		$afficherMdp = 'off';
 		$message = '';
 		$typeMessage = '';			// 2 valeurs possibles : 'information' ou 'avertissement'
-		$themeFooter = $themeNormal;
+		//$themeFooter = $themeNormal;
 		include_once ($cheminDesVues . 'VueChangerDeMdpAdmin.php');
 	}
 	else {
