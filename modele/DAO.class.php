@@ -82,11 +82,6 @@
 // getInscription($idInscription) : Inscription
 //   fournit un objet Inscription à partir de son identifiant ; fournit la valeur null si l'identifiant n'existe pas
 
-// getInscriptionEleve($idEleve) : id de l'inscription ou  null
-//   fournit si l'élève a déjà effectué une inscription 
-//   renvoie null si l'inscription est inexistante
-//	 renvoie l'id de l'inscription sinon
-
 // getLesInscription() : array
 //	 fournit la liste de toutes les inscriptions à la soirée des anciens élèves
 //	 le résultat est fourni sous forme de collection d'inscriptions
@@ -547,7 +542,6 @@ class DAO
 	
 	// modifie l'admnistrateur dans la bdd et retourne true si mise à jour effectuée correctement, retourne false en cas de problème
 	// créé par Killian BOUTIN le 24/05/2016
-	// ----------------------------------------   getAdrMail() NE FONCTIONNE PAS   -----------------------------------------------
 	public function modifierCompteAdmin($unAdministrateur)
 	{
 		// préparation de la requête
@@ -776,6 +770,8 @@ class DAO
 		}
 	}
 	
+	
+	/*
 	// fournit si l'élève a déjà effectué une inscription 
 	// renvoie null si l'inscription est inexistante
 	// renvoie l'id de l'inscription sinon
@@ -801,20 +797,20 @@ class DAO
 		return $uneLigne->id;
 	}
 	}
-		
+	*/
+
+	
+	
 	// fournit toutes les inscriptions (non annulées) de la BDD
 	// créé par Killian BOUTIN le 25/05/2016
 	// modifié par Killian BOUTIN le 26/05/2016
 	
 	public function getLesInscriptions()
 	{	// préparation de la requête d'extraction des inscriptions non annulées
-		// le GROUP BY permet de ne retenir qu'un seul exemplaire des inscriptions pour chaque membre au cas où il y aurait des doublons. 
-		// |=> A supprimer quand on aura modifié le fait qu'une 2ème inscription supprime la première
 		$txt_req = "SELECT nom, prenom, anneeDebutBTS, ae_soirees.tarif , ae_inscriptions.id, dateInscription, nbrePersonnes, montantRegle, montantRembourse, idEleve, idSoiree, inscriptionAnnulee";
 		$txt_req .= " FROM ae_eleves, ae_inscriptions, ae_soirees"; 
 		$txt_req .= " WHERE ae_eleves.id = ae_inscriptions.idEleve";
 		$txt_req .= " AND inscriptionAnnulee = 0";
-		$txt_req .=	" GROUP BY ae_eleves.nom, ae_eleves.prenom";	// à supprimer plus tard !
 		$txt_req .=	" ORDER BY nom, prenom";
 		$req = $this->cnx->prepare($txt_req);
 		

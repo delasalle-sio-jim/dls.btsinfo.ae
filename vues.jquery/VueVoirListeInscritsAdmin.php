@@ -48,27 +48,27 @@
 							$coutTotal = number_format($coutTotal, 2, ',', ' ');
 						?>
 						
-						<div data-role="collapsible" >
-						<h3 data-mini="true"><?php echo $uneInscription->getNom() . " " . $uneInscription->getPrenom() . " (" .$uneInscription->getAnneeDebutBTS() . ")"; ?></h3>
-							<ul data-role="listview" data-mini="true">
-							<li>
-								<h5>Nombre d'inscriptions : <?php echo $uneInscription->getNbrePersonnes() ?></h5>
-							</li>
-							<li>
-								<h5>Montant réglé : <?php echo $montantRegle; ?> €</h5>
-							</li>
-							<li>
-								<h5>Montant total à régler : <?php echo $coutTotal; ?> €</h5>
-							</li>
-							</ul>
-						</div>
-
-						<?php
-						
-						/* ajout du nombre d'inscrits de cet enregistrement au nombre total d'inscrits */
-						$nombreInscritsTotal += $uneInscription->getNbrePersonnes();
+							<div data-role="collapsible" >
+							<h3 data-mini="true"><?php echo $uneInscription->getNom() . " " . $uneInscription->getPrenom() . " (" .$uneInscription->getAnneeDebutBTS() . ")"; ?></h3>
+								<ul data-role="listview" data-mini="true">
+								<li>
+									<h5>Nombre d'inscriptions : <?php echo $uneInscription->getNbrePersonnes() ?></h5>
+								</li>
+								<li>
+									<h5>Montant réglé : <?php echo $montantRegle; ?> €</h5>
+								</li>
+								<li>
+									<h5>Montant total à régler : <?php echo $coutTotal; ?> €</h5>
+								</li>
+								</ul>
+							</div>
 	
-					} 
+							<?php
+							
+							/* ajout du nombre d'inscrits de cet enregistrement au nombre total d'inscrits */
+							$nombreInscritsTotal += $uneInscription->getNbrePersonnes();
+		
+						} 
 					
 						/* on formate les nombres au format français */
 						$montantTotalRegle = number_format($montantTotalRegle, 2, ',', ' ');

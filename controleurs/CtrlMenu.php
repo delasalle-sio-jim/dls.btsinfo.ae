@@ -10,6 +10,7 @@ $dao = new DAO();
 if ($typeUtilisateur == "eleve") {
 	$utilisateur = $dao->getEleve($adrMail);
 	$titre = "Ancien élève : ";
+	
 }
 
 if ($typeUtilisateur == "administrateur") {

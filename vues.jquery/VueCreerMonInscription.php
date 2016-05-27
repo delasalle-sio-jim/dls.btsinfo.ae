@@ -37,7 +37,7 @@ header('Expires: 0');
 			<div data-role="content">
 				<h4 style="text-align: center; margin-top: 10px; margin-bottom: 10px;">Inscription à la soiree</h4>
 				
-				<?php if ($eleveInscrit == null){ ?>
+				<?php if ($idInscription == -1){ ?>
 					<form action="index.php?action=CreerMonInscription" method="post" data-ajax="false" >
 					
 						<div data-role="fieldcontain">
