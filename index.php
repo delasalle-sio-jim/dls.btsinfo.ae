@@ -51,7 +51,7 @@ if ( isset ($_SESSION['adrMail']) == false)  $adrMail = '';  else  $adrMail = $_
 if ( isset ($_SESSION['motDePasse']) == false)  $motDePasse = '';  else  $motDePasse = $_SESSION['motDePasse'];
 if ( isset ($_SESSION['typeUtilisateur']) == false)  $typeUtilisateur = '';  else  $typeUtilisateur = $_SESSION['typeUtilisateur'];
 
-// pour mémoriser le choix d'afficher en clar (ou pas) le mot de passe :
+// pour mémoriser le choix d'afficher en clair (ou pas) le mot de passe :
 if ( isset ($_SESSION['afficherMdp']) == false)  $afficherMdp = 'off';  else  $afficherMdp = $_SESSION['afficherMdp'];
 
 // pour mémoriser le chemin d'accès des vues  ("vues.html5/" pour un ordi, "vues.jquery/" pour un mobile) :

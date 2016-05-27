@@ -43,9 +43,9 @@
 					<div id="menu2" class="menu">
 						<h3><a href="#menu2">La soirée annuelle des anciens...</a></h3>
 						<div>
-							<p><a href="index.php?action=CreerMonInscription" class="bouton-menu"">M'inscrire à la soirée des anciens</a></p>
-							<p><a href="index.php?action=VoirDetailsSoiree" class="bouton-menu"">Consulter les infos sur la soirée</a></p>
-							<p><a href="index.php?action=VoirListeInscritsEleve" class="bouton-menu"">Consulter la liste des inscriptions</a></p>
+							<p><a href="index.php?action=CreerMonInscription" class="bouton-menu">M'inscrire à la soirée des anciens</a></p>
+							<p><a href="index.php?action=VoirDetailsSoiree" class="bouton-menu">Consulter les infos sur la soirée</a></p>
+							<p><a href="index.php?action=VoirListeInscritsEleve" class="bouton-menu">Consulter la liste des inscriptions</a></p>
 							<p><a href="index.php?action=ModifierMonInscription" class="bouton-menu">Modifier mon inscription</a></p>
 							<p><a href="index.php?action=SupprimerMonInscription" class="bouton-menu">Annuler mon inscription</a></p>
 						</div>
