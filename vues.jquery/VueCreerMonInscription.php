@@ -4,13 +4,6 @@
 // Ecrit le 02/02/2016 par Nicolas Esteve
 // Modifié le 25/05/2016 par Killian BOUTIN
 
-/* FAIRE UN TEST :
- - si il est autre que élève, il ne peut pas accéder à cette page
- - si il est élève mais qu'il est déjà inscrit, il ne peut pas accéder à cette page
- */
-
-// Ligne 53 : => <label class ="label2" for="txtNouveauMdp"> <= ?????????? (Killian)
-	
 // pour obliger la page à se recharger
 header('Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0');
 header('Pragma: no-cache');
@@ -41,47 +34,39 @@ header('Expires: 0');
 			</div>
 			<div data-role="content">
 				<h4 style="text-align: center; margin-top: 10px; margin-bottom: 10px;">Inscription à la soiree</h4>
+				<form action="index.php?action=CreerMonInscription" method="post" data-ajax="false" >
 				
-				<?php if ($idInscription == -1){ ?>
-					<form action="index.php?action=CreerMonInscription" method="post" data-ajax="false" >
+					<div data-role="fieldcontain">
+						<label class ="label2" for="txtNbPlaces">Nombre de places  :</label>
+						<input type="number"  name="txtNbPlaces" id="txtNbPlaces" pattern="^[0-9]{2}$" maxlength="2" value="1" required/>
+					</div>
 					
-						<div data-role="fieldcontain">
-							<label class ="label2" for="txtNbPlaces">Nombre de places  :</label>
-							<input type="number"  name="txtNbPlaces" id="txtNbPlaces" pattern="^[0-9]{2}$" maxlength="30" value="1" required/>
-						</div>
+						<label class ="label2" for="validation">En cochant cette case vous vous vous engagez a payer <?php echo $unTarif ?> euros par places réservées. </label>
+					
+					<div data-role="fieldcontain">
+						<input type="checkbox" required name="validation" id="validation" maxlength="30"  required/>	
+					</div> 
+					
+					<label class ="label2" for="txtNbPlaces"> Vous pouvez payer en avance en envoyant un chèque au nom d'INPACT(en précisant votre nom) ou payer au moment où vous arrivez à la soirée.	</label>		
+									
+					<?php if(! empty ($tarif))
+					{?>
+					<p>
+						<label class="label2" for="txtTarif">Le prix pour une place est de <?php echo $tarif ?> euros</label>
 						
-							<label class ="label2" for="txtNouveauMdp">En cochant cette case vous vous vous engagez a payer <?php echo $tarif ?> euros par places réservées. </label>
+					</p>
+					<?php }
+					else 
+					{?>
+					<p>
+						<label class="label2" for="txtTarif">Le prix pour la soirée n'a pas été fixé</label>
 						
-						<div data-role="fieldcontain">
-							<input type="checkbox" required name="validation" id="validation" maxlength="30"  required/>	
-						</div> 
-						<div data-role="fieldcontain">
-							<label class ="label2" for="txtNbPlaces"> Vous pouvez payer en avance en envoyant un chèque au nom d'INPACT(en précisant votre nom) ou payer au moment où vous arrivez à la soirée.	</label>		
-						</div>
-						
-						<?php if(! empty ($tarif))
-						{?>
-						<p>
-							<label class="label2" for="txtTarif">Le prix pour une place est de <?php echo $tarif ?> euros</label>
-							
-						</p>
-						<?php }
-						else 
-						{?>
-						<p>
-							<label class="label2" for="txtTarif">Le prix pour la soirée n'a pas été fixé</label>
-							
-						</p>
-						<?php }?>
-						<p>
-							<input type="submit" name="btnInscription"  id="btnInscription" value="S'inscrire" >
-						</p>
-					</form>
-				<?php }
-				else{ ?>
-					Vous êtes déjà inscrit à la soirée. Si vous souhaitez modifier votre inscription, merci de vous rendre sur <a href=index.php?action=ModifierMonInscription >cette page</a>
-				<?php } ?>
-				
+					</p>
+					<?php }?>
+					<p>
+						<input type="submit" name="btnInscription"  id="btnInscription" value="S'inscrire" >
+					</p>
+				</form>				
 			</div>
 			<div data-role="footer" data-position="fixed" data-theme="<?php echo $themeNormal; ?>">
 				<h4>Annuaire des anciens du BTS Informatique<br>Lycée De La Salle (Rennes)</h4>
@@ -111,19 +96,16 @@ header('Expires: 0');
 				<p style="text-align: center;"><?php echo $message; ?></p>
 			</div>
 			
-			<!-- au clic sur "Fermer" on reload la page afin de re-vérifier si il possède une inscription (ce qui est le cas après le clic sur le bouton "S'inscrire" -->
+			<!-- au clic sur "Fermer" on renvoi sur le menu afin de montrer le nouveau menu -->
 			<div data-role="footer" class="ui-bar" data-theme="<?php echo $themeFooter; ?>">
 				<a onclick="myFunction()" data-transition="<?php echo $transition; ?>">Fermer</a>
 				
 				<script>
 					function myFunction() {
-					    location.reload()
+						 location.replace("index.php?action=Menu#menu2");
 					}
 				</script>
 			</div>
-
 		</div>
-		
-		
 	</body>
 </html>

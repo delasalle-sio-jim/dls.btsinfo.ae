@@ -35,7 +35,7 @@
 							<h3>La soirée annuelle des anciens...</h3>
 							<ul data-role="listview" data-inset="true">
 								<?php 
-									if ($typeUtilisateur == "eleve" && $dao->getIdInscription($id) == -1){
+									if ($typeUtilisateur == "eleve" && $dao->getInscriptionEleve($idEleve) == null){
 								?>
 								<li><a href="index.php?action=CreerMonInscription" data-mini="true" data-role="button" data-ajax="false" data-transition="<?php echo $transition; ?>">M'inscrire à la soirée des anciens</a></li>
 								<?php 
@@ -43,7 +43,7 @@
 								<li><a href="index.php?action=VoirDetailsSoiree" data-mini="true" data-role="button" data-ajax="false" data-transition="<?php echo $transition; ?>">Consulter les infos sur la soirée</a></li>
 								<li><a href="index.php?action=VoirListeInscritsEleve" data-mini="true" data-role="button" data-ajax="false" data-transition="<?php echo $transition; ?>">Consulter la liste des inscriptions</a></li>
 								<?php 
-									if ($typeUtilisateur == "eleve" && $dao->getIdInscription($id) != -1){
+									if ($typeUtilisateur == "eleve" && $dao->getInscriptionEleve($idEleve) != null){
 								?>
 								<li><a href="index.php?action=ModifierMonInscription" data-mini="true" data-role="button" data-ajax="false" data-transition="<?php echo $transition; ?>">Modifier ou annuler mon inscription</a></li>
 								<?php 

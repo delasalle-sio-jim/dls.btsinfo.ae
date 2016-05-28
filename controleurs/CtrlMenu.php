@@ -20,6 +20,6 @@ if ($typeUtilisateur == "administrateur") {
 
 $nom = $utilisateur->getNom();
 $prenom = $utilisateur->getPrenom();
-$id = $utilisateur->getId();
+$idEleve = $utilisateur->getId();
 
 include_once ($cheminDesVues . 'VueMenu.php');

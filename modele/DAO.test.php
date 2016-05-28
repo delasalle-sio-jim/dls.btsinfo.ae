@@ -474,11 +474,33 @@ else
 	echo ($uneInscription->toString());
 echo ('<br>');
 
-$uneInscription = $dao->getInscription(2);
+$uneInscription = $dao->getInscription(107);
 if ($uneInscription == null)
-	echo ("Identifiant 2 inexistant ! <br>");
+	echo ("Identifiant 107 inexistant ! <br>");
 else
 	echo ($uneInscription->toString());
+echo ('<br>');
+*/
+
+/*
+// test de méthode getInscriptionEleve -----------------------------------------------------------
+// créé par Killian le 28/05/2016
+echo "<h3>Test de getInscriptionEleve(idEleve) : </h3>";
+$uneInscription = $dao->getInscriptionEleve(2);
+if ($uneInscription == null)
+	echo ("L'ancien élève à l'identifiant 2 n'est pas inscrit ! <br>");
+else{
+	echo ("L'ancien élève à l'identifiant 2 possède l'inscription suivante : <br><br>");
+	echo ($uneInscription->toString());
+}
+echo ('<br>');
+$uneInscription = $dao->getInscriptionEleve(9);
+if ($uneInscription == null)
+	echo ("L'ancien élève à l'identifiant 9 n'est pas inscrit ! <br>");
+else{
+	echo ("L'ancien élève à l'identifiant 7 possède l'inscription suivante : <br><br>");
+	echo ($uneInscription->toString());
+}
 echo ('<br>');
 */
 
@@ -509,20 +531,24 @@ foreach ($lesInscriptions as $uneInscription)
 */
 
 
-/*
+
 // test de la méthode modifierInscription ---------------------------------------------------------
 // modifié par Jim le 13/05/2016
 echo "<h3>Test de modifierInscription : </h3>";
-$unId = 1;
+$unId = 107;
+$unNom = "Boutin";
+$unPrenom = "Killian";
+$anneeDebutBTS = "2015";
 $dateInscription = "13/05/2015";
-$unNbrePersonnes = 1;
+$nbPersonnes = 3; 
 $montantRegle = 10;
-$montantRembourse = 0;
-$idEleve = 3;
+$montantRembourse = 5;
+$idEleve = 1;
 $idSoiree = 1;
-$inscriptionAnnulee = false;
+$inscriptionAnnulee = 0;
+$unTarif = 24;
 
-$uneInscription = new Inscription($unId, $dateInscription, $unNbrePersonnes, $montantRegle, $montantRembourse, $idEleve, $idSoiree, $inscriptionAnnulee);
+$uneInscription = new Inscription($unId, $unNom, $unPrenom, $anneeDebutBTS, $dateInscription, $nbPersonnes, $montantRegle, $montantRembourse, $idEleve, $idSoiree, $inscriptionAnnulee, $unTarif);
 
 $ok = $dao->modifierInscription($uneInscription);
 if ($ok)
@@ -531,13 +557,13 @@ else
 	echo "<p>Echec lors de la mise à jour de l'inscription !</p>";
 echo ('<br>');
 
-$uneInscription = $dao->getInscription(1);
+$uneInscription = $dao->getInscriptionEleve(9);
 if ($uneInscription == null)
-	echo ("Identifiant 1 inexistant ! <br>");
+	echo ("Identifiant inexistant ! <br>");
 else
 	echo ($uneInscription->toString() . "<br>");
 echo ('<br>');
-*/
+
 
 /*
 // test de la méthode getIdInscription ------------------------------------------------------------

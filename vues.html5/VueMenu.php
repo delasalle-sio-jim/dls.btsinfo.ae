@@ -44,7 +44,7 @@
 						<h3><a href="#menu2">La soirée annuelle des anciens...</a></h3>
 						<div>
 							<?php 
-								if ($typeUtilisateur == "eleve" && $dao->getIdInscription($id) == -1){
+								if ($typeUtilisateur == "eleve" && $dao->getInscriptionEleve($idEleve) == null){
 							?>
 							<p><a href="index.php?action=CreerMonInscription" class="bouton-menu">M'inscrire à la soirée des anciens</a></p>
 							<?php 
@@ -52,7 +52,7 @@
 							<p><a href="index.php?action=VoirDetailsSoiree" class="bouton-menu">Consulter les infos sur la soirée</a></p>
 							<p><a href="index.php?action=VoirListeInscritsEleve" class="bouton-menu">Consulter la liste des inscriptions</a></p>
 							<?php 
-								if ($typeUtilisateur == "eleve" && $dao->getIdInscription($id) != -1){
+								if ($typeUtilisateur == "eleve" && $dao->getInscriptionEleve($idEleve) != null){
 							?>
 							<p><a href="index.php?action=ModifierMonInscription" class="bouton-menu">Modifier ou annuler mon inscription</a></p>
 							<?php 

@@ -93,6 +93,9 @@
 //   fournit l'identifiant de l'inscription à partir de l'identifiant de l'élève
 //   fournit la valeur -1 si aucune inscription ou si l'identifiant élève n'existe pas
 
+// getInscriptionEleve($idEleve) : Inscription
+//   fournit un objet Inscription à partir de l'idEleve ; fournit la valeur null si l'élève n'a pas d'inscription
+
 // annulerInscription($idInscription) : booléen
 //   annule une inscription dans la bdd et retourne true si enregistrement effectué correctement, retourne false en cas de problème
 
@@ -740,7 +743,9 @@ class DAO
 	
 	public function getInscription($idInscription)
 	{	// préparation de la requête
-		$txt_req = "Select * from ae_inscriptions where id = :idInscription";
+		$txt_req = "SELECT * from ae_inscriptions, ae_eleves, ae_soirees";
+		$txt_req .= " WHERE ae_inscriptions.id = :idInscription";
+		$txt_req .= " AND ae_inscriptions.idEleve = ae_eleves.id;";
 		$req = $this->cnx->prepare($txt_req);
 		// liaison de la requête et de son paramètre
 		$req->bindValue("idInscription", $idInscription, PDO::PARAM_INT);
@@ -764,40 +769,64 @@ class DAO
 			$idEleve = utf8_encode($uneLigne->idEleve);
 			$idSoiree = utf8_encode($uneLigne->idSoiree);
 			$inscriptionAnnulee = utf8_encode($uneLigne->inscriptionAnnulee);
-							
-			$uneInscription = new Inscription($unId, $dateInscription, $unNbrePersonnes, $montantRegle, $montantRembourse, $idEleve, $idSoiree, $inscriptionAnnulee);
+			$unNom = utf8_encode($uneLigne->nom);
+			$unPrenom = utf8_encode($uneLigne->prenom);
+			$anneeDebutBTS = utf8_encode($uneLigne->anneeDebutBTS);
+			$unTarif = utf8_encode($uneLigne->tarif);
+										
+			$uneInscription = new Inscription($unId, $unNom, $unPrenom, $anneeDebutBTS, $dateInscription, $unNbrePersonnes, $montantRegle, $montantRembourse, $idEleve, $idSoiree, $inscriptionAnnulee, $unTarif);
 			return $uneInscription;
 		}
 	}
 	
 	
-	/*
+	
 	// fournit si l'élève a déjà effectué une inscription 
-	// renvoie null si l'inscription est inexistante
-	// renvoie l'id de l'inscription sinon
+	// renvoie null si l'inscription est inexistante ou annulée
+	// renvoie l'inscription sinon
 	// créé par Killian BOUTIN  le 26/05/2016
+	// modifier par Killian BOUTIN le 28/05/2016
 	
 	public function getInscriptionEleve($idEleve)
 	{	// préparation de la requête
-	$txt_req = "Select * from ae_inscriptions where idEleve = :idEleve";
-	$req = $this->cnx->prepare($txt_req);
-	// liaison de la requête et de son paramètre
-	$req->bindValue("idEleve", $idEleve, PDO::PARAM_INT);
-	
-	// extraction des données
-	$req->execute();
-	$uneLigne = $req->fetch(PDO::FETCH_OBJ);
-	// libère les ressources du jeu de données
-	$req->closeCursor();
-	
-	// traitement de la réponse
-	if ( ! $uneLigne)
-		return null;
-	else{
-		return $uneLigne->id;
+		$txt_req = "SELECT *";
+		$txt_req .= " FROM ae_inscriptions, ae_eleves, ae_soirees";
+		$txt_req .= " WHERE ae_inscriptions.idEleve = :idEleve";
+		$txt_req .= " AND ae_inscriptions.idEleve = ae_eleves.id";
+		$txt_req .= " AND inscriptionAnnulee = 0";
+		
+		$req = $this->cnx->prepare($txt_req);
+		// liaison de la requête et de son paramètre
+		$req->bindValue("idEleve", $idEleve, PDO::PARAM_INT);
+		
+		// extraction des données
+		$req->execute();
+		$uneLigne = $req->fetch(PDO::FETCH_OBJ);
+		// libère les ressources du jeu de données
+		$req->closeCursor();
+		
+		// traitement de la réponse
+		if ( ! $uneLigne)
+			return null;
+		else
+		{	// création d'un objet Inscription
+			$unId = utf8_encode($uneLigne->id);
+			$dateInscription = utf8_encode(Outils::convertirEnDateFR($uneLigne->dateInscription));
+			$unNbrePersonnes = utf8_encode($uneLigne->nbrePersonnes);
+			$montantRegle = utf8_encode($uneLigne->montantRegle);
+			$montantRembourse = utf8_encode($uneLigne->montantRembourse);
+			$idEleve = utf8_encode($uneLigne->idEleve);
+			$idSoiree = utf8_encode($uneLigne->idSoiree);
+			$inscriptionAnnulee = utf8_encode($uneLigne->inscriptionAnnulee);
+			$unNom = utf8_encode($uneLigne->nom);
+			$unPrenom = utf8_encode($uneLigne->prenom);
+			$anneeDebutBTS = utf8_encode($uneLigne->anneeDebutBTS);
+			$unTarif = utf8_encode($uneLigne->tarif);
+										
+			$uneInscription = new Inscription($unId, $unNom, $unPrenom, $anneeDebutBTS, $dateInscription, $unNbrePersonnes, $montantRegle, $montantRembourse, $idEleve, $idSoiree, $inscriptionAnnulee, $unTarif);
+			return $uneInscription;
+		}
 	}
-	}
-	*/
 
 	
 	
@@ -851,7 +880,7 @@ class DAO
 	
 	// modifie l'inscription dans la bdd et retourne true si mise à jour effectuée correctement, retourne false en cas de problème
 	// créé par Nicolas Esteve  le XX/01/2016
-	// modifié par Jim le 13/05/2016
+	// modifié par Killian BOUTIN le 28/05/2016
 	public function modifierInscription($uneInscription)
 	{	// préparation de la requête
 		$txt_req = "UPDATE ae_inscriptions SET ";
@@ -859,22 +888,17 @@ class DAO
 		$txt_req .= " nbrePersonnes = :nbrePersonnes,";
 		$txt_req .= " montantRegle = :montantRegle,";
 		$txt_req .= " montantRembourse = :montantRembourse,";
-		$txt_req .= " inscriptionAnnulee = :inscriptionAnnulee,";
-		$txt_req .= " idEleve = :idEleve,";
 		$txt_req .= " idSoiree = :idSoiree";
-		$txt_req .= " WHERE id = :id";
-		
+		$txt_req .= " WHERE id = :idInscription";	
 		$req = $this->cnx->prepare($txt_req);
 		
 		// liaison de la requête et de ses paramètres
-		$req->bindValue("id",  utf8_decode($uneInscription->getId()), PDO::PARAM_INT);
+		$req->bindValue("idInscription",  utf8_decode($uneInscription->getId()) , PDO::PARAM_INT);
 		$req->bindValue("dateInscription",  Outils::convertirEnDateUS($uneInscription->getDateInscription()), PDO::PARAM_STR);
 		$req->bindValue("nbrePersonnes",  utf8_decode($uneInscription->getNbrePersonnes()), PDO::PARAM_INT);
 		$req->bindValue("montantRegle",  utf8_decode($uneInscription->getMontantRegle()), PDO::PARAM_INT);
 		$req->bindValue("montantRembourse",  utf8_decode($uneInscription->getMontantRembourse()), PDO::PARAM_INT);
-		$req->bindValue("idEleve",  utf8_decode($uneInscription->getIdEleve()), PDO::PARAM_INT);
 		$req->bindValue("idSoiree",  utf8_decode($uneInscription->getIdSoiree()), PDO::PARAM_INT);
-		$req->bindValue("inscriptionAnnulee",  utf8_decode($uneInscription->getInscriptionAnnulee()), PDO::PARAM_INT);
 	
 		// exécution de la requête
 		$ok = $req->execute();
@@ -907,12 +931,12 @@ class DAO
 	// annule une inscription dans la bdd et retourne true si enregistrement effectué correctement, retourne false en cas de problème
 	// créé par Nicolas Esteve  le XX/01/2016
 	// modifié par Jim le 13/5/2016
-	public function annulerInscription($idInscription)
+	public function annulerInscription($idEleve)
 	{	// préparation de la requête
-		$txt_req = "Update ae_inscriptions SET inscriptionAnnulee = 1 where id = :idInscription;";
+		$txt_req = "Update ae_inscriptions SET inscriptionAnnulee = 1 where idEleve = :idEleve;";
 		$req = $this->cnx->prepare($txt_req);
 		// liaison de la requête et de son paramètre
-		$req->bindValue("idInscription",  utf8_decode($idInscription), PDO::PARAM_STR);
+		$req->bindValue("idEleve",  utf8_decode($idEleve), PDO::PARAM_STR);
 		// exécution de la requête
 		$ok = $req->execute();
 		return $ok;
@@ -1054,40 +1078,6 @@ class DAO
 		}
 		return $ok;
 	
-	}
-
-	// fournit un objet Inscription à partir de l'identifiant de l'élève
-	// fournit l'objet null si aucune inscription ou si l'identifiant élève n'existe pas
-	// créé par Nicolas Esteve  le XX/01/2016
-	// modifié par Jim le 13/5/2016
-	// ATTENTION : cette fonction est à priori inutile ; utiliser de préférence getIdInscription suivi de getInscription ? (Jim)
-	function detailsInscription($idEleve)
-	{	// préparation de la requête
-		$txt_req = "Select * FROM ae_inscriptions where idEleve = :idEleve;";
-		$req = $this->cnx->prepare($txt_req);
-		// liaison de la requête et de son paramètre
-		$req->bindValue("idEleve",  utf8_decode($idEleve), PDO::PARAM_STR);
-		// exécution de la requête
-		$req->execute();
-		$uneLigne = $req->fetch(PDO::FETCH_OBJ);
-		// libère les ressources du jeu de données
-		$req->closeCursor();
-		if( ! $uneLigne )
-			return null;
-		else 
-			{	// création d'un objet Inscription
-			$unId = utf8_encode($uneLigne->id);
-			$dateInscription = utf8_encode(Outils::convertirEnDateFR($uneLigne->dateInscription));
-			$unNbrePersonnes = utf8_encode($uneLigne->nbrePersonnes);
-			$montantRegle = utf8_encode($uneLigne->montantRegle);
-			$montantRembourse = utf8_encode($uneLigne->montantRembourse);
-			$idEleve = utf8_encode($uneLigne->idEleve);
-			$idSoiree = utf8_encode($uneLigne->idSoiree);
-			$inscriptionAnnulee = utf8_encode($uneLigne->inscriptionAnnulee);
-							
-			$uneInscription = new Inscription($unId, $dateInscription, $unNbrePersonnes, $montantRegle, $montantRembourse, $idEleve, $idSoiree, $inscriptionAnnulee);
-			return $uneInscription;
-		}
 	}
 			
 } // fin de la classe DAO
