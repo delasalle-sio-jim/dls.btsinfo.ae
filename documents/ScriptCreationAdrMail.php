@@ -4,12 +4,14 @@ $longueur = strlen($adrMailBase);
 
 echo $adrMailBase . "@gmail.com" . '<br>';
 
-/* Pour la première adresse on n'a pas autant de caractères que pour les autres, on enlève donc 1 à la longueur */
+/* Cette boucle ne sert à rien puisque toutes les adresses seront répétés avec le echo de la 2ème boucle ($j)
+Pour la première adresse on n'a pas autant de caractères que pour les autres, on enlève donc 1 à la longueur 
 for ($i=1; $i < $longueur; $i++){
 	$debutAdr = substr($adrMailBase, 0, $i);
 	$finAdr = substr($adrMailBase, $i, $longueur - $i);
 	echo $debutAdr . "." . $finAdr . "@gmail.com" . '<br>';
 }
+*/
 
 for ($j=3; $j < $longueur+1; $j++){
 
@@ -25,5 +27,4 @@ for ($j=3; $j < $longueur+1; $j++){
 		$finAdr = substr($adrMail, $k, $longueur - $k);
 		echo $debutAdr . "." . $finAdr . "@gmail.com" . '<br>';
 	}
-	
 }

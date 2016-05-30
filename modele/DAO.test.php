@@ -618,7 +618,7 @@ echo ($lesAdressesMails[$nbReponses-1]);
 echo ('<br>');
 */
 
-
+/*
 // test de la méthode creerAdressesMails ---------------------------------------------------------
 // créé par Killian BOUTIN le 30/05/2016
 echo "<h3>Test de creerAdressesMails : </h3>";
@@ -634,6 +634,48 @@ foreach ($lesAdressesMails as $uneAdresseMail)
 	echo $i . " " . $uneAdresseMail;
 	echo ('<br>');
 }
+*/
+
+
+// test de la méthode creerCompteEleveAuto ---------------------------------------------------------
+// elle teste en plus la méthode creerAdressesMails, existeAdrMail et l'outil::envoyerMail
+// créé par Killian BOUTIN le 30/05/2016
+echo "<h3>Test de creerCompteEleveAuto : </h3>";
+$lesAdressesMails = $dao->creerAdressesMails("delasallesioboutink");
+$nbReponses = sizeof($lesAdressesMails);
+echo "<p>Nombre d'adresses mails créées : " . $nbReponses . "</p>";
+
+$i =0;
+// affichage des adresses mails
+foreach ($lesAdressesMails as $uneAdresseMail)
+{
+	$i +=1;
+	echo $i . " " . $uneAdresseMail;
+	
+	if ($dao->existeAdrMail($uneAdresseMail) == true){
+		echo " => Eleve existant dans la BDD<br>";
+	}
+	else{
+		$ok = $dao->creerCompteEleveAuto($uneAdresseMail);
+		if ($ok){
+			echo " =>  L'élève a bien été enregistré !<br>";
+			// envoie un mail à l'utilisateur avec son nouveau mot de passe
+			$sujet = "Essai envoi de masse";
+			$message = "L'envoi de masse est un succès";
+			$ok = Outils::envoyerMail ($uneAdresseMail, $sujet, $message, $ADR_MAIL_EMETTEUR);
+				if($ok){
+					"L'envoi de mail s'est effectué avec succès<br>";
+				}
+				else{
+					"Le mail n'a pas pu être envoyé";
+				}
+		}
+		else{
+			echo " => Echec lors de l'enregistrement de l'élève !<br>";
+		}
+	}
+}
+
 
 // ferme la connexion à MySQL :
 unset($dao);

@@ -1088,23 +1088,15 @@ class DAO
 	// créé par Killian BOUTIN le 30/05/2016
 	public function creerAdressesMails($uneAdresseMail)
 	{	
-	// construction d'une collection d'objets Inscription
+	// construction d'une collection d'objets AdresseMail
 	$lesAdressesMails = array();
 	
-	$adrMailBase = "delasallesioboutink";
+	$adrMailBase = $uneAdresseMail;
 	$longueur = strlen($adrMailBase);
 	
 	$nouvelleAdrMail = $adrMailBase . "@gmail.com";
+	// ajout de l'adresse mail à la collection
 	$lesAdressesMails[] = $nouvelleAdrMail;
-	
-	/* Pour la première adresse on n'a pas autant de caractères que pour les autres, on enlève donc 1 à la longueur */
-	for ($i=1; $i < $longueur; $i++){
-		$debutAdr = substr($adrMailBase, 0, $i);
-		$finAdr = substr($adrMailBase, $i, $longueur - $i);
-		$nouvelleAdrMail = $debutAdr . "." . $finAdr . "@gmail.com";
-		// ajout de l'adresse mail à la collection
-		$lesAdressesMails[] = $nouvelleAdrMail;
-	}
 	
 	for ($j=3; $j < $longueur+1; $j++){
 	
@@ -1130,6 +1122,31 @@ class DAO
 	return $lesAdressesMails;
 	}
 	
+	// insérer les nouveaux élèves dans la base de données
+	// créé par Killian BOUTIN le 30/05/2016
+	public function creerCompteEleveAuto($uneAdresseMail)
+	{
+			// préparation de la requête
+			$txt_req = "insert into ae_eleves (nom, prenom, sexe, anneeDebutBTS, tel, adrMail, compteAccepte, motDePasse, dateDerniereMAJ, idFonction)";
+			$txt_req .= " values (:nom, :prenom, :sexe, :anneeDebutBTS, :tel, :adrMail, :compteAccepte, :motDePasse, :dateDerniereMAJ, :idFonction)";
+			$req = $this->cnx->prepare($txt_req);
+			// liaison de la requête et de ses paramètres
+			$req->bindValue("nom", "test", PDO::PARAM_STR);
+			$req->bindValue("prenom", "test", PDO::PARAM_STR);
+			$req->bindValue("sexe", "H", PDO::PARAM_STR);
+			$req->bindValue("anneeDebutBTS", "0000", PDO::PARAM_STR);
+			$req->bindValue("tel", "0123456789", PDO::PARAM_STR);
+			$req->bindValue("adrMail", $uneAdresseMail, PDO::PARAM_STR);
+			$req->bindValue("compteAccepte", 0, PDO::PARAM_INT);
+			// ATTENTION : le mot de passe est hashé en sha1 avant l'enregistrement dans la bdd
+			$req->bindValue("motDePasse", utf8_decode(sha1("passe")), PDO::PARAM_STR);
+			$req->bindValue("dateDerniereMAJ", time(), PDO::PARAM_STR);
+			$req->bindValue("idFonction", 1, PDO::PARAM_INT);
+			// exécution de la requête
+			$ok = $req->execute();
+		
+		return $ok;
+	}
 	
 			
 } // fin de la classe DAO
