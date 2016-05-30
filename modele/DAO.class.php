@@ -789,7 +789,7 @@ class DAO
 	
 	public function getInscriptionEleve($idEleve)
 	{	// préparation de la requête
-		$txt_req = "SELECT *";
+		$txt_req = "SELECT *, ae_inscriptions.id AS idInscription";
 		$txt_req .= " FROM ae_inscriptions, ae_eleves, ae_soirees";
 		$txt_req .= " WHERE ae_inscriptions.idEleve = :idEleve";
 		$txt_req .= " AND ae_inscriptions.idEleve = ae_eleves.id";
@@ -810,7 +810,7 @@ class DAO
 			return null;
 		else
 		{	// création d'un objet Inscription
-			$unId = utf8_encode($uneLigne->id);
+			$unId = utf8_encode($uneLigne->idInscription);
 			$dateInscription = utf8_encode(Outils::convertirEnDateFR($uneLigne->dateInscription));
 			$unNbrePersonnes = utf8_encode($uneLigne->nbrePersonnes);
 			$montantRegle = utf8_encode($uneLigne->montantRegle);
@@ -889,7 +889,8 @@ class DAO
 		$txt_req .= " montantRegle = :montantRegle,";
 		$txt_req .= " montantRembourse = :montantRembourse,";
 		$txt_req .= " idSoiree = :idSoiree";
-		$txt_req .= " WHERE id = :idInscription";	
+		$txt_req .= " WHERE id = :idInscription";
+		$txt_req .= " AND inscriptionAnnulee = 0;";	
 		$req = $this->cnx->prepare($txt_req);
 		
 		// liaison de la requête et de ses paramètres
@@ -1079,6 +1080,45 @@ class DAO
 		return $ok;
 	
 	}
+	
+	// fournit une liste d'adresse compatible gmail en fonction d'une adresse
+	// créé par Killian BOUTIN le 30/05/2016
+	// modifié par Killian BOUTIN le 26/05/2016
+	
+	public function creerAdressesMails()
+	{	
+	// construction d'une collection d'objets Inscription
+	$lesInscriptions = array();
+	
+	// tant qu'une ligne est trouvée :
+	while ($uneLigne)
+	{	// création d'un objet Inscription
+	$unId = utf8_encode($uneLigne->id);
+	$unNom = utf8_encode($uneLigne->nom);
+	$unPrenom = utf8_encode($uneLigne->prenom);
+	$anneeDebutBTS = utf8_encode($uneLigne->anneeDebutBTS);
+	$dateInscription = utf8_encode($uneLigne->dateInscription);
+	$unNbrePersonnes = utf8_encode($uneLigne->nbrePersonnes);
+	$montantRegle = utf8_encode($uneLigne->montantRegle);
+	$montantRembourse = utf8_encode($uneLigne->montantRembourse);
+	$idEleve = utf8_encode($uneLigne->idEleve);
+	$idSoiree = utf8_encode($uneLigne->idSoiree);
+	$inscriptionAnnulee = utf8_encode($uneLigne->inscriptionAnnulee);
+	$unTarif = utf8_encode($uneLigne->tarif);
+	
+	$uneInscription = new Inscription($unId, $unNom, $unPrenom, $anneeDebutBTS, $dateInscription, $unNbrePersonnes, $montantRegle, $montantRembourse, $idEleve, $idSoiree, $inscriptionAnnulee, $unTarif);
+	// ajout de l'inscription à la collection
+	$lesInscriptions[] = $uneInscription;
+	// extraction de la ligne suivante
+	$uneLigne = $req->fetch(PDO::FETCH_OBJ);
+	}
+	// libère les ressources du jeu de données
+	$req->closeCursor();
+	
+	return $lesInscriptions;
+	}
+	
+	
 			
 } // fin de la classe DAO
 

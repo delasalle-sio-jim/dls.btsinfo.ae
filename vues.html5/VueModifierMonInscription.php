@@ -64,8 +64,7 @@
 					<label class ="label2" > Vous pouvez payer en avance en envoyant un chèque au nom d'INPACT (en précisant votre nom) ou payer au moment où vous arrivez à la soirée.	</label>		
 				</p>
 				
-				<?php 
-				$uneInscription->toString();
+				<?php
 				if(! empty ($unTarif))
 				{?>
 				<p>
@@ -87,20 +86,6 @@
 				</p>
 			</form>	
 		</div>
-		
-		<?php 
-		echo $idInscription . '<br>';
-		 echo  $unNom. '<br>';
-		echo   $unPrenom. '<br>';
-		 echo  $anneeDebutBTS. '<br>';
-		 echo  $dateInscription. '<br>';
-		 echo  $nbPersonnes. '<br>';
-		 echo  $montantRegle. '<br>';
-		 echo  $montantRembourse. '<br>';
-		 echo  $idEleve. '<br>';
-		 echo  $idSoiree. '<br>';
-		  echo  $inscriptionAnnulee. '<br>';
-		echo   $Tarif. '<br>'; ?>
 		
 		<div id="footer">
 			<p>Annuaire des anciens élèves du BTS Informatique - Lycée De La Salle (Rennes)</p>

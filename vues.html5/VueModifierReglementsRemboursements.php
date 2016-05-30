@@ -73,16 +73,6 @@
 			<?php } ?>
 		}
 		
-		function afficherMdp()
-		{	if (document.getElementById("caseAfficherMdp").checked == true)
-			{	document.getElementById("txtNouveauMdp").type="text";
-				document.getElementById("txtConfirmationMdp").type="text";
-			}
-			else
-			{	document.getElementById("txtNouveauMdp").type="password";
-				document.getElementById("txtConfirmationMdp").type="password";
-			}
-		}
 		function afficher_information(msg) {
 			document.getElementById("titre_message").innerHTML = "Information...";
 			document.getElementById("titre_message").className = "classe_information";
@@ -104,7 +94,7 @@
 		<div id="header">
 			<div id="header-menu">
 				<ul id="menu-horizontal">
-					<li><a href="index.php?action=Menu" data-ajax="false">Retour menu</a></li>
+					<li><a href="index.php?action=Menu#menu2" data-ajax="false">Retour menu</a></li>
 				</ul>
 			</div>
 			<div id="header-logos">

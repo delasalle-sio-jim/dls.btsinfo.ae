@@ -535,15 +535,15 @@ foreach ($lesInscriptions as $uneInscription)
 // test de la méthode modifierInscription ---------------------------------------------------------
 // modifié par Jim le 13/05/2016
 echo "<h3>Test de modifierInscription : </h3>";
-$unId = 107;
+$unId = 108;
 $unNom = "Boutin";
 $unPrenom = "Killian";
 $anneeDebutBTS = "2015";
 $dateInscription = "13/05/2015";
-$nbPersonnes = 3; 
+$nbPersonnes = 10; 
 $montantRegle = 10;
 $montantRembourse = 5;
-$idEleve = 1;
+$idEleve = 9;
 $idSoiree = 1;
 $inscriptionAnnulee = 0;
 $unTarif = 24;
