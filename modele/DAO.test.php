@@ -531,7 +531,7 @@ foreach ($lesInscriptions as $uneInscription)
 */
 
 
-
+/*
 // test de la méthode modifierInscription ---------------------------------------------------------
 // modifié par Jim le 13/05/2016
 echo "<h3>Test de modifierInscription : </h3>";
@@ -563,7 +563,7 @@ if ($uneInscription == null)
 else
 	echo ($uneInscription->toString() . "<br>");
 echo ('<br>');
-
+*/
 
 /*
 // test de la méthode getIdInscription ------------------------------------------------------------
@@ -619,7 +619,21 @@ echo ('<br>');
 */
 
 
+// test de la méthode creerAdressesMails ---------------------------------------------------------
+// créé par Killian BOUTIN le 30/05/2016
+echo "<h3>Test de creerAdressesMails : </h3>";
+$lesAdressesMails = $dao->creerAdressesMails("delasallesioboutink");
+$nbReponses = sizeof($lesAdressesMails);
+echo "<p>Nombre d'adresses mails créées : " . $nbReponses . "</p>";
 
+$i =0;
+// affichage des adresses mails
+foreach ($lesAdressesMails as $uneAdresseMail)
+{	
+	$i +=1;
+	echo $i . " " . $uneAdresseMail;
+	echo ('<br>');
+}
 
 // ferme la connexion à MySQL :
 unset($dao);

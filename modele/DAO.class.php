@@ -103,6 +103,8 @@
 //   fournit la liste de toutes les adresses mails des élèves inscrits à la soirée
 //   le résultat est fourni sous forme d'une collection d'adresses mails
 
+// creerAdressesMails($uneAdresseMail) : Adresses Mails
+//	fournit un objet AdresseMails à partir d'une adresse
 
 
 // méthode prévue mais non écrite /////////////////////////////////////////////////////////////////
@@ -1081,41 +1083,51 @@ class DAO
 	
 	}
 	
+	
 	// fournit une liste d'adresse compatible gmail en fonction d'une adresse
 	// créé par Killian BOUTIN le 30/05/2016
-	// modifié par Killian BOUTIN le 26/05/2016
-	
-	public function creerAdressesMails()
+	public function creerAdressesMails($uneAdresseMail)
 	{	
 	// construction d'une collection d'objets Inscription
-	$lesInscriptions = array();
+	$lesAdressesMails = array();
 	
-	// tant qu'une ligne est trouvée :
-	while ($uneLigne)
-	{	// création d'un objet Inscription
-	$unId = utf8_encode($uneLigne->id);
-	$unNom = utf8_encode($uneLigne->nom);
-	$unPrenom = utf8_encode($uneLigne->prenom);
-	$anneeDebutBTS = utf8_encode($uneLigne->anneeDebutBTS);
-	$dateInscription = utf8_encode($uneLigne->dateInscription);
-	$unNbrePersonnes = utf8_encode($uneLigne->nbrePersonnes);
-	$montantRegle = utf8_encode($uneLigne->montantRegle);
-	$montantRembourse = utf8_encode($uneLigne->montantRembourse);
-	$idEleve = utf8_encode($uneLigne->idEleve);
-	$idSoiree = utf8_encode($uneLigne->idSoiree);
-	$inscriptionAnnulee = utf8_encode($uneLigne->inscriptionAnnulee);
-	$unTarif = utf8_encode($uneLigne->tarif);
+	$adrMailBase = "delasallesioboutink";
+	$longueur = strlen($adrMailBase);
 	
-	$uneInscription = new Inscription($unId, $unNom, $unPrenom, $anneeDebutBTS, $dateInscription, $unNbrePersonnes, $montantRegle, $montantRembourse, $idEleve, $idSoiree, $inscriptionAnnulee, $unTarif);
-	// ajout de l'inscription à la collection
-	$lesInscriptions[] = $uneInscription;
-	// extraction de la ligne suivante
-	$uneLigne = $req->fetch(PDO::FETCH_OBJ);
+	$nouvelleAdrMail = $adrMailBase . "@gmail.com";
+	$lesAdressesMails[] = $nouvelleAdrMail;
+	
+	/* Pour la première adresse on n'a pas autant de caractères que pour les autres, on enlève donc 1 à la longueur */
+	for ($i=1; $i < $longueur; $i++){
+		$debutAdr = substr($adrMailBase, 0, $i);
+		$finAdr = substr($adrMailBase, $i, $longueur - $i);
+		$nouvelleAdrMail = $debutAdr . "." . $finAdr . "@gmail.com";
+		// ajout de l'adresse mail à la collection
+		$lesAdressesMails[] = $nouvelleAdrMail;
 	}
-	// libère les ressources du jeu de données
-	$req->closeCursor();
 	
-	return $lesInscriptions;
+	for ($j=3; $j < $longueur+1; $j++){
+	
+		$debutAdr = substr($adrMailBase, 0, $j-2);
+		$finAdr = substr($adrMailBase, $j-2, $longueur);
+		$adrMail = $debutAdr . "." . $finAdr;
+		$nouvelleAdrMail = $adrMail . "@gmail.com";
+		// ajout de l'adresse mail à la collection
+		$lesAdressesMails[] = $nouvelleAdrMail;
+	
+		$longueur = strlen($adrMail);
+	
+		for ($k=$j; $k < $longueur; $k++){
+			$debutAdr = substr($adrMail, 0, $k);
+			$finAdr = substr($adrMail, $k, $longueur - $k);
+			$nouvelleAdrMail = $debutAdr . "." . $finAdr . "@gmail.com";
+			// ajout de l'adresse mail à la collection
+			$lesAdressesMails[] = $nouvelleAdrMail;
+		}
+	
+	}
+
+	return $lesAdressesMails;
 	}
 	
 	

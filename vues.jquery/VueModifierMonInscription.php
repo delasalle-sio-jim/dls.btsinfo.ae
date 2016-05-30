@@ -2,6 +2,7 @@
 // Projet DLS - BTS Info - Anciens élèves
 // Fonction de la vue vues.jquery/VueModifierMonInscription.php : modifier son inscription à la soirée
 // Ecrit le 28/05/2016 par Killian BOUTIN
+// Mise à jour le 30/05/2016 par Killian BOUTIN
 
 // pour obliger la page à se recharger
 header('Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0');
