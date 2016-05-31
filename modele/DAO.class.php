@@ -948,10 +948,10 @@ class DAO
 	// fournit la liste de toutes les adresses mails des élèves inscrits à la soirée
 	// le résultat est fourni sous forme d'une collection d'adresses mails
 	// créé par Nicolas Esteve le XX/01/2016
-	// modifié par Jim le 13/5/2016
+	// modifié par Killian BOUTIN le 31/05/2016
 	function getLesAdressesMailsDesInscrits()
 	{	// préparation de la requête
-		$txt_req = "SELECT adrMail FROM ae_eleves, ae_inscriptions WHERE ae_eleves.id = ae_inscriptions.idEleve ORDER BY adrMail";
+		$txt_req = "SELECT adrMail FROM ae_eleves, ae_inscriptions WHERE ae_eleves.id = ae_inscriptions.idEleve AND inscriptionAnnulee = 0 ORDER BY adrMail";
 		$req = $this->cnx->prepare($txt_req);
 		// extraction des données
 		$req->execute();
