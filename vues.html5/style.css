@@ -238,6 +238,12 @@ div#content a:hover {
 	font-weight: bold;
 }
 
+label#boutonAnnulerInscription{
+	width: 210px;
+}
+
+
+
 /* ----------------- Mise en forme du menu vertical -------------------- */
 
 /* style de la <div id="menu-vertical"> */
@@ -510,28 +516,28 @@ label {
 	text-align: left;
 	width: 75%;
 	height: 100%;
-	margin: 1% 0 0 10%;
-}
-
-input[type="checkbox"]{
-	margin-left: -20px;
+	margin-top: 5px;
 }
 
 .labelImportant {
 	color: red;
-	position: relative;
+	position: absolute;
 	text-align: left;
 	width: 75%;
 	height: 100%;
-	margin: 1% 0 0 10%;
+	margin-top: 5px;
+	
 }
 #txtAdrMailAdmin2 {	
 	margin : 1% 0 0 10%;
 }
-input[type=checkbox] {
+
+/* input[type="checkbox"] pour la checkbox de ReglementsRemboursements en particulier */
+input[type="checkbox"] {
 	width: 20px;
 	height: 15px;
-	margin-left: 200px;
+	margin-left: 0px;
+	margin-top: 8px;
 }
 input[type=radio] {
 	width: 30px;
@@ -566,6 +572,7 @@ input[type=text]:invalid , input[type=email]:invalid, input[type=password]:inval
 }
 input[type=text]:valid , input[type=email]:valid, input[type=password]:valid, textarea:valid {
 	background: #fff url(../images/rond-vert.png) no-repeat 99% center;
+	display: inline-block;
 }
 
 /* ------------------------ styles liés au système d'affichage de messages ---------------------------- */

@@ -31,14 +31,14 @@
 					('#txtNouveauMdp').input('refresh');
 					('#txtConfirmationMdp').attr('type', 'text');
 					('#txtConfirmationMdp').input('refresh');
-					window.alert('true');
+					//window.alert('true');
 				}
 				else {
 					('#txtNouveauMdp').attr('type', 'password');
 					('#txtNouveauMdp').input('refresh');
 					('#txtConfirmationMdp').attr('type', 'password');
 					('#txtConfirmationMdp').input('refresh');
-					window.alert('false');
+					//window.alert('false');
 				};
 			} );
 						

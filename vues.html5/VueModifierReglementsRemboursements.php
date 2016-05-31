@@ -2,7 +2,7 @@
 // Projet DLS - BTS Info - Anciens élèves
 // Fonction de la vue vues.html5/VueModifierReglementsRemboursements.php : visualiser la vue de remboursement
 // Ecrit le 6/1/2016 par Nicolas Esteve
-// Modifié le 20/05/2016 par Jim
+// Modifié le 31/05/2016 par Killian BOUTIN
 ?>
 <!doctype html>
 <html>
@@ -59,20 +59,7 @@
 		  });
 	</script>
 	<script>
-		window.onload = initialisations;
-		
-		function initialisations() {
-			document.getElementById("caseAfficherMdp").onchange = afficherMdp;
 
-			<?php if ($typeMessage == 'avertissement') { ?>
-				afficher_avertissement("<?php echo $message; ?>");
-			<?php } ?>
-			
-			<?php if ($typeMessage == 'information') { ?>
-				afficher_information("<?php echo $message; ?>");
-			<?php } ?>
-		}
-		
 		function afficher_information(msg) {
 			document.getElementById("titre_message").innerHTML = "Information...";
 			document.getElementById("titre_message").className = "classe_information";
@@ -104,50 +91,53 @@
 		</div>
 			
 		<div id="content">
-			<h2>Modifier les comptes d'un Eleve</h2>
-			<form name="form1" id="form1" action="index.php?action=Remboursement" method="post">
+			<h2>Modifier les comptes d'un élève</h2>
+			<form name="form1" id="form1" action="index.php?action=ModifierReglementsRemboursements" method="post">
 				<table>
 					<div class="ui-widget">
 						<p>
 							 <label for="listeEleves">Eleves: </label>
-		 					 <input id="listeEleves"   name="listeEleves" placeholder="recherchez à l'aide de l'email de l'utilisateur">
+		 					 <input type="email" id="listeEleves"   name="listeEleves" placeholder="Recherchez à l'aide de l'email de l'utilisateur" value = "<?php if (!empty ($_POST ["listeEleves"]) == true) echo $_POST ["listeEleves"]; else echo "";?>" pattern="^.+@.+\..+$" required>
 						</p>
-						
-							
 						<p>
 							<input type="submit" name="btnDetail" id="btnDetail" value="Obtenir les détails">
 						</p>	
 					</div>
 
-					<?php if($etape == 1)
-					{ ?>
-					<p>
-						<label class=label2 for="txtMontantRegle">Nombre de places réservées : <?php echo $nbPlacesReserve?></label>
-					</p>
-					<p>
-						<label class=label2 for="txtMontantRegle">Date d'inscription : <?php echo $dateinscription?></label>
-					</p>
-					<p>
-						<label class=label2 for="txtMontantRegle">Montant regle à l'avance par l'élève : <?php echo $MontantRegle?></label>
-					</p>
-					<p>
-						<label class=label2 for="txtMontantRegle">Montant Remboursé à l'élève : <?php echo $MontantRembourse?></label>
-					</p>
-										
-					
-					
-					
-					<p>
-						<label for="txtMontantRegle">Modifier le montant regle à l'avance per l'élève :</label>
-						<input type="text" name="txtMontantRegle" id="txtMontantRegle" maxlength="20" placeholder="Montant regle à l'avance per l'eleve"  value="<?php echo $MontantRegle?>" >
-					</p>	
-					<p>
-						<label for="txtMontantRembourse">Modifier le montant Rembourse à l'élève :</label>
-						<input type="text" name="txtMontantRembourse" id="txtMontantRembourse" maxlength="20" placeholder="Montant Rembourse à l'eleve"  value="<?php echo $MontantRembourse?>" >
-					</p>		
-					<p>
-						<input type="submit" name="btnModifier" id="btnModifier" value="Changer les données">
-					</p>
+					<?php if ($etape == 1){?>
+						<p>
+							<label >Nombre de places réservées :</label>
+							<input type="text" value="<?php echo $unNbrePersonnes ?>" disabled>
+						</p>
+						<p>
+							<label >Date d'inscription :</label>
+							<input type="text" value="<?php echo $dateInscription ?>" disabled >
+						</p>
+						<p>
+							<label  for="txtMontantRegle">Montant réglé par l'élève :</label>
+							<input type="text" name="txtMontantRegle" id="txtMontantRegle" maxlength="20" placeholder="Montant regle à l'avance par l'élève"  value="<?php echo $montantRegle?>" >
+						</p>
+						<p>
+							<label for="txtMontantRembourse">Montant remboursé à l'élève :</label>
+							<input type="text" name="txtMontantRembourse" id="txtMontantRembourse" maxlength="20" placeholder="Montant rembourse à l'élève"  value="<?php echo $montantRembourse?>" >
+						</p>
+						<p>
+							<label class=label2 >Coût total à payer par l'élève : <?php echo $Tarif ?> €</label>
+						</p>
+						<p>
+							<label id="boutonAnnulerInscription" >Annuler l'inscription de l'élève :</label>
+								Non <input type="radio" onclick="$('#caseConfirmation').attr('checked', false); $('#annulerInscription').hide(2);" value="annulerNon" id="annulerNon" name="radioAnnuler" checked="checked" >
+								Oui <input type="radio" onclick="$('#annulerInscription').slideDown(2);" value="annulerOui" id="annulerOui" name="radioAnnuler"/>
+								  
+							<div id="annulerInscription" style="display: none">
+								Cochez cette case pour confirmer l'annulation de l'inscription : <input type=checkbox id="caseConfirmation" name="caseConfirmation">
+							</div>		
+						</p>
+						<div class="ui-widget">
+							<p>
+								<input type="submit" name="btnModifier" id="btnModifier" value="Changer les données">
+							</p>
+						</div>
 					<?php }?>
 				</table>
 			</form>

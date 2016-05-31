@@ -38,7 +38,7 @@
 		</script>
 	</head> 
 	<body onload="initialisation();">
-		<div data-role="page">
+		<div data-role="page" id="page_principale">
 			<div data-role="header" data-theme="<?php echo $themeNormal; ?>">
 				<h4>DLS-Info-AE</h4>
 			</div>
