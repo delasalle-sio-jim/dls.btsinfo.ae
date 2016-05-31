@@ -91,13 +91,13 @@
 		</div>
 			
 		<div id="content">
-			<h2>Modifier les comptes d'un Eleve</h2>
+			<h2>Modifier les comptes d'un élève</h2>
 			<form name="form1" id="form1" action="index.php?action=ModifierReglementsRemboursements" method="post">
 				<table>
 					<div class="ui-widget">
 						<p>
 							 <label for="listeEleves">Eleves: </label>
-		 					 <input type="text" id="listeEleves"   name="listeEleves" placeholder="Recherchez à l'aide de l'email de l'utilisateur" value = <?php if (!empty ($_POST ["listeEleves"]) == true) echo $_POST ["listeEleves"]; else echo "";?>>
+		 					 <input type="email" id="listeEleves"   name="listeEleves" placeholder="Recherchez à l'aide de l'email de l'utilisateur" value = "<?php if (!empty ($_POST ["listeEleves"]) == true) echo $_POST ["listeEleves"]; else echo "";?>" pattern="^.+@.+\..+$" required>
 						</p>
 						<p>
 							<input type="submit" name="btnDetail" id="btnDetail" value="Obtenir les détails">
@@ -126,8 +126,8 @@
 						</p>
 						<p>
 							<label id="boutonAnnulerInscription" >Annuler l'inscription de l'élève :</label>
-								Non <input type="radio" onclick="$('#caseConfirmation').prop('checked', false); $('#annulerInscription').hide(2);" value="annulerNon" id="annulerNon" name="btnAnnuler" checked="checked" >
-								Oui <input type="radio" onclick="$('#annulerInscription').slideDown(2);" value="annulerOui" id="annulerOui" name="btnAnnuler"/>
+								Non <input type="radio" onclick="$('#caseConfirmation').attr('checked', false); $('#annulerInscription').hide(2);" value="annulerNon" id="annulerNon" name="radioAnnuler" checked="checked" >
+								Oui <input type="radio" onclick="$('#annulerInscription').slideDown(2);" value="annulerOui" id="annulerOui" name="radioAnnuler"/>
 								  
 							<div id="annulerInscription" style="display: none">
 								Cochez cette case pour confirmer l'annulation de l'inscription : <input type=checkbox id="caseConfirmation" name="caseConfirmation">

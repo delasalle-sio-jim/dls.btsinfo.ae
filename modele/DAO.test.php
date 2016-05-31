@@ -636,12 +636,12 @@ foreach ($lesAdressesMails as $uneAdresseMail)
 }
 */
 
-
+/*
 // test de la méthode creerCompteEleveAuto ---------------------------------------------------------
 // elle teste en plus la méthode creerAdressesMails, existeAdrMail et l'outil::envoyerMail
 // créé par Killian BOUTIN le 30/05/2016
 echo "<h3>Test de creerCompteEleveAuto : </h3>";
-$lesAdressesMails = $dao->creerAdressesMails("delasallesioboutink");
+$lesAdressesMails = $dao->creerAdressesMails("delasallesiocrib");
 $nbReponses = sizeof($lesAdressesMails);
 echo "<p>Nombre d'adresses mails créées : " . $nbReponses . "</p>";
 
@@ -658,16 +658,16 @@ foreach ($lesAdressesMails as $uneAdresseMail)
 	else{
 		$ok = $dao->creerCompteEleveAuto($uneAdresseMail);
 		if ($ok){
-			echo " =>  L'élève a bien été enregistré !<br>";
+			echo " => L'élève a bien été enregistré !<br>";
 			// envoie un mail à l'utilisateur avec son nouveau mot de passe
 			$sujet = "Essai envoi de masse";
 			$message = "L'envoi de masse est un succès";
 			$ok = Outils::envoyerMail ($uneAdresseMail, $sujet, $message, $ADR_MAIL_EMETTEUR);
 				if($ok){
-					"L'envoi de mail s'est effectué avec succès<br>";
+					" => L'envoi de mail s'est effectué avec succès<br>";
 				}
 				else{
-					"Le mail n'a pas pu être envoyé";
+					" => Le mail n'a pas pu être envoyé";
 				}
 		}
 		else{
@@ -675,7 +675,7 @@ foreach ($lesAdressesMails as $uneAdresseMail)
 		}
 	}
 }
-
+*/
 
 // ferme la connexion à MySQL :
 unset($dao);

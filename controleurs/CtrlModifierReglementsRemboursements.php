@@ -15,7 +15,9 @@ if ( $_SESSION['typeUtilisateur'] != 'administrateur') {
 // connexion du serveur web à la base MySQL
 include_once ('modele/DAO.class.php');
 $dao = new DAO();
+$themeFooter = $themeNormal;
 $etape =0;
+$message = "";
 
 	if( (! isset ($_POST ["listeEleves"]) == true) && ( ! isset ($_POST ["btnModifier"]) == true)){
 		// redirection vers la vue si aucune données n'est recu par le controleur
@@ -30,14 +32,14 @@ $etape =0;
 	
 	elseif( isset ($_POST ["btnDetail"]) == true && ( isset($_POST['btnEnvoyer']) == false ))
 	{	/* si on appuie sur "obtenir des details" */
-		if (( empty ($_POST ["listeEleves"]) == true) OR $dao->existeAdrMail($_POST ["listeEleves"]) == false)
-		{	/* si on ne rentre pas d'adresse mail ou qu'elle est invalide (non présent dans la base) on obtient un message d'erreur */
-			$message = "Veuillez saisir une adresse mail valide";
+		if ( $dao->existeAdrMail($_POST ["listeEleves"]) == false)
+		{	/* si l'adresse entrée est invalide (non présent dans la base) on obtient un message d'avertissement */
+			$message = "L'étudiant à l'email " . $_POST ["listeEleves"] . " n'est pas incrit à la soirée.";
 			$typeMessage = "avertissement";
 			include_once ($cheminDesVues . 'VueModifierReglementsRemboursements.php');
 		}
 		else
-		{  	/* si on rentre une adresse correcte, on récupère les données dans des variables */
+		{  	/* si on rentre une adresse correcte, on récupère les données dans des variables pour pouvoir les afficher dans la vue */
 		
 		$idEleve = $_POST ["listeEleves"];
 		
@@ -50,8 +52,8 @@ $etape =0;
 		$uneInscription = $dao->getInscriptionEleve($idEleve);
 		$unNbrePersonnes = $uneInscription->getNbrePersonnes();
 		$dateInscription = $uneInscription->getDateInscription();
-		$montantRembourse = number_format($uneInscription->getMontantRembourse(), 2, ',', ' ');
-		$montantRegle = number_format($uneInscription->getMontantRegle(), 2, ',', ' ');
+		$montantRembourse = number_format($uneInscription->getMontantRembourse(), 2, '.', ' ');
+		$montantRegle = number_format($uneInscription->getMontantRegle(), 2, '.', ' ');
 		$Tarif = number_format($uneInscription->getTarif() * $unNbrePersonnes, 2, ',', ' ');
 		include_once ($cheminDesVues . 'VueModifierReglementsRemboursements.php');
 		
@@ -61,8 +63,7 @@ $etape =0;
 	elseif (isset ($_POST['btnModifier']))
 	{
 
-		/* on continue quand même le traitement au cas où il y a eu paiement en avance, remboursement etc.. */
-		
+		/* on execute le traitement (même si l'inscription sera peut-être annulée) au cas où il y a eu paiement en avance, remboursement etc.. */
 		if ( empty ($_POST ["txtMontantRembourse"]) == true)  $montantRembourse = "0,00";  else   $montantRembourse = $_POST ["txtMontantRembourse"];
 		if ( empty ($_POST ["txtMontantRegle"]) == true)  $montantRegle = "0,00";  else   $montantRegle = $_POST ["txtMontantRegle"];
 		
@@ -93,13 +94,14 @@ $etape =0;
 		
 		if(isset($_POST['caseConfirmation'])){
 			$ok = $dao->annulerInscription($idEleve);
+			$message .= "L'inscription a bien été annulée.";
 		}
 		
 		unset($_SESSION['idEleve']);
 		
 		if($ok)
 		{
-			$message = "Modifications effectuées avec succès";
+			$message = "Modifications effectuées avec succès<br>" . $message;
 			$typeMessage = "information";
 		}
 		else 
