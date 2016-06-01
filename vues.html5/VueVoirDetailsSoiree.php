@@ -2,7 +2,7 @@
 	// Projet DLS - BTS Info - Anciens élèves
 	// Fonction de la vue vues.html5/VueVoirDetailsSoiree.php : visualiser les infos sur la soirée
 	// Ecrit le 6/1/2016 par Nicolas Esteve
-	// Modifié le 26/05/2016 par Killian BOUTIN
+	// Modifié le 01/06/2016 par Killian BOUTIN
 ?>
 <!doctype html>
 <html>
@@ -26,47 +26,9 @@
 			
 		<div id="content">
 			<h2>La prochaine soirée des anciens</h2>
-		
-			<?php	
-			if ($uneSoiree == null )
-			{	echo "La prochaine soirée des anciens n'a pas encore été programmée à ce jour !";
-			}
-			else
-			{
-				$message = "<p>Bonjour,</p>";
-				$message .= "<p>Comme chaque année, l'association INPACT organise un repas auquel les étudiants, anciens étudiants et professeurs du BTS SIO ";
-				$message .= " (ex BTS IG) du Lycée De La Salle sont conviés.</p>";
-										
-				if ($uneSoiree->getDateSoiree() != 00-00-0000)
-				{	$message .= "<p>Ce repas aura lieu le <b>vendredi " . Outils::convertirEnDateFR($uneSoiree->getDateSoiree()) . " à 20 h</b><br>";
-				}
-				else{
-					$message .= "La date de ce repas n'est pas encore programmée mais aura lieu ";
-				}
-						
-				if ($uneSoiree->getNomRestaurant() != null)
-				{	$message .= "au restaurant <b>" . $uneSoiree->getNomRestaurant() . "</b>";		
-							
-					if ($uneSoiree->getAdresse() != null)
-					{	$message .= "<br>situé <b> " . $uneSoiree->getAdresse( ). "</b>.</p>";
-					}
-					else 
-					{	$message .="<br>dont l'adresse est précisée dans le lien ci-joint. </p>";
-					}
-				}
-
-				if ($uneSoiree->getTarif() != null)
-				{	$message .= "<p>Le tarif est de <b>" . $uneSoiree->getTarif() . " euros</b> par personne. </p>";
-				}
 				
-				if ($uneSoiree->getLienMenu() != null)
-				{	$message .= '<p>Informations plus détaillées sur le restaurant ou sur les menus proposés : <br> <a target="_blank" href="' . $uneSoiree->getLienMenu() . '".>' . $uneSoiree->getLienMenu() .'</a></p>';
-				}
-						
-				$message .= "<p>Dans l'espoir de vous voir à cette soirée,<br/><br/>Cordialement,<br/>L'équipe d'INPACT</p>";
-				echo $message;
-			}
-			?>
+				<?php echo $affichage ?>
+				
 			</div>
 		
 		<div id="footer">

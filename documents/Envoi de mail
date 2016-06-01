@@ -1,0 +1,24 @@
+Envoi de mail de masse :
+
+	Dans :
+		- C:\wamp\apps\phpmyadmin4.1.14\libraries\config.default.php
+	Changer ligne 691 : 
+		- $cfg['ExecTimeLimit'] = 0;
+		
+	Dans : 
+		- C:\wamp\bin\php\php5.5.12\php.ini (paramètres de configuration)
+	Changer ligne 374 :
+		- max_execution_time = 0
+	
+	Redémarrer les services
+	
+	Si ça ne fonctionne pas, retourner voir sur stackoverflow :
+		http://stackoverflow.com/questions/1263680/maximum-execution-time-in-phpmyadmin
+		http://stackoverflow.com/questions/7680572/fatal-error-maximum-execution-time-of-300-seconds-exceeded
+		http://stackoverflow.com/questions/5164930/fatal-error-maximum-execution-time-of-30-seconds-exceeded
+	
+	
+	
+Utiliser "swiftmailer" pour moins apparaître en spam : 
+	Explications : - http://www.jeromeweb.net/php/9293-swiftmailer-exemple-denvoi-de-mail-en-html
+	Download : - https://github.com/swiftmailer/swiftmailer/archive/5.x.zip

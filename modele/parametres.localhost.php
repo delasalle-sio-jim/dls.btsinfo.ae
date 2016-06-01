@@ -12,6 +12,17 @@ $PARAM_BDD = "anciensEtudiants";	// nom de la base de données
 $PARAM_USER = "root";			// nom de l'utilisateur
 $PARAM_PWD = "";				// son mot de passe
 
+try
+{
+	$cnx = new PDO('mysql:host='.$PARAM_HOTE.';port='.$PARAM_PORT.';dbname='.$PARAM_BDD,$PARAM_USER,$PARAM_PWD);
+	$cnx->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+}
+catch (Exception $e)
+{
+	echo 'Erreur : '.$e->getMessage().'</br/>';
+	echo 'N° : '.$e->getCode();
+}
+
 // Autres paramètres -----------------------------------------------------------------------------------------
 global $ADR_MAIL_EMETTEUR, $ADR_MAIL_ADMINISTRATEUR, $ADR_SERVICE_WEB;
 

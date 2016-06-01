@@ -641,7 +641,7 @@ foreach ($lesAdressesMails as $uneAdresseMail)
 // elle teste en plus la méthode creerAdressesMails, existeAdrMail et l'outil::envoyerMail
 // créé par Killian BOUTIN le 30/05/2016
 echo "<h3>Test de creerCompteEleveAuto : </h3>";
-$lesAdressesMails = $dao->creerAdressesMails("delasallesiocrib");
+$lesAdressesMails = $dao->creerAdressesMails("d.e.l.a.sa.l.l.e.s.i.o.d.e.stin.a.t.aire");
 $nbReponses = sizeof($lesAdressesMails);
 echo "<p>Nombre d'adresses mails créées : " . $nbReponses . "</p>";
 
@@ -659,23 +659,37 @@ foreach ($lesAdressesMails as $uneAdresseMail)
 		$ok = $dao->creerCompteEleveAuto($uneAdresseMail);
 		if ($ok){
 			echo " => L'élève a bien été enregistré !<br>";
-			// envoie un mail à l'utilisateur avec son nouveau mot de passe
-			$sujet = "Essai envoi de masse";
-			$message = "L'envoi de masse est un succès";
-			$ok = Outils::envoyerMail ($uneAdresseMail, $sujet, $message, $ADR_MAIL_EMETTEUR);
-				if($ok){
-					" => L'envoi de mail s'est effectué avec succès<br>";
-				}
-				else{
-					" => Le mail n'a pas pu être envoyé";
-				}
+			
+				$sujet = "3 - Essai n° " . $i . "  d'envoi de masse";
+				$message = "L'envoi de masse n° " . $i . "  est un succès";
+				$ok = Outils::envoyerMail ($uneAdresseMail, $sujet, $message, $ADR_MAIL_EMETTEUR);
+					if($ok){
+						echo " => L'envoi de mail s'est effectué avec succès<br>";
+					}
+					else{
+						echo " => Le mail n'a pas pu être envoyé";
+					}
 		}
 		else{
 			echo " => Echec lors de l'enregistrement de l'élève !<br>";
 		}
 	}
+	
 }
 */
+
+// test de la méthode ExportToCSV ($nomColonnes, $donneesTable, $nomTable) ---------------------------------------------------------
+// elle teste en plus la méthode creerAdressesMails, existeAdrMail et l'outil::envoyerMail
+// créé par Killian BOUTIN le 01/06/2016
+echo "<h3>Test de ExportToCSV (nomColonnes, donneesTable, nomTable) : </h3>";
+
+$nomColonnes = "SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'ae_eleves' ";
+$donneesTable = "SELECT * FROM ae_eleves";
+$nomTable = "MailsInscrits";
+
+$dao->ExportToCSV($nomColonnes,$donneesTable,$nomTable);
+
+
 
 // ferme la connexion à MySQL :
 unset($dao);
