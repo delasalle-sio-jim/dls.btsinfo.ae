@@ -678,6 +678,7 @@ foreach ($lesAdressesMails as $uneAdresseMail)
 }
 */
 
+
 // test de la méthode ExportToCSV ($nomColonnes, $donneesTable, $nomTable) ---------------------------------------------------------
 // elle teste en plus la méthode creerAdressesMails, existeAdrMail et l'outil::envoyerMail
 // créé par Killian BOUTIN le 01/06/2016
