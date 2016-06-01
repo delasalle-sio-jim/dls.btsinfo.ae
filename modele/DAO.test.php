@@ -680,16 +680,14 @@ foreach ($lesAdressesMails as $uneAdresseMail)
 
 
 // test de la méthode ExportToCSV ($nomColonnes, $donneesTable, $nomFichierCSV) ---------------------------------------------------------
-// elle teste en plus la méthode creerAdressesMails, existeAdrMail et l'outil::envoyerMail
 // créé par Killian BOUTIN le 01/06/2016
 echo "<h3>Test de ExportToCSV (nomColonnes, donneesTable, nomFichierCSV) : </h3>";
 
-$nomColonnes = "test1;test2;test3;";
+$nomColonnes = array("anneeDebutBTS","tel","prenom");
 $donneesTable = "SELECT * FROM ae_eleves";
 $nomFichierCSV = "Eleves";
 
-$dao->ExportToCSV($nomColonnes,$donneesTable,$nomFichierCSV);
-
+$dao->ExportToCSV($nomColonnes, $donneesTable, $nomFichierCSV);
 
 
 // ferme la connexion à MySQL :

@@ -56,8 +56,8 @@
 			<h2>Exporter les données au format .CSV</h2>
 			<form name="form1" id="form1" action="index.php?action=ExporterLesDonnees" method="post">
 					
-					<label class= "label2">Données des élèves (trié par liste alphabétique)</label>
-					<input class= "label2" type="checkbox" name="export[]" value="EleveParAlphabetique">
+					<label class= "label2">Données des élèves (trié par promo)</label>
+					<input class= "label2" type="checkbox" name="export[]" value="EleveParPromo">
 					
 					<label class= "label2">Données des élèves (trié par nom)</label>
 					<input class= "label2" type="checkbox" name="export[]" value="EleveParNom">

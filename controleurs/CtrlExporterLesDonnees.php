@@ -27,23 +27,42 @@ else {
 	/* on parcourt le tableau de checkbox */
 	foreach($_POST['export'] as $value)
 	{
-		if ($value == "EleveParAlphabetique"){
-			ExportToCSV($nomColonnes, $donneesTable, E);
+		if ($value == "EleveParPromo"){
+			$nomColonnes = array("anneeDebutBTS","nom","prenom");
+			$donneesTable = "SELECT * FROM ae_eleves ORDER BY anneeDebutBTS, nom, prenom";
+			$nomFichierCSV = "ElevesParPromo";
+			
 		}
 		if ($value == "EleveParNom"){
-			ExportToCSV($nomColonnes, $donneesTable, $nomFichierCSV);
+			$nomColonnes = array("Nom","Prenom","Sexe","Promo","Telephone","Adresse Mail","Rue","Code Postal","Ville","Entreprise");
+			$donneesTable = "SELECT nom AS Nom, prenom AS Prenom, sexe AS Sexe, anneeDebutBTS AS Promo,";
+			$donneesTable .= " tel AS Telephone, adrMail AS \"Adresse Mail\", rue AS Rue, codePostal AS \"Code Postal\",";
+			$donneesTable .= " ville AS Ville, entreprise AS Entreprise FROM ae_eleves";
+			$nomFichierCSV = "Eleves";
+			
+			$ok = $dao->ExportToCSV($nomColonnes, $donneesTable, $nomFichierCSV);
 		}
+		/*
 		if ($value == "Inscrits"){
-			ExportToCSV($nomColonnes, $donneesTable, $nomFichierCSV);
+			$nomColonnes = array("Annee de debut de BTS","Telephone","Prenom");
+			$donneesTable = "SELECT * FROM ae_eleves";
+			$nomFichierCSV = "Inscrits";
+			
+			$dao->ExportToCSV($nomColonnes, $donneesTable, $nomFichierCSV);
 		}
 		if ($value == "NonInscrits"){
-			ExportToCSV($nomColonnes, $donneesTable, $nomFichierCSV);
+			$nomColonnes = array("anneeDebutBTS","tel","prenom");
+			$donneesTable = "SELECT * FROM ae_eleves";
+			$nomFichierCSV = "NonInscrits";
+			
+			$dao->ExportToCSV($nomColonnes, $donneesTable, $nomFichierCSV);
 		}
+		*/
 	}
 	
 	include_once ($cheminDesVues . 'VueExporterLesDonnees.php');
 	
-	/*
+	
 	
 	if ($ok) 
 		{
@@ -59,7 +78,7 @@ else {
 			$themeFooter = $themeProbleme;
 			include_once ($cheminDesVues . 'VueExporterLesDonnees.php');
 		}
-		*/
+		
 	}
 
 
