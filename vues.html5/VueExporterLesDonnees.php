@@ -1,12 +1,12 @@
 <?php
-// Projet DLS - BTS Info - Anciens élèves
-// Fonction de la vue vues.html5/VueModifierMonInscription.php : modifier son inscription à la soirée
-// Ecrit le 28/05/2016 par Killian BOUTIN
+	// Projet DLS - BTS Info - Anciens élèves
+	// Fonction de la vue vues.html5/VueModifierDetailsSoiree : afficher le formulaire de modification des infos sur la soirée
+	// Ecrit le 6/1/2016 par Nicolas Esteve
+	// Modifié le 01/06/2016 par Killian BOUTIN
 ?>
-
 <!doctype html>
 <html>
-<head>
+<head>	
 	<?php include_once ('head.php'); ?>
 	<script>
 		window.onload = initialisations;
@@ -37,7 +37,7 @@
 	</script>
 	
 </head> 
-	<body>
+<body>
 	<div id="page">
 	
 		<div id="header">
@@ -51,40 +51,27 @@
 				<img src="images/Intitules_bts_ig_sio.png" id="logo-droite" alt="BTS Informatique" />
 			</div>
 		</div>
+			
 		<div id="content">
-			<h2>Inscription à la soirée</h2>
-			<form name="form1" id="form1" action="index.php?action=ModifierMonInscription" method="post">
-
-				<p>
-					<label class="label2" for="txtNbPlaces">Nombre de places  :</label>
-					<input class="label2" type="number"  name="txtNbPlaces" id="txtNbPlaces" pattern="^[0-9]{2}$" maxlength="30" value="<?php echo $nbPersonnes; ?>" required/>
-				
-					<label class ="label2" >En cochant cette case vous vous vous engagez a payer <?php echo $unTarif ?> euros par places réservées. </label>
-					<input class ="label2" type="checkbox" required name="validation" id="validation" required>
-					<label class ="label2" > Vous pouvez payer en avance en envoyant un chèque au nom d'INPACT (en précisant votre nom) ou payer au moment où vous arrivez à la soirée.	</label>		
-				</p>
-				
-				<?php
-				if(! empty ($unTarif))
-				{?>
-				<p>
-					<label class="label2" for="txtTarif">Le prix pour une place est de <?php echo $unTarif ?> euros</label>
+			<h2>Exporter les données au format .CSV</h2>
+			<form name="form1" id="form1" action="index.php?action=ExporterLesDonnees" method="post">
 					
-				</p>
-				<?php }
-				else 
-				{?>
-				<p>
-					<label class="label2" for="txtTarif">Le prix pour la soirée n'a pas été fixé</label>
-				</p>
-				<?php }?>
-				<p>
-					<input type="submit" name="btnModification"  id="btnModification" value="Modifier mon inscription" >
-				</p>
-				<p>
-					<input type="submit" name="btnAnnulation"  id="btnAnnulation" value="Annuler mon inscription" >
-				</p>
-			</form>	
+					<label class= "label2">Données des élèves (trié par liste alphabétique)</label>
+					<input class= "label2" type="checkbox" name="export[]" value="EleveParAlphabetique">
+					
+					<label class= "label2">Données des élèves (trié par nom)</label>
+					<input class= "label2" type="checkbox" name="export[]" value="EleveParNom">
+					
+					<label class= "label2">Liste des inscrits </label>
+					<input class= "label2" type="checkbox" name="export[]" value="Inscrits">
+					
+					<label class= "label2">Liste des non inscrits</label>
+					<input class= "label2" type="checkbox" name="export[]" value="NonInscrits">
+					
+					<div class="ui-widget">
+						<input type="submit" name="btnExporter" id="btnExporter" value="Télécharger">
+					</div>
+			</form>				
 		</div>
 		
 		<div id="footer">
@@ -96,7 +83,7 @@
 		<div>
 			<h2 id="titre_message" class="classe_information">Message</h2>
 			<p id="texte_message" class="classe_texte_message">Texte du message</p>
-			<a href="index.php?action=Menu#menu2" title="Fermer">Fermer</a>
+			<a href="#close" title="Fermer">Fermer</a>
 		</div>
 	</aside>
 </body>

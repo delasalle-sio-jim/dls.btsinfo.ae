@@ -86,6 +86,7 @@
 							<p><a href="index.php?action=ModifierDetailsSoiree" class="bouton-menu">Modifier les infos sur la soirée</a></p>
 							<p><a href="index.php?action=VoirListeInscritsAdmin" class="bouton-menu">Consulter la liste des inscriptions</a></p>
 							<p><a href="index.php?action=EnvoyerCourriel" class="bouton-menu">Envoyer un courriel</a></p>
+							<p><a href="index.php?action=ExporterLesDonnees" class="bouton-menu">Exporter des données</a></p>
 							<p><a href="index.php?action=ModifierReglementsRemboursements" class="bouton-menu">Mettre à jour réglements et remboursements</a></p>
 						</div>
 					</div>

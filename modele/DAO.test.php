@@ -679,16 +679,16 @@ foreach ($lesAdressesMails as $uneAdresseMail)
 */
 
 
-// test de la méthode ExportToCSV ($nomColonnes, $donneesTable, $nomTable) ---------------------------------------------------------
+// test de la méthode ExportToCSV ($nomColonnes, $donneesTable, $nomFichierCSV) ---------------------------------------------------------
 // elle teste en plus la méthode creerAdressesMails, existeAdrMail et l'outil::envoyerMail
 // créé par Killian BOUTIN le 01/06/2016
-echo "<h3>Test de ExportToCSV (nomColonnes, donneesTable, nomTable) : </h3>";
+echo "<h3>Test de ExportToCSV (nomColonnes, donneesTable, nomFichierCSV) : </h3>";
 
-$nomColonnes = "SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'ae_eleves' ";
+$nomColonnes = "test1;test2;test3;";
 $donneesTable = "SELECT * FROM ae_eleves";
-$nomTable = "MailsInscrits";
+$nomFichierCSV = "Eleves";
 
-$dao->ExportToCSV($nomColonnes,$donneesTable,$nomTable);
+$dao->ExportToCSV($nomColonnes,$donneesTable,$nomFichierCSV);
 
 
 

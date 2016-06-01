@@ -76,11 +76,11 @@
 		<div data-role="page" id="page_principale">
 			<div data-role="header" data-theme="<?php echo $themeNormal; ?>">
 				<h4>DLS-Info-AE</h4>
-				<a href="index.php?action=Menu" data-ajax="false" data-transition="<?php echo $transition; ?>">Retour menu</a>
+				<a href="index.php?action=Menu#menu2" data-ajax="false" data-transition="<?php echo $transition; ?>">Retour menu</a>
 			</div>
 			<div data-role="content">
 				<h4 style="text-align: center;">Modifier les comptes d'un élève</h4>
-				<form name="form1" id="form1" action="index.php?action=ModifierReglementsRemboursements" method="post" data-ajax="false">
+				<form action="index.php?action=ModifierReglementsRemboursements" method="post" data-ajax="false">
 					<div data-role="fieldcontain" >
 
 						<input type="email" id="listeEleves"   name="listeEleves" placeholder="Entrez l'email de l'élève" value = "<?php if (!empty ($_POST ["listeEleves"]) == true) echo $_POST ["listeEleves"]; else echo "";?>" pattern="^.+@.+\..+$" required>
@@ -101,7 +101,7 @@
 							<input type="number" style="width: 75px;" name="txtMontantRembourse" id="txtMontantRembourse" maxlength="10" placeholder="Montant rembourse à l'élève"  value="<?php echo $montantRembourse?>" >
 							
 							<label class=label2 >Coût total à payer par l'élève :</label>
-							<input type="text" value="<?php echo $Tarif ?> €" disabled>
+							<input type="text" value="<?php echo $montantTotal ?> €" disabled>
 							
 							<fieldset data-role="controlgroup" data-type="vertical" required>
 								<legend data-mini="true">Voulez-vous annuler l'inscription ?</legend>
@@ -124,7 +124,6 @@
 				</form>
 			</div>
 
-			
 			<div data-role="footer" data-position="fixed" data-theme="<?php echo $themeNormal; ?>">
 				<h4>Annuaire des anciens du BTS Informatique<br>Lycée De La Salle (Rennes)</h4>
 			</div>
@@ -158,7 +157,7 @@
 				
 				<script>
 					function myFunction() {
-						 location.replace("index.php?action=Menu");
+						 location.replace("index.php?action=Menu#menu2");
 					}
 				</script>
 			</div>

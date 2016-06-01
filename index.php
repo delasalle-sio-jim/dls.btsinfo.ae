@@ -115,6 +115,18 @@ switch($action){
 	case 'ModifierMaFichePersoAdmin': {
 		include_once ('controleurs/CtrlModifierMaFichePersoAdmin.php'); break;
 	}
+	case 'ModifierDetailsSoiree': {
+		include_once ('controleurs/CtrlModifierDetailsSoiree.php'); break;
+	}
+	case 'VoirListeInscritsAdmin': {
+		include_once ('controleurs/CtrlVoirListeInscritsAdmin.php'); break;
+	}
+	case 'ExporterLesDonnees': {
+		include_once ('controleurs/CtrlExporterLesDonnees.php'); break;
+	}
+	case 'ModifierReglementsRemboursements': {
+		include_once ('controleurs/CtrlModifierReglementsRemboursements.php'); break;
+	}
 	case 'CreerCompteEleve': {
 		include_once ('controleurs/CtrlCreerCompteEleve.php'); break;
 	}
@@ -132,15 +144,6 @@ switch($action){
 	}
 	case 'SupprimerCompteAdmin': {
 		include_once ('controleurs/CtrlSupprimerCompteAdmin.php'); break;
-	}
-	case 'ModifierDetailsSoiree': {
-		include_once ('controleurs/CtrlModifierDetailsSoiree.php'); break;
-	}
-	case 'VoirListeInscritsAdmin': {
-		include_once ('controleurs/CtrlVoirListeInscritsAdmin.php'); break;
-	}
-	case 'ModifierReglementsRemboursements': {
-		include_once ('controleurs/CtrlModifierReglementsRemboursements.php'); break;
 	}
 	
 	// toute autre tentative est automatiquement redirigée vers le contrôleur d'authentification	

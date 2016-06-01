@@ -41,7 +41,7 @@ else {
 		$montantRegle = 0;
 		
 		$urgent = false;
-		$Tarif = $unTarif * $nbPersonnes;
+		$montantTotal = $unTarif * $nbPersonnes;
 
 		$unNom = $unEleve->getNom();
 		$unPrenom = $unEleve->getPrenom();
@@ -62,7 +62,7 @@ else {
 				include_once ($cheminDesVues . 'VueCreerMonInscription.php');
 			}
 			else{
-				$message ='Vous êtes inscrit ! <br>Le montant total que vous devez payer pour la soirée est de '. $Tarif . ' euros.';
+				$message ='Vous êtes inscrit ! <br>Le montant total que vous devez payer pour la soirée est de '. $montantTotal . ' euros.';
 				$typeMessage = 'information';
 				$themeFooter = $themeNormal;
 				include_once ($cheminDesVues . 'VueCreerMonInscription.php');

@@ -31,7 +31,7 @@ class Inscription
 	// ----------------------------------------- Constructeur -----------------------------------------------
 	// ------------------------------------------------------------------------------------------------------
 	
-	public function Inscription($unId, $unNom, $unPrenom, $anneeDebutBTS, $dateInscription, $unNbrePersonnes, $montantRegle, $montantRembourse, $idEleve, $idSoiree, $inscriptionAnnulee, $unTarif) {
+	public function Inscription($unId, $unNom, $unPrenom, $anneeDebutBTS, $dateInscription, $unNbrePersonnes, $montantRegle, $montantRembourse, $idEleve, $idSoiree, $inscriptionAnnulee, $leTarif) {
 		$this->id = $unId;
 		$this->nom = strtoupper($unNom);
 		$this->prenom = Outils::corrigerPrenom($unPrenom);
@@ -43,7 +43,7 @@ class Inscription
 		$this->idEleve = $idEleve;
 		$this->idSoiree = $idSoiree;
 		$this->inscriptionAnnulee = $inscriptionAnnulee;
-		$this->tarif = $unTarif;
+		$this->tarif = $leTarif;
 	}	
 	
 	// ------------------------------------------------------------------------------------------------------
@@ -84,7 +84,7 @@ class Inscription
 	public function setAnneeDebutBTS($uneAnneeDebutBTS) {$this->anneeDebutBTS = $uneAnneeDebutBTS;}
 	
 	public function getTarif() {return $this->tarif;}
-	public function setTarif($unTarif) {$this->tarif = $unTarif;}
+	public function setTarif($leTarif) {$this->tarif = $leTarif;}
 
 
 	// ------------------------------------------------------------------------------------------------------

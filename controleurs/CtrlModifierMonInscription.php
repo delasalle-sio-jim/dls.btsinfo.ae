@@ -30,7 +30,7 @@ $montantRembourse = 5;
 $idEleve = 9;
 $idSoiree = 1;
 $inscriptionAnnulee = 0;
-$Tarif = 24;
+$montantTotal = 24;
 
 
 // on vérifie si le demandeur de cette action est bien authentifié et qu'il n'a pas d'inscription
@@ -64,10 +64,10 @@ else{
 			$idEleve = $uneInscription->getIdEleve();
 			$idSoiree = $uneInscription->getIdSoiree();
 			$inscriptionAnnulee = 0; // L'inscription à modifier ne sera pas annulée
-			$Tarif = $unTarif * $nbPersonnes; // On modifie le tarif en fonction du nombre de personnes
+			$montantTotal = $unTarif * $nbPersonnes; // On modifie le tarif en fonction du nombre de personnes
 			
 				
-			$uneInscription = new Inscription($idInscription, $unNom, $unPrenom, $anneeDebutBTS, $dateInscription, $nbPersonnes, $montantRegle, $montantRembourse, $idEleve, $idSoiree, $inscriptionAnnulee, $Tarif);
+			$uneInscription = new Inscription($idInscription, $unNom, $unPrenom, $anneeDebutBTS, $dateInscription, $nbPersonnes, $montantRegle, $montantRembourse, $idEleve, $idSoiree, $inscriptionAnnulee, $montantTotal);
 				
 			$ok = $dao->modifierInscription($uneInscription);
 			if (!$ok)
@@ -85,14 +85,14 @@ else{
 				 * Si $remboursement est négatif, c'est à l'ancien élève de payer l'opposé de $remboursement
 				 * Sinon, le client doit se faire rembourser de "$remboursement";
 				 */
-				$remboursement = $montantRegle - $Tarif - $montantRembourse;
+				$remboursement = $montantRegle - $montantTotal - $montantRembourse;
 				
 				if($remboursement > 0){
 					$messageRemboursement = "Vous allez être remboursé des " . $remboursement . " euros en trop que vous nous aviez envoyés.\r\n";
 				}
 				elseif($remboursement < 0){
 					$aPayer = - $remboursement;
-					$messageRemboursement = "Le montant total que vous devez payer pour la soirée est de ". $Tarif . " euros.\r\n";
+					$messageRemboursement = "Le montant total que vous devez payer pour la soirée est de ". $montantTotal . " euros.\r\n";
 					$messageRemboursement .= "Vous avez payé " . $montantRegle . " euros et été remboursé de " . $montantRembourse . " euros.\r\n";
 					$messageRemboursement .= "Il vous reste donc " . $aPayer . " euros à payer.\r\n";
 				}

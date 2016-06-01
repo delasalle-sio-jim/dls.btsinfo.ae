@@ -72,6 +72,7 @@ header('Expires: 0');
 					</p>
 				</form>
 			</div>
+			
 			<div data-role="footer" data-position="fixed" data-theme="<?php echo $themeNormal; ?>">
 				<h4>Annuaire des anciens du BTS Informatique<br>Lycée De La Salle (Rennes)</h4>
 			</div>
@@ -110,6 +111,5 @@ header('Expires: 0');
 				</script>
 			</div>
 		</div>
-		
 	</body>
 </html>

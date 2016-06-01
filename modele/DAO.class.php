@@ -1151,10 +1151,10 @@ class DAO
 		return $ok;
 	}
 	
-	
-	// exporte les adresses mails des inscrits au format .csv
+	/*
+	// exporte les données des élèves au format .csv
 	// créé par Killian BOUTIN le 01/06/2016
-	function ExportToCSV($nomColonnes, $donneesTable, $nomTable)
+	function ExportToCSV($nomColonnes, $donneesTable, $nomFichierCSV)
 	{
 		include 'parametres.localhost.php';
 		
@@ -1201,8 +1201,9 @@ class DAO
 			/* on retourne à la ligne */
 			$csv.="\n";
 		}
-			 /* on crée (s'il n'existe pas) un fichier au nom de la table qui a les droits d'écriture seule, si il existe, les données précédentes seront supprimées */
-			$csvFile=fopen("../documents/" . $nomTable . ".csv", 'w+');
+			 /* on crée (s'il n'existe pas) un fichier au nom de la table qui a les droits de lecture/écriture */
+			 /* si il existe, les données précédentes seront supprimées (le w+ écrit et écrase les données précédemment enregistrées */
+			$csvFile=fopen("../exportations/" . $nomFichierCSV . ".csv", 'w+');
 			
 			/* on intègre dans le fichier créé, les données de la variable $csv */
 			fwrite($csvFile,utf8_encode($csv));
@@ -1210,6 +1211,59 @@ class DAO
 					
 					echo "Le fichier a été créé !";
 					 
+	}
+	*/
+	
+	
+	// exporte les données des élèves au format .csv
+	// créé par Killian BOUTIN le 01/06/2016
+	function ExportToCSV($nomColonnes, $donneesTable, $nomFichierCSV)
+	{
+		include 'parametres.localhost.php';
+	
+		/* on initialise les valeurs */
+		$csv = "";
+		$colName =array($nomColonnes);
+		/* calcul de la taille de l'array */
+		$numCol = count($colName);
+		/* on affecte la première ligne grâce à $nomColonnes */
+		$csv. = $nomColonnes . "\n"
+	
+				for ($i=0;$i<$numCol;$i++){
+			/* on prend le nom de la colonne dans MySQL pour le mettre dans la colonne [n° de la colonne] */
+			$csv .="\n";
+		}
+		/* on retourne à la ligne */
+		$csv.="\n";
+	
+		/* on récupère maintenant les données dans la variable $donneesTable */
+		$txt_req = ($donneesTable);
+		$reqDonneesTable = $this->cnx->prepare($txt_req);
+		$reqDonneesTable->setFetchMode (PDO::FETCH_OBJ);
+		$reqDonneesTable->execute();
+		$uneLigne = $reqDonneesTable->fetch();
+			
+		/* tant qu'il y a des données */
+		while($uneLigne){
+			/* pour $i allant de la première à la dernière colonne */
+			for ($j=0;$j<$numCol;$j++){
+				/* le fichier csv récupère les données de la colonne correspondante */
+				$csv.=$uneLigne->$colName[$j].";";
+			}
+			$uneLigne = $reqDonneesTable->fetch();
+			/* on retourne à la ligne */
+			$csv.="\n";
+		}
+		/* on crée (s'il n'existe pas) un fichier au nom de la table qui a les droits de lecture/écriture */
+		/* si il existe, les données précédentes seront supprimées (le w+ écrit et écrase les données précédemment enregistrées */
+		$csvFile=fopen("../exportations/" . $nomFichierCSV . ".csv", 'w+');
+			
+		/* on intègre dans le fichier créé, les données de la variable $csv */
+		fwrite($csvFile,utf8_encode($csv));
+		fclose($csvFile);
+			
+		echo "Le fichier a été créé !";
+	
 	}
 	
 	
