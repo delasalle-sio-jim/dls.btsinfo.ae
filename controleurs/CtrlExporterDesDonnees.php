@@ -100,7 +100,7 @@ else {
 	if(is_dir('exportations/'))
     {
     	// On crée le dossier export.zip qui sera proposé en téléchargement
-        if($zip->open('export.zip', ZipArchive::CREATE) == TRUE)
+        if($zip->open('export.zip', ZipArchive::OVERWRITE) == TRUE)
         {	
 			// Pour chaque checkbox séléctionné, on ajoute le fichier correspondant au .zip
 			foreach($lesFichiers as $leFichier)
@@ -121,10 +121,10 @@ else {
 			
 			readfile('export.zip');
 			
-			
+			/* Utile pour "ZipArchive::CREATE" mais on utilise "ZipArchive::OVERWRITE"
 			// On supprime maintenant ce dossier zip
 			unlink ("export.zip");
-			
+			*/
         }
         else
         {
