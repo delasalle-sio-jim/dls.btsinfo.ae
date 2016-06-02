@@ -113,7 +113,6 @@ else {
 			// On ferme l’archive.
 			$zip->close();
 			
-			
 			// Téléchargement
 			// On peut ensuite, comme dans le tuto de DHKold, proposer le téléchargement.
 			header('Content-Transfer-Encoding: binary'); //Transfert en binaire (fichier).
@@ -136,7 +135,7 @@ else {
 	}
 	else
 	{
-		echo 'Le dossier &quot;upload/&quot; n&#039;existe pas.';
+		echo 'Le dossier &quot;exportationssio/&quot; n&#039;existe pas.';
 	}
      
      include_once ($cheminDesVues . 'VueExporterDesDonnees.php');
