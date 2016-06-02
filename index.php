@@ -121,8 +121,8 @@ switch($action){
 	case 'VoirListeInscritsAdmin': {
 		include_once ('controleurs/CtrlVoirListeInscritsAdmin.php'); break;
 	}
-	case 'ExporterLesDonnees': {
-		include_once ('controleurs/CtrlExporterLesDonnees.php'); break;
+	case 'ExporterDesDonnees': {
+		include_once ('controleurs/CtrlExporterDesDonnees.php'); break;
 	}
 	case 'ModifierReglementsRemboursements': {
 		include_once ('controleurs/CtrlModifierReglementsRemboursements.php'); break;
