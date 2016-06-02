@@ -453,6 +453,32 @@ class DAO
 		return $lesMails;
 	}
 	
+	public function getLesAdressesMailsAdmin()
+	{	// préparation de la requête de recherche
+		$txt_req = "Select adrMail from ae_administrateurs order by adrMail";
+		
+		$req = $this->cnx->prepare($txt_req);
+		// extraction des données
+		$req->execute();
+		$uneLigne = $req->fetch(PDO::FETCH_OBJ);
+		
+		// construction d'une collection d'adresses mail
+		$lesMailsAdmin = array();
+		// tant qu'une ligne est trouvée :
+		while ($uneLigne)
+		{	$unMail = utf8_encode($uneLigne->adrMail);
+			$lesMailsAdmin[] = $unMail;
+			
+			// extrait la ligne suivante
+			$uneLigne = $req->fetch(PDO::FETCH_OBJ);
+		}
+		// libère les ressources du jeu de données
+		$req->closeCursor();
+		// fourniture de la collection
+		return $lesMailsAdmin;
+		}		
+		
+	
 	// supprime un compte Eleve (ainsi que ses inscriptions s'il en a) à partir de son identifiant ou de son adresse mail
 	// retourne true si enregistrement supprimé correctement, retourne false en cas de problème
 	// modifié par Nicolas Esteve  le XX/01/2016
@@ -1124,7 +1150,7 @@ class DAO
 	return $lesAdressesMails;
 	}
 	
-	/*
+	
 	// insérer les nouveaux élèves dans la base de données
 	// créé par Killian BOUTIN le 30/05/2016
 	public function creerCompteEleveAuto($uneAdresseMail)
@@ -1151,8 +1177,8 @@ class DAO
 		return $ok;
 	}
 	
-	
-	// exporte les données des élèves au format .csv
+	/*
+	// exporte les données des élèves au format .csv DYNAMIQUEMENT (table entière, nom des colonnes non modifiables)
 	// créé par Killian BOUTIN le 01/06/2016
 	function ExportToCSV($nomColonnes, $donneesTable, $nomFichierCSV)
 	{

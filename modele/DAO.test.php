@@ -636,12 +636,12 @@ foreach ($lesAdressesMails as $uneAdresseMail)
 }
 */
 
-/*
+
 // test de la méthode creerCompteEleveAuto ---------------------------------------------------------
 // elle teste en plus la méthode creerAdressesMails, existeAdrMail et l'outil::envoyerMail
 // créé par Killian BOUTIN le 30/05/2016
 echo "<h3>Test de creerCompteEleveAuto : </h3>";
-$lesAdressesMails = $dao->creerAdressesMails("d.e.l.a.sa.l.l.e.s.i.o.d.e.stin.a.t.aire");
+$lesAdressesMails = $dao->creerAdressesMails("delasallesioboutin");
 $nbReponses = sizeof($lesAdressesMails);
 echo "<p>Nombre d'adresses mails créées : " . $nbReponses . "</p>";
 
@@ -659,7 +659,7 @@ foreach ($lesAdressesMails as $uneAdresseMail)
 		$ok = $dao->creerCompteEleveAuto($uneAdresseMail);
 		if ($ok){
 			echo " => L'élève a bien été enregistré !<br>";
-			
+			/*
 				$sujet = "3 - Essai n° " . $i . "  d'envoi de masse";
 				$message = "L'envoi de masse n° " . $i . "  est un succès";
 				$ok = Outils::envoyerMail ($uneAdresseMail, $sujet, $message, $ADR_MAIL_EMETTEUR);
@@ -669,6 +669,7 @@ foreach ($lesAdressesMails as $uneAdresseMail)
 					else{
 						echo " => Le mail n'a pas pu être envoyé";
 					}
+					*/
 		}
 		else{
 			echo " => Echec lors de l'enregistrement de l'élève !<br>";
@@ -676,9 +677,9 @@ foreach ($lesAdressesMails as $uneAdresseMail)
 	}
 	
 }
-*/
 
 
+/*
 // test de la méthode ExportToCSV ($nomColonnes, $donneesTable, $nomFichierCSV) ---------------------------------------------------------
 // créé par Killian BOUTIN le 01/06/2016
 echo "<h3>Test de ExportToCSV (nomColonnes, donneesTable, nomFichierCSV) : </h3>";
@@ -688,7 +689,7 @@ $donneesTable = "SELECT * FROM ae_eleves";
 $nomFichierCSV = "Eleves";
 
 $dao->ExportToCSV($nomColonnes, $donneesTable, $nomFichierCSV);
-
+*/
 
 // ferme la connexion à MySQL :
 unset($dao);

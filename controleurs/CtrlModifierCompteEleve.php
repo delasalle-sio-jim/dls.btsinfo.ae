@@ -14,9 +14,8 @@ if ( $_SESSION['typeUtilisateur'] != 'administrateur') {
 // connexion du serveur web à la base MySQL
 include_once ('modele/DAO.class.php');
 $dao = new DAO();
-if ( empty ($_POST ["mail"]) == true)  $mail = "";  else   $mail = $_POST ["mail"];// utilité à verifier+++++++++++++++++++++++++++++++++++++++++++++++++++++
-//obtention de la collection des fonctions occupées par les anciens élèves (pour liste déroulante)
-//$lesFonctions = $dao->getLesFonctions(); utilité à verifier++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+/* Premier passage sur la page */
 if( (! isset ($_POST ["listeEleves"]) == true) && ( ! isset ($_POST ["btnEnvoyer"]) == true)){			
 		// redirection vers la vue si aucune données n'est recu par le controleur
 		$lesMails = $dao->getLesAdressesMails();
@@ -24,7 +23,6 @@ if( (! isset ($_POST ["listeEleves"]) == true) && ( ! isset ($_POST ["btnEnvoyer
 		$message = "";
 		$typeMessage = "";
 		$etape = 0;
-		$listeMails = $dao->getLesAdressesMails();
 		
 		//mise a zéro des variables de modifications de l'eleve
 		$nom = '';
@@ -40,19 +38,31 @@ if( (! isset ($_POST ["listeEleves"]) == true) && ( ! isset ($_POST ["btnEnvoyer
 		$entreprise = '';
 		$idFonction = '';
 		
-		
-		
-		
+
 		$themeFooter = $themeNormal;
 		include_once ($cheminDesVues . 'VueModifierCompteEleve.php');
+}
+
+/* Si on appuie sur le bouton "Obtenir des détails" */
+elseif( isset ($_POST ["btnDetail"]) == true &&(! isset($_POST['btnEnvoyer']) == true )){
+
+	/* On vérifie que l'adresse est bonne */
+	if ($dao->existeAdrMail($_POST ["listeEleves"]) == false){
+		
+		$etape = 0;
+		$message = "Veuillez rentrer une adresse mail existante.";
+		$typeMessage = 'avertissement';
+		
+		$themeFooter = $themeProbleme;
+		include_once ($cheminDesVues . 'VueModifierCompteEleve.php');
 	}
-	elseif( isset ($_POST ["btnDetail"]) == true &&(! isset($_POST['btnEnvoyer']) == true )){
-	
-		if ( empty ($_POST ["listeEleves"]) == true)  $idEleve = "";  else   $idEleve = $_POST ["listeEleves"];
-	
+	/* Si elle est bonne, on affiche les nouvelles données correspondante à l'élève en question */
+	else{
+
 		$etape=1;
-		$unEleve = $dao->getEleve($idEleve);
+		$unEleve = $dao->getEleve($adrMail);
 		$lesFonctions = $dao->getLesFonctions();
+		
 		$nom = $unEleve->getNom();
 		$prenom = $unEleve->getPrenom();
 		$sexe = $unEleve->getSexe();
@@ -66,63 +76,51 @@ if( (! isset ($_POST ["listeEleves"]) == true) && ( ! isset ($_POST ["btnEnvoyer
 		$entreprise = $unEleve->getEntreprise();
 		$idFonction = $unEleve->getIdFonction();
 		
-		
-		$liste = $dao->getLesAdressesMails();
-		
 		$themeFooter = $themeNormal;
 		include_once ($cheminDesVues . 'VueModifierCompteEleve.php');
 	}
-
-	elseif (isset($_POST['btnEnvoyer']) == true )
-	{
-		if ( $dao->existeAdrMail($mail) ) {
-			// si l'adresse existe déjà, réaffichage de la vue
-			$message = "Adresse mail déjà existante !";
-			$typeMessage = 'avertissement';
-			$themeFooter = $themeProbleme;
-			include_once ($cheminDesVues . 'VueModifierCompteEleve.php');
-		}
-		else 
-		{
-			// récupération des données du formulaire
-			if ( empty ($_POST ["txtNom"]) == true)  $nom = "";  else   $nom = $_POST ["txtNom"];
-			if ( empty ($_POST ["txtPrenom"]) == true)  $prenom = "";  else   $prenom = $_POST ["txtPrenom"];
-			if ( empty ($_POST ["txtAnneeDebutBTS"]) == true)  $anneeDebutBTS = "";  else   $anneeDebutBTS = $_POST ["txtAnneeDebutBTS"];
-			if ( empty ($_POST ["txtTel"]) == true)  $tel = "";  else   $tel = $_POST ["txtTel"];
-			if ( empty ($_POST ["txtAdrMail"]) == true)  $mail = "";  else   $mail = $_POST ["txtAdrMail"];
-			if ( empty ($_POST ["txtEtudesPostBTS"]) == true)  $etudes = "";  else   $etudes = $_POST ["txtEtudesPostBTS"];
-			if ( empty ($_POST ["txtRue"]) == true)  $rue = "";  else   $rue = $_POST ["txtRue"];
-			if ( empty ($_POST ["txtCodePostal"]) == true)  $cp = "";  else   $cp = $_POST ["txtCodePostal"];
-			if ( empty ($_POST ["txtVille"]) == true)  $ville = "";  else   $ville = $_POST ["txtVille"];
-			if ( empty ($_POST ["txtEntreprise"]) == true)  $entreprise = "";  else   $entreprise = $_POST ["txtEntreprise"];
-			if ( empty ($_POST ["listeFonctions"]) == true)  $fonction = "";  else   $fonction = $_POST ["listeFonctions"];
-			
-			$etape=0;
-			$oldMail = ($_POST ["listeEleves"]);
-			$ok = $dao->modifierFicheUser($nom, $prenom, $anneeDebutBTS, $mail, $tel, $rue, $ville, $cp, $etudes, $entreprise, $fonction, $oldMail);
-			$liste = $dao->getLesAdressesMails();
-			if ( $ok ) {
-		
-				$message = 'Modification réussie.';
-				$typeMessage = 'information';
-				$themeFooter = $themeNormal;
-				
-			}
-			else
-			{
-				$message = "La modification a échouée.";
-				$typeMessage = 'avertissement';
-				$themeFooter = $themeProbleme;
-				
-			}
-		
-			unset($DAO);
-			include_once ($cheminDesVues . 'VueModifierCompteEleve.php');
-	}
 }
+
+elseif (isset($_POST['btnEnvoyer']) == true )
+{
+	$unEleve = $dao->getEleve($adrMail);
 	
+	// récupération des données du formulaire + assemblage avec les données qui ne changerons pas
+	$unId = $unEleve->getId();
+	if ( empty ($_POST ["txtNom"]) == true)  $unNom = "";  else   $unNom = $_POST ["txtNom"];
+	if ( empty ($_POST ["txtPrenom"]) == true)  $unPrenom = "";  else   $unPrenom = $_POST ["txtPrenom"];
+	$unSexe = $unEleve->getSexe();
+	if ( empty ($_POST ["txtAnneeDebutBTS"]) == true)  $uneAnneeDebutBTS = "";  else   $uneAnneeDebutBTS = $_POST ["txtAnneeDebutBTS"];
+	if ( empty ($_POST ["txtTel"]) == true)  $unTel = "";  else   $unTel = $_POST ["txtTel"];
+	$uneAdrMail = $_POST ["listeEleves"];
+	if ( empty ($_POST ["txtRue"]) == true)  $uneRue = "";  else   $uneRue = $_POST ["txtRue"];
+	if ( empty ($_POST ["txtCodePostal"]) == true)  $unCodePostal = "";  else   $unCodePostal = $_POST ["txtCodePostal"];
+	if ( empty ($_POST ["txtVille"]) == true)  $uneVille = "";  else   $uneVille = $_POST ["txtVille"];
+	if ( empty ($_POST ["txtEntreprise"]) == true)  $uneEntreprise = "";  else   $uneEntreprise = $_POST ["txtEntreprise"];
+	$unCompteAccepte = $unEleve->getCompteAccepte();
+	$unMotDePasse = $unEleve->getMotDePasse();
+	if ( empty ($_POST ["txtEtudesPostBTS"]) == true)  $desEtudesPostBTS = "";  else   $desEtudesPostBTS = $_POST ["txtEtudesPostBTS"];
+	$uneDateDerniereMAJ = time();
+	if ( empty ($_POST ["listeFonctions"]) == true)  $unIdFonction = "";  else   $unIdFonction = $_POST ["listeFonctions"];
+	
+	$unEleve = new Eleve($unId, $unNom, $unPrenom, $unSexe, $uneAnneeDebutBTS, $unTel, $uneAdrMail, $uneRue, $unCodePostal, $uneVille, $uneEntreprise, $unCompteAccepte, $unMotDePasse, $desEtudesPostBTS, $uneDateDerniereMAJ, $unIdFonction);
+	
+	$etape=0;
+	$ok = $dao->modifierCompteEleve($unEleve);
+	if ( $ok ) {
+
+		$message = 'Modification réussie.';
+		$typeMessage = 'information';
+		$themeFooter = $themeNormal;
 		
-		
-		
-		
-			
+	}
+	else
+	{
+		$message = "La modification a échouée.";
+		$typeMessage = 'avertissement';
+		$themeFooter = $themeProbleme;
+	}
+
+	unset($DAO);
+	include_once ($cheminDesVues . 'VueModifierCompteEleve.php');
+}
