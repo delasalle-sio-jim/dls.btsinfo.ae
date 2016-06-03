@@ -2,7 +2,7 @@
 	// Projet DLS - BTS Info - Anciens élèves
 	// Fonction de la vue vues.jquery/VueChangerDeMdpEleve.php : visualiser la demande de changement de mot de passe par l'élève
 	// Ecrit le 1/12/2015 par Jim
-	// Modifié le 22/5/2016 par Jim
+	// Modifié le 03/06/2016 par Killian BOUTIN
 	
 	// pour obliger la page à se recharger
 	header('Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0');
@@ -65,21 +65,21 @@
 			<div data-role="content">
 				<h4 style="text-align: center; margin-top: 10px; margin-bottom: 10px;">Modifier mon mot de passe</h4>
 				<form action="index.php?action=ChangerDeMdpEleve" method="post" data-ajax="false" >
-					<div data-role="fieldcontain">
+					<p>
 						<label for="txtNouveauMdp">Nouveau mot de passe :</label>
 						<input type="<?php if ($afficherMdp == 'off') echo 'password'; else echo 'text'; ?>" name="txtNouveauMdp" id="txtNouveauMdp" placeholder="Mon nouveau mot de passe" required value="<?php echo $nouveauMdp; ?>">
-					</div>
-					<div data-role="fieldcontain">
+					</p>
+					<p>
 						<label for="txtConfirmationMdp">Confirmation nouveau mot de passe :</label>
 						<input type="<?php if ($afficherMdp == 'off') echo 'password'; else echo 'text'; ?>" name="txtConfirmationMdp" id="txtConfirmationMdp" placeholder="Confirmation de mon nouveau mot de passe" required value="<?php echo $confirmationMdp; ?>">
-					</div>
-					<div data-role="fieldcontain" data-type="horizontal" class="ui-hide-label">
+					</p>
+					<p data-type="horizontal" class="ui-hide-label">
 						<label for="caseAfficherMdp">Afficher le mot de passe en clair</label>
 						<input type="checkbox" name="caseAfficherMdp" id="caseAfficherMdp" onclick="afficherMdp();" data-mini="true" <?php if ($afficherMdp == 'on') echo 'checked'; ?>>
-					</div>
-					<div data-role="fieldcontain">
+					</p>
+					<p>
 						<input type="submit" name="btnChangerDeMdp" id="btnChangerDeMdp" value="Envoyer les données" data-mini="true">
-					</div>
+					</p>
 				</form>
 
 				<?php if($debug == true) {

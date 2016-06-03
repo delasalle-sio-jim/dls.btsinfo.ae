@@ -2,6 +2,7 @@
 // Projet DLS - BTS Info - Anciens élèves
 // Fonction du contrôleur CtrlModifierMonInscription.php : traiter la demande de modification d'une inscription
 // Ecrit le 27/05/2016 par Killian BOUTIN
+// Modifié le 03/06/2016 par Killian BOUTIN
 
 include_once ('modele/DAO.class.php');
 $dao = new DAO();
@@ -18,20 +19,6 @@ $idEleve = $unEleve->getId();
 $idInscription = $dao->getIdInscription($idEleve); // donne l'id de l'inscription
 $uneInscription = $dao->getInscriptionEleve($idEleve); // donne l'inscription en fonction de l'idEleve
 $unTarif = $uneSoiree->getTarif();
-
-$idInscription = 108;
-$unNom = "Boutin";
-$unPrenom = "Killian";
-$anneeDebutBTS = "2015";
-$dateInscription = "13/05/2015";
-$nbPersonnes = 7;
-$montantRegle = 10;
-$montantRembourse = 5;
-$idEleve = 9;
-$idSoiree = 1;
-$inscriptionAnnulee = 0;
-$montantTotal = 24;
-
 
 // on vérifie si le demandeur de cette action est bien authentifié et qu'il n'a pas d'inscription
 

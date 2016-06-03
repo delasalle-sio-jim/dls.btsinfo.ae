@@ -1,3 +1,4 @@
-Nom;Prenom;Promo;Date d'inscription;Nombre de personnes;Montant regle;Montant rembourse;
-BOUTIN;Killian;2015;2016-05-30;30;20.00;30.00;
-CARTRON;Jean-Michel;1990;2015-05-13;13;19.00;0.00;
+Nom	Prenom	Promo	Date d'inscription	Nombre de personnes	Montant regle	Montant rembourse	
+BOUTIN	Killiannn	2017	2016-06-03	1	0.00	0.00	
+CARTRON	Jean-Michel	1990	2016-05-27	3	60.50	2.00	
+FONFEC	Sophie	2005	2016-05-27	9	0.00	0.00	

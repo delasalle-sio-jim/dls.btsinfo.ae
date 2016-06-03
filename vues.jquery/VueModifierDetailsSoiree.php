@@ -20,10 +20,9 @@
 				// associe une fonction à l'événement pageinit
 				$(document).bind('pageinit', function() {
 					// affiche la boîte de dialogue 'affichage_message'
-					$.mobile.changePage('#affichage_message', {transition: "<?php echo $transition; ?>"});
+				$.mobile.changePage('#affichage_message', {transition: "<?php echo $transition; ?>"});
 				} );
 			<?php } ?>
-			
 		</script>
 	</head> 
 	<body>
@@ -70,14 +69,14 @@
 				</table>
 			</form>
 
-		</div>
+			</div>
 		
 			<div data-role="footer" data-position="fixed" data-theme="<?php echo $themeNormal; ?>">
 				<h4>Annuaire des anciens du BTS Informatique<br>Lycée De La Salle (Rennes)</h4>
 			</div>
 		</div>
 		
-		<?php include_once ('vues.jquery/dialog_message.php'); ?>
+	<?php include_once ('vues.jquery/dialog_message.php'); ?>
 		
 	</body>
 </html>
