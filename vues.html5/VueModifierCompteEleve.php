@@ -92,7 +92,7 @@
 		</div>
 			
 		<div id="content">
-		<h2>Modifier un Utilisateur</h2>
+		<h2>Modifier un utilisateur</h2>
 	<form name="form1" id="form1" action="index.php?action=ModifierCompteEleve" method="post">
 				
 				<!--ceci est un prototype de liste déroulante dynamique non utilisée car trop d'objets à gerer
@@ -111,9 +111,8 @@
 				<div class="ui-widget">
 				<p>
 					 <label for="listeEleves">Eleves: </label>
- 					 <input id="listeEleves"  value="<?php if($etape == 1 ) echo $mail; else echo ''; ?>" name="listeEleves" placeholder="recherchez à l'aide de l'email de l'utilisateur">
+ 					 <input type="email" id="listeEleves"  value="<?php if($etape == 1 ) echo $mail; else echo ''; ?>" name="listeEleves" required pattern="^.+@.+\..+$" placeholder="Recherchez à l'aide de l'email de l'utilisateur">
 				</p>
-				
 					
 				<p>
 					<input type="submit" name="btnDetail" id="btnDetail" value="Obtenir les détails">
@@ -163,7 +162,8 @@
 				<p>
 					<label for="txtEntreprise">Entreprise actuelle :</label>
 					<input type="text" name="txtEntreprise" id="txtEntreprise" maxlength="50" value="<?php echo $entreprise; ?>" />
-				</p>						
+				</p>
+										
 				<p>
 					<label for="listeFonctions">Fonction actuelle :</label>
 					

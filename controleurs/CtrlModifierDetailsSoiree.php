@@ -12,8 +12,6 @@ if ( $_SESSION['typeUtilisateur'] != 'administrateur') {
 	header ("Location: index.php?action=Deconnecter");
 }
 $dao = new DAO();
-// obtention de la collection des fonctions occupées par les anciens élèves (pour liste déroulante)
-
 
 if (! isset ($_POST ["btnModifier"])) {
 	// si les données n'ont pas été postées, c'est le premier appel du formulaire : affichage de la vue sans message d'erreur
@@ -66,6 +64,6 @@ else {
 			$themeFooter = $themeProbleme;
 			include_once ($cheminDesVues . 'VueModifierDetailsSoiree.php');
 		}
-	}
+}
 
 
