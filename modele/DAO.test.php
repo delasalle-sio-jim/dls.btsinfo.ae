@@ -399,12 +399,14 @@ echo ('<br>');
 $uneSoiree = $dao->getSoiree(true);
 if ($uneSoiree != null) echo $uneSoiree->toString() . "<br>";
 
-if ( isset($_SESSION['Soiree']) == true )
+if ( isset($_SESSION['Soiree']) == true ){
 	echo "La variable de session 'Soiree' existe";
+}
 else
 	echo "La variable de session 'Soiree' n'existe pas";
 echo ('<br>');
 */
+
 
 /*
 // test de la méthode modifierSoiree --------------------------------------------------------------
@@ -636,7 +638,7 @@ foreach ($lesAdressesMails as $uneAdresseMail)
 }
 */
 
-
+/*
 // test de la méthode creerCompteEleveAuto ---------------------------------------------------------
 // elle teste en plus la méthode creerAdressesMails, existeAdrMail et l'outil::envoyerMail
 // créé par Killian BOUTIN le 30/05/2016
@@ -659,7 +661,7 @@ foreach ($lesAdressesMails as $uneAdresseMail)
 		$ok = $dao->creerCompteEleveAuto($uneAdresseMail);
 		if ($ok){
 			echo " => L'élève a bien été enregistré !<br>";
-			/*
+			
 				$sujet = "3 - Essai n° " . $i . "  d'envoi de masse";
 				$message = "L'envoi de masse n° " . $i . "  est un succès";
 				$ok = Outils::envoyerMail ($uneAdresseMail, $sujet, $message, $ADR_MAIL_EMETTEUR);
@@ -669,7 +671,7 @@ foreach ($lesAdressesMails as $uneAdresseMail)
 					else{
 						echo " => Le mail n'a pas pu être envoyé";
 					}
-					*/
+					
 		}
 		else{
 			echo " => Echec lors de l'enregistrement de l'élève !<br>";
@@ -677,7 +679,7 @@ foreach ($lesAdressesMails as $uneAdresseMail)
 	}
 	
 }
-
+*/
 
 /*
 // test de la méthode ExportToCSV ($nomColonnes, $donneesTable, $nomFichierCSV) ---------------------------------------------------------

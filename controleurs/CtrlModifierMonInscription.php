@@ -2,7 +2,7 @@
 // Projet DLS - BTS Info - Anciens élèves
 // Fonction du contrôleur CtrlModifierMonInscription.php : traiter la demande de modification d'une inscription
 // Ecrit le 27/05/2016 par Killian BOUTIN
-// Modifié le 03/06/2016 par Killian BOUTIN
+// Modifié le 06/06/2016 par Killian BOUTIN
 
 include_once ('modele/DAO.class.php');
 $dao = new DAO();
@@ -18,7 +18,15 @@ $unEleve = $dao->getEleve($adrMail);
 $idEleve = $unEleve->getId();
 $idInscription = $dao->getIdInscription($idEleve); // donne l'id de l'inscription
 $uneInscription = $dao->getInscriptionEleve($idEleve); // donne l'inscription en fonction de l'idEleve
-$unTarif = $uneSoiree->getTarif();
+
+// on prend les données à afficher dans les Vues
+$leRestaurant = $uneSoiree->getNomRestaurant();
+$laDateSoiree = Outils::convertirEnDateFR($uneSoiree->getDateSoiree());
+$lAdresse = $uneSoiree->getAdresse();
+$leTarif = $uneSoiree->getTarif();
+$leLienMenu = $uneSoiree->getLienMenu();
+$laLatitude = $uneSoiree->getLatitude();
+$laLongitude = $uneSoiree->getLongitude();
 
 // on vérifie si le demandeur de cette action est bien authentifié et qu'il n'a pas d'inscription
 
@@ -37,124 +45,146 @@ else{
 		include_once ($cheminDesVues . 'VueModifierMonInscription.php');
 	}
 	else{
-		if (isset ($_POST ["btnModification"]) == true )
+		/* si on modifie */
+		if (isset ($_POST ["btnModification"]) == true)
 		{
-			
-			$idInscription = $uneInscription->getId();
-			$unNom = $uneInscription->getNom();
-			$unPrenom = $uneInscription->getPrenom();
-			$anneeDebutBTS = $uneInscription->getAnneeDebutBTS();
-			$dateInscription = date('d/m/Y', time()); // On modifie la date d'inscription
-			$nbPersonnes = $_POST ["txtNbPlaces"]; // On modifie le nombre de personnes
-			$montantRegle = $uneInscription->getMontantRegle();
-			$montantRembourse = $uneInscription->getMontantRembourse();
-			$idEleve = $uneInscription->getIdEleve();
-			$idSoiree = $uneInscription->getIdSoiree();
-			$inscriptionAnnulee = 0; // L'inscription à modifier ne sera pas annulée
-			$montantTotal = $unTarif * $nbPersonnes; // On modifie le tarif en fonction du nombre de personnes
-			
+			/* mais que le nombre de place est de 0, on le demande de mettre minimum 1 */
+			if ($_POST ["txtNbPlaces"] == 0){
 				
-			$uneInscription = new Inscription($idInscription, $unNom, $unPrenom, $anneeDebutBTS, $dateInscription, $nbPersonnes, $montantRegle, $montantRembourse, $idEleve, $idSoiree, $inscriptionAnnulee, $montantTotal);
-				
-			$ok = $dao->modifierInscription($uneInscription);
-			if (!$ok)
-			{
-				$message ="L'application à rencontré un problème";
+				$nbPersonnes = $uneInscription->getNbrePersonnes();
+				$message ='Si vous souhaitez modifier votre inscription, merci de prendre au minimum une place.<br>Si vous voulez annuler, appuyer sur le bouton Annuler mon inscription';
 				$typeMessage = 'avertissement';
 				$themeFooter = $themeNormal;
 				include_once ($cheminDesVues . 'VueModifierMonInscription.php');
 			}
-			else
-			{
+			/* et que le nombre de place est différent de 0, on fait le traitement */
+			else{
+				
+				$idInscription = $uneInscription->getId();
+				$unNom = $uneInscription->getNom();
+				$unPrenom = $uneInscription->getPrenom();
+				$anneeDebutBTS = $uneInscription->getAnneeDebutBTS();
+				$dateInscription = date('d/m/Y', time()); // On modifie la date d'inscription
+				$nbPersonnes = $_POST ["txtNbPlaces"]; // On modifie le nombre de personnes
 				$montantRegle = $uneInscription->getMontantRegle();
+				$montantRembourse = $uneInscription->getMontantRembourse();
+				$idEleve = $uneInscription->getIdEleve();
+				$idSoiree = $uneInscription->getIdSoiree();
+				$inscriptionAnnulee = 0; // L'inscription à modifier ne sera pas annulée
+				$montantTotal = $leTarif * $nbPersonnes; // On modifie le tarif en fonction du nombre de personnes
 				
-				/* On calcul ce qui doit être payé. 
-				 * Si $remboursement est négatif, c'est à l'ancien élève de payer l'opposé de $remboursement
-				 * Sinon, le client doit se faire rembourser de "$remboursement";
-				 */
-				$remboursement = $montantRegle - $montantTotal - $montantRembourse;
-				
-				if($remboursement > 0){
-					$messageRemboursement = "Vous allez être remboursé des " . $remboursement . " euros en trop que vous nous aviez envoyés.\r\n";
-				}
-				elseif($remboursement < 0){
-					$aPayer = - $remboursement;
-					$messageRemboursement = "Le montant total que vous devez payer pour la soirée est de ". $montantTotal . " euros.\r\n";
-					$messageRemboursement .= "Vous avez payé " . $montantRegle . " euros et été remboursé de " . $montantRembourse . " euros.\r\n";
-					$messageRemboursement .= "Il vous reste donc " . $aPayer . " euros à payer.\r\n";
-				}
-				else{
-					$messageRemboursement = "Vous avez déjà payé la somme exacte pour cette soirée.\r\n";
-				}
-				
-				$sujet ="Remboursement";
-				$corpsMessage  ="Votre inscription a bien été modifiée.\r\nUn mail a été envoyé à l'administrateur.\r\n". $messageRemboursement;
-				$corpsMessage .="Cordialement.\r\n";
-				$corpsMessage .="Les administrateurs de l'annuaire.";
-				Outils::envoyerMail($adrMail,$sujet, $corpsMessage,$ADR_MAIL_EMETTEUR);
-				
-				$sujet ="Modification";
-				$corpsMessage ="L'utilisateur ".$unEleve->getPrenom()." ".$unEleve->getNom();
-				$corpsMessage .=" a modifié son inscription.\r\n";
-				
-				if( $remboursement > 0)
-				{
-					$corpsMessage .="IMPORTANT :  ".$unEleve->getPrenom()." ".$unEleve->getNom()." a payé " . $remboursement . " euros en trop. Il faut le rembourser au plus tôt.";
-				}
 					
-				Outils::envoyerMail($ADR_MAIL_ADMINISTRATEUR, $sujet, $corpsMessage, $ADR_MAIL_EMETTEUR);
-				
-				$message ='Votre modification a bien été prise en compte ! <br>Un mail vient de vous être envoyé avec les détails de paiements';
-				$typeMessage = 'information';
-				$themeFooter = $themeNormal;
-				include_once ($cheminDesVues . 'VueModifierMonInscription.php');
+				$uneInscription = new Inscription($idInscription, $unNom, $unPrenom, $anneeDebutBTS, $dateInscription, $nbPersonnes, $montantRegle, $montantRembourse, $idEleve, $idSoiree, $inscriptionAnnulee, $montantTotal);
+					
+				$ok = $dao->modifierInscription($uneInscription);
+				if (!$ok)
+				{
+					$message ="L'application à rencontré un problème";
+					$typeMessage = 'avertissement';
+					$themeFooter = $themeNormal;
+					include_once ($cheminDesVues . 'VueModifierMonInscription.php');
+				}
+				else
+				{
+					$montantRegle = $uneInscription->getMontantRegle();
+					
+					/* On calcul ce qui doit être réglé. 
+					 * Si $remboursement est négatif, c'est à l'ancien élève de payer l'opposé de $remboursement
+					 * Sinon, le client doit se faire rembourser de "$remboursement";
+					 */
+					$remboursement = $montantRegle - $montantTotal - $montantRembourse;
+					
+					if($remboursement > 0){
+						$messageRemboursement = "Vous allez être remboursé des " . $remboursement . " euros en trop que vous nous aviez envoyés.\r\n";
+					}
+					elseif($remboursement < 0){
+						$aPayer = - $remboursement;
+						$messageRemboursement = "Le montant total que vous devez régler pour la soirée est de ". $montantTotal . " euros.\r\n";
+						$messageRemboursement .= "Vous avez reglé " . $montantRegle . " euros.\r\n";
+						$messageRemboursement .= "Il vous reste " . $aPayer . " euros à payer.\r\n";
+					}
+					else{
+						$messageRemboursement = "Vous avez déjà réglé la somme exacte pour cette soirée.\r\n";
+					}
+					
+					$sujet ="Remboursement";
+					$corpsMessage  ="Votre inscription a bien été modifiée.\r\nUn mail a été envoyé à l'administrateur.\r\n". $messageRemboursement;
+					$corpsMessage .="Cordialement.\r\n";
+					$corpsMessage .="Les administrateurs de l'annuaire.";
+					Outils::envoyerMail($adrMail,$sujet, $corpsMessage,$ADR_MAIL_EMETTEUR);
+					
+					$sujet ="Modification";
+					$corpsMessage ="L'utilisateur ".$unEleve->getPrenom()." ".$unEleve->getNom();
+					$corpsMessage .=" a modifié son inscription.\r\n";
+					
+					if( $remboursement > 0)
+					{
+						$corpsMessage .="IMPORTANT :  ".$unEleve->getPrenom()." ".$unEleve->getNom()." a reglé " . $remboursement . " euros en trop. Il faut le rembourser au plus tôt.";
+					}
+						
+					Outils::envoyerMail($ADR_MAIL_ADMINISTRATEUR, $sujet, $corpsMessage, $ADR_MAIL_EMETTEUR);
+					
+					$message ='Votre modification a bien été prise en compte ! <br>Un mail vient de vous être envoyé avec les détails de paiements';
+					$typeMessage = 'information';
+					$themeFooter = $themeNormal;
+					include_once ($cheminDesVues . 'VueModifierMonInscription.php');
+				}
 			}
 		}
 		elseif (isset ($_POST ["btnAnnulation"]) == true )
 		{
-			// on redéclare la variable pour ne pas avoir de message d'erreur dans le corps HTML sous le message de confirmation d'annulation (elle est inutilisée mais utile)
+			
 			$nbPersonnes = $_POST ["txtNbPlaces"];
+			
+			if ($nbPersonnes != 0){
 				
-			$ok = $dao->annulerInscription($idEleve);
-				
-			if (!$ok)
-			{
-				$message ="L'application à rencontré un problème";
+				$message ='Pour annuler votre inscription, veuillez mettre le nombre de places à réserver à 0.';
 				$typeMessage = 'avertissement';
 				$themeFooter = $themeNormal;
 				include_once ($cheminDesVues . 'VueModifierMonInscription.php');
 			}
-			else
-			{
-				$montantRegle = $uneInscription->getMontantRegle();
-				$montantRembourse = $uneInscription->getMontantRembourse();
-		
-				if( $montantRegle > 0)
-				{
-					$sujet ="Remboursement";
-					$corpsMessage  ="Votre inscription a bien été annulée.\r\n Un mail a été envoyé à l'administrateur.\r\n Vous allez être remboursé des " . $montantRegle . " euros que vous nous aviez envoyés.\r\n";
-					$corpsMessage .="Cordialement.\r\n";
-					$corpsMessage .="Les administrateurs de l'annuaire";
-					Outils::envoyerMail($adrMail,$sujet, $corpsMessage,$ADR_MAIL_EMETTEUR);
-				}
-				
-				$sujet ="Annulation";
-				$corpsMessage ="L'utilisateur ".$unEleve->getPrenom()." ".$unEleve->getNom();
-				$corpsMessage .=" a annulé son inscription.\r\n";
-		
-				if( $montantRegle > $montantRembourse)
-				{
-					$remboursement = $montantRegle - $montantRembourse;
-					$corpsMessage .="IMPORTANT :  ".$unEleve->getPrenom()." ".$unEleve->getNom()." a payé ".$montantRegle." euros en avance et été remboursé de " . $montantRembourse . " euros. Il faut le rembourser de " . $remboursement . " euros au plus tôt.";
-				}
+			else{
+				$ok = $dao->annulerInscription($idEleve);
 					
-				Outils::envoyerMail($ADR_MAIL_ADMINISTRATEUR, $sujet, $corpsMessage, $ADR_MAIL_EMETTEUR);
-		
-		
-				$message ='Votre réservation a été annulée';
-				$typeMessage = 'information';
-				$themeFooter = $themeNormal;
-				include_once ($cheminDesVues . 'VueModifierMonInscription.php');
+				if (!$ok)
+				{
+					$message ="L'application à rencontré un problème";
+					$typeMessage = 'avertissement';
+					$themeFooter = $themeNormal;
+					include_once ($cheminDesVues . 'VueModifierMonInscription.php');
+				}
+				else
+				{
+					$montantRegle = $uneInscription->getMontantRegle();
+					$montantRembourse = $uneInscription->getMontantRembourse();
+			
+					if( $montantRegle > 0)
+					{
+						$sujet ="Remboursement";
+						$corpsMessage  ="Votre inscription a bien été annulée.\r\n Un mail a été envoyé à l'administrateur.\r\n Vous allez être remboursé des " . $montantRegle . " euros que vous nous aviez envoyés.\r\n";
+						$corpsMessage .="Cordialement.\r\n";
+						$corpsMessage .="Les administrateurs de l'annuaire";
+						Outils::envoyerMail($adrMail,$sujet, $corpsMessage,$ADR_MAIL_EMETTEUR);
+					}
+					
+					$sujet ="Annulation";
+					$corpsMessage ="L'utilisateur ".$unEleve->getPrenom()." ".$unEleve->getNom();
+					$corpsMessage .=" a annulé son inscription.\r\n";
+			
+					if( $montantRegle > $montantRembourse)
+					{
+						$remboursement = $montantRegle - $montantRembourse;
+						$corpsMessage .="IMPORTANT :  ".$unEleve->getPrenom()." ".$unEleve->getNom()." a réglé ".$montantRegle." euros en avance et été remboursé de " . $montantRembourse . " euros. Il faut le rembourser de " . $remboursement . " euros au plus tôt.";
+					}
+						
+					Outils::envoyerMail($ADR_MAIL_ADMINISTRATEUR, $sujet, $corpsMessage, $ADR_MAIL_EMETTEUR);
+			
+			
+					$message ='Votre réservation a été annulée';
+					$typeMessage = 'information';
+					$themeFooter = $themeNormal;
+					include_once ($cheminDesVues . 'VueModifierMonInscription.php');
+				}
 			}
 		}
 		else

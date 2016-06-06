@@ -2,12 +2,8 @@
 // Projet DLS - BTS Info - Anciens élèves
 // Fonction de la vue vues.html5/VueCreerMonInscription.php : visualiser le formulaire d'inscription à la soirée
 // Ecrit le 02/02/2016 par Nicolas Esteve
-// Modifié le 27/05/2016 par Killian BOUTIN
+// Modifié le 06/06/2016 par Killian BOUTIN
 
-/* FAIRE UN TEST :
-	- si il est autre que élève, il ne peut pas accéder à cette page
-	- si il est élève mais qu'il est déjà inscrit, il ne peut pas accéder à cette page
-*/
 ?>
 <!doctype html>
 <html>
@@ -59,32 +55,19 @@
 		<div id="content">
 			<h2>Inscription à la soirée</h2>
 			<form name="form1" id="form1" action="index.php?action=CreerMonInscription" method="post">
-
-				<p>
-					<label class="label2" for="txtNbPlaces">Nombre de places  :</label>
-					<input class="label2" type="number"  name="txtNbPlaces" id="txtNbPlaces" pattern="^[0-9]{2}$" maxlength="30" value="1" required/>
+			
+				<p>La prochaine soirée aura lieu le <b>vendredi <?php echo $laDateSoiree ?> à 20h </b>au restaurant <b> <?php echo $leRestaurant ?> </b> situé <b> <?php echo $lAdresse ?> </b>.</p>
 				
-					<label class ="label2" >En cochant cette case vous vous vous engagez a payer <?php echo $unTarif ?> euros par places réservées. </label>
-					<input class ="label2" type="checkbox" required name="validation" id="validation" required>En cochant cette case vous vous vous engagez a payer <?php echo $unTarif ?> euros par places réservées. 
-					<label class ="label2" > Vous pouvez payer en avance en envoyant un chèque au nom d'INPACT (en précisant votre nom) ou payer au moment où vous arrivez à la soirée.	</label>		
-				</p>
+				<p>Le tarif pour cette soirée est de <b> <?php echo $leTarif ?> €</b> par personne. </p>
 				
-				<?php if(! empty ($unTarif))
-				{?>
-				<p>
-					<label class="label2" for="txtTarif">Le prix pour une place est de <?php echo $unTarif ?> euros</label>
+				<p style="text-align:center;margin-bottom: -8px;"><i>Nombre de places à réserver :</i> <input type="number" style="width:32px;" name="txtNbPlaces" id="txtNbPlaces" pattern="^[0-9]{1,2}$" maxlength="30" min="1" max="10" value="1" step="1" required/></p>
 					
-				</p>
-				<?php }
-				else 
-				{?>
+				<p><input type="checkbox" required name="validation" id="validation" required> En cochant cette case vous vous vous engagez à régler la somme de <?php echo $leTarif ?> € par place réservée. </p>
+				
+				<p> Vous pouvez payer en avance en envoyant un chèque au nom d'INPACT (avec l'adresse), en précisant votre nom, ou régler à votre arrivée à la soirée.</p>
+						
 				<p>
-					<label class="label2" for="txtTarif">Le prix pour la soirée n'a pas été fixé</label>
-					
-				</p>
-				<?php }?>
-				<p>
-					<input type="submit" name="btnInscription"  id="btnInscription" value="S'inscrire" >
+					<input type="submit" name="btnInscription"  id="btnInscription" value="M'inscrire" >
 				</p>
 			</form>
 		</div>

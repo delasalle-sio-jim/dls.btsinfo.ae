@@ -1,5 +1,5 @@
 ﻿/* Feuille de styles de la version HTML5 pour terminaux fixes */
-/* Modifié le 27/05/2016 par Killian BOUTIN */
+/* Modifié le 06/06/2016 par Killian BOUTIN */
 
 /* ----------------- Mise en forme de la structure générale -------------------- */
 
@@ -80,6 +80,14 @@ div#footer p {
 div#content {
 	padding: 0px 40px 0 40px;
 	margin: 0;
+}
+
+/* style pour la carte d'affichage du lieu de la soirée dans VoirDetailsSoiree */
+div#map_canvas{
+	position: absolute;
+	margin : -180px 0 0 420px;
+	height: 180px;
+	width: 300px;
 }
 
 /* ----------------- Mise en forme du menu horizontal -------------------- */
@@ -490,12 +498,12 @@ input, select {
 	border-radius: 5px;
 }
 select {
-	width: 405px;
+	width: 406px;
 }
 textarea {
 	padding-left: 5px;
 	border: solid 1px grey;
-	width: 398px;
+	width: 400px;
 	display: inline-block;
 	
 	/* coins arrondis */

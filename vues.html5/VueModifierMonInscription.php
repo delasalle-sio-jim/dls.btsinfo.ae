@@ -2,6 +2,7 @@
 // Projet DLS - BTS Info - Anciens élèves
 // Fonction de la vue vues.html5/VueModifierMonInscription.php : modifier son inscription à la soirée
 // Ecrit le 28/05/2016 par Killian BOUTIN
+// Modifié le 06/06/2016 par Killian BOUTIN
 ?>
 
 <!doctype html>
@@ -52,32 +53,15 @@
 			</div>
 		</div>
 		<div id="content">
-			<h2>Inscription à la soirée</h2>
+			<h2>Modification ou annulation de mon inscription</h2>
 			<form name="form1" id="form1" action="index.php?action=ModifierMonInscription" method="post">
 
-				<p>
-					<label class="label2" for="txtNbPlaces">Nombre de places  :</label>
-					<input class="label2" type="number"  name="txtNbPlaces" id="txtNbPlaces" pattern="^[0-9]{2}$" maxlength="30" value="<?php echo $nbPersonnes; ?>" required/>
+				<p>La prochaine soirée aura lieu le <b>vendredi <?php echo $laDateSoiree ?> à 20h </b>au restaurant <b> <?php echo $leRestaurant ?> </b> situé <b> <?php echo $lAdresse ?> </b>.</p>
 				
-					<label class ="label2" >En cochant cette case vous vous vous engagez a payer <?php echo $unTarif ?> euros par places réservées. </label>
-					<input class ="label2" type="checkbox" required name="validation" id="validation" required>
-					<label class ="label2" > Vous pouvez payer en avance en envoyant un chèque au nom d'INPACT (en précisant votre nom) ou payer au moment où vous arrivez à la soirée.	</label>		
-				</p>
+				<p>Le tarif pour cette soirée est de <b> <?php echo $leTarif ?> €</b> par personne. </p>
 				
-				<?php
-				if(! empty ($unTarif))
-				{?>
-				<p>
-					<label class="label2" for="txtTarif">Le prix pour une place est de <?php echo $unTarif ?> euros</label>
+				<p><i>Nombre de places à réserver :</i> <input type="number" style="width:32px;" name="txtNbPlaces" id="txtNbPlaces" pattern="^[0-9]{1,2}$" maxlength="30" min="0" max="10" step="1" value="<?php echo $nbPersonnes; ?>" required/></p>
 					
-				</p>
-				<?php }
-				else 
-				{?>
-				<p>
-					<label class="label2" for="txtTarif">Le prix pour la soirée n'a pas été fixé</label>
-				</p>
-				<?php }?>
 				<p>
 					<input type="submit" name="btnModification"  id="btnModification" value="Modifier mon inscription" >
 				</p>

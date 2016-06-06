@@ -2,7 +2,7 @@
 // Projet DLS - BTS Info - Anciens élèves
 // Fonction du contrôleur CtrlExporterDesDonnees.php : traite la demande d'export des données présente dans la table au format .csv
 // Ecrit le 01/06/2016 par Killian BOUTIN
-// Modifié le 02/06/2016 par Killian BOUTIN
+// Modifié le 06/06/2016 par Killian BOUTIN
 
 // connexion du serveur web à la base MySQL
 include_once ('modele/DAO.class.php');
@@ -12,6 +12,8 @@ if ( $_SESSION['typeUtilisateur'] != 'administrateur') {
 	header ("Location: index.php?action=Deconnecter");
 }
 $dao = new DAO();
+
+
 
 $texte = "";
 
@@ -99,8 +101,10 @@ else {
 	// On teste si le dossier existe
 	if(is_dir('exportations/'))
     {
+    	
+    	$name = "export.zip";
     	// On crée le dossier export.zip qui sera proposé en téléchargement
-        if($zip->open('export.zip', ZipArchive::OVERWRITE) == TRUE)
+        if($zip->open($name, ZipArchive::CREATE) == TRUE)
         {	
 			// Pour chaque checkbox séléctionné, on ajoute le fichier correspondant au .zip
 			foreach($lesFichiers as $leFichier)
@@ -115,16 +119,18 @@ else {
 			
 			// Téléchargement
 			// On peut ensuite, comme dans le tuto de DHKold, proposer le téléchargement.
+			
+			header("Content-type: application/force-download");
 			header('Content-Transfer-Encoding: binary'); //Transfert en binaire (fichier).
 			header('Content-Disposition: attachment; filename="export.zip"'); //Nom du fichier.
-			header('Content-Length: '.filesize('export.zip')); //Taille du fichier.
+			header('Content-Length: '.filesize("export.zip")); //Taille du fichier.
 			
-			readfile('export.zip');
+			readfile($name);
 			
-			/* Utile pour "ZipArchive::CREATE" mais on utilise "ZipArchive::OVERWRITE"
+			// Utile pour "ZipArchive::CREATE", inutile "ZipArchive::OVERWRITE"
 			// On supprime maintenant ce dossier zip
-			unlink ("export.zip");
-			*/
+			unlink ($name);
+			
         }
         else
         {

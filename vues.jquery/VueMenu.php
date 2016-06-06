@@ -4,7 +4,7 @@
 	// cette vue est appelée par le lien "index.php?action=Menu"
 	// la barre d'entête possède un lien de déconnexion permettant de retourner à la page de connexion
 	// Ecrit le 29/11/2015 par Jim
-	// Modifié le 20/5/2016 par Jim
+	// Modifié le 06/06/2016 par Killian BOUTIN
 ?>
 <!doctype html>
 <html>
@@ -34,16 +34,16 @@
 						<div data-role="collapsible" data-collapsed="false">
 							<h3>La soirée annuelle des anciens...</h3>
 							<ul data-role="listview" data-inset="true">
+								<li><a href="index.php?action=VoirDetailsSoiree" data-mini="true" data-role="button" data-ajax="false" data-transition="<?php echo $transition; ?>">Consulter les infos sur la soirée</a></li>
 								<?php 
-									if ($typeUtilisateur == "eleve" && $dao->getInscriptionEleve($idEleve) == null){
+									if ($typeUtilisateur == "eleve" && $dao->getInscriptionEleve($idEleve) == null AND $dao->getSoiree(true) != NULL){
 								?>
 								<li><a href="index.php?action=CreerMonInscription" data-mini="true" data-role="button" data-ajax="false" data-transition="<?php echo $transition; ?>">M'inscrire à la soirée des anciens</a></li>
 								<?php 
 								} ?>
-								<li><a href="index.php?action=VoirDetailsSoiree" data-mini="true" data-role="button" data-ajax="false" data-transition="<?php echo $transition; ?>">Consulter les infos sur la soirée</a></li>
 								<li><a href="index.php?action=VoirListeInscritsEleve" data-mini="true" data-role="button" data-ajax="false" data-transition="<?php echo $transition; ?>">Consulter la liste des inscriptions</a></li>
 								<?php 
-									if ($typeUtilisateur == "eleve" && $dao->getInscriptionEleve($idEleve) != null){
+									if ($typeUtilisateur == "eleve" && $dao->getInscriptionEleve($idEleve) != null AND $dao->getSoiree(true) != NULL){
 								?>
 								<li><a href="index.php?action=ModifierMonInscription" data-mini="true" data-role="button" data-ajax="false" data-transition="<?php echo $transition; ?>">Modifier ou annuler mon inscription</a></li>
 								<?php 

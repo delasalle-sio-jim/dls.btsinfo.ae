@@ -2,6 +2,7 @@
 // Projet DLS - BTS Info - Anciens élèves
 // Fonction du contrôleur CtrlDemanderCreationCompte.php : traiter la demande de création de compte d'un élève
 // Ecrit le 6/1/2016 par Jim
+// Modifié le 06/06/2016 par Killian BOUTIN
 
 // inclusion de la classe Outils
 include_once ('modele/Outils.class.php');
@@ -46,9 +47,9 @@ else {
 	if ( empty ($_POST ["txtCodePostal"]) == true)  $codePostal = "";  else   $codePostal = $_POST ["txtCodePostal"];
 	if ( empty ($_POST ["txtVille"]) == true)  $ville = "";  else   $ville = $_POST ["txtVille"];
 	if ( empty ($_POST ["txtEntreprise"]) == true)  $entreprise = "";  else   $entreprise = $_POST ["txtEntreprise"];
-	if ( empty ($_POST ["listeFonctions"]) == true)  $idFonction = "";  else   $idFonction = $_POST ["listeFonctions"];	
+	if ( $_POST ["listeFonctions"] == 0)  $idFonction = 0;  else   $idFonction = $_POST ["listeFonctions"];	
 	
-	if ($nom == '' || $prenom == '' || $sexe == '' || $anneeDebutBTS == '' || $adrMail == '' || Outils::estUneAdrMailValide($adrMail) == false || Outils::estUnCodePostalValide($codePostal) == false) {
+	if ($nom == '' || $prenom == '' || $sexe == '' || $anneeDebutBTS == '' || $adrMail == '' || Outils::estUneAdrMailValide($adrMail) == false || Outils::estUnCodePostalValide($codePostal) == false || $idFonction == '0') {
 		// si les données sont incorrectes ou incomplètes, réaffichage de la vue de suppression avec un message explicatif
 		$message = 'Données incomplètes ou incorrectes !';
 		$typeMessage = 'avertissement';

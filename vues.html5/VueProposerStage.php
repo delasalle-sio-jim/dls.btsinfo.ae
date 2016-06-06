@@ -2,7 +2,7 @@
 // Projet DLS - BTS Info - Anciens élèves
 // Fonction de la vue vues.html5/VueProposerStage.php : visualiser la vue de dépôt de stage
 // Ecrit le 19/01/2016 par Nicolas Esteve
-// Modifié le 20/5/2016 par Jim
+	// Modifié le 06/06/2016 par Killian BOUTIN
 ?>
 <!doctype html>
 <html>
@@ -15,7 +15,7 @@
 		<div id="header">
 			<div id="header-menu">
 				<ul id="menu-horizontal">
-					<li><a href="index.php?action=Menu" data-ajax="false">Retour menu</a></li>
+					<li><a href="index.php?action=Menu#menu3" data-ajax="false">Retour menu</a></li>
 				</ul>
 			</div>
 			<div id="header-logos">

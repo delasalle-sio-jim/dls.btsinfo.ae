@@ -2,7 +2,7 @@
 // Projet DLS - BTS Info - Anciens élèves
 // Fonction du contrôleur CtrlCreerMonInscription.php : traiter la demande d'inscription ou d'annulation d'une inscription
 // Ecrit le 02/02/2016 par Nicolas Esteve
-// Modifié le 27/05/2016 par Killian BOUTIN
+// Modifié le 06/06/2016 par Killian BOUTIN
 
 include_once ('modele/DAO.class.php');
 $dao = new DAO();
@@ -19,7 +19,15 @@ $idEleve = $unEleve->getId();
 $eleveInscrit = $dao->getInscriptionEleve($idEleve);
 
 $lesInscriptions = $dao->getLesInscriptions();
-$unTarif = $uneSoiree->getTarif();
+
+// on prend les données à afficher dans les Vues
+$leRestaurant = $uneSoiree->getNomRestaurant();
+$laDateSoiree = Outils::convertirEnDateFR($uneSoiree->getDateSoiree());
+$lAdresse = $uneSoiree->getAdresse();
+$leTarif = $uneSoiree->getTarif();
+$leLienMenu = $uneSoiree->getLienMenu();
+$laLatitude = $uneSoiree->getLatitude();
+$laLongitude = $uneSoiree->getLongitude();
 
 // on vérifie si le demandeur de cette action est bien authentifié et qu'il n'a pas d'inscription
 if (( $_SESSION['typeUtilisateur'] != 'eleve') || ( ( $_SESSION['typeUtilisateur'] == 'eleve') && ($eleveInscrit != null) )) {
@@ -37,11 +45,12 @@ else {
 	}
 	
 	else{
+
 		$nbPersonnes = $_POST ["txtNbPlaces"];
 		$montantRegle = 0;
 		
 		$urgent = false;
-		$montantTotal = $unTarif * $nbPersonnes;
+		$montantTotal = $leTarif * $nbPersonnes;
 
 		$unNom = $unEleve->getNom();
 		$unPrenom = $unEleve->getPrenom();
@@ -52,7 +61,7 @@ else {
 		$idSoiree = $uneSoiree->getId();
 		$inscriptionAnnulee = false;
 		
-		$uneInscription = new Inscription($idEleve, $unNom, $unPrenom, $anneeDebutBTS, $dateInscription, $nbPersonnes, $montantRegle, $montantRembourse, $idEleve, $idSoiree, $inscriptionAnnulee, $unTarif);
+		$uneInscription = new Inscription($idEleve, $unNom, $unPrenom, $anneeDebutBTS, $dateInscription, $nbPersonnes, $montantRegle, $montantRembourse, $idEleve, $idSoiree, $inscriptionAnnulee, $leTarif);
 		
 		$ok = $dao->creerInscription($uneInscription);
 			if (!$ok){
@@ -62,7 +71,7 @@ else {
 				include_once ($cheminDesVues . 'VueCreerMonInscription.php');
 			}
 			else{
-				$message ='Vous êtes inscrit ! <br>Le montant total que vous devez payer pour la soirée est de '. $montantTotal . ' euros.';
+				$message ='Vous êtes inscrit ! <br>Le montant total que vous devez régler pour la soirée est de '. $montantTotal . ' euros.';
 				$typeMessage = 'information';
 				$themeFooter = $themeNormal;
 				include_once ($cheminDesVues . 'VueCreerMonInscription.php');

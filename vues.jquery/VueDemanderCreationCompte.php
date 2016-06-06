@@ -2,6 +2,7 @@
 	// Projet DLS - BTS Info - Anciens élèves
 	// Fonction de la vue vues.jquery/VueDemanderCreationCompte.php : visualiser la vue de création de compte élève
 	// Ecrit le 3/1/2016 par Jim
+	// Modifié le 06/06/2016 par Killian BOUTIN
 ?>
 <!doctype html>
 <html>
@@ -79,7 +80,7 @@
 								
 								<label for="listeFonctions">Situation actuelle</label>
 								<select size="1" name="listeFonctions" id="listeFonctions" data-mini="true">
-									<option value="0" <?php if ($idFonction == '') echo 'selected'; ?>>Fonction actuelle</option>
+										<option value="0" <?php if ($idFonction == '') echo 'selected'; ?>>Fonction actuelle</option>
 									<?php foreach ($lesFonctions as $uneFonction) { ?>
 										<option value="<?php echo $uneFonction->getId(); ?>" <?php if ($idFonction == $uneFonction->getId()) echo 'selected'; ?>><?php echo $uneFonction->getLibelle(); ?></option>
 									<?php } ?>				
