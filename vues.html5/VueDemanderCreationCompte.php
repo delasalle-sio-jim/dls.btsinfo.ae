@@ -76,7 +76,7 @@
 				</p>
 				<p>
 					<label for="txtAnneeDebutBTS">Année d'entrée en BTS * :</label>
-					<input type="text" name="txtAnneeDebutBTS" id="txtAnneeDebutBTS" maxlength="4" pattern="^[0-9]{4}$" required value="<?php echo $anneeDebutBTS; ?>" />
+					<input type="text" name="txtAnneeDebutBTS" id="txtAnneeDebutBTS" maxlength="4" required pattern="^[0-9]{4}$" value="<?php echo $anneeDebutBTS; ?>" />
 				</p>
 				<p>
 					<label for="txtAdrMail">Adresse mail * :</label>
@@ -107,10 +107,10 @@
 					<input type="text" name="txtEntreprise" id="txtEntreprise" maxlength="50" value="<?php echo $entreprise; ?>" />
 				</p>						
 				<p>
-					<label for="listeFonctions">Fonction actuelle :</label>
+					<label for="listeFonctions">Fonction actuelle * :</label>
 					
 					<select size="1" name="listeFonctions" id="listeFonctions">
-							<option value="0" <?php if ($idFonction == '') echo 'selected'; ?>>Fonction actuelle</option>
+							<option value="0" <?php if ($idFonction == '') echo 'selected'; ?>>-- Indiquez votre fonction actuelle --</option>
 						<?php foreach ($lesFonctions as $uneFonction) { ?>
 							<option value="<?php echo $uneFonction->getId(); ?>" <?php if ($idFonction == $uneFonction->getId()) echo 'selected="selected"'; ?>><?php echo $uneFonction->getLibelle(); ?></option>
 						<?php } ?>	
@@ -133,7 +133,7 @@
 		<div>
 			<h2 id="titre_message" class="classe_information">Message</h2>
 			<p id="texte_message" class="classe_texte_message">Texte du message</p>
-			<a href="#close" title="Fermer">Fermer</a>
+			<a href="<?php echo $lienRetour; ?>" title="Fermer">Fermer</a>
 		</div>
 	</aside>
 	

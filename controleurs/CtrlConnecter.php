@@ -21,6 +21,7 @@ if ( isset ($_POST ["btnConnecter"]) == false) {
 	$typeUtilisateur = '';
 	$message = '';
 	$typeMessage = '';			// 2 valeurs possibles : 'information' ou 'avertissement'
+	$lienRetour = '#page_principale';	// pour le retour en version jQuery mobile
 	$themeFooter = $themeNormal;
 	include_once ($cheminDesVues . 'VueConnecter.php');
 }
@@ -34,6 +35,7 @@ else {
 		// si les données sont incomplètes, réaffichage de la vue avec un message explicatif
 		$message = 'Données incomplètes ou incorrectes !';
 		$typeMessage = 'avertissement';
+		$lienRetour = '#page_principale';	// pour le retour en version jQuery mobile
 		$themeFooter = $themeProbleme;
 		$typeUtilisateur = '';
 		include_once ($cheminDesVues . 'VueConnecter.php');
@@ -57,6 +59,7 @@ else {
 			// si l'authentification est incorrecte, retour à la vue de connexion
 			$message = 'Authentification incorrecte !';
 			$typeMessage = 'avertissement';
+			$lienRetour = '#page_principale';	// pour le retour en version jQuery mobile
 			$themeFooter = $themeProbleme;
 			include_once ($cheminDesVues . 'VueConnecter.php');
 		}

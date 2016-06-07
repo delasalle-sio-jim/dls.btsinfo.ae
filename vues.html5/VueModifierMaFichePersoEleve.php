@@ -40,7 +40,7 @@
 		<div id="header">
 			<div id=header-menu>
 				<ul id="menu-horizontal">
-					<li><a href="index.php?action=Menu#menu1">Retour au Menu</a></li>
+					<li><a href="index.php?action=Menu#menu1">Retour au menu</a></li>
 				</ul>
 			</div>
 			<div id="header-logos">
@@ -74,6 +74,10 @@
 					<input type="text" name="txtAnneeDebutBTS" id="txtAnneeDebutBTS" maxlength="4" pattern="^[0-9]{4}$" value="<?php echo $anneeDebutBTS; ?>" />
 				</p>
 				<p>
+					<label for="txtAdrMail">Adresse mail * :</label>
+					<input type="email" name="txtAdrMail" id="txtAdrMail" maxlength="50" required pattern="^.+@.+\..+$" value="<?php echo $mail; ?>" />
+				</p>
+				<p>
 					<label for="txtTel">Téléphone :</label>
 					<input type="text" name="txtTel" id="txtTel" maxlength="14" pattern="^([0-9]{2}( |-|\.)?){4}[0-9]{2}$" value="<?php echo $tel; ?>" />
 				</p>
@@ -101,6 +105,7 @@
 					<label for="listeFonctions">Fonction actuelle :</label>
 					
 					<select size="1" name="listeFonctions" id="listeFonctions">
+							<option value="0" <?php if ($idFonction == '') echo 'selected'; ?>>-- Indiquez votre fonction actuelle --</option>
 						<?php foreach ($lesFonctions as $uneFonction) { ?>
 							<option value="<?php echo $uneFonction->getId(); ?>" <?php if ($idFonction == $uneFonction->getId()) echo 'selected="selected"'; ?>><?php echo $uneFonction->getLibelle(); ?></option>
 						<?php } ?>				
@@ -122,7 +127,7 @@
 		<div>
 			<h2 id="titre_message" class="classe_information">Message</h2>
 			<p id="texte_message" class="classe_texte_message">Texte du message</p>
-			<a href="#close" title="Fermer">Fermer</a>
+			<a href="<?php echo $lienRetour; ?>" title="Fermer">Fermer</a>
 		</div>
 	</aside>
 	</body>

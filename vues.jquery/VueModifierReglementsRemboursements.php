@@ -75,7 +75,7 @@
 	<body>
 		<div data-role="page" id="page_principale">
 			<div data-role="header" data-theme="<?php echo $themeNormal; ?>">
-				<h4>DLS-Info-AE</h4>
+				<h4><?php echo $titreHeader ?></h4>
 				<a href="index.php?action=Menu#menu2" data-ajax="false" data-transition="<?php echo $transition; ?>">Retour menu</a>
 			</div>
 			<div data-role="content">
@@ -128,39 +128,6 @@
 				<h4>Annuaire des anciens du BTS Informatique<br>Lycée De La Salle (Rennes)</h4>
 			</div>
 		</div>
-		
-		<div data-role="dialog" id="affichage_message" data-close-btn="none">
-			<div data-role="header" data-theme="<?php echo $themeFooter; ?>">
-				<?php if ($typeMessage == 'avertissement') { ?>
-					<h3>Avertissement...</h3>
-				<?php } ?>
-				<?php if ($typeMessage == 'information') { ?>
-					<h3>Information...</h3>
-				<?php } ?>
-			</div>
-			<div data-role="content">
-				<p style="text-align: center;">
-				<?php if ($typeMessage == 'avertissement') { ?>
-					<img src="images/avertissement.png" class="image" />
-				<?php } ?>
-				
-				<?php if ($typeMessage == 'information') { ?>
-					<img src="images/information.png" class="image" />
-				<?php } ?>
-				</p>
-				<p style="text-align: center;"><?php echo $message; ?></p>
-			</div>
-		
-			<!-- au clic sur "Fermer" on renvoi sur le menu afin de rafraîchir -->
-			<div data-role="footer" class="ui-bar" data-theme="<?php echo $themeFooter; ?>">
-				<a onclick="myFunction()" data-transition="<?php echo $transition; ?>">Fermer</a>
-				
-				<script>
-					function myFunction() {
-						 location.replace("index.php?action=Menu#menu2");
-					}
-				</script>
-			</div>
-		</div>
+		<?php include_once ('vues.jquery/dialog_message.php'); ?>
 	</body>
 </html>

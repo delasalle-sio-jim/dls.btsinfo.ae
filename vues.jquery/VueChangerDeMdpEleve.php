@@ -59,7 +59,7 @@
 	<body>
 		<div data-role="page" id="page_principale">
 			<div data-role="header" data-theme="<?php echo $themeNormal; ?>">
-				<h4>DLS-Info-AE</h4>
+				<h4><?php echo $titreHeader ?></h4>
 				<a href="index.php?action=Menu" data-ajax="false" data-transition="<?php echo $transition; ?>">Retour menu</a>
 			</div>
 			<div data-role="content">
@@ -96,7 +96,7 @@
 				<h4>Annuaire des anciens du BTS Informatique<br>Lycée De La Salle (Rennes)</h4>
 			</div>
 		</div>
-		
+	
 		<?php include_once ('vues.jquery/dialog_message.php'); ?>
 		
 	</body>

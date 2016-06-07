@@ -30,6 +30,7 @@ if ( ! isset ($_POST ["btnEnvoyer"]) ) {
 
 	$message = '';
 	$typeMessage = '';			// 2 valeurs possibles : 'information' ou 'avertissement'
+	$lienRetour = '#page_principale';	// pour le retour en version jQuery mobile
 	$themeFooter = $themeNormal;
 	include_once ($cheminDesVues . 'VueDemanderCreationCompte.php');
 }
@@ -53,6 +54,7 @@ else {
 		// si les données sont incorrectes ou incomplètes, réaffichage de la vue de suppression avec un message explicatif
 		$message = 'Données incomplètes ou incorrectes !';
 		$typeMessage = 'avertissement';
+		$lienRetour = '#page_principale';
 		$themeFooter = $themeProbleme;
 		include_once ($cheminDesVues . 'VueDemanderCreationCompte.php');
 	}
@@ -61,6 +63,7 @@ else {
 			// si l'adresse existe déjà, réaffichage de la vue
 			$message = "Adresse mail déjà existante !";
 			$typeMessage = 'avertissement';
+			$lienRetour = '#page_principale';
 			$themeFooter = $themeProbleme;
 			include_once ($cheminDesVues . 'VueDemanderCreationCompte.php');
 		}
@@ -80,6 +83,7 @@ else {
 				// si l'enregistrement a échoué, réaffichage de la vue avec un message explicatif					
 				$message = "Problème lors de l'enregistrement !";
 				$typeMessage = 'avertissement';
+				$lienRetour = '#page_principale';
 				$themeFooter = $themeProbleme;
 				include_once ($cheminDesVues . 'VueDemanderCreationCompte.php');
 			}
@@ -102,6 +106,7 @@ else {
 					// si l'envoi de mail a échoué, réaffichage de la vue avec un message explicatif
 					$message = "Enregistrement effectué.<br>L'envoi du mail à l'administrateur a rencontré un problème !";
 					$typeMessage = 'avertissement';
+					$lienRetour = '#page_principale';
 					$themeFooter = $themeProbleme;
 					include_once ($cheminDesVues . 'VueDemanderCreationCompte.php');
 				}
@@ -109,6 +114,7 @@ else {
 					// tout a fonctionné
 					$message = "Enregistrement effectué.<br>Un mail va être envoyé à l'administrateur !";
 					$typeMessage = 'information';
+					$lienRetour = 'index.php';
 					$themeFooter = $themeNormal;
 					include_once ($cheminDesVues . 'VueDemanderCreationCompte.php');
 				}

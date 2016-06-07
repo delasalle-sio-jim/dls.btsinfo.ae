@@ -28,7 +28,7 @@ header('Expires: 0');
 	<body>
 		<div data-role="page" id="page_principale">
 			<div data-role="header" data-theme="<?php echo $themeNormal; ?>">
-				<h4>DLS-Info-AE</h4>
+				<h4><?php echo $titreHeader ?></h4>
 				<a href="index.php?action=Menu" data-ajax="false" data-transition="<?php echo $transition; ?>">Retour menu</a>
 			</div>
 			<div data-role="content">

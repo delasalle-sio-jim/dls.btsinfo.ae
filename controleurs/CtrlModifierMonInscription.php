@@ -40,6 +40,9 @@ else{
 	// si les données n'ont pas été postées, c'est le premier appel du formulaire : affichage de la vue sans message d'erreur
 		$nbPersonnes = $uneInscription->getNbrePersonnes();
 		
+		$message = '';
+		$typeMessage = '';					// 2 valeurs possibles : 'information' ou 'avertissement'
+		$lienRetour = '#page_principale';	// pour le retour en version jQuery mobile
 		// redirection vers la vue
 		$themeFooter = $themeNormal;
 		include_once ($cheminDesVues . 'VueModifierMonInscription.php');
@@ -54,6 +57,7 @@ else{
 				$nbPersonnes = $uneInscription->getNbrePersonnes();
 				$message ='Si vous souhaitez modifier votre inscription, merci de prendre au minimum une place.<br>Si vous voulez annuler, appuyer sur le bouton Annuler mon inscription';
 				$typeMessage = 'avertissement';
+				$lienRetour = '#page_principale';
 				$themeFooter = $themeNormal;
 				include_once ($cheminDesVues . 'VueModifierMonInscription.php');
 			}
@@ -81,6 +85,7 @@ else{
 				{
 					$message ="L'application à rencontré un problème";
 					$typeMessage = 'avertissement';
+					$lienRetour = '#page_principale';
 					$themeFooter = $themeNormal;
 					include_once ($cheminDesVues . 'VueModifierMonInscription.php');
 				}
@@ -126,6 +131,7 @@ else{
 					
 					$message ='Votre modification a bien été prise en compte ! <br>Un mail vient de vous être envoyé avec les détails de paiements';
 					$typeMessage = 'information';
+					$lienRetour = 'index.php?action=Menu#menu2';
 					$themeFooter = $themeNormal;
 					include_once ($cheminDesVues . 'VueModifierMonInscription.php');
 				}
@@ -140,6 +146,7 @@ else{
 				
 				$message ='Pour annuler votre inscription, veuillez mettre le nombre de places à réserver à 0.';
 				$typeMessage = 'avertissement';
+				$lienRetour = '#page_principale';
 				$themeFooter = $themeNormal;
 				include_once ($cheminDesVues . 'VueModifierMonInscription.php');
 			}
@@ -150,6 +157,7 @@ else{
 				{
 					$message ="L'application à rencontré un problème";
 					$typeMessage = 'avertissement';
+					$lienRetour = '#page_principale';
 					$themeFooter = $themeNormal;
 					include_once ($cheminDesVues . 'VueModifierMonInscription.php');
 				}
@@ -182,6 +190,7 @@ else{
 			
 					$message ='Votre réservation a été annulée';
 					$typeMessage = 'information';
+					$lienRetour = 'index.php?action=Menu#menu2';
 					$themeFooter = $themeNormal;
 					include_once ($cheminDesVues . 'VueModifierMonInscription.php');
 				}
@@ -191,6 +200,7 @@ else{
 		{
 			$message ="L'application a rencontrée un problème";
 			$typeMessage = 'avertissement';
+			$lienRetour = '#page_principale';
 			$themeFooter = $themeNormal;
 			include_once ($cheminDesVues . 'VueModifierMonInscription.php');
 		}

@@ -64,7 +64,7 @@
 					
 				<p><input type="checkbox" required name="validation" id="validation" required> En cochant cette case vous vous vous engagez à régler la somme de <?php echo $leTarif ?> € par place réservée. </p>
 				
-				<p> Vous pouvez payer en avance en envoyant un chèque au nom d'INPACT (avec l'adresse), en précisant votre nom, ou régler à votre arrivée à la soirée.</p>
+				<p> Vous pouvez régler à l'avance en envoyant un chèque au nom d'INPACT (Association Inpact, 5 rue de la Motte Brûlon, 35000 Rennes), en précisant votre nom, ou régler à votre arrivée à la soirée.</p>
 						
 				<p>
 					<input type="submit" name="btnInscription"  id="btnInscription" value="M'inscrire" >
@@ -81,7 +81,7 @@
 		<div>
 			<h2 id="titre_message" class="classe_information">Message</h2>
 			<p id="texte_message" class="classe_texte_message">Texte du message</p>
-			<a href="index.php?action=Menu#menu2" title="Fermer">Fermer</a>
+			<a href="<?php echo $lienRetour; ?>" title="Fermer">Fermer</a>
 		</div>
 	</aside>
 </body>

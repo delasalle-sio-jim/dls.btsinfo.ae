@@ -24,6 +24,7 @@ if( (! isset ($_POST ["listeEleves"]) == true) && ( ! isset ($_POST ["btnEnvoyer
 		$idEleve = "";
 		$message = "";
 		$typeMessage = "";
+		$lienRetour = '#page_principale';
 		$etape = 0;
 		
 		//mise a zéro des variables de modifications de l'eleve
@@ -54,6 +55,7 @@ elseif( isset ($_POST ["btnDetail"]) == true &&(! isset($_POST['btnEnvoyer']) ==
 		$etape = 0;
 		$message = "Veuillez rentrer une adresse mail existante.";
 		$typeMessage = 'avertissement';
+		$lienRetour = '#page_principale';
 		
 		$themeFooter = $themeProbleme;
 		include_once ($cheminDesVues . 'VueModifierCompteEleve.php');
@@ -89,10 +91,10 @@ elseif (isset($_POST['btnEnvoyer']) == true )
 	
 	// récupération des données du formulaire + assemblage avec les données qui ne changerons pas
 	$unId = $unEleve->getId();
-	if ( empty ($_POST ["txtNom"]) == true)  $unNom = "";  else   $unNom = $_POST ["txtNom"];
-	if ( empty ($_POST ["txtPrenom"]) == true)  $unPrenom = "";  else   $unPrenom = $_POST ["txtPrenom"];
+	if ( empty ($_POST ["txtNom"]) == true)  $unNom = $unEleve->getNom();  else   $unNom = $_POST ["txtNom"];
+	if ( empty ($_POST ["txtPrenom"]) == true)  $unPrenom = $unEleve->getPrenom();  else   $unPrenom = $_POST ["txtPrenom"];
 	$unSexe = $unEleve->getSexe();
-	if ( empty ($_POST ["txtAnneeDebutBTS"]) == true)  $uneAnneeDebutBTS = "";  else   $uneAnneeDebutBTS = $_POST ["txtAnneeDebutBTS"];
+	if ( empty ($_POST ["txtAnneeDebutBTS"]) == true)  $uneAnneeDebutBTS = $unEleve->getAnneeDebutBTS();  else   $uneAnneeDebutBTS = $_POST ["txtAnneeDebutBTS"];
 	if ( empty ($_POST ["txtTel"]) == true)  $unTel = "";  else   $unTel = $_POST ["txtTel"];
 	$uneAdrMail = $_POST ["listeEleves"];
 	if ( empty ($_POST ["txtRue"]) == true)  $uneRue = "";  else   $uneRue = $_POST ["txtRue"];
@@ -103,7 +105,7 @@ elseif (isset($_POST['btnEnvoyer']) == true )
 	$unMotDePasse = $unEleve->getMotDePasse();
 	if ( empty ($_POST ["txtEtudesPostBTS"]) == true)  $desEtudesPostBTS = "";  else   $desEtudesPostBTS = $_POST ["txtEtudesPostBTS"];
 	$uneDateDerniereMAJ = time();
-	if ( empty ($_POST ["listeFonctions"]) == true)  $unIdFonction = "";  else   $unIdFonction = $_POST ["listeFonctions"];
+	if ( $_POST ["listeFonctions"] == 0)  $unIdFonction = $unEleve->getIdFonction();  else   $unIdFonction = $_POST ["listeFonctions"];	
 	
 	$unEleve = new Eleve($unId, $unNom, $unPrenom, $unSexe, $uneAnneeDebutBTS, $unTel, $uneAdrMail, $uneRue, $unCodePostal, $uneVille, $uneEntreprise, $unCompteAccepte, $unMotDePasse, $desEtudesPostBTS, $uneDateDerniereMAJ, $unIdFonction);
 	
@@ -112,6 +114,7 @@ elseif (isset($_POST['btnEnvoyer']) == true )
 
 		$message = 'Modification réussie.';
 		$typeMessage = 'information';
+		$lienRetour = 'index.php?action=Menu#menu4';
 		$themeFooter = $themeNormal;
 		include_once ($cheminDesVues . 'VueModifierCompteEleve.php');
 		
@@ -120,6 +123,7 @@ elseif (isset($_POST['btnEnvoyer']) == true )
 	{
 		$message = "La modification a échouée.";
 		$typeMessage = 'avertissement';
+		$lienRetour = '#page_principale';
 		$themeFooter = $themeProbleme;
 		include_once ($cheminDesVues . 'VueModifierCompteEleve.php');
 	}

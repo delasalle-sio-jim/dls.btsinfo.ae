@@ -40,6 +40,9 @@ else {
 	if (! isset ($_POST ["btnInscription"]) == true){			
 		// redirection vers la vue si aucune données n'est recu par le controleur	
 	
+		$message = '';
+		$typeMessage = '';			// 2 valeurs possibles : 'information' ou 'avertissement'
+		$lienRetour = '#page_principale';	// pour le retour en version jQuery mobile
 		$themeFooter = $themeNormal;
 		include_once ($cheminDesVues . 'VueCreerMonInscription.php');
 	}
@@ -67,12 +70,14 @@ else {
 			if (!$ok){
 				$message ="L'application à rencontré un problème";
 				$typeMessage = 'avertissement';
+				$lienRetour = '#page_principale';
 				$themeFooter = $themeNormal;
 				include_once ($cheminDesVues . 'VueCreerMonInscription.php');
 			}
 			else{
 				$message ='Vous êtes inscrit ! <br>Le montant total que vous devez régler pour la soirée est de '. $montantTotal . ' euros.';
 				$typeMessage = 'information';
+				$lienRetour = 'index.php?action=Menu#menu2';
 				$themeFooter = $themeNormal;
 				include_once ($cheminDesVues . 'VueCreerMonInscription.php');
 			}

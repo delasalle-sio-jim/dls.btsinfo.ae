@@ -17,6 +17,7 @@ else {
 		$afficherMdp = 'off';
 		$message = '';
 		$typeMessage = '';			// 2 valeurs possibles : 'information' ou 'avertissement'
+		$lienRetour = '#page_principale';	// pour le retour en version jQuery mobile
 		//$themeFooter = $themeNormal;
 		include_once ($cheminDesVues . 'VueChangerDeMdpAdmin.php');
 	}
@@ -38,6 +39,7 @@ else {
 				// si les données sont incorrectes, réaffichage de la vue avec un message explicatif
 				$message = 'Le nouveau mot de passe et<br>sa confirmation sont différents !';
 				$typeMessage = 'avertissement';
+				$lienRetour = '#page_principale';	// pour le retour en version jQuery mobile
 				$themeFooter = $themeProbleme;
 				include_once ($cheminDesVues . 'VueChangerDeMdpAdmin.php');
 			}
@@ -55,11 +57,13 @@ else {
 				if ($ok) {
 					$message = "Enregistrement effectué.<br>Vous allez recevoir un mail de confirmation.";
 					$typeMessage = 'information';
+					$lienRetour = 'index.php?action=Menu#menu1';
 					$themeFooter = $themeNormal;
 				}
 				else {
 					$message = "Enregistrement effectué.<br>L'envoi du mail de confirmation a rencontré un problème.";
 					$typeMessage = 'avertissement';
+					$lienRetour = '#page_principale';	// pour le retour en version jQuery mobile
 					$themeFooter = $themeProbleme;
 				}
 				unset($dao);		// fermeture de la connexion à MySQL

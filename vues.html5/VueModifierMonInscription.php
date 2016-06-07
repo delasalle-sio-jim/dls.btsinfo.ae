@@ -80,7 +80,7 @@
 		<div>
 			<h2 id="titre_message" class="classe_information">Message</h2>
 			<p id="texte_message" class="classe_texte_message">Texte du message</p>
-			<a href="index.php?action=Menu#menu2" title="Fermer">Fermer</a>
+			<a href="<?php echo $lienRetour; ?>" title="Fermer">Fermer</a>
 		</div>
 	</aside>
 </body>
