@@ -20,6 +20,7 @@ if ( ! isset ($_POST ["btnModifier"]) ) {
 
 	$message = '';
 	$typeMessage = '';			// 2 valeurs possibles : 'information' ou 'avertissement'
+	$lienRetour = '#page_principale';
 	$themeFooter = $themeNormal;
 	include_once ($cheminDesVues . 'VueModifierMaFichePersoAdmin.php');
 }
@@ -48,12 +49,14 @@ else {
 		if ($ok)
 		{	$message = "Modifications effectuées.";
 			$typeMessage = 'information';
+			$lienRetour = 'index.php?action=Menu#menu1';
 			$themeFooter = $themeNormal;
 			include_once ($cheminDesVues . 'VueModifierMaFichePersoAdmin.php');
 		}
 		else
 		{	$message = "L'application a rencontré un problème.";
 			$typeMessage = 'avertissement';
+			$lienRetour = '#page_principale';
 			$themeFooter = $themeProbleme;
 			include_once ($cheminDesVues . 'VueModifierMaFichePersoAdmin.php');
 		}

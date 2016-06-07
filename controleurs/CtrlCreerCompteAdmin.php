@@ -27,6 +27,7 @@ if ( ! isset ($_POST ["btnCreation"]) ) {
 	$adrMailAdmin = '';
 	$message = '';
 	$typeMessage = '';			// 2 valeurs possibles : 'information' ou 'avertissement'
+	$lienRetour = '#page_principale';	// pour le retour en version jQuery mobile
 	$themeFooter = $themeNormal;
 	include_once ($cheminDesVues . 'VueCreerCompteAdmin.php');
 }
@@ -42,6 +43,7 @@ else
 	if ($adrMailAdmin == '' ||  Outils::estUneAdrMailValide($adrMailAdmin) == false || $nomAdmin == ''|| $prenomAdmin == '') {
 		$message = 'Données incomplètes ou incorrectes !';
 		$typeMessage = 'avertissement';
+		$lienRetour = '#page_principale';
 		$themeFooter = $themeProbleme;
 		$typeUtilisateur = '';
 		
@@ -68,6 +70,7 @@ else
 			// envoi d'un mail à l'administrateur
 			$message = "Enregistrement effectué, un mail va être envoyé au nouvel administrateur.";
 			$typeMessage = 'information';
+			$lienRetour = 'index.php?action=Menu#menu5';
 			$themeFooter = $themeNormal;
 		}
 		
@@ -75,6 +78,7 @@ else
 		else {
 			$message = "L'enregistrement a échoué";
 			$typeMessage = 'avertissement';
+			$lienRetour = '#page_principale';
 			$themeFooter = $themeProbleme;
 		}
 			

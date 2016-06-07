@@ -5,7 +5,7 @@
 	// la barre d'entête possède un lien de déconnexion permettant de retourner à la page de connexion
 	// version de base avec une liste de boutons (critique : la liste est trop longue)
 	// Ecrit le 30/12/2015 par Jim
-	// Modifié le 22/5/2016 par Jim
+	// Modifié le 06/06/2016 par Killian BOUTIN
 ?>
 <!doctype html>
 <html>
@@ -43,16 +43,16 @@
 					<div id="menu2" class="menu">
 						<h3><a href="#menu2">La soirée annuelle des anciens...</a></h3>
 						<div>
+							<p><a href="index.php?action=VoirDetailsSoiree" class="bouton-menu">Consulter les infos sur la soirée</a></p>
 							<?php 
-								if ($typeUtilisateur == "eleve" && $dao->getInscriptionEleve($idEleve) == null){
+								if ($dao->getInscriptionEleve($idEleve) == null AND $dao->getSoiree(true) != NULL){
 							?>
 							<p><a href="index.php?action=CreerMonInscription" class="bouton-menu">M'inscrire à la soirée des anciens</a></p>
 							<?php 
 							} ?>
-							<p><a href="index.php?action=VoirDetailsSoiree" class="bouton-menu">Consulter les infos sur la soirée</a></p>
 							<p><a href="index.php?action=VoirListeInscritsEleve" class="bouton-menu">Consulter la liste des inscriptions</a></p>
 							<?php 
-								if ($typeUtilisateur == "eleve" && $dao->getInscriptionEleve($idEleve) != null){
+								if ($dao->getInscriptionEleve($idEleve) != null AND $dao->getSoiree(true) != NULL){
 							?>
 							<p><a href="index.php?action=ModifierMonInscription" class="bouton-menu">Modifier ou annuler mon inscription</a></p>
 							<?php 

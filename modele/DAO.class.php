@@ -72,6 +72,7 @@
 //   fournit un objet Soiree qui contient tous les détails concernant la PROCHAINE soirée
 //   le paramètre "relire" permet de tester si les données ont déjà été lues et stockées en variable de session
 //   si "relire" est égal à true, on relit la bdd et on recharge la variable de session
+//   return null si la requête ne renvoie aucune ligne ou si la date de la soirée est passée
 
 // modifierSoiree($uneSoiree) : booléen
 //   modifie une soirée dans la bdd et retourne true si mise à jour effectuée correctement, retourne false en cas de problème
@@ -294,6 +295,7 @@ class DAO
 		$txt_req .= " sexe = :sexe,";
 		$txt_req .= " anneeDebutBTS = :anneeDebutBTS,";
 		$txt_req .= " tel = :tel,";
+		$txt_req .= " adrMail = :adrMail,";
 		$txt_req .= " rue = :rue,";
 		$txt_req .= " codePostal = :codePostal,";
 		$txt_req .= " ville = :ville,";
@@ -301,10 +303,11 @@ class DAO
 		$txt_req .= " idFonction = :idFonction,";
 		$txt_req .= " etudesPostBTS = :etudesPostBTS,";
 		$txt_req .= " dateDerniereMAJ = :dateDerniereMAJ";
-		$txt_req .= " WHERE adrMail = :adrMail;";	
+		$txt_req .= " WHERE id = :id;";	
 		$req = $this->cnx->prepare($txt_req);
 	
 		// liaison de la requête et de ses paramètres
+		$req->bindValue("id", utf8_decode($unEleve->getId()), PDO::PARAM_STR);
 		$req->bindValue("nom", utf8_decode($unEleve->getNom()), PDO::PARAM_STR);
 		$req->bindValue("prenom", utf8_decode($unEleve->getPrenom()), PDO::PARAM_STR);
 		$req->bindValue("sexe", utf8_decode($unEleve->getSexe()), PDO::PARAM_STR);
@@ -477,7 +480,7 @@ class DAO
 		// fourniture de la collection
 		return $lesMailsAdmin;
 		}		
-		
+
 	
 	// supprime un compte Eleve (ainsi que ses inscriptions s'il en a) à partir de son identifiant ou de son adresse mail
 	// retourne true si enregistrement supprimé correctement, retourne false en cas de problème
@@ -673,6 +676,7 @@ class DAO
 	// le résultat est fourni sous forme d'un objet Soiree
 	// le paramètre "relire" permet de tester si les données ont déjà été lues et stockées en variable de session
 	// si "relire" est égal à true, on relit la bdd et on recharge la variable de session
+	// return null si la requête ne renvoie aucune ligne ou si la date de la soirée est passée
 	// créé par Nicolas Esteve le XX/01/2016
 	// modifié par Jim le 13/05/2016
 	public function getSoiree($relire)
@@ -691,8 +695,8 @@ class DAO
 			// exécution de la requête
 			$req->execute();
 			$uneLigne = $req->fetch(PDO::FETCH_OBJ);
-			// si la requête ne renvoie aucune ligne
-			if( ! $uneLigne)
+			// si la requête ne renvoie aucune ligne ou si la date de la soirée est passée
+			if( ! $uneLigne OR (date("Y-m-d") > ($uneLigne->dateSoiree)))
 				return null;
 			else
 			{	$unId = utf8_encode($uneLigne->id);

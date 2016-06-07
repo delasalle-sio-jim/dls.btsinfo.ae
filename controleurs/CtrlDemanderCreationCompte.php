@@ -2,6 +2,7 @@
 // Projet DLS - BTS Info - Anciens élèves
 // Fonction du contrôleur CtrlDemanderCreationCompte.php : traiter la demande de création de compte d'un élève
 // Ecrit le 6/1/2016 par Jim
+// Modifié le 06/06/2016 par Killian BOUTIN
 
 // inclusion de la classe Outils
 include_once ('modele/Outils.class.php');
@@ -29,6 +30,7 @@ if ( ! isset ($_POST ["btnEnvoyer"]) ) {
 
 	$message = '';
 	$typeMessage = '';			// 2 valeurs possibles : 'information' ou 'avertissement'
+	$lienRetour = '#page_principale';	// pour le retour en version jQuery mobile
 	$themeFooter = $themeNormal;
 	include_once ($cheminDesVues . 'VueDemanderCreationCompte.php');
 }
@@ -46,12 +48,13 @@ else {
 	if ( empty ($_POST ["txtCodePostal"]) == true)  $codePostal = "";  else   $codePostal = $_POST ["txtCodePostal"];
 	if ( empty ($_POST ["txtVille"]) == true)  $ville = "";  else   $ville = $_POST ["txtVille"];
 	if ( empty ($_POST ["txtEntreprise"]) == true)  $entreprise = "";  else   $entreprise = $_POST ["txtEntreprise"];
-	if ( empty ($_POST ["listeFonctions"]) == true)  $idFonction = "";  else   $idFonction = $_POST ["listeFonctions"];	
+	if ( $_POST ["listeFonctions"] == 0)  $idFonction = 0;  else   $idFonction = $_POST ["listeFonctions"];	
 	
-	if ($nom == '' || $prenom == '' || $sexe == '' || $anneeDebutBTS == '' || $adrMail == '' || Outils::estUneAdrMailValide($adrMail) == false || Outils::estUnCodePostalValide($codePostal) == false) {
+	if ($nom == '' || $prenom == '' || $sexe == '' || $anneeDebutBTS == '' || $adrMail == '' || Outils::estUneAdrMailValide($adrMail) == false || Outils::estUnCodePostalValide($codePostal) == false || $idFonction == '0') {
 		// si les données sont incorrectes ou incomplètes, réaffichage de la vue de suppression avec un message explicatif
 		$message = 'Données incomplètes ou incorrectes !';
 		$typeMessage = 'avertissement';
+		$lienRetour = '#page_principale';
 		$themeFooter = $themeProbleme;
 		include_once ($cheminDesVues . 'VueDemanderCreationCompte.php');
 	}
@@ -60,6 +63,7 @@ else {
 			// si l'adresse existe déjà, réaffichage de la vue
 			$message = "Adresse mail déjà existante !";
 			$typeMessage = 'avertissement';
+			$lienRetour = '#page_principale';
 			$themeFooter = $themeProbleme;
 			include_once ($cheminDesVues . 'VueDemanderCreationCompte.php');
 		}
@@ -79,6 +83,7 @@ else {
 				// si l'enregistrement a échoué, réaffichage de la vue avec un message explicatif					
 				$message = "Problème lors de l'enregistrement !";
 				$typeMessage = 'avertissement';
+				$lienRetour = '#page_principale';
 				$themeFooter = $themeProbleme;
 				include_once ($cheminDesVues . 'VueDemanderCreationCompte.php');
 			}
@@ -101,6 +106,7 @@ else {
 					// si l'envoi de mail a échoué, réaffichage de la vue avec un message explicatif
 					$message = "Enregistrement effectué.<br>L'envoi du mail à l'administrateur a rencontré un problème !";
 					$typeMessage = 'avertissement';
+					$lienRetour = '#page_principale';
 					$themeFooter = $themeProbleme;
 					include_once ($cheminDesVues . 'VueDemanderCreationCompte.php');
 				}
@@ -108,6 +114,7 @@ else {
 					// tout a fonctionné
 					$message = "Enregistrement effectué.<br>Un mail va être envoyé à l'administrateur !";
 					$typeMessage = 'information';
+					$lienRetour = 'index.php';
 					$themeFooter = $themeNormal;
 					include_once ($cheminDesVues . 'VueDemanderCreationCompte.php');
 				}

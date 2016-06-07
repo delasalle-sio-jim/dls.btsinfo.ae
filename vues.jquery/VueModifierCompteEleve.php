@@ -10,10 +10,16 @@ header('Content-Tranfer-Encoding: none');
 header('Expires: 0');
 ?>
 <!doctype html>
-<html>
+<html lang="en">
 <head>	
+<meta charset="utf-8">
 
-	<?php include_once ('vues.jquery/head.php'); ?>
+	<?php include_once ('head.php');
+	
+	include_once ('modele/DAO.class.php');
+	$dao = new DAO();
+	
+	include_once ('vues.jquery/head.php'); ?>
 	
 	<script>
 		<?php if ($typeMessage != '') { ?>
@@ -25,7 +31,7 @@ header('Expires: 0');
 		<?php } ?>
 	</script>
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-	<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+	<script src="//code.jquery.com/jquery-1.10.2.js"></script> <!-- FONCTIONNE SANS CETTE LIGNE MAIS PAS LA MEME INTERFACE -->
 	<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 	<style>
 		.ui-autocomplete {
@@ -62,7 +68,7 @@ header('Expires: 0');
 	<body>
 		<div data-role="page" id="page_principale">
 			<div data-role="header" data-theme="<?php echo $themeNormal; ?>">
-				<h4>DLS-Info-AE</h4>
+				<h4><?php echo $titreHeader ?></h4>
 				<a href="index.php?action=Menu" data-ajax="false" data-transition="<?php echo $transition; ?>">Retour menu</a>
 			</div>
 			<div data-role="content">
@@ -105,13 +111,13 @@ header('Expires: 0');
 								<input type="text" name="txtPrenom" id="txtPrenom" maxlength="30" placeholder="Prénom *" data-mini="true" required value="<?php echo $prenom; ?>">
 								
 								<label for="txtAnneeDebutBTS">Année d'entrée en BTS *</label>
-								<input type="text" name="txtAnneeDebutBTS" id="txtAnneeDebutBTS" maxlength="4" pattern="[0-9]{4,4}" placeholder="Année d'entrée en BTS (4 chiffres) *" data-mini="true" required value="<?php echo $anneeDebutBTS; ?>">
+								<input type="text" name="txtAnneeDebutBTS" id="txtAnneeDebutBTS" maxlength="4" placeholder="Année d'entrée en BTS (4 chiffres) *" pattern="[0-9]{4,4}" data-mini="true" required value="<?php echo $anneeDebutBTS; ?>">
 
 								<label for="txtAdrMail">Adresse mail *</label>
-								<input type="email" name="txtAdrMail" id="txtAdrMail" maxlength="50" placeholder="Adresse mail *" data-mini="true" required value="<?php echo $mail; ?>">
+								<input type="email" name="txtAdrMail" id="txtAdrMail" maxlength="50" placeholder="Adresse mail *" pattern="^.+@.+\..+$" data-mini="true" required value="<?php echo $mail; ?>">
 
 								<label for="txtTel">Téléphone</label>
-								<input type="tel" name="txtTel" id="txtTel" maxlength="14" placeholder="Téléphone" data-mini="true" value="<?php echo $tel; ?>">
+								<input type="tel" name="txtTel" id="txtTel" maxlength="14" placeholder="Téléphone" pattern="^([0-9]{2}( |-|\.)?){4}[0-9]{2}$" data-mini="true" value="<?php echo $tel; ?>">
 								
 								<label for="txtRue">Rue</label>
 								<input type="text" name="txtRue" id="txtRue" maxlength="80" placeholder="Rue" data-mini="true" value="<?php echo $rue; ?>" />
@@ -130,7 +136,8 @@ header('Expires: 0');
 								
 								<label for="listeFonctions">Situation actuelle</label>
 								<select size="1" name="listeFonctions" id="listeFonctions" data-mini="true">
-									<option value="0" <?php if ($idFonction == '') echo 'selected'; ?>>Fonction actuelle</option>
+									<option value="0" <?php if ($idFonction == '') echo 'selected'; ?>>-- Indiquez votre fonction actuelle --</option>
+									
 									<?php foreach ($lesFonctions as $uneFonction) { ?>
 										<option value="<?php echo $uneFonction->getId(); ?>" <?php if ($idFonction == $uneFonction->getId()) echo 'selected'; ?>><?php echo $uneFonction->getLibelle(); ?></option>
 									<?php } ?>				

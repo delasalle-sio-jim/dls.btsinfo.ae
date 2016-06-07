@@ -3,7 +3,8 @@
 	// Fonction de la vue vues.jquery/VueCreerCompteEleve.php : afficher la vue de création d'un compte élève par un administrateur
 	// Ecrit le 3/1/2016 par Jim
 	// Modifié le 25/05/2016 par Killian BOUTIN
-header('Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0');
+	
+	header('Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0');
 	header('Pragma: no-cache');
 	header('Content-Tranfer-Encoding: none');
 	header('Expires: 0');
@@ -27,7 +28,7 @@ header('Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-ch
 	<body>
 		<div data-role="page" id="page_principale">
 			<div data-role="header" data-theme="<?php echo $themeNormal; ?>">
-				<h4>DLS-Info-AE</h4>
+				<h4><?php echo $titreHeader ?></h4>
 				<a href="index.php?action=Menu" data-ajax="false" data-transition="<?php echo $transition; ?>">Retour menu</a>
 			</div>
 			<div data-role="content">
@@ -75,7 +76,7 @@ header('Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-ch
 								
 								<label for="listeFonctions">Situation actuelle</label>
 								<select size="1" name="listeFonctions" id="listeFonctions" data-mini="true">
-									<option value="0" <?php if ($idFonction == '') echo 'selected'; ?>>Fonction actuelle</option>
+										<option value="0" <?php if ($idFonction == '') echo 'selected'; ?>>-- Indiquez votre fonction actuelle --</option>
 									<?php foreach ($lesFonctions as $uneFonction) { ?>
 										<option value="<?php echo $uneFonction->getId(); ?>" <?php if ($idFonction == $uneFonction->getId()) echo 'selected'; ?>><?php echo $uneFonction->getLibelle(); ?></option>
 									<?php } ?>				

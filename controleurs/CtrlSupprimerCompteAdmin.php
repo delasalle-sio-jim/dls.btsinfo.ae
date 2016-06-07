@@ -21,6 +21,10 @@ if( (! isset ($_POST ["listeAdmins"]) == true)&&( ! isset ($_POST ["btnSupprimer
 	$lesMailsAdmin = $dao->getLesAdressesMailsAdmin();
 	$adrMailAdmin = '';
 	$etape = 0;
+	
+	$message = '';
+	$typeMessage = '';					// 2 valeurs possibles : 'information' ou 'avertissement'
+	$lienRetour = '#page_principale';	// pour le retour en version jQuery mobile
 	$themeFooter = $themeNormal;
 	include_once ($cheminDesVues . 'VueSupprimerCompteAdmin.php');
 }
@@ -36,6 +40,7 @@ else {
 		$etape = 0;
 		$message = 'L\'administrateur que vous tentez de supprimer n\'existe pas';
 		$typeMessage = 'avertissement';
+		$lienRetour = '#page_principale';
 		$themeFooter = $themeProbleme;	
 	}
 	
@@ -58,6 +63,7 @@ else {
 				if ($ok) {	
 					$message = "Suppression effectuée. L\'administrateur lié à l'adresse ".$adrMailAdmin." ne poura plus effectuer de modification.";
 					$typeMessage = 'information';
+					$lienRetour = 'index.php?action=Menu#menu5';
 					$themeFooter = $themeNormal;
 					include_once ($cheminDesVues . 'VueSupprimerCompteAdmin.php');			 														 	
 				}
@@ -67,6 +73,7 @@ else {
 			else{
 				$message = "Les deux adresses mail de correspondent pas.";
 				$typeMessage = 'avertissement';
+				$lienRetour = '#page_principale';
 				$themeFooter = $themeProbleme;
 				include_once ($cheminDesVues . 'VueSupprimerCompteAdmin.php');
 			}

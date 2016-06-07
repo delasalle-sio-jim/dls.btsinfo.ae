@@ -40,7 +40,7 @@
 	<body onload="initialisation();">
 		<div data-role="page" id="page_principale">
 			<div data-role="header" data-theme="<?php echo $themeNormal; ?>">
-				<h4>DLS-Info-AE</h4>
+				<h4><?php echo $titreHeader ?></h4>
 			</div>
 			
 			<div data-role="content">

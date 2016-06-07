@@ -28,6 +28,6 @@
 				<p style="text-align: center;"><?php echo $message; ?></p>
 			</div>
 			<div data-role="footer" class="ui-bar" data-theme="<?php echo $themeFooter; ?>">
-				<a href="#page_principale" data-transition="<?php echo $transition; ?>">Fermer</a>
+				<a href="<?php echo $lienRetour; ?>" data-ajax="false" data-transition="<?php echo $transition; ?>">Fermer</a>
 			</div>
 		</div>

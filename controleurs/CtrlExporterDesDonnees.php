@@ -2,7 +2,7 @@
 // Projet DLS - BTS Info - Anciens élèves
 // Fonction du contrôleur CtrlExporterDesDonnees.php : traite la demande d'export des données présente dans la table au format .csv
 // Ecrit le 01/06/2016 par Killian BOUTIN
-// Modifié le 02/06/2016 par Killian BOUTIN
+// Modifié le 06/06/2016 par Killian BOUTIN
 
 // connexion du serveur web à la base MySQL
 include_once ('modele/DAO.class.php');
@@ -13,6 +13,8 @@ if ( $_SESSION['typeUtilisateur'] != 'administrateur') {
 }
 $dao = new DAO();
 
+
+
 $texte = "";
 
 /* on crée le tableau $lesFichiers */
@@ -22,12 +24,20 @@ if (! isset ($_POST ["btnExporter"])) {
 	// si les données n'ont pas été postées, c'est le premier appel du formulaire : affichage de la vue sans message d'erreur
 	$message = '';
 	$typeMessage = '';			// 2 valeurs possibles : 'information' ou 'avertissement'
+	$lienRetour = '#page_principale';	// pour le retour en version jQuery mobile
 	$themeFooter = $themeNormal;
 	include_once ($cheminDesVues . 'VueExporterDesDonnees.php');
 }
 else {
 	
-	if (isset($_POST['export'])){
+	if (!isset($_POST['export'])){
+		$message = 'Veuillez selectionner au moins un fichier à exporter';
+		$typeMessage = 'avertissement';			// 2 valeurs possibles : 'information' ou 'avertissement'
+		$lienRetour = '#page_principale';		// pour le retour en version jQuery mobile
+		$themeFooter = $themeNormal;
+		include_once ($cheminDesVues . 'VueExporterDesDonnees.php');
+	}
+	else{
 		/* on parcourt le tableau de checkbox */
 		foreach($_POST['export'] as $value)
 		{
@@ -41,7 +51,7 @@ else {
 				$donneesTable .= " ORDER BY Promo, Nom, Prenom;";
 				$nomFichierCSV = "ElevesParPromo";
 				
-				$ok1 = $dao->ExportToCSV($nomColonnes, $donneesTable, $nomFichierCSV);
+				$dao->ExportToCSV($nomColonnes, $donneesTable, $nomFichierCSV);
 				
 				/* on rentre une nouvelle valeur dans le tableau */
 				array_push($lesFichiers, "ElevesParPromo.csv");
@@ -55,7 +65,7 @@ else {
 				$donneesTable .= " FROM ae_eleves;";
 				$nomFichierCSV = "Eleves";
 				
-				$ok2 = $dao->ExportToCSV($nomColonnes, $donneesTable, $nomFichierCSV);
+				$dao->ExportToCSV($nomColonnes, $donneesTable, $nomFichierCSV);
 				
 				/* on rentre une nouvelle valeur dans le tableau */
 				array_push($lesFichiers, "Eleves.csv");
@@ -71,7 +81,7 @@ else {
 				$donneesTable .= " ORDER BY Nom, Prenom";
 				$nomFichierCSV = "Inscrits";
 				
-				$ok3 = $dao->ExportToCSV($nomColonnes, $donneesTable, $nomFichierCSV);
+				$dao->ExportToCSV($nomColonnes, $donneesTable, $nomFichierCSV);
 				
 				/* on rentre une nouvelle valeur dans le tableau */
 				array_push($lesFichiers, "Inscrits.csv");
@@ -84,78 +94,68 @@ else {
 				$donneesTable .= " ORDER BY Nom, Prenom";
 				$nomFichierCSV = "NonInscrits";
 				
-				$ok4 = $dao->ExportToCSV($nomColonnes, $donneesTable, $nomFichierCSV);
+				$dao->ExportToCSV($nomColonnes, $donneesTable, $nomFichierCSV);
 				
 				/* on rentre une nouvelle valeur dans le tableau */
 				array_push($lesFichiers, "NonInscrits.csv");
 				
 			}
 		}
-	}
 	
-	// On instancie la classe
-	$zip = new ZipArchive();
 	
-	// On teste si le dossier existe
-	if(is_dir('exportations/'))
-    {
-    	// On crée le dossier export.zip qui sera proposé en téléchargement
-        if($zip->open('export.zip', ZipArchive::OVERWRITE) == TRUE)
-        {	
-			// Pour chaque checkbox séléctionné, on ajoute le fichier correspondant au .zip
-			foreach($lesFichiers as $leFichier)
-			{
-				// On ajoute chaque fichier à l’archive (on le nomme du même nom que dans le dossier ici)
-				 $zip->addFile('exportations/'.$leFichier, $leFichier);
-				 echo $leFichier.'<br>';
-			}
-			
-			// On ferme l’archive.
-			$zip->close();
-			
-			// Téléchargement
-			// On peut ensuite, comme dans le tuto de DHKold, proposer le téléchargement.
-			header('Content-Transfer-Encoding: binary'); //Transfert en binaire (fichier).
-			header('Content-Disposition: attachment; filename="export.zip"'); //Nom du fichier.
-			header('Content-Length: '.filesize('export.zip')); //Taille du fichier.
-			
-			readfile('export.zip');
-			
-			/* Utile pour "ZipArchive::CREATE" mais on utilise "ZipArchive::OVERWRITE"
-			// On supprime maintenant ce dossier zip
-			unlink ("export.zip");
-			*/
-        }
-        else
-        {
-        	// Erreur lors de l’ouverture.
-        	// On peut ajouter du code ici pour gérer les différentes erreurs.
-     		echo 'Erreur, impossible de créer l&#039;archive.';
-     	}
-	}
-	else
-	{
-		echo 'Le dossier &quot;exportationssio/&quot; n&#039;existe pas.';
-	}
-     
-     include_once ($cheminDesVues . 'VueExporterDesDonnees.php');
-
-	/*
-	if ($ok) 
-		{
-			$message = "Modifications effectuées.";
-			$typeMessage = 'information';
-			$themeFooter = $themeNormal;
-			include_once ($cheminDesVues . 'VueExporterDesDonnees.php');
+		// On instancie la classe
+		$zip = new ZipArchive();
+		
+		// On teste si le dossier existe
+		if(is_dir('exportations/'))
+	    {
+	    	
+	    	$name = "export.zip";
+	    	// On crée le dossier export.zip qui sera proposé en téléchargement
+	        if($zip->open($name, ZipArchive::CREATE) == TRUE)
+	        {	
+				// Pour chaque checkbox séléctionné, on ajoute le fichier correspondant au .zip
+				foreach($lesFichiers as $leFichier)
+				{
+					// On ajoute chaque fichier à l’archive (on le nomme du même nom que dans le dossier ici)
+					 $zip->addFile('exportations/'.$leFichier, $leFichier);
+					 echo $leFichier.'<br>';
+				}
+				
+				// On ferme l’archive.
+				$zip->close();
+				
+				// Téléchargement
+				// On peut ensuite, comme dans le tuto de DHKold, proposer le téléchargement.
+				
+				header("Content-type: application/force-download");
+				header('Content-Transfer-Encoding: binary'); //Transfert en binaire (fichier).
+				header('Content-Disposition: attachment; filename="export.zip"'); //Nom du fichier.
+				header('Content-Length: '.filesize("export.zip")); //Taille du fichier.
+				
+				readfile($name);
+				
+				// Utile pour "ZipArchive::CREATE", inutile "ZipArchive::OVERWRITE"
+				// On supprime maintenant ce dossier zip
+				unlink ($name);
+				
+	        }
+	        else
+	        {
+	        	// Erreur lors de l’ouverture.
+	        	// On peut ajouter du code ici pour gérer les différentes erreurs.
+	     		echo 'Erreur, impossible de créer l&#039;archive.';
+	     	}
 		}
 		else
 		{
-			$message = "L\'application a rencontré un problème.";
-			$typeMessage = 'avertissement';
-			$themeFooter = $themeProbleme;
-			include_once ($cheminDesVues . 'VueExporterDesDonnees.php');
+			echo 'Le dossier &quot;exportationssio/&quot; n&#039;existe pas.';
 		}
-	*/
+     
+   		include_once ($cheminDesVues . 'VueExporterDesDonnees.php');
+   		
+	}
+	
 }
 
 

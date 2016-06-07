@@ -24,7 +24,7 @@
 	<body>
 		<div data-role="page" id="page_principale">
 			<div data-role="header" data-theme="<?php echo $themeNormal; ?>">
-				<h4>DLS-Info-AE</h4>
+				<h4><?php echo $titreHeader ?></h4>
 				<a href="index.php?action=Menu#menu2" data-ajax="false" data-transition="<?php echo $transition; ?>">Retour menu</a>
 			</div>
 			
@@ -36,8 +36,8 @@
 						<?php
 						foreach ($lesInscriptions as $uneInscription)
 						{ ?>
-							<li><a href="#">
-								<h5><?php echo $uneInscription->getNom() . " " . $uneInscription->getPrenom() . " (" .$uneInscription->getAnneeDebutBTS() . ")"; ?></h5>
+							<li><a href="#" data-mini="true" style="height: 12px;">
+								<?php echo $uneInscription->getNom() . " " . $uneInscription->getPrenom() . " (" .$uneInscription->getAnneeDebutBTS() . ")"; ?>
 							</a></li>
 						<?php
 						} ?>

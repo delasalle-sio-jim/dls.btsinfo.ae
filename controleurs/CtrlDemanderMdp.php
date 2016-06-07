@@ -17,6 +17,7 @@ if ( ! isset ($_POST ["txtAdrMail2"]) == true) {
 	// si les données n'ont pas été postées, c'est le premier appel du formulaire : affichage de la vue sans message d'erreur
 	$message = '';
 	$typeMessage = '';			// 2 valeurs possibles : 'information' ou 'avertissement'
+	$lienRetour = '#page_principale';	// pour le retour en version jQuery mobile
 	$themeFooter = $themeNormal;
 	include_once ($cheminDesVues . 'VueConnecter.php');
 }
@@ -28,6 +29,7 @@ else {
 		// si les données sont incomplètes, réaffichage de la vue avec un message explicatif
 		$message = 'Données incomplètes ou incorrectes !';
 		$typeMessage = 'avertissement';
+		$lienRetour = '#page_principale';
 		$themeFooter = $themeProbleme;
 		include_once ($cheminDesVues . 'VueConnecter.php');
 	}
@@ -42,6 +44,7 @@ else {
 			// si $adrMail n'existe pas, retour à la vue
 			$message = "Adresse mail inexistante !";
 			$typeMessage = 'avertissement';
+			$lienRetour = '#page_principale';
 			$themeFooter = $themeProbleme;
 			include_once ($cheminDesVues . 'VueConnecter.php');
 		}
@@ -57,12 +60,14 @@ else {
 				$themeFooter = $themeNormal;
 				$message = 'Vous allez recevoir un mail<br>avec votre nouveau mot de passe.';
 				$typeMessage = 'information';
+				$lienRetour = 'index.php';
 				include_once ($cheminDesVues . 'VueConnecter.php');
 			}
 			else {
 				$themeFooter = $themeProbleme;
 				$message = "Echec lors de l'envoi du mail !";
 				$typeMessage = 'avertissement';
+				$lienRetour = '#page_principale';
 				include_once ($cheminDesVues . 'VueConnecter.php');
 			}
 		}

@@ -21,16 +21,17 @@
 //    index.php?action=SupprimerCompteEleve   : pour afficher la page de suppression d'un compte élève 
 //    index.php?action=SupprimerCompteAdmin	  : pour afficher la page de suppression d'un compte administateur
 
-session_start();		// permet d'utiliser des variables de session
+session_start();				// permet d'utiliser des variables de session
 
 // si $debug est égal à true, certaines variables sont affichées (pour la mise au point)
 $debug = false;
 
 // choix des styles graphiques pour jQuery mobile :
-$version = "1.4.5";			// choix de la version de JQuery Mobile (voir fichier head.php) parmi les valeurs 1.2.0,  1.2.1,  1.3.2,  1.4.5
-$themeNormal = "a";			// thème de base
-$themeProbleme = "b";		// thème utilisé pour afficher un message en cas de problème
-$transition ="flip";		// transition lors des changements de page (pop, flip, fade, turn, flow, slidefade, slide, slideup, slidedown)
+$version = "1.4.5";				// choix de la version de JQuery Mobile (voir fichier head.php) parmi les valeurs 1.2.0,  1.2.1,  1.3.2,  1.4.5
+$themeNormal = "a";				// thème de base
+$themeProbleme = "b";			// thème utilisé pour afficher un message en cas de problème
+$transition = "flip";			// transition lors des changements de page (pop, flip, fade, turn, flow, slidefade, slide, slideup, slidedown)
+$titreHeader = "DLS-Info-AE";	// titre affiché dans le header de chaque page
 
 // on vérifie le paramètre action de l'URL
 if ( isset ($_GET['action']) == false)  $action = '';  else   $action = $_GET['action'];

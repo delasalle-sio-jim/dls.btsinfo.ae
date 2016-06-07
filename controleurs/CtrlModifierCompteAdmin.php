@@ -23,6 +23,7 @@ if( (! isset ($_POST ["listeAdmins"]) == true) && ( ! isset ($_POST ["btnEnvoyer
 		$etape = 0;
 		$message = "";
 		$typeMessage = "";
+		$lienRetour = '#page_principale';
 		
 		//mise a zéro des variables de modifications de l'admin
 		$nom = '';
@@ -54,6 +55,7 @@ else{
 		
 		$uneAdrMail = $_POST ["listeAdmins"];
 		$unAdministrateur = $dao->getAdministrateur($uneAdrMail);
+		
 		// récupération des données du formulaire + assemblage avec les données qui ne changerons pas
 		$unId = $unAdministrateur->getId();
 		$unMotDePasse = $unAdministrateur->getMotDePasse();	
@@ -70,6 +72,7 @@ else{
 			
 			$message = 'Modification réussie.';
 			$typeMessage = 'information';
+			$lienRetour = 'index.php?action=Menu#menu5';
 			$themeFooter = $themeNormal;
 			
 		}
@@ -77,6 +80,7 @@ else{
 			
 			$message = "La modification a échouée.";
 			$typeMessage = 'avertissement';
+			$lienRetour = '#page_principale';
 			$themeFooter = $themeProbleme;
 			
 		}

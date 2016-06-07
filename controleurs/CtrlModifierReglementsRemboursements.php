@@ -36,6 +36,7 @@
 		{	/* si l'adresse entrée est invalide (non présent dans la base) on obtient un message d'avertissement */
 			$message = "L'étudiant possédant l'email " . $_POST ["listeEleves"] . " n'est pas incrit à la soirée.";
 			$typeMessage = "avertissement";
+			$lienRetour = '#page_principale';
 			include_once ($cheminDesVues . 'VueModifierReglementsRemboursements.php');
 		}
 		else
@@ -102,11 +103,13 @@
 		{
 			$message = "Modifications effectuées avec succès<br>" . $message;
 			$typeMessage = "information";
+			$lienRetour = 'index.php?action=Menu#menu2';
 		}
 		else 
 		{
 			$message = "L'application à rencontré un problème";
 			$typeMessage = "avertissement";
+			$lienRetour = '#page_principale';
 		}
 		include_once ($cheminDesVues . 'VueModifierReglementsRemboursements.php');
 		

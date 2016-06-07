@@ -24,6 +24,7 @@ if( (! isset ($_POST ["listeEleves"]) == true) && ( ! isset ($_POST ["btnSupprim
 		$adrMailEleve = "";
 		$message = "";
 		$typeMessage = "";
+		$lienRetour = '#page_principale';	// pour le retour en version jQuery mobile
 		$etape = 0;
 		$listeMails = $dao->GetLesAdressesMails();
 		$themeFooter = $themeNormal;
@@ -55,6 +56,7 @@ if( (! isset ($_POST ["listeEleves"]) == true) && ( ! isset ($_POST ["btnSupprim
 				
 			$message = "Suppression effectuée.";
 			$typeMessage = 'information';
+			$lienRetour = 'index.php?action=Menu#menu4';
 			$themeFooter = $themeNormal;
 			//include_once ($cheminDesVues . 'VueSupprimerCompteEleve.php');
 		}
@@ -62,6 +64,7 @@ if( (! isset ($_POST ["listeEleves"]) == true) && ( ! isset ($_POST ["btnSupprim
 		{
 			$message = "La suppression a échouée.";
 			$typeMessage = 'avertissement';
+			$lienRetour = '#page_principale';
 			$themeFooter = $themeProbleme;
 			//include_once ($cheminDesVues . 'VueSupprimerCompteEleve.php');
 		}
