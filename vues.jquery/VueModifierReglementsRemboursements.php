@@ -20,41 +20,41 @@
 			<?php } ?>
 		</script>
 		
-		<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-	<script src="//code.jquery.com/jquery-1.10.2.js"></script>
-  	<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-  	
-	<style>
-		 .ui-autocomplete {
-			 max-height: 100px;
-			 overflow-y: auto;
-			 /* prevent horizontal scrollbar */
-			 overflow-x: hidden;
-		 }
-		 /* IE 6 doesn't support max-height
-		  * we use height instead, but this forces the menu to always be this tall
-		  */
-		 * html .ui-autocomplete {
-			 height: 100px;
-		 }
-	</style>
-	
-	<script>
-	 $(function() {
-		    var listeEleves  = [ 
-		     <?php 
-	     	$eleveMails='"';
-			foreach($lesMails as $unMail){ 
-				$eleveMails .= $unMail.'","';
-			 } 
-			 $eleveMails = substr($eleveMails ,0,-2);
-			 echo $eleveMails;?>	         			    
-			];
-		    $( "#listeEleves" ).autocomplete({
-		      source: listeEleves
-		    });
-		  });
-	</script>
+	<!-- 
+																			<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+																			<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+																			<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+																			<style>
+																			  .ui-autocomplete {
+																			    max-height: 100px;
+																			    overflow-y: auto;
+																			    /* prevent horizontal scrollbar */
+																			    overflow-x: hidden;
+																			  }
+																			  /* IE 6 doesn't support max-height
+																			   * we use height instead, but this forces the menu to always be this tall
+																			   */
+																			  * html .ui-autocomplete {
+																			    height: 100px;
+																			  }
+																			  </style>
+																			<script>
+																			 $(function() {
+																				    var listeEleves  = [ 
+																				     <?php /*
+																			     	$eleveMails='"';
+																					foreach($lesMails as $unMail){ 
+																						$eleveMails .= $unMail.'","';
+																					 } 
+																					 $eleveMails = substr($eleveMails ,0,-2);
+																					 echo $eleveMails; */?>	         			    
+																					];
+																				    $( "#listeEleves" ).autocomplete({
+																				      source: listeEleves
+																				    });
+																				  });
+																			</script>		
+		 -->
 	<script>
 
 		function afficher_information(msg) {

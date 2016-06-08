@@ -89,11 +89,14 @@
 				<img src="images/Intitules_bts_ig_sio.png" id="logo-droite" alt="BTS Informatique" />
 			</div>
 		</div>
-			
+				
 		<div id="content">
 			<h2>Mise à jour des réglements et remboursements d'un élève</h2>
 			<form name="form1" id="form1" action="index.php?action=ModifierReglementsRemboursements" method="post">
+			
+					<?php if($etape == 0){ ?>
 					<div class="ui-widget">
+					
 						<p>
 							 <label for="listeEleves">Eleves: </label>
 		 					 <input type="email" id="listeEleves"   name="listeEleves" placeholder="Recherchez à l'aide de l'email de l'utilisateur" value = "<?php if (!empty ($_POST ["listeEleves"]) == true) echo $_POST ["listeEleves"]; else echo "";?>" pattern="^.+@.+\..+$" required>
@@ -103,9 +106,9 @@
 						</p>	
 					</div>
 
-					<?php if ($etape == 1){?>
+					<?php }else {?>
 						<p>
-							<label >Nombre de places réservées :</label>
+							<label >Nbr de places réservées :</label>
 							<input type="text" value="<?php echo $unNbrePersonnes ?>" disabled>
 						</p>
 						<p>

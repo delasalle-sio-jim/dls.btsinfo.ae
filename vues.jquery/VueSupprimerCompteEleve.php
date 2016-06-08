@@ -70,6 +70,8 @@ header('Expires: 0');
 				<h4 style="text-align: center; margin-top: 10px; margin-bottom: 10px;">Supprimer un utilisateur</h4>
 				<form name="form1" id="form1" data-ajax="false" action="index.php?action=SupprimerCompteEleve" method="post">
 		
+				<?php if($etape == 0){ ?>
+									
 				<div class="ui-widget">
 				
 					 <label for="listeEleves">Mail de l'utilisateur à supprimer: </label>
@@ -82,7 +84,7 @@ header('Expires: 0');
 				</div>	
 				
 			
-				<?php if ($etape == 1)	
+				<?php }else
 						{?> 
 					
 					

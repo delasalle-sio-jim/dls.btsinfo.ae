@@ -33,7 +33,7 @@ header('Expires: 0');
 				<a href="index.php?action=Menu#menu2" data-ajax="false" data-transition="<?php echo $transition; ?>">Retour menu</a>
 			</div>
 			<div data-role="content">
-				<h4 style="text-align: center; margin-top: 10px; margin-bottom: 10px;">Inscription à la soiree</h4>
+				<h4 style="text-align: center; margin-top: 10px; margin-bottom: 10px;">Modifier ou annuler mon inscription</h4>
 				<form action="index.php?action=ModifierMonInscription" method="post" data-ajax="false" >
 
 					<p>La prochaine soirée aura lieu le <b><?php echo $laDateSoiree ?> à 20h </b>au restaurant <b> <?php echo $leRestaurant ?> </b> situé <b> <?php echo $lAdresse ?> </b>.</p>

@@ -108,60 +108,61 @@
 					</select>
 				</p> -->
 		
+				<?php if($etape == 0){ ?>
+				
 				<div class="ui-widget">
 				<p>
 					 <label for="listeEleves">Eleves: </label>
- 					 <input type="email" id="listeEleves"  value="<?php if($etape == 1 ) echo $mail; else echo ''; ?>" name="listeEleves" required pattern="^.+@.+\..+$" placeholder="Recherchez à l'aide de l'email de l'utilisateur">
+ 					 <input type="email" id="listeEleves"  value="<?php if($etape == 1 ) echo $uneAdrMail; else echo ''; ?>" name="listeEleves" required pattern="^.+@.+\..+$" placeholder="Recherchez à l'aide de l'email de l'utilisateur">
 				</p>
 					
 				<p>
 					<input type="submit" name="btnDetail" id="btnDetail" value="Obtenir les détails">
 				</p>	
 				</div>
-				
 
-				<?php if($etape == 1)
+				<?php } else
 				{?>
 				
 				<p>
 					<label for="txtNom">Nom (de naissance) * :</label>
-					<input type="text" name="txtNom" id="txtNom" maxlength="30" required value="<?php echo $nom; ?>" />
+					<input type="text" name="txtNom" id="txtNom" maxlength="30" required value="<?php echo $unNom; ?>" />
 				</p>
 				<p>
 					<label for="txtPrenom">Prénom * :</label>
-					<input type="text" name="txtPrenom" id="txtPrenom" maxlength="30" required value="<?php echo $prenom; ?>" />
+					<input type="text" name="txtPrenom" id="txtPrenom" maxlength="30" required value="<?php echo $unPrenom; ?>" />
 				</p>
 				<p>
 					<label for="txtAnneeDebutBTS">Année d'entrée en BTS * :</label>
-					<input type="text" name="txtAnneeDebutBTS" id="txtAnneeDebutBTS" maxlength="4" pattern="^[0-9]{4}$" required value="<?php echo $anneeDebutBTS; ?>" />
+					<input type="text" name="txtAnneeDebutBTS" id="txtAnneeDebutBTS" maxlength="4" pattern="^[0-9]{4}$" required value="<?php echo $uneAnneeDebutBTS; ?>" />
 				</p>
 				<p>
 					<label for="txtAdrMail">Adresse mail * :</label>
-					<input type="email" name="txtAdrMail" id="txtAdrMail" maxlength="50" required pattern="^.+@.+\..+$" value="<?php echo $mail; ?>" />
+					<input type="email" name="txtAdrMail" id="txtAdrMail" maxlength="50" required pattern="^.+@.+\..+$" value="<?php echo $uneAdrMail; ?>" />
 				</p>
 				<p>
 					<label for="txtTel">Téléphone :</label>
-					<input type="text" name="txtTel" id="txtTel" maxlength="14" pattern="^([0-9]{2}( |-|\.)?){4}[0-9]{2}$" value="<?php echo $tel; ?>" />
+					<input type="text" name="txtTel" id="txtTel" maxlength="14" pattern="^([0-9]{2}( |-|\.)?){4}[0-9]{2}$" value="<?php echo $unTel; ?>" />
 				</p>
 				<p>
 					<label for="txtRue">Rue :</label>
-					<input type="text" name="txtRue" id="txtRue" maxlength="80" value="<?php echo $rue; ?>" />
+					<input type="text" name="txtRue" id="txtRue" maxlength="80" value="<?php echo $uneRue; ?>" />
 				</p>						
 				<p>
 					<label for="txtCodePostal">Code postal :</label>
-					<input type="text" name="txtCodePostal" id="txtCodePostal" maxlength="5" pattern="^[0-9]{5}$" value="<?php echo $codePostal; ?>" />
+					<input type="text" name="txtCodePostal" id="txtCodePostal" maxlength="5" pattern="^[0-9]{5}$" value="<?php echo $unCodePostal; ?>" />
 				</p>
 				<p>
 					<label for="txtVille">Ville :</label>
-					<input type="text" name="txtVille" id="txtVille" maxlength="30" value="<?php echo $ville; ?>" />
+					<input type="text" name="txtVille" id="txtVille" maxlength="30" value="<?php echo $uneVille; ?>" />
 				</p>
 				<p>
 					<label for="txtEtudesPostBTS">Etudes post BTS :</label>
-					<textarea rows="2" name="txtEtudesPostBTS" id="txtEtudesPostBTS" maxlength="150"><?php echo $etudesPostBTS; ?></textarea>
+					<textarea rows="2" name="txtEtudesPostBTS" id="txtEtudesPostBTS" maxlength="150"><?php echo $desEtudesPostBTS; ?></textarea>
 				</p>
 				<p>
 					<label for="txtEntreprise">Entreprise actuelle :</label>
-					<input type="text" name="txtEntreprise" id="txtEntreprise" maxlength="50" value="<?php echo $entreprise; ?>" />
+					<input type="text" name="txtEntreprise" id="txtEntreprise" maxlength="50" value="<?php echo $uneEntreprise; ?>" />
 				</p>
 										
 				<p>

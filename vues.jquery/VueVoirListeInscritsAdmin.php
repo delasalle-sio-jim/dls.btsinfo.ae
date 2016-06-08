@@ -57,17 +57,17 @@
 							<div data-role="collapsible" >
 							<h3 data-mini="true"><?php echo $uneInscription->getNom() . " " . $uneInscription->getPrenom() . " (" .$uneInscription->getAnneeDebutBTS() . ")"; ?></h3>
 								<ul data-role="listview" data-mini="true">
-								<li>
-									<h5>Nombre de personnes inscrites : <?php echo $uneInscription->getNbrePersonnes() ?></h5>
+								<li style="height: 10px;">
+									Nombre de personnes inscrites : <b><?php echo $uneInscription->getNbrePersonnes() ?></b>
 								</li>
-								<li>
-									<h5>Montant réglé : <?php echo $montantRegle; ?> €</h5>
+								<li style="height: 10px;">
+									Montant réglé : <b><?php echo $montantRegle; ?> €</b>
 								</li>
-								<li>
-									<h5>Montant remboursé : <?php echo $montantRembourse; ?> €</h5>
+								<li style="height: 10px;">
+									Montant remboursé : <b><?php echo $montantRembourse; ?> €</b>
 								</li>
-								<li>
-									<h5>Montant restant à régler : <?php echo $coutTotal; ?> €</h5>
+								<li style="height: 10px;">
+									Montant restant à régler : <b><?php echo $coutTotal; ?> €</b>
 								</li>
 								</ul>
 							</div>
@@ -85,18 +85,21 @@
 						$montantTotalFinal = number_format($montantTotalFinal, 2, ',', ' ');
 						
 						?>
+						<a>&nbsp;</a>
+						<h4 style="text-align: center; margin-top: 10px; margin-bottom: 10px;">Données cumulées : </h4>
+						
 						<ul data-role="listview" data-mini="true" style="margin-top: 5px;">
-							<li>
-								<h5>Nombre total de personnes inscrites : <?php echo $nombreInscritsTotal ?></h5>
+							<li style="height: 10px;">
+								<b>Nombre total de personnes inscrites : <?php echo $nombreInscritsTotal ?></b>
 							</li>
-							<li>
-								<h5>Montant total réglé : <?php echo $montantTotalRegle; ?> €</h5>
+							<li style="height: 10px;">
+								<b>Montant total réglé : <?php echo $montantTotalRegle; ?> €</b>
 							</li>
-							<li>
-								<h5>Montant total remboursé : <?php echo $montantTotalRembourse; ?> €</h5>
+							<li style="height: 10px;">
+								<b>Montant total remboursé : <?php echo $montantTotalRembourse; ?> €</b>
 							</li>
-							<li>
-								<h5>Montant total restant dû : <?php echo $montantTotalFinal; ?> €</h5>
+							<li style="height: 10px;">
+								<b>Montant total restant dû : <?php echo $montantTotalFinal; ?> €</b>
 							</li>
 						</ul>
 						

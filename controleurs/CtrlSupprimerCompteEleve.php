@@ -32,25 +32,43 @@ if( (! isset ($_POST ["listeEleves"]) == true) && ( ! isset ($_POST ["btnSupprim
 	}
 	elseif( isset ($_POST ["btnDetail"]) == true &&(! isset($_POST['btnSupprimer']) == true )){
 		
-		if ( empty ($_POST ["listeEleves"]) == true)  $idEleve = "";  else   $idEleve = $_POST ["listeEleves"];
+		/* On vérifie que l'adresse est bonne */
+		if ($dao->existeAdrMail($_POST ["listeEleves"]) == false){
+			
+			$etape = 0;
+			$message = "Veuillez rentrer une adresse mail existante.";
+			$typeMessage = 'avertissement';
+			$lienRetour = '#page_principale';
+			
+			$themeFooter = $themeProbleme;
+			include_once ($cheminDesVues . 'VueModifierCompteEleve.php');
+		}
+		/* Si elle est bonne, on affiche les nouvelles données correspondante à l'élève en question */
+		else{
 		
-		$etape=1;
-		$unEleve = $dao->getEleve($idEleve);
-		$id=$unEleve->getId();
-		$nom = $unEleve->getNom();
-		$prenom = $unEleve->getPrenom();
-		$mail = $unEleve->getAdrMail();
-		$annee = $unEleve->getAnneeDebutBTS();
-		
-		$liste = $dao->GetLesAdressesMails();
-		
-		$themeFooter = $themeNormal;
-		include_once ($cheminDesVues . 'VueSupprimerCompteEleve.php');	
+			$etape=1;
+			$unEleve = $dao->getEleve($_POST ["listeEleves"]);
+			$id=$unEleve->getId();
+			$nom = $unEleve->getNom();
+			$prenom = $unEleve->getPrenom();
+			$mail = $unEleve->getAdrMail();
+			$annee = $unEleve->getAnneeDebutBTS();
+			
+			$liste = $dao->GetLesAdressesMails();
+			
+			/* on prend l'id dans une variable de session pour pouvoir modifier le compte */
+			$unEleve = $dao->getEleve($_POST ["listeEleves"]);
+			$idEleve = $unEleve->getId();
+			$_SESSION['idEleve'] = $idEleve;
+			
+			$themeFooter = $themeNormal;
+			include_once ($cheminDesVues . 'VueSupprimerCompteEleve.php');
+		}
 	}
 	elseif (isset($_POST['btnSupprimer']) == true ) 
 	{
 		$etape=0;
-		$ok = $dao->supprimerCompteEleve($_POST ["listeEleves"]);
+		$ok = $dao->supprimerCompteEleve($_SESSION['idEleve']);
 		$liste = $dao->GetLesAdressesMails();
 		if ( $ok ) {
 				

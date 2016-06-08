@@ -94,34 +94,36 @@
 		<div id="content">
 			<h2>Modifier un administrateur</h2>
 			<form name="form1" id="form1" action="index.php?action=ModifierCompteAdmin" method="post">
-							
-					<div class="ui-widget">
-					<p>
-						 <label for="listeAdmins">Administrateur: </label>
-	 					 <input id="listeAdmins" type=email"  value="<?php if($etape == 1 ) echo $uneAdrMail; else echo ''; ?>" name="listeAdmins" required pattern="^.+@.+\..+$" placeholder="Recherchez à l'aide de l'email de l'administrateur">
-				</p>
 				
-				<p>
-					<input type="submit" name="btnDetail" id="btnDetail" value="Obtenir les détails">
-				</p>	
-				</div>
+				<?php if($etape == 0)
+				{?>
+					<div class="ui-widget">
+						<p>
+							 <label for="listeAdmins">Administrateur: </label>
+		 					 <input id="listeAdmins" type=email"  value="<?php if($etape == 1 ) echo $uneAdrMail; else echo ''; ?>" name="listeAdmins" required pattern="^.+@.+\..+$" placeholder="Recherchez à l'aide de l'email de l'administrateur">
+						</p>
+						
+						<p>
+							<input type="submit" name="btnDetail" id="btnDetail" value="Obtenir les détails">
+						</p>	
+					</div>
 				
 	
-				<?php if($etape == 1)
+				<?php } else
 				{?>
 				
-				<p>
-					<label for="txtNom">Nom (de naissance) * :</label>
-					<input type="text" name="txtNom" id="txtNom" maxlength="30" required value="<?php echo $nom; ?>" />
-				</p>
-				<p>
-					<label for="txtPrenom">Prénom * :</label>
-					<input type="text" name="txtPrenom" id="txtPrenom" maxlength="30" required value="<?php echo $prenom; ?>" />
-				</p>
-							
-				<p>
-					<input type="submit" value="Envoyer les données" name="btnEnvoyer" id="btnEnvoyer" />
-				</p>
+					<p>
+						<label for="txtNom">Nom (de naissance) * :</label>
+						<input type="text" name="txtNom" id="txtNom" maxlength="30" required value="<?php echo $nom; ?>" />
+					</p>
+					<p>
+						<label for="txtPrenom">Prénom * :</label>
+						<input type="text" name="txtPrenom" id="txtPrenom" maxlength="30" required value="<?php echo $prenom; ?>" />
+					</p>
+								
+					<p>
+						<input type="submit" value="Envoyer les données" name="btnEnvoyer" id="btnEnvoyer" />
+					</p>
 				<?php }?>	
 			</form>
 		</div>

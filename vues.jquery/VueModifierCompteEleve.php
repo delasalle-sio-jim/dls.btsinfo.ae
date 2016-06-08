@@ -24,40 +24,42 @@ header('Expires: 0');
 		<?php } ?>
 
 	</script>
-	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-		<script src="//code.jquery.com/jquery-1.10.2.js"></script>
-		<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-		<style>
-		  .ui-autocomplete {
-		    max-height: 100px;
-		    overflow-y: auto;
-		    /* prevent horizontal scrollbar */
-		    overflow-x: hidden;
-		  }
-		  /* IE 6 doesn't support max-height
-		   * we use height instead, but this forces the menu to always be this tall
-		   */
-		  * html .ui-autocomplete {
-		    height: 100px;
-		  }
-		  </style>
-		<script>
-		 $(function() {
-			    var listeEleves  = [ 
-			     <?php 
-		     	$eleveMails='"';
-				foreach($lesMails as $unMail){ 
-					$eleveMails .= $unMail.'","';
-				 } 
-				 $eleveMails = substr($eleveMails ,0,-2);
-				 echo $eleveMails;?>	         			    
-				];
-			    $( "#listeEleves" ).autocomplete({
-			      source: listeEleves
-			    });
-			  });
-		</script>		
 
+		<!-- 
+																			<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+																			<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+																			<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+																			<style>
+																			  .ui-autocomplete {
+																			    max-height: 100px;
+																			    overflow-y: auto;
+																			    /* prevent horizontal scrollbar */
+																			    overflow-x: hidden;
+																			  }
+																			  /* IE 6 doesn't support max-height
+																			   * we use height instead, but this forces the menu to always be this tall
+																			   */
+																			  * html .ui-autocomplete {
+																			    height: 100px;
+																			  }
+																			  </style>
+																			<script>
+																			 $(function() {
+																				    var listeEleves  = [ 
+																				     <?php /*
+																			     	$eleveMails='"';
+																					foreach($lesMails as $unMail){ 
+																						$eleveMails .= $unMail.'","';
+																					 } 
+																					 $eleveMails = substr($eleveMails ,0,-2);
+																					 echo $eleveMails; */?>	         			    
+																					];
+																				    $( "#listeEleves" ).autocomplete({
+																				      source: listeEleves
+																				    });
+																				  });
+																			</script>		
+		 -->
 </head> 
 <body>
 	<div data-role="page" id="page_principale">
@@ -72,7 +74,7 @@ header('Expires: 0');
 				<div class="ui-widget">
 
 					 <label for="listeEleves">Eleves: </label>
- 					 <input type="email" id="listeEleves"  value="<?php if($etape == 1 ) echo $mail; else echo ''; ?>" name="listeEleves" required pattern="^.+@.+\..+$" placeholder="Recherchez à l'aide de l'email de l'utilisateur">
+ 					 <input type="email" id="listeEleves"  value="<?php if($etape == 1 ) echo $uneAdrMail; else echo ''; ?>" name="listeEleves" required pattern="^.+@.+\..+$" placeholder="Recherchez à l'aide de l'email de l'utilisateur">
 
 					<input type="submit" name="btnDetail" id="btnDetail" value="Obtenir les détails">	
 				</div>
@@ -83,34 +85,34 @@ header('Expires: 0');
 				<div data-role="fieldcontain" class="ui-hide-label">
 				
 					<label for="txtNom">Nom (de naissance) * :</label>
-					<input type="text" name="txtNom" id="txtNom" placeholder="Nom" maxlength="30" required value="<?php echo $nom; ?>" />
+					<input type="text" name="txtNom" id="txtNom" placeholder="Nom" maxlength="30" required value="<?php echo $unNom; ?>" />
 				
 					<label for="txtPrenom">Prénom * :</label>
-					<input type="text" name="txtPrenom" id="txtPrenom" placeholder="Prénom" maxlength="30" required value="<?php echo $prenom; ?>" />
+					<input type="text" name="txtPrenom" id="txtPrenom" placeholder="Prénom" maxlength="30" required value="<?php echo $unPrenom; ?>" />
 				
 					<label for="txtAnneeDebutBTS">Année d'entrée en BTS * :</label>
-					<input type="text" name="txtAnneeDebutBTS" id="txtAnneeDebutBTS" placeholder=">Année d'entrée en BTS" maxlength="4" pattern="^[0-9]{4}$" required value="<?php echo $anneeDebutBTS; ?>" />
+					<input type="text" name="txtAnneeDebutBTS" id="txtAnneeDebutBTS" placeholder=">Année d'entrée en BTS" maxlength="4" pattern="^[0-9]{4}$" required value="<?php echo $uneAnneeDebutBTS; ?>" />
 				
 					<label for="txtAdrMail">Adresse mail * :</label>
-					<input type="email" name="txtAdrMail" id="txtAdrMail" placeholder="Adresse mail" maxlength="50" required pattern="^.+@.+\..+$" value="<?php echo $mail; ?>" />
+					<input type="email" name="txtAdrMail" id="txtAdrMail" placeholder="Adresse mail" maxlength="50" required pattern="^.+@.+\..+$" value="<?php echo $uneAdrMail; ?>" />
 				
 					<label for="txtTel">Téléphone :</label>
-					<input type="text" name="txtTel" id="txtTel" placeholder="Téléphone" maxlength="14" pattern="^([0-9]{2}( |-|\.)?){4}[0-9]{2}$" value="<?php echo $tel; ?>" />
+					<input type="text" name="txtTel" id="txtTel" placeholder="Téléphone" maxlength="14" pattern="^([0-9]{2}( |-|\.)?){4}[0-9]{2}$" value="<?php echo $unTel; ?>" />
 				
 					<label for="txtRue">Rue :</label>
-					<input type="text" name="txtRue" id="txtRue" placeholder="Rue" maxlength="80" value="<?php echo $rue; ?>" />
+					<input type="text" name="txtRue" id="txtRue" placeholder="Rue" maxlength="80" value="<?php echo $uneRue; ?>" />
 				
 					<label for="txtCodePostal">Code postal :</label>
-					<input type="text" name="txtCodePostal" id="txtCodePostal" placeholder="Code postal" maxlength="5" pattern="^[0-9]{5}$" value="<?php echo $codePostal; ?>" />
+					<input type="text" name="txtCodePostal" id="txtCodePostal" placeholder="Code postal" maxlength="5" pattern="^[0-9]{5}$" value="<?php echo $unCodePostal; ?>" />
 				
 					<label for="txtVille">Ville :</label>
-					<input type="text" name="txtVille" id="txtVille" placeholder="Ville" maxlength="30" value="<?php echo $ville; ?>" />
+					<input type="text" name="txtVille" id="txtVille" placeholder="Ville" maxlength="30" value="<?php echo $uneVille; ?>" />
 				
 					<label for="txtEtudesPostBTS">Etudes post BTS :</label>
-					<textarea rows="2" name="txtEtudesPostBTS" id="txtEtudesPostBTS" placeholder="Etudes post BTS" maxlength="150"><?php echo $etudesPostBTS; ?></textarea>
+					<textarea rows="2" name="txtEtudesPostBTS" id="txtEtudesPostBTS" placeholder="Etudes post BTS" maxlength="150"><?php echo $desEtudesPostBTS; ?></textarea>
 				
 					<label for="txtEntreprise">Entreprise actuelle :</label>
-					<input type="text" name="txtEntreprise" id="txtEntreprise" placeholder="Entreprise actuelle" maxlength="50" value="<?php echo $entreprise; ?>" />
+					<input type="text" name="txtEntreprise" id="txtEntreprise" placeholder="Entreprise actuelle" maxlength="50" value="<?php echo $uneEntreprise; ?>" />
 				
 					<label for="listeFonctions">Fonction actuelle :</label>
 					

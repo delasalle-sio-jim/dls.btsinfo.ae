@@ -63,7 +63,7 @@
 		// script non fonctionel
 		function confirmation()
 		{
-		return confirm("Êtes vous sur de vouloir supprimer cet Administrateur?")
+		return confirm("Êtes vous sur de vouloir supprimer cet administrateur?")
 		}
 		
 		function afficher_information(msg) {
@@ -96,39 +96,40 @@
 			</div>
 		</div>
 		<div id="content">	
-		<h2>Supprimer un Administrateur</h2>
+		<h2>Supprimer un administrateur</h2>
 			<form name="form1" id="form1" action="index.php?action=SupprimerCompteAdmin" method="post" >
+			
+				<?php if ($etape == 0)
+				{?>
 					<p>
-						<label for="listeAdmins">Adresse Mail de l'administrateur à supprimer :</label>
-						<input type="text" name="listeAdmins" id="listeAdmins" maxlength="50" pattern="^.+@.+\..+$" placeholder="Adresse Mail de l'administrateur à supprimer" class="normal" value="<?php if($etape == 1 ) echo $txtMailAdmin ; else echo ''; ?>" required>
+						<label for="listeAdmins">Adresse mail de l'administrateur à supprimer :</label>
+						<input type="text" name="listeAdmins" id="listeAdmins" maxlength="50" pattern="^.+@.+\..+$" placeholder="Adresse mail de l'administrateur à supprimer" class="normal" value="<?php if($etape == 1 ) echo $txtMailAdmin ; else echo ''; ?>" required>
 					</p>
 					<p>
 					
 			 			<input type="submit" name="btnDetailAdmin"  id="btnDetailAdmin" value="Obtenir détail">
 					</p>
-					<!--  </form>-->
-					<?php if ($etape == 1)
-					{?>
-					<!--  <form name="form2" id="form1" action="index.php?action=SupprimerAdmin" method="post" > -->
+				<?php } else
+				{?>
 					<p>
-						<label class="label2" for="prenomAdmin">Prénom de l'administrateur:<?php echo $prenomAdmin ?></label>
+						<label class="label2" for="prenomAdmin"><b>Prénom de l'administrateur: </b><?php echo $prenomAdmin ?></label>
 					</p>
 					<p>
-						<label class="label2" for="nomAdmin">Nom de l'adminisrateur :<?php echo $nomAdmin ?></label>
+						<label class="label2" for="nomAdmin"><b>Nom de l'administrateur : </b><?php echo $nomAdmin ?></label>
 					</p>
 					<p>
-						<label class="label2" for="MailAdmin">Mail de l'administrateur :<?php echo $txtMailAdmin ?></label>
+						<label class="label2" for="MailAdmin"><b>Mail de l'administrateur : </b><?php echo $txtMailAdmin ?></label>
 					</p>
 					<p>
-						<label class="label2" for="txtAdrMailAdmin2">Entrez le mail de l'administrateur pour confimer la suppression de celui-ci :</label>
-						<input type="text" name="txtAdrMailAdmin2" id="txtAdrMailAdmin2" maxlength="50" class ="normal" pattern="^.+@.+\..+$" required>
+						<label class="label2" for="txtAdrMailAdmin">Entrez le mail de l'administrateur pour confimer la suppression de celui-ci :</label>
+						<input type="text" name="txtAdrMailAdmin2" id="txtAdrMailAdmin" maxlength="50" class ="normal" pattern="^.+@.+\..+$" required>
 					</p>
 					<p>
-						<input type="submit" name="btnSupprimerAdmin"  id="btnSupprimerAdmin" value="Supprimer l'Administrateur" >
+						<input type="submit" name="btnSupprimerAdmin"  id="btnSupprimerAdmin" value="Supprimer l'administrateur" >
 					</p>
-					
-					</form>	
-					<?php }?>
+					<?php echo $_SESSION['adrMailAdmin'];?>
+				<?php }?>
+			</form>	
 			
 		</div>
 		<div id="footer">

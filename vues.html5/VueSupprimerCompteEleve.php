@@ -89,46 +89,48 @@
 		</div>
 			
 		<div id="content">
-		<h2>Supprimer un utilisateur</h2>
-	<form name="form1" id="form1" action="index.php?action=SupprimerCompteEleve" method="post">
+			<h2>Supprimer un utilisateur</h2>
+			<form name="form1" id="form1" action="index.php?action=SupprimerCompteEleve" method="post">
 				
-				<div class="ui-widget">
-				<p>
-					 <label for="listeEleves">Eleves: </label>
- 					 <input id="listeEleves"  value="<?php if($etape == 1 ) echo $mail ; else echo ''; ?>" name="listeEleves" placeholder="recherchez à l'aide de l'email de l'utilisateur">
-				</p>
-				
-					
-				<p>
-					<input type="submit" name="btnDetail" id="btnDetail" value="Obtenir les détails">
-				</p>	
-				</div>
-				
-
-				<?php if($etape == 1)
+				<?php if ($etape == 0)
 				{?>
-				
-				<p>
-					<label class="label2" for="prenom">Prénom de l'utilisateur :<?php echo $prenom ?></label>
-				</p>
-				
-				<p>
-					<label class="label2" for="nom">Nom de l'utilisateur :<?php echo $nom ?></label>
-				</p>
-				
-				<p>
-					<label class="label2" for="mail">Mail de l'utilisateur :	<?php echo $mail ?></label>
-				</p>
-				
-				<p>
-					<label class="label2" for="annee">L'année d'entrée en BTS :<?php echo $annee ?></label>
-				</p>
-				<p>
-					<input type="submit" name="btnSupprimer" id="btnSupprimer" value="Supprimer l'utilisateur">
-				</p>
+					<div class="ui-widget">
+					<p>
+						 <label for="listeEleves">Eleves: </label>
+	 					 <input id="listeEleves"  value="<?php if($etape == 1 ) echo $mail ; else echo ''; ?>" name="listeEleves" placeholder="recherchez à l'aide de l'email de l'utilisateur">
+					</p>
+					
+						
+					<p>
+						<input type="submit" name="btnDetail" id="btnDetail" value="Obtenir les détails">
+					</p>	
+					</div>
+					
+	
+				<?php } else
+				{?>
+					
+					<p>
+						<label class="label2" for="prenom"><b>Prénom de l'utilisateur : </b><?php echo $prenom ?></label>
+					</p>
+					
+					<p>
+						<label class="label2" for="nom"><b>Nom de l'utilisateur : </b><?php echo $nom ?></label>
+					</p>
+					
+					<p>
+						<label class="label2" for="mail"><b>Mail de l'utilisateur : </b><?php echo $mail ?></label>
+					</p>
+					
+					<p>
+						<label class="label2" for="annee"><b>L'année d'entrée en BTS  </b><?php echo $annee ?></label>
+					</p>
+					<p>
+						<input type="submit" name="btnSupprimer" id="btnSupprimer" value="Supprimer l'utilisateur">
+					</p>
 				<?php }?>	
-				</form>
-				</div>
+			</form>
+		</div>
 		<div id="footer">
 			<p>Annuaire des anciens élèves du BTS Informatique - Lycée De La Salle (Rennes)</p>
 		</div>		

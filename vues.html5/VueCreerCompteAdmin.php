@@ -52,7 +52,7 @@
 			
 		<div id="content">
 			 		
-			<h2>Création d'un compte Administrateur </h2>
+			<h2>Création d'un compte administrateur </h2>
 			 
 			<h3>Entrez les données nécessaires à la création du compte (tous les champs sont obligatoires) :</h3>
 						
@@ -71,7 +71,7 @@
 					<input type="email" name="txtAdrMail" id="txtAdrMail" maxlength="50" required pattern="^.+@.+\..+$" value="" required/>
 				</p>
 				<p>
-						<input type="submit" name="btnCreation"  id="btnCeation" value="Créer l'Administrateur" >
+						<input type="submit" name="btnCreation"  id="btnCeation" value="Créer l'administrateur" >
 					</p>
 			</form>
 				

@@ -37,14 +37,18 @@ if( (! isset ($_POST ["listeAdmins"]) == true) && ( ! isset ($_POST ["btnEnvoyer
 else{
 	/* Si on clique sur le bouton "Obtenir des détails" */
 	if( isset ($_POST ["btnDetail"]) == true &&( isset($_POST['btnEnvoyer']) == false )){
-
-
+		
 		$etape=1;
 		$uneAdrMail = $_POST ["listeAdmins"];
 		$unAdministrateur = $dao->getAdministrateur($uneAdrMail);
 		
 		$nom = $unAdministrateur->getNom();
 		$prenom = $unAdministrateur->getPrenom();
+		
+		/* on prend l'id dans une variable de session pour pouvoir modifier le compte */
+		$unAdministrateur = $dao->getAdministrateur($_POST ["listeAdmins"]);
+		$idAdmin = $unAdministrateur->getId();
+		$_SESSION['idAdmin'] = $idAdmin;
 		
 		$themeFooter = $themeNormal;
 		include_once ($cheminDesVues . 'VueModifierCompteAdmin.php');
@@ -53,7 +57,7 @@ else{
 	/* Si on clique sur le bouton envoyer */
 	else{
 		
-		$uneAdrMail = $_POST ["listeAdmins"];
+		$uneAdrMail = $_SESSION['idAdmin'];
 		$unAdministrateur = $dao->getAdministrateur($uneAdrMail);
 		
 		// récupération des données du formulaire + assemblage avec les données qui ne changerons pas

@@ -22,7 +22,7 @@
 				<a href="index.php?action=Menu" data-ajax="false" data-transition="<?php echo $transition; ?>">Retour menu</a>
 			</div>
 			<div data-role="content">
-				<h2>Proposer un stage</h2>
+				<h4 style="text-align: center; margin-top: 10px; margin-bottom: 10px;">Proposer un stage </h4>
 				<p>Vous pouvez déposer une offre de stage sur le site web du lycée avec le lien ci-dessous :</p>
 				<center><p><a Target=_Blank href="http://www.lycee-delasalle.com/fr/relations-entreprises/deposer-une-offre-d-emploi.php?type_offre=2">www.lycee-delasalle.com</a></p></center>
 				<p>Les élèves et professeurs de BTS SIO vous remercient d'avance pour le temps que vous prenez pour aider la nouvelle génération.</p>
