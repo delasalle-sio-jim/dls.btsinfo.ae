@@ -37,6 +37,7 @@
 			$message = "L'étudiant possédant l'email " . $_POST ["listeEleves"] . " n'est pas incrit à la soirée.";
 			$typeMessage = "avertissement";
 			$lienRetour = '#page_principale';
+			$themeFooter = $themeProbleme;
 			include_once ($cheminDesVues . 'VueModifierReglementsRemboursements.php');
 		}
 		else
@@ -55,7 +56,7 @@
 			$dateInscription = $uneInscription->getDateInscription();
 			$montantRembourse = number_format($uneInscription->getMontantRembourse(), 2, '.', ' ');
 			$montantRegle = number_format($uneInscription->getMontantRegle(), 2, '.', ' ');
-			$montantTotal = number_format($uneInscription->getTarif() * $unNbrePersonnes, 2, ',', ' ');
+			$montantTotal = number_format($uneInscription->getTarif() * $unNbrePersonnes - $uneInscription->getMontantRegle() + $uneInscription->getMontantRembourse(), 2, ',', ' ');
 			include_once ($cheminDesVues . 'VueModifierReglementsRemboursements.php');
 		
 		}
@@ -85,8 +86,8 @@
 		$idSoiree = $uneInscription->getIdSoiree();
 		$inscriptionAnnulee = $uneInscription->getInscriptionAnnulee();
 		$leTarif = $uneInscription->getTarif();
-		$montantTotal = number_format($leTarif * $unNbrePersonnes, 2, ',', ' ');
-		
+		/* le montant restant à payer est le montant total à payer - le montant qu'il a déjà payé + le montant qui lui a été remboursé */
+		$montantTotal = number_format($leTarif * $unNbrePersonnes - $uneInscription->getMontantRegle() + $uneInscription->getMontantRembourse(), 2, ',', ' ');
 		$uneInscription = new Inscription($unId, $unNom, $unPrenom, $anneeDebutBTS, $dateInscription, $unNbrePersonnes, $montantRegle, $montantRembourse, $idEleve, $idSoiree, $inscriptionAnnulee, $leTarif);
 		
 		$ok = $dao->modifierInscription($uneInscription);

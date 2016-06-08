@@ -25,6 +25,56 @@ header('Expires: 0');
 
 	</script>
 
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+	<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+  	<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+  	
+	<style>
+		 .ui-autocomplete {
+			 max-height: 100px;
+			 overflow-y: auto;
+			 /* prevent horizontal scrollbar */
+			 overflow-x: hidden;
+		 }
+		 /* IE 6 doesn't support max-height
+		  * we use height instead, but this forces the menu to always be this tall
+		  */
+		 * html .ui-autocomplete {
+			 height: 100px;
+		 }
+	</style>
+	
+	<script>
+	 $(function() {
+		    var listeAdmins  = [ 
+		     <?php 
+	     	$adminMails='"';
+			foreach($lesMailsAdmin as $unMail){ 
+				$adminMails .= $unMail.'","';
+			 } 
+			 $adminMails = substr($adminMails ,0,-2);
+			 echo $adminMails;?>	         			    
+			];
+		    $( "#listeAdmins" ).autocomplete({
+		      source: listeAdmins
+		    });
+		  });
+	</script>	
+		
+	<script>
+		function afficher_information(msg) {
+			document.getElementById("titre_message").innerHTML = "Information...";
+			document.getElementById("titre_message").className = "classe_information";
+			document.getElementById("texte_message").innerHTML = msg;
+			window.open ("#affichage_message", "_self");
+		}
+		function afficher_avertissement(msg) {
+			document.getElementById("titre_message").innerHTML = "Avertissement...";
+			document.getElementById("titre_message").className = "classe_avertissement";
+			document.getElementById("texte_message").innerHTML = msg;
+			window.open ("#affichage_message", "_self");
+		}
+	</script>
 </head> 
 <body>
 	<div data-role="page" id="page_principale">

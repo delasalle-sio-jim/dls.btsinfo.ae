@@ -77,7 +77,7 @@ else {
 				$message ="L'application à rencontré un problème";
 				$typeMessage = 'avertissement';
 				$lienRetour = '#page_principale';
-				$themeFooter = $themeNormal;
+				$themeFooter = $themeProbleme;
 				include_once ($cheminDesVues . 'VueCreerMonInscription.php');
 			}
 			else{

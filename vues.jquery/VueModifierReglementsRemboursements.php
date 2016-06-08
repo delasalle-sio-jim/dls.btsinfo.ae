@@ -110,21 +110,24 @@
 							<label for="txtMontantRembourse">Montant remboursé à l'élève :</label>
 							<input type="text" name="txtMontantRembourse" id="txtMontantRembourse" maxlength="20" placeholder="Montant rembourse à l'élève"  value="<?php echo $montantRembourse?>" >
 						</p>
-					
+						<p>
 							<label>Coût total à payer par l'élève :</label>
 							<input type="text" value="<?php echo $montantTotal ?> €" disabled>
-							
+						</p>
+						<p>
+							<label>Voulez-vous annuler l'inscription ?</label>
 							<fieldset data-role="controlgroup" data-type="vertical" required>
-								<legend data-mini="true">Voulez-vous annuler l'inscription ?</legend>
 								<input type="radio" onclick="$('#annulerInscription').slideDown(2);" name="radioAnnuler" id="radioAnnulerOui" value="oui" data-mini="true">
 								<label for="radioAnnulerOui">Oui</label>
 								<input type="radio" onclick="$('#caseConfirmation').attr('checked', false); $('#annulerInscription').hide(2);" name="radioAnnuler" id="radioAnnulerNon" value="non" data-mini="true" checked>
 								<label for="radioAnnulerNon">Non</label>
 							</fieldset>
-							
+						</p>
 							<div id="annulerInscription" style="display: none">
-								<label>Veuillez confirmer l'annulation de l'inscription :</label>
-								<input type=checkbox id="caseConfirmation" name="caseConfirmation">
+								<p>
+									<label>Veuillez confirmer l'annulation de l'inscription :</label>
+									<input style="margin: 3px 0px 0px -7px;" type=checkbox id="caseConfirmation" name="caseConfirmation">
+								</p>
 							</div>
 					</div>
 					

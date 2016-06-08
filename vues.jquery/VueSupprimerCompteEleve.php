@@ -15,8 +15,7 @@ header('Expires: 0');
 <meta charset="utf-8">
 	<?php include_once ('head.php');
 	include_once ('modele/DAO.class.php');
-	$dao = new DAO();
-	//echo $listeMails;?>
+	$dao = new DAO();?>
 		<script>
 			<?php if ($typeMessage != '') { ?>
 				// associe une fonction à l'événement pageinit
@@ -70,23 +69,10 @@ header('Expires: 0');
 			<div data-role="content">
 				<h4 style="text-align: center; margin-top: 10px; margin-bottom: 10px;">Supprimer un utilisateur</h4>
 				<form name="form1" id="form1" data-ajax="false" action="index.php?action=SupprimerCompteEleve" method="post">
-				
-				<!--ceci est un prototype de liste déroulante dynamique non utilisée car trop d'objets à gerer
-				<p>
-
-					 <select size="1" onchange="submit()" name="listeEleve" id="listeEleve">
-					<option value="<?php //if( isset($mail)) echo $mail ?>"><?php // if( isset($mail)) echo $mail ?></option>
-					
-						<?php //foreach ($lesEleves as $unEleve) { ?>
-						<option value="<?php //echo $unEleve->getId()?>" <?php //if ($idEleve == $unEleve->getAdrMail()) echo 'selected="selected"'; ?>><?php //echo $unEleve->getAdrMail(); ?></option>					
-						<?php //} ?>	
-										
-					</select>
-				</p> -->
 		
 				<div class="ui-widget">
 				
-					 <label for="listeEleves">Mail de Eleve à supprimer: </label>
+					 <label for="listeEleves">Mail de l'utilisateur à supprimer: </label>
  					 <input id="listeEleves" value="<?php if($etape == 1 ) echo $mail ; else echo ''; ?>" name="listeEleves" placeholder="recherchez à l'aide de l'email de l'utilisateur">
  						
 				</div>
@@ -99,21 +85,17 @@ header('Expires: 0');
 				<?php if ($etape == 1)	
 						{?> 
 					
-					<div data-role="fieldcontain">
-						<label for="txtAdrMailAdmin">Prénom   :<?php echo $prenom ?></label>
-					</div>
 					
-					<div data-role="fieldcontain">
-						<label for="txtAdrMailAdmin">Nom  :<?php echo $nom ?></label>
-					</div>
+						<label for="txtAdrMailAdmin"><b>Prénom   : </b><?php echo $prenom ?></label>
+			
+		
+						<label for="txtAdrMailAdmin"><b>Nom  : </b><?php echo $nom ?></label>
 					
-					<div data-role="fieldcontain">
-						<label>Adresse mail de l'utilisateur :<?php echo $mail ?></label>
-					</div>
 					
-					<div data-role="fieldcontain">
-						<label for="annee">Année d'entrée en BTS : <?php echo $annee?></label>
-					</div>
+					
+						<label><b>Adresse mail de l'utilisateur : </b><?php echo $mail ?></label>
+			
+						<label for="annee"><b>Année d'entrée en BTS : </b><?php echo $annee?></label>
 					
 					<div data-role="fieldcontain" class="ui-hide-label">
 					<input type="submit" name="btnSupprimer"  id="btnSupprimer" value="Supprimer l'utilisateur">

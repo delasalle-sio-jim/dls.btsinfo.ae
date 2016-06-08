@@ -89,22 +89,9 @@
 		</div>
 			
 		<div id="content">
-		<h2>Supprimer un Utilisateur</h2>
+		<h2>Supprimer un utilisateur</h2>
 	<form name="form1" id="form1" action="index.php?action=SupprimerCompteEleve" method="post">
 				
-				<!--ceci est un prototype de liste déroulante dynamique non utilisée car trop d'objets à gerer
-				<p>
-
-					 <select size="1" onchange="submit()" name="listeEleve" id="listeEleve">
-					<option value="<?php //if( isset($mail)) echo $mail ?>"><?php // if( isset($mail)) echo $mail ?></option>
-					
-						<?php //foreach ($lesEleves as $unEleve) { ?>
-						<option value="<?php //echo $unEleve->getId()?>" <?php //if ($idEleve == $unEleve->getAdrMail()) echo 'selected="selected"'; ?>><?php //echo $unEleve->getAdrMail(); ?></option>					
-						<?php //} ?>	
-										
-					</select>
-				</p> -->
-		
 				<div class="ui-widget">
 				<p>
 					 <label for="listeEleves">Eleves: </label>

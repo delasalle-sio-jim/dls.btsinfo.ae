@@ -1,6 +1,6 @@
-Nom;Prenom;Sexe;Promo;Telephone;Adresse Mail;Rue;Code Postal;Ville;Entreprise;
-CARTRON;Jean-Michel;H;1990;02.99.87.12.12;jean.michel.cartron@gmail.com;5 rue de la Motte Brulon;35700;RENNES;Lycée De La Salle - Rennes;
-FONFEC;Sophie;F;2005;11.22.33.44.55;sophie.fonfec@gmail.com;1, rue de la mairie;35000;RENNES;Orange;
-CARTRON;Jim;H;1990;11.22.33.44.55;jeanmichelcartron@gmail.com;6, rue François Mauriac;35760;St GREGOIRE;Lycée De La Salle - Rennes;
-BOUTIN;Killiannn;H;2018;01.23.45.67.89;delasalle.sio.boutin.k@gmail.com;5 rue de la motte Brûlon;;;;
-ESSAI;Essai-Test++;H;2222;;de.la.salle.sio.boutin.k@gmail.com;rue test++;35555;ST MALO++;dls++;
+Nom	Prenom	Sexe	Promo	Telephone	Adresse Mail	Rue	Code Postal	Ville	Entreprise	
+CARTRON	Jean-Michel	H	1990	02.99.87.12.12	jean.michel.cartron@gmail.com	5 rue de la Motte Brulon	35700	RENNES	Lycée De La Salle - Rennes	
+FONFEC	Sophie	F	2005	11.22.33.44.55	sophie.fonfec@gmail.com	1, rue de la mairie	35000	RENNES	Orange	
+CARTRON	Jim	H	1990	11.22.33.44.55	jeanmichelcartron@gmail.com	6, rue François Mauriac	35760	St GREGOIRE	Lycée De La Salle - Rennes	
+BOUTIN	Killiannn	H	2018	01.23.45.67.89	delasalle.sio.boutin.k@gmail.com	5 rue de la motte Brûlon				
+ESSAI	Essai-Test++	H	2222		de.la.salle.sio.boutin.k@gmail.com	rue test++	35555	ST MALO++	dls++	

@@ -64,7 +64,7 @@ else{
 				$message ='Si vous souhaitez modifier votre inscription, merci de prendre au minimum une place.<br>Si vous voulez annuler, appuyez sur le bouton Annuler mon inscription';
 				$typeMessage = 'avertissement';
 				$lienRetour = '#page_principale';
-				$themeFooter = $themeNormal;
+				$themeFooter = $themeProbleme;
 				include_once ($cheminDesVues . 'VueModifierMonInscription.php');
 			}
 			/* et que le nombre de place est différent de 0, on fait le traitement */
@@ -92,7 +92,7 @@ else{
 					$message ="L'application à rencontré un problème.";
 					$typeMessage = 'avertissement';
 					$lienRetour = '#page_principale';
-					$themeFooter = $themeNormal;
+					$themeFooter = $themeProbleme;
 					include_once ($cheminDesVues . 'VueModifierMonInscription.php');
 				}
 				else
@@ -153,7 +153,7 @@ else{
 				$message ='Pour annuler votre inscription, veuillez mettre le nombre de places à réserver à 0.';
 				$typeMessage = 'avertissement';
 				$lienRetour = '#page_principale';
-				$themeFooter = $themeNormal;
+				$themeFooter = $themeProbleme;
 				include_once ($cheminDesVues . 'VueModifierMonInscription.php');
 			}
 			else{
@@ -164,7 +164,7 @@ else{
 					$message ="L'application à rencontré un problème.";
 					$typeMessage = 'avertissement';
 					$lienRetour = '#page_principale';
-					$themeFooter = $themeNormal;
+					$themeFooter = $themeProbleme;
 					include_once ($cheminDesVues . 'VueModifierMonInscription.php');
 				}
 				else
@@ -207,7 +207,7 @@ else{
 			$message ="L'application a rencontré un problème.";
 			$typeMessage = 'avertissement';
 			$lienRetour = '#page_principale';
-			$themeFooter = $themeNormal;
+			$themeFooter = $themeProbleme;
 			include_once ($cheminDesVues . 'VueModifierMonInscription.php');
 		}
 	}

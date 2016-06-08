@@ -12,19 +12,71 @@ header('Expires: 0');
 ?>
 <!doctype html>
 <html>
-	<head>	
-		<?php include_once ('head.php'); ?>
+<head>	
+	<?php include_once ('head.php'); ?>
+	
+	<script>
+		<?php if ($typeMessage != '') { ?>
+			// associe une fonction à l'événement pageinit
+			$(document).bind('pageinit', function() {
+				// affiche la boîte de dialogue 'affichage_message'
+				$.mobile.changePage('#affichage_message', {transition: "<?php echo $transition; ?>"});
+			} );
+		<?php } ?>
+
+	</script>
+
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+	<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+  	<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+  	
+	<style>
+		 .ui-autocomplete {
+			 max-height: 100px;
+			 overflow-y: auto;
+			 /* prevent horizontal scrollbar */
+			 overflow-x: hidden;
+		 }
+		 /* IE 6 doesn't support max-height
+		  * we use height instead, but this forces the menu to always be this tall
+		  */
+		 * html .ui-autocomplete {
+			 height: 100px;
+		 }
+	</style>
+	
+	<script>
+	 $(function() {
+		    var listeAdmins  = [ 
+		     <?php 
+	     	$adminMails='"';
+			foreach($lesMailsAdmin as $unMail){ 
+				$adminMails .= $unMail.'","';
+			 } 
+			 $adminMails = substr($adminMails ,0,-2);
+			 echo $adminMails;?>	         			    
+			];
+		    $( "#listeAdmins" ).autocomplete({
+		      source: listeAdmins
+		    });
+		  });
+	</script>	
 		
-		<script>
-			<?php if ($typeMessage != '') { ?>
-				// associe une fonction à l'événement pageinit
-				$(document).bind('pageinit', function() {
-					// affiche la boîte de dialogue 'affichage_message'
-					$.mobile.changePage('#affichage_message', {transition: "<?php echo $transition; ?>"});
-				} );
-			<?php } ?>
-		</script>
-	</head> 
+	<script>
+		function afficher_information(msg) {
+			document.getElementById("titre_message").innerHTML = "Information...";
+			document.getElementById("titre_message").className = "classe_information";
+			document.getElementById("texte_message").innerHTML = msg;
+			window.open ("#affichage_message", "_self");
+		}
+		function afficher_avertissement(msg) {
+			document.getElementById("titre_message").innerHTML = "Avertissement...";
+			document.getElementById("titre_message").className = "classe_avertissement";
+			document.getElementById("texte_message").innerHTML = msg;
+			window.open ("#affichage_message", "_self");
+		}
+	</script>
+</head> 
 	<body>
 		<div data-role="page" id="page_principale">
 			<div data-role="header" data-theme="<?php echo $themeNormal; ?>">
@@ -35,33 +87,21 @@ header('Expires: 0');
 				<h4 style="text-align: center; margin-top: 10px; margin-bottom: 10px;">Supprimer un administrateur</h4>
 				<form action="index.php?action=SupprimerCompteAdmin" method="post" data-ajax="false" >
 				
-					<div data-role="fieldcontain" class="ui-hide-label">
-						<label for="txtAdrMailAdmin">Adresse mail de l'administrateur à supprimer :</label>
-						<input type="text" name="txtAdrMailAdmin" id="txtAdrMailAdmin" class="normal" value="<?php if($etape == 1 ) echo $txtMailAdmin ; else echo '' ?>" placeholder="Adresse mail de l'administrateur à supprimer" required>
+					<div class="ui-widget">
+						<label for="listeAdmins">Administrateur: </label>
+						<input id="listeAdmins" type="email"  value="<?php if($etape == 1 ) echo $txtMailAdmin; else echo ''; ?>" name="listeAdmins" required pattern="^.+@.+\..+$" placeholder="Recherchez à l'aide de l'email de l'administrateur">
+		
+						<input type="submit" name="btnDetail" id="btnDetail" value="Obtenir les détails">
 					</div>
-					
-					<div data-role="fieldcontain">
-						<input type="submit" name="btnDetailAdmin"  id="btnDetailAdmin" value="Obtenir les details sur l'administrateur">
-					</div>
-					
 					
 					<?php if ($etape == 1)	
 						{?> 
-					
-					<div data-role="fieldcontain">
-						<label for="txtAdrMailAdmin">Prénom de l'administrateur  :<?php echo $prenomAdmin ?></label>
-					</div>
-					
-					<div data-role="fieldcontain">
-						<label for="txtAdrMailAdmin">Nom de l'administrateur :<?php echo $nomAdmin ?></label>
-					</div>
-					
-					<div data-role="fieldcontain">
-						<label>Adresse mail de l'administrateur :<?php echo $txtMailAdmin ?></label>
-					</div>
-					
-					<div data-role="fieldcontain">
-						<label for="txtAdrMailAdmin">Entrez le mail de l'administrateur pour confimer la suppression de celui-ci :</label>
+					<div>
+						<label for="txtAdrMailAdmin"><b>Prénom de l'administrateur  : </b><?php echo $prenomAdmin ?></label>
+
+						<label for="txtAdrMailAdmin"><b>Nom de l'administrateur : </b><?php echo $nomAdmin ?></label>
+
+						<label for="txtAdrMailAdmin">Entrez le mail de l'administrateur pour confirmer la suppression de celui-ci :</label>
 						<input type="text" name="txtAdrMailAdmin2" id="txtAdrMailAdmin" placeholder="Adresse mail de l'administrateur a supprimer" required>
 					</div>
 					
