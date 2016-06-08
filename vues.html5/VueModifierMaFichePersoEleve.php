@@ -75,7 +75,7 @@
 				</p>
 				<p>
 					<label for="txtAdrMail">Adresse mail * :</label>
-					<input type="email" name="txtAdrMail" id="txtAdrMail" maxlength="50" required pattern="^.+@.+\..+$" value="<?php echo $mail; ?>" />
+					<input type="email" name="txtAdrMail" id="txtAdrMail" maxlength="50" required pattern="^.+@.+\..+$" value="<?php echo $adrMail; ?>" />
 				</p>
 				<p>
 					<label for="txtTel">Téléphone :</label>
@@ -102,7 +102,7 @@
 					<input type="text" name="txtEntreprise" id="txtEntreprise" maxlength="50" value="<?php echo $entreprise; ?>" />
 				</p>						
 				<p>
-					<label for="listeFonctions">Fonction actuelle :</label>
+					<label for="listeFonctions">Fonction actuelle * :</label>
 					
 					<select size="1" name="listeFonctions" id="listeFonctions">
 							<option value="0" <?php if ($idFonction == '') echo 'selected'; ?>>-- Indiquez votre fonction actuelle --</option>

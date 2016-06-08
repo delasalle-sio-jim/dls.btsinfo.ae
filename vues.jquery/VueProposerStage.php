@@ -23,9 +23,9 @@
 			</div>
 			<div data-role="content">
 				<h2>Proposer un stage</h2>
-				<label>Si vous souhaitez déposer une offre de stage suivez le lien ci-dessous :</label>
-				<a Target=_Blank href="http://www.lycee-delasalle.com/fr/relations-entreprises/deposer-une-offre-d-emploi.php?type_offre=2">www.lycee-delasalle.com</a>
-				<label class="labelImportant">Les élèves et professeurs de BTS SIO vous remercient d'avance pour le temps que vous prenez pour aider la nouvelle génération.</label>
+				<p>Vous pouvez déposer une offre de stage sur le site web du lycée avec le lien ci-dessous :</p>
+				<center><p><a Target=_Blank href="http://www.lycee-delasalle.com/fr/relations-entreprises/deposer-une-offre-d-emploi.php?type_offre=2">www.lycee-delasalle.com</a></p></center>
+				<p>Les élèves et professeurs de BTS SIO vous remercient d'avance pour le temps que vous prenez pour aider la nouvelle génération.</p>
 			</div>
 			<div data-role="footer" data-position="fixed" data-theme="<?php echo $themeNormal; ?>">
 				<h4>Annuaire des anciens du BTS Informatique<br>Lycée De La Salle (Rennes)</h4>
@@ -34,5 +34,4 @@
 			
 		
 	</body>
-	
 </html>

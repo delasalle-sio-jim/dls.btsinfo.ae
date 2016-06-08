@@ -31,7 +31,7 @@ if (! isset ($_POST ["btnExporter"])) {
 else {
 	
 	if (!isset($_POST['export'])){
-		$message = 'Veuillez selectionner au moins un fichier à exporter';
+		$message = 'Veuillez selectionner au moins un fichier à exporter.';
 		$typeMessage = 'avertissement';			// 2 valeurs possibles : 'information' ou 'avertissement'
 		$lienRetour = '#page_principale';		// pour le retour en version jQuery mobile
 		$themeFooter = $themeNormal;
@@ -119,7 +119,7 @@ else {
 				{
 					// On ajoute chaque fichier à l’archive (on le nomme du même nom que dans le dossier ici)
 					 $zip->addFile('exportations/'.$leFichier, $leFichier);
-					 echo $leFichier.'<br>';
+					// echo $leFichier.'<br>';
 				}
 				
 				// On ferme l’archive.

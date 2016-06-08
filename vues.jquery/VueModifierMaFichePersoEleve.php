@@ -48,7 +48,7 @@
 						<input type="text" name="txtAnneeDebutBTS" id="txtAnneeDebutBTS" maxlength="4" pattern="[0-9]{4,4}" placeholder="Année d'entrée en BTS (4 chiffres) *" data-mini="true" required value="<?php echo $anneeDebutBTS; ?>">
 
 						<label for="txtAdrMail">Adresse mail *</label>
-						<input type="email" name="txtAdrMail" id="txtAdrMail" maxlength="50" placeholder="Adresse mail *" data-mini="true" required value="<?php echo $adrMail; ?>">
+						<input type="email" name="txtAdrMail" id="txtAdrMail" maxlength="50" placeholder="Adresse mail *" pattern="^.+@.+\..+$" data-mini="true" required value="<?php echo $adrMail; ?>">
 						
 						<label for="txtTel">Téléphone</label>
 						<input type="tel" name="txtTel" id="txtTel" maxlength="14" pattern="^([0-9]{2}( |-|\.)?){4}[0-9]{2}$" placeholder="Téléphone" data-mini="true" value="<?php echo $tel; ?>">

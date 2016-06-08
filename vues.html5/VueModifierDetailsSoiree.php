@@ -55,13 +55,13 @@
 		<div id="content">
 			<h2>Modifier les infos sur la soirée</h2>
 			<form name="form1" id="form1" action="index.php?action=ModifierDetailsSoiree" method="post">
-				<table>
+					<br>
 					<p>
-						<label for="txtDate">Date de la soirée :</label>
-						<input type="text" name="txtDate" id="txtDate"  pattern="^[0-9]{2}(/)[0-9]{2}(/)[0-9]{4}$" required placeholder="Date de la soirée"  value="<?php if(isset($uneSoiree)) echo Outils::convertirEnDateFR($uneSoiree->getDateSoiree()); else echo "";?>" >
+						<label for="txtDate">Date (jj/mm/aaaa) :</label>
+						<input type="text" name="txtDate" id="txtDate"  pattern="^[0-9]{2}(/)[0-9]{2}(/)[0-9]{4}$" required placeholder="Date de la soirée (jj/mm/aaaa)"  value="<?php if(isset($uneSoiree)) echo Outils::convertirEnDateFR($uneSoiree->getDateSoiree()); else echo "";?>" >
 					</p>
 					<p>
-						<label for="txtNomRestaurant">Nom du restaurant:</label>
+						<label for="txtNomRestaurant">Nom du restaurant :</label>
 						<input type="text" name="txtNomRestaurant" id="txtNomRestaurant" maxlength="50" placeholder="Nom du restaurant" value="<?php if(isset($uneSoiree)) echo $uneSoiree->getNomRestaurant(); else echo "";?>" >
 					</p>
 					<p>
@@ -73,7 +73,7 @@
 						<input type="text" name="txtTarif" id="txtTarif" maxlength="8" placeholder="Tarif"  value="<?php if(isset($uneSoiree)) echo $uneSoiree->getTarif(); else echo "";?>" >
 					</p>
 					<p>
-						<label for="txtLienMenu">Lien du site du restaurant :</label>
+						<label for="txtLienMenu">Site du restaurant :</label>
 						<input type="text" name="txtLienMenu" id="txtLienMenu" maxlength="100" placeholder="Lien vers le menu du restaurant"  value="<?php if(isset($uneSoiree)) echo $uneSoiree->getLienMenu(); else echo "";?>" >
 					</p>
 					<p>
@@ -87,7 +87,7 @@
 					<p>
 						<input type="submit" name="btnModifier" id="btnModifier" value="Changer les données de la soirée">
 					</p>
-				</table>
+				
 			</form>				
 		</div>
 		

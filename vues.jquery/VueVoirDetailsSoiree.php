@@ -21,14 +21,39 @@
 			// Fonction qui permet d'afficher la carte au chargement de la page
 			// mettre bind ou on ?
 			$(document).on('pageinit','#page_principale', function() {
+			//$(document).bind('pageinit', function() {
+				// on initialise la latitude et la longitude en fonction de la BDD
 				var latlng = new google.maps.LatLng(<?php echo $laLatitude ?>, <?php echo $laLongitude ?>);
+		
+				// on initialise les options à utiliser (le zoom, le centrage ainsi que le type de carte)
 				var myOptions = {
-						zoom: 19,
-						center: latlng,
-						mapTypeId: google.maps.MapTypeId.ROADMAP
-				};
-				
-				var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+					zoom: 19,
+					center: latlng,
+					mapTypeId: google.maps.MapTypeId.HYBRID // ROADMAP pour le plan ; SATELLITE pour les photos satellite ; HYBRID pour afficher les photos satellites avec le plan superposé ; TERRAIN pour afficher les reliefs
+				}
+		
+				// on initialise la carte que l'on va insérer dans la div "map_canvas" avec les données de "myOptions"
+				var map = new google.maps.Map(document.getElementById("map_canvas"),myOptions);
+		
+				// on initialise un message 
+				var contentString = "<b><?php echo $leRestaurant ?></b><br><?php echo $lAdresse ?>";
+		
+				// on initialise la fenêtre d'affichage du message avec une grandeur maximum de 150 (pour afficher la rue sur une ligne différente du code postal et de la ville)
+				var infowindow = new google.maps.InfoWindow({
+					content: contentString,
+					maxWidth: 150
+			  	});
+		
+			  	// on initialise le "marker" rouge sur la carte qui se positionnera au niveau de la latitude et longitude initialisé auparavant
+				var marker = new google.maps.Marker({
+					position: latlng,
+					map: map
+				});
+		
+				// on ajout un listener au click sur le "marker" créé afin d'y ouvrir "infowindow" qui contient le message de "contentString"
+				marker.addListener('click', function() {
+					infowindow.open(map, marker);
+				});
 			});		
 		</script>
 	</head> 
@@ -60,7 +85,7 @@
 				
 			</div>
 			
-			<div id="map_canvas">
+			<div style="margin: 0px auto 15px auto; width:300px; height: 300px" role="main" class="ui-content" id="map_canvas">
 				Veuillez attendre le chargement de la page...
 			</div>
 			

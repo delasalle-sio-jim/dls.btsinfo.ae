@@ -42,7 +42,7 @@ header('Expires: 0');
 					
 					<p style="text-align:center;"><i>Nombre de places à réserver :</i> <input type="number" name="txtNbPlaces" id="txtNbPlaces" pattern="^[0-9]{1,2}$" maxlength="30" min="1" max="10" value="1" step="1" required/></p>
 					
-					<label for="validation">En cochant cette case vous vous vous engagez a payer <?php echo $leTarif ?> euros par places réservées. </label>
+					<label for="validation">En cochant cette case vous vous vous engagez a payer <?php echo $leTarif ?> euros par place réservée. </label>
 					
 					<p> Vous pouvez régler à l'avance en envoyant un chèque au nom d'INPACT (Association Inpact, 5 rue de la Motte Brûlon, 35000 Rennes), en précisant votre nom, ou régler à votre arrivée à la soirée.</p>
 					

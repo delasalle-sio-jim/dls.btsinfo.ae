@@ -35,16 +35,22 @@
 						<?php
 						foreach ($lesInscriptions as $uneInscription)
 						{
-							/* obtention du coût total à payer puis du montant final */
-							$coutTotal = $uneInscription->getTarif() * $uneInscription->getNbrePersonnes();
-							$montantTotalFinal += $coutTotal;
 							
 							/*obtention du montant à régler puis du montant total à regler */
 							$montantRegle = $uneInscription->getMontantRegle();
 							$montantTotalRegle += $montantRegle;
 							
+							/* obtention du montant remboursé puis du montant total remboursé */
+							$montantRembourse = $uneInscription->getMontantRembourse();
+							$montantTotalRembourse += $montantRembourse;
+							
+							/* obtention du coût total à payer puis du montant final */
+							$coutTotal = $uneInscription->getTarif() * $uneInscription->getNbrePersonnes() - $montantRegle + $montantRembourse;
+							$montantTotalFinal += $coutTotal;
+							
 							/* on formate les nombres au format français */
 							$montantRegle = number_format($uneInscription->getMontantRegle(), 2, ',', ' ');
+							$montantRembourse = number_format($uneInscription->getMontantRembourse(), 2, ',', ' ');
 							$coutTotal = number_format($coutTotal, 2, ',', ' ');
 						?>
 						
@@ -52,13 +58,16 @@
 							<h3 data-mini="true"><?php echo $uneInscription->getNom() . " " . $uneInscription->getPrenom() . " (" .$uneInscription->getAnneeDebutBTS() . ")"; ?></h3>
 								<ul data-role="listview" data-mini="true">
 								<li>
-									<h5>Nombre d'inscriptions : <?php echo $uneInscription->getNbrePersonnes() ?></h5>
+									<h5>Nombre de personnes inscrites : <?php echo $uneInscription->getNbrePersonnes() ?></h5>
 								</li>
 								<li>
 									<h5>Montant réglé : <?php echo $montantRegle; ?> €</h5>
 								</li>
 								<li>
-									<h5>Montant total à régler : <?php echo $coutTotal; ?> €</h5>
+									<h5>Montant remboursé : <?php echo $montantRembourse; ?> €</h5>
+								</li>
+								<li>
+									<h5>Montant restant à régler : <?php echo $coutTotal; ?> €</h5>
 								</li>
 								</ul>
 							</div>
@@ -72,18 +81,22 @@
 					
 						/* on formate les nombres au format français */
 						$montantTotalRegle = number_format($montantTotalRegle, 2, ',', ' ');
+						$montantTotalRembourse = number_format($montantTotalRembourse, 2, ',', ' ');
 						$montantTotalFinal = number_format($montantTotalFinal, 2, ',', ' ');
 						
 						?>
 						<ul data-role="listview" data-mini="true" style="margin-top: 5px;">
 							<li>
-								<h5>Nombre total d'inscriptions : <?php echo $nombreInscritsTotal ?></h5>
+								<h5>Nombre total de personnes inscrites : <?php echo $nombreInscritsTotal ?></h5>
 							</li>
 							<li>
-								<h5>Montant réglé : <?php echo $montantTotalRegle; ?> €</h5>
+								<h5>Montant total réglé : <?php echo $montantTotalRegle; ?> €</h5>
 							</li>
 							<li>
-								<h5>Montant total : <?php echo $montantTotalFinal; ?> €</h5>
+								<h5>Montant total remboursé : <?php echo $montantTotalRembourse; ?> €</h5>
+							</li>
+							<li>
+								<h5>Montant total restant dû : <?php echo $montantTotalFinal; ?> €</h5>
 							</li>
 						</ul>
 						

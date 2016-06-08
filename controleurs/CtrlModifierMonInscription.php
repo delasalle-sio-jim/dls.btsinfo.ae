@@ -61,7 +61,7 @@ else{
 			if ($_POST ["txtNbPlaces"] == 0){
 				
 				$nbPersonnes = $uneInscription->getNbrePersonnes();
-				$message ='Si vous souhaitez modifier votre inscription, merci de prendre au minimum une place.<br>Si vous voulez annuler, appuyer sur le bouton Annuler mon inscription';
+				$message ='Si vous souhaitez modifier votre inscription, merci de prendre au minimum une place.<br>Si vous voulez annuler, appuyez sur le bouton Annuler mon inscription';
 				$typeMessage = 'avertissement';
 				$lienRetour = '#page_principale';
 				$themeFooter = $themeNormal;
@@ -89,7 +89,7 @@ else{
 				$ok = $dao->modifierInscription($uneInscription);
 				if (!$ok)
 				{
-					$message ="L'application à rencontré un problème";
+					$message ="L'application à rencontré un problème.";
 					$typeMessage = 'avertissement';
 					$lienRetour = '#page_principale';
 					$themeFooter = $themeNormal;
@@ -135,7 +135,7 @@ else{
 						
 					Outils::envoyerMail($ADR_MAIL_ADMINISTRATEUR, $sujet, $corpsMessage, $ADR_MAIL_EMETTEUR);
 					
-					$message ='Votre modification a bien été prise en compte ! <br>Un mail vient de vous être envoyé avec les détails de paiements';
+					$message ='Votre modification a bien été prise en compte ! <br>Un mail vient de vous être envoyé avec les détails de paiements.';
 					$typeMessage = 'information';
 					$lienRetour = 'index.php?action=Menu#menu2';
 					$themeFooter = $themeNormal;
@@ -161,7 +161,7 @@ else{
 					
 				if (!$ok)
 				{
-					$message ="L'application à rencontré un problème";
+					$message ="L'application à rencontré un problème.";
 					$typeMessage = 'avertissement';
 					$lienRetour = '#page_principale';
 					$themeFooter = $themeNormal;
@@ -194,7 +194,7 @@ else{
 					Outils::envoyerMail($ADR_MAIL_ADMINISTRATEUR, $sujet, $corpsMessage, $ADR_MAIL_EMETTEUR);
 			
 			
-					$message ='Votre réservation a été annulée';
+					$message ='Votre réservation a été annulée.';
 					$typeMessage = 'information';
 					$lienRetour = 'index.php?action=Menu#menu2';
 					$themeFooter = $themeNormal;
@@ -204,7 +204,7 @@ else{
 		}
 		else
 		{
-			$message ="L'application a rencontrée un problème";
+			$message ="L'application a rencontré un problème.";
 			$typeMessage = 'avertissement';
 			$lienRetour = '#page_principale';
 			$themeFooter = $themeNormal;

@@ -40,17 +40,17 @@ header('Expires: 0');
 				<form action="index.php?action=ExporterDesDonnees" method="post" data-ajax="false" >
 					<div data-role="fieldcontain">
 						<fieldset data-role="controlgroup">
-							<label class ="label2" for="export1">Données des élèves (trié par promo) </label>
-							<input type="checkbox" name="export[]" id="export1" value="ElevesParPromo"/>	
+							<label class ="label2" for="export1">Données des élèves (triées par promo) </label>
+							<input type="checkbox" name="export" id="export1" value="ElevesParPromo"/>	
 							
-							<label class= "label2" for="export2">Données des élèves (trié par nom)</label>
-							<input type="checkbox" name="export[]" id="export2" value="ElevesParNom"/>
+							<label class= "label2" for="export2">Données des élèves (triées par nom)</label>
+							<input type="checkbox" name="export" id="export2" value="ElevesParNom"/>
 							
 							<label class= "label2" for="export3">Liste des inscrits </label>
-							<input type="checkbox" name="export[]" id="export3" value="Inscrits">
+							<input type="checkbox" name="export" id="export3" value="Inscrits">
 							
 							<label class= "label2" for="export4">Liste des non inscrits</label>
-							<input type="checkbox" name="export[]" id="export4" value="NonInscrits">
+							<input type="checkbox" name="export" id="export4" value="NonInscrits">
 						</fieldset>
 					</div>
 					

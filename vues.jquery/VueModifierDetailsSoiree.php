@@ -36,15 +36,15 @@
 				<form action="index.php?action=ModifierDetailsSoiree" method="post" data-ajax="false" >
 				<table>
 					<p>
-						<label for="txtDate">Date de la soirée :</label>
+						<label for="txtDate">Date de la soirée (jj/mm/aaaa) :</label>
 						<input type="text" name="txtDate" id="txtDate"  pattern="^[0-9]{2}(/)[0-9]{2}(/)[0-9]{4}$" required placeholder="Date de la soirée"  value="<?php if(isset($uneSoiree)) echo Outils::convertirEnDateFR($uneSoiree->getDateSoiree()); else echo "";?>" >
 					</p>
 					<p>
-						<label for="txtNomRestaurant">Nom du restaurant:</label>
+						<label for="txtNomRestaurant">Nom du restaurant :</label>
 						<input type="text" name="txtNomRestaurant" id="txtNomRestaurant" maxlength="50" placeholder="Nom du restaurant" value="<?php if(isset($uneSoiree)) echo $uneSoiree->getNomRestaurant(); else echo "";?>" >
 					</p>
 					<p>
-						<label for="txtNom">adressse du restaurant :</label>
+						<label for="txtNom">Adresse du restaurant :</label>
 						<input type="text" name="txtAdresse" id="txtAdresse" maxlength="50" placeholder="L'adresse du restautant"  value="<?php if(isset($uneSoiree)) echo $uneSoiree->getAdresse(); else echo "";?>" >
 					</p>
 					<p>
@@ -52,7 +52,7 @@
 						<input type="text" name="txtTarif" id="txtTarif" maxlength="8" placeholder="Tarif"  value="<?php if(isset($uneSoiree)) echo $uneSoiree->getTarif(); else echo "";?>" >
 					</p>
 					<p>
-						<label for="txtLienMenu"> Lien vers le Menu du site du restaurant :</label>
+						<label for="txtLienMenu"> Lien vers le menu ou vers le site du restaurant :</label>
 						<input type="text" name="txtLienMenu" id="txtLienMenu" maxlength="100" placeholder="Lien vers le menu du restaurant"  value="<?php if(isset($uneSoiree)) echo $uneSoiree->getLienMenu(); else echo "";?>" >
 					</p>
 					<p>

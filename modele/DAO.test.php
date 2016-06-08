@@ -681,17 +681,17 @@ foreach ($lesAdressesMails as $uneAdresseMail)
 }
 */
 
-/*
+
 // test de la méthode ExportToCSV ($nomColonnes, $donneesTable, $nomFichierCSV) ---------------------------------------------------------
 // créé par Killian BOUTIN le 01/06/2016
 echo "<h3>Test de ExportToCSV (nomColonnes, donneesTable, nomFichierCSV) : </h3>";
 
 $nomColonnes = array("anneeDebutBTS","tel","prenom");
-$donneesTable = "SELECT * FROM ae_eleves";
+$donneesTable = "SELECT anneeDebutBTS,tel,prenom FROM ae_eleves";
 $nomFichierCSV = "Eleves";
 
 $dao->ExportToCSV($nomColonnes, $donneesTable, $nomFichierCSV);
-*/
+
 
 // ferme la connexion à MySQL :
 unset($dao);

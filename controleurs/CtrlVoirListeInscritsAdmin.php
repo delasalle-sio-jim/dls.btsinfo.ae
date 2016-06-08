@@ -20,8 +20,12 @@ $nombreInscritsTotal = 0;
 /* déclaration du montant total réglé */
 $montantTotalRegle = 0.00;
 
+/* déclaration du montant total remboursé */
+$montantTotalRembourse = 0.00;
+
 /* déclaration du montant total */
 $montantTotalFinal = 0.00;
+
 
 if ($nombreInscrits == 0 )
 {

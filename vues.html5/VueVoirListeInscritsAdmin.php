@@ -39,8 +39,9 @@
 								<th>Nom</th>
 								<th>Nb pers.</th>
 								<th>Promotion</th>
-								<th>Montant réglé</th>
-								<th>Montant total</th>
+								<th>Mt réglé</th>
+								<th>Mt remboursé</th>
+								<th>Reste dû</th>
 							</tr>
 						</thead>
 						
@@ -48,18 +49,23 @@
 				
 					/* pour chaque $uneInscription de la collection $lesInscriptions */
 					foreach ($lesInscriptions as $uneInscription)
-					{	
-						
-						/* obtention du coût total à payer puis du montant final */
-						$coutTotal = $uneInscription->getTarif() * $uneInscription->getNbrePersonnes();
-						$montantTotalFinal += $coutTotal;
+					{
 						
 						/*obtention du montant à régler puis du montant total à regler */
 						$montantRegle = $uneInscription->getMontantRegle();
 						$montantTotalRegle += $montantRegle;
+						
+						/* obtention du montant remboursé puis du montant total remboursé */
+						$montantRembourse = $uneInscription->getMontantRembourse();
+						$montantTotalRembourse += $montantRembourse;
+						
+						/* obtention du coût total à payer puis du montant final */
+						$coutTotal = $uneInscription->getTarif() * $uneInscription->getNbrePersonnes() - $montantRegle + $montantRembourse;
+						$montantTotalFinal += $coutTotal;
 
 						/* on formate les nombres au format français */
 						$montantRegle = number_format($uneInscription->getMontantRegle(), 2, ',', ' ');
+						$montantRembourse = number_format($uneInscription->getMontantRembourse(), 2, ',', ' ');
 						$coutTotal = number_format($coutTotal, 2, ',', ' ');
 						
 						/* création d'une ligne du tableau */
@@ -70,6 +76,7 @@
 							<td><?php echo $uneInscription->getNbrePersonnes() ?></td>
 							<td><?php echo $uneInscription->getAnneeDebutBTS() ?></td>
 							<td><?php echo $montantRegle ?> €</td>
+							<td><?php echo $montantRembourse ?> €</td>
 							<td><?php echo $coutTotal ?> €</td>
 						</tr>
 						
@@ -81,6 +88,7 @@
 					
 						/* on formate les nombres au format français */
 						$montantTotalRegle = number_format($montantTotalRegle, 2, ',', ' ');
+						$montantTotalRembourse = number_format($montantTotalRembourse, 2, ',', ' ');
 						$montantTotalFinal = number_format($montantTotalFinal, 2, ',', ' ');
 						
 						?>
@@ -89,6 +97,7 @@
 							<td><?php echo $nombreInscritsTotal ?> pers.</td>
 							<td>-</td>
 							<td><?php echo $montantTotalRegle ?> €</td>
+							<td><?php echo $montantTotalRembourse ?> €</td>
 							<td><?php echo $montantTotalFinal ?> €</td>
 						</tr>
 					</table>
