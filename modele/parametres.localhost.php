@@ -4,13 +4,22 @@
 //     include_once ('include_parametres.php');
 //     require_once ('include_parametres.php');
 
-// paramètres de connexion -----------------------------------------------------------------------------------
+// paramètres de connexion en localhost ----------------------------------------------------------------
 global $PARAM_HOTE, $PARAM_PORT, $PARAM_BDD, $PARAM_USER, $PARAM_PWD;
 $PARAM_HOTE = "localhost";			// si le sgbd est sur la même machine que le serveur php
 $PARAM_PORT = "3306";				// le port utilisé par le serveur MySql
 $PARAM_BDD = "anciensEtudiants";	// nom de la base de données
 $PARAM_USER = "root";			// nom de l'utilisateur
 $PARAM_PWD = "";				// son mot de passe
+
+// paramètres de connexion chez OVH --------------------------------------------------------------------
+/*
+$PARAM_HOTE = "mysql51-46.perso";		// si le sgbd est sur la même machine que le serveur php
+$PARAM_PORT = "3306";					// le port utilisé par le serveur MySql
+$PARAM_BDD = "lyceedelasalle";			// nom de la base de données
+$PARAM_USER = "lyceedelasalle";			// nom de l'utilisateur
+$PARAM_PWD = "patwcg35";				// son mot de passe
+*/
 
 try
 {
@@ -34,8 +43,10 @@ $ADR_MAIL_EMETTEUR = "delasalle.sio.crib@gmail.com";// mot de pase sio1sio2 (boi
 // adresse de l'administrateur lors d'un envoi de courriel
 $ADR_MAIL_ADMINISTRATEUR = "delasalle.sio.boutin.k@gmail.com";
 
-// adresse du service web
+// adresse du service web en localhost -----------------------------------------------------------------------
 $ADR_SERVICE_WEB = "http://localhost/ws-php-boutin/dls.btsinfo.ae/services/";
+// adresse du service web chez OVH ---------------------------------------------------------------------------
+//$ADR_SERVICE_WEB = "http://sio.lyceedelasalle.fr/ae/services/";
 
 // ATTENTION : on ne met pas de balise de fin de script pour ne pas prendre le risque
 // d'enregistrer d'espaces après la balise de fin de script !!!!!!!!!!!!
