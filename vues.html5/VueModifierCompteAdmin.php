@@ -92,13 +92,13 @@
 		</div>
 			
 		<div id="content">
-		<h2>Modifier un administrateur</h2>
-	<form name="form1" id="form1" action="index.php?action=ModifierCompteAdmin" method="post">
-						
-				<div class="ui-widget">
-				<p>
-					 <label for="listeAdmins">Administrateur: </label>
- 					 <input id="listeAdmins" type=email"  value="<?php if($etape == 1 ) echo $uneAdrMail; else echo ''; ?>" name="listeAdmins" required pattern="^.+@.+\..+$" placeholder="Recherchez à l'aide de l'email de l'administrateur">
+			<h2>Modifier un administrateur</h2>
+			<form name="form1" id="form1" action="index.php?action=ModifierCompteAdmin" method="post">
+							
+					<div class="ui-widget">
+					<p>
+						 <label for="listeAdmins">Administrateur: </label>
+	 					 <input id="listeAdmins" type=email"  value="<?php if($etape == 1 ) echo $uneAdrMail; else echo ''; ?>" name="listeAdmins" required pattern="^.+@.+\..+$" placeholder="Recherchez à l'aide de l'email de l'administrateur">
 				</p>
 				
 				<p>
@@ -106,7 +106,7 @@
 				</p>	
 				</div>
 				
-
+	
 				<?php if($etape == 1)
 				{?>
 				
@@ -123,20 +123,20 @@
 					<input type="submit" value="Envoyer les données" name="btnEnvoyer" id="btnEnvoyer" />
 				</p>
 				<?php }?>	
-				</form>
-			</div>
-			
-			<div id="footer">
-				<p>Annuaire des anciens élèves du BTS Informatique - Lycée De La Salle (Rennes)</p>
-			</div>		
+			</form>
 		</div>
-	
-		<aside id="affichage_message" class="classe_message">
-			<div>
-				<h2 id="titre_message" class="classe_information">Message</h2>
-				<p id="texte_message" class="classe_texte_message">Texte du message</p>
-				<a href="<?php echo $lienRetour; ?>" title="Fermer">Fermer</a>
-			</div>
-		</aside>
-	</body>
+		
+		<div id="footer">
+			<p>Annuaire des anciens élèves du BTS Informatique - Lycée De La Salle (Rennes)</p>
+		</div>		
+	</div>
+
+	<aside id="affichage_message" class="classe_message">
+		<div>
+			<h2 id="titre_message" class="classe_information">Message</h2>
+			<p id="texte_message" class="classe_texte_message">Texte du message</p>
+			<a href="<?php echo $lienRetour; ?>" title="Fermer">Fermer</a>
+		</div>
+	</aside>
+</body>
 </html>						

@@ -56,7 +56,7 @@
 			<h2>Inscription à la soirée</h2>
 			<form name="form1" id="form1" action="index.php?action=CreerMonInscription" method="post">
 			
-				<p>La prochaine soirée aura lieu le <b>vendredi <?php echo $laDateSoiree ?> à 20h </b>au restaurant <b> <?php echo $leRestaurant ?> </b> situé <b> <?php echo $lAdresse ?> </b>.</p>
+				<p>La prochaine soirée aura lieu le <b><?php echo $laDateSoiree ?> à 20h </b>au restaurant <b> <?php echo $leRestaurant ?> </b> situé <b> <?php echo $lAdresse ?> </b>.</p>
 				
 				<p>Le tarif pour cette soirée est de <b> <?php echo $leTarif ?> €</b> par personne. </p>
 				

@@ -20,8 +20,14 @@ $idInscription = $dao->getIdInscription($idEleve); // donne l'id de l'inscriptio
 $uneInscription = $dao->getInscriptionEleve($idEleve); // donne l'inscription en fonction de l'idEleve
 
 // on prend les données à afficher dans les Vues
+setlocale (LC_TIME, 'fr_FR.utf8','fra');
+
 $leRestaurant = $uneSoiree->getNomRestaurant();
-$laDateSoiree = Outils::convertirEnDateFR($uneSoiree->getDateSoiree());
+/* $laDateSoiree = Outils::convertirEnDateFR($uneSoiree->getDateSoiree()); */
+	
+/* on convertit la date en écriture française */
+$laDateSoiree = $uneSoiree->getDateSoiree();
+$laDateSoiree = strftime("%A %d %B",strtotime("$laDateSoiree"));
 $lAdresse = $uneSoiree->getAdresse();
 $leTarif = $uneSoiree->getTarif();
 $leLienMenu = $uneSoiree->getLienMenu();

@@ -15,8 +15,6 @@ if ( $_SESSION['typeUtilisateur'] != 'administrateur') {
 include_once ('modele/DAO.class.php');
 $dao = new DAO();
 
-$etape = 0;
-
 /* Premier passage sur la page */
 if( (! isset ($_POST ["listeEleves"]) == true) && ( ! isset ($_POST ["btnEnvoyer"]) == true)){			
 		// redirection vers la vue si aucune données n'est recu par le controleur
@@ -88,7 +86,7 @@ elseif( isset ($_POST ["btnDetail"]) == true &&(! isset($_POST['btnEnvoyer']) ==
 elseif (isset($_POST['btnEnvoyer']) == true )
 {
 	$unEleve = $dao->getEleve($_POST ["listeEleves"]);
-	
+	$etape=0;
 	// récupération des données du formulaire + assemblage avec les données qui ne changerons pas
 	$unId = $unEleve->getId();
 	if ( empty ($_POST ["txtNom"]) == true)  $unNom = $unEleve->getNom();  else   $unNom = $_POST ["txtNom"];
@@ -110,7 +108,7 @@ elseif (isset($_POST['btnEnvoyer']) == true )
 	$unEleve = new Eleve($unId, $unNom, $unPrenom, $unSexe, $uneAnneeDebutBTS, $unTel, $uneAdrMail, $uneRue, $unCodePostal, $uneVille, $uneEntreprise, $unCompteAccepte, $unMotDePasse, $desEtudesPostBTS, $uneDateDerniereMAJ, $unIdFonction);
 	
 	$ok = $dao->modifierCompteEleve($unEleve);
-	if ( $ok ) {
+	if ($ok) {
 
 		$message = 'Modification réussie.';
 		$typeMessage = 'information';
