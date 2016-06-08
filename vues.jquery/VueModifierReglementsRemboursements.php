@@ -79,28 +79,39 @@
 				<a href="index.php?action=Menu#menu2" data-ajax="false" data-transition="<?php echo $transition; ?>">Retour menu</a>
 			</div>
 			<div data-role="content">
-				<h4 style="text-align: center;">Modifier les comptes d'un élève</h4>
+				<h4 style="text-align: center;">Mise à jour des réglements et remboursements d'un élève</h4>
 				<form action="index.php?action=ModifierReglementsRemboursements" method="post" data-ajax="false">
 					<div data-role="fieldcontain" >
 
-						<input type="email" id="listeEleves"   name="listeEleves" placeholder="Entrez l'email de l'élève" value = "<?php if (!empty ($_POST ["listeEleves"]) == true) echo $_POST ["listeEleves"]; else echo "";?>" pattern="^.+@.+\..+$" required>
-						
-						<input type="submit" name="btnDetail" id="btnDetail" value="Obtenir les détails">
-						
-						<?php if ($etape == 1){?>
-							<label>Nombre de places réservées :</label>
+						<div class="ui-widget">
+						<p>
+							 <label for="listeEleves">Eleves: </label>
+		 					 <input type="email" id="listeEleves"   name="listeEleves" placeholder="Recherchez à l'aide de l'email de l'utilisateur" value = "<?php if (!empty ($_POST ["listeEleves"]) == true) echo $_POST ["listeEleves"]; else echo "";?>" pattern="^.+@.+\..+$" required>
+						</p>
+						<p>
+							<input type="submit" name="btnDetail" id="btnDetail" value="Obtenir les détails">
+						</p>	
+					</div>
+
+					<?php if ($etape == 1){?>
+						<p>
+							<label >Nombre de places réservées :</label>
 							<input type="text" value="<?php echo $unNbrePersonnes ?>" disabled>
-							
-							<label>Date d'inscription :</label>
+						</p>
+						<p>
+							<label >Date d'inscription :</label>
 							<input type="text" value="<?php echo $dateInscription ?>" disabled >
-							
-							<label for="txtMontantRegle">Montant réglé par l'élève :</label>
-							<input type="number" style="width: 75px;" name="txtMontantRegle" id="txtMontantRegle" maxlength="10" placeholder="Montant regle à l'avance par l'élève"  value="<?php echo $montantRegle?>" >
-							
+						</p>
+						<p>
+							<label  for="txtMontantRegle">Montant réglé par l'élève :</label>
+							<input type="text" name="txtMontantRegle" id="txtMontantRegle" maxlength="20" placeholder="Montant regle à l'avance par l'élève"  value="<?php echo $montantRegle?>" >
+						</p>
+						<p>
 							<label for="txtMontantRembourse">Montant remboursé à l'élève :</label>
-							<input type="number" style="width: 75px;" name="txtMontantRembourse" id="txtMontantRembourse" maxlength="10" placeholder="Montant rembourse à l'élève"  value="<?php echo $montantRembourse?>" >
-							
-							<label class=label2 >Coût total à payer par l'élève :</label>
+							<input type="text" name="txtMontantRembourse" id="txtMontantRembourse" maxlength="20" placeholder="Montant rembourse à l'élève"  value="<?php echo $montantRembourse?>" >
+						</p>
+					
+							<label>Coût total à payer par l'élève :</label>
 							<input type="text" value="<?php echo $montantTotal ?> €" disabled>
 							
 							<fieldset data-role="controlgroup" data-type="vertical" required>
@@ -112,7 +123,7 @@
 							</fieldset>
 							
 							<div id="annulerInscription" style="display: none">
-								<label class=label2 >Veuillez confirmer l'annulation de l'inscription :</label>
+								<label>Veuillez confirmer l'annulation de l'inscription :</label>
 								<input type=checkbox id="caseConfirmation" name="caseConfirmation">
 							</div>
 					</div>

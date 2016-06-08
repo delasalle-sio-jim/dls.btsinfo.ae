@@ -91,9 +91,8 @@
 		</div>
 			
 		<div id="content">
-			<h2>Modifier les comptes d'un élève</h2>
+			<h2>Mise à jour des réglements et remboursements d'un élève</h2>
 			<form name="form1" id="form1" action="index.php?action=ModifierReglementsRemboursements" method="post">
-				<table>
 					<div class="ui-widget">
 						<p>
 							 <label for="listeEleves">Eleves: </label>
@@ -139,7 +138,6 @@
 							</p>
 						</div>
 					<?php }?>
-				</table>
 			</form>
 		</div>
 		

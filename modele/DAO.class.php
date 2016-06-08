@@ -1259,7 +1259,7 @@ class DAO
 		// on affecte la première ligne
 		for ($i=0;$i<$numCol;$i++){
 				// le fichier csv récupère les données de la colonne correspondante
-				$csv .= $colName[$i] . ";";
+				$csv .= $colName[$i] . "\t";
 		}
 		// on retourne à la ligne 
 		$csv.="\n";
@@ -1276,7 +1276,7 @@ class DAO
 			// pour $i allant de la première à la dernière colonne
 			for ($j=0;$j<$numCol;$j++){
 				// le fichier csv récupère les données de la colonne correspondante
-				$csv .= $uneLigne->$colName[$j].";";
+				$csv .= $uneLigne->$colName[$j]."\t";
 			}
 			$uneLigne = $reqDonneesTable->fetch();
 			// on retourne à la ligne
