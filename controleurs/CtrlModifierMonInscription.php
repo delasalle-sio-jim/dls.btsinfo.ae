@@ -118,13 +118,13 @@ else{
 						$messageRemboursement = "Vous avez déjà réglé la somme exacte pour cette soirée.\r\n";
 					}
 					
-					$sujet ="Remboursement";
+					$sujet ="Modification de votre inscription";
 					$corpsMessage  ="Votre inscription a bien été modifiée.\r\nUn mail a été envoyé à l'administrateur.\r\n". $messageRemboursement;
 					$corpsMessage .="Cordialement.\r\n";
 					$corpsMessage .="Les administrateurs de l'annuaire.";
 					Outils::envoyerMail($adrMail,$sujet, $corpsMessage,$ADR_MAIL_EMETTEUR);
 					
-					$sujet ="Modification";
+					$sujet ="Modification de l'inscription d'un Ancien Eleve";
 					$corpsMessage ="L'utilisateur ".$unEleve->getPrenom()." ".$unEleve->getNom();
 					$corpsMessage .=" a modifié son inscription.\r\n";
 					
