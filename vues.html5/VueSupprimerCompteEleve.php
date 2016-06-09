@@ -110,24 +110,13 @@
 				<?php } else
 				{?>
 					
-					<p>
-						<label class="label2" for="prenom"><b>Prénom de l'utilisateur : </b><?php echo $prenom ?></label>
-					</p>
+					<br><b>Prénom de l'utilisateur : </b><?php echo $prenom ?><br>
+					<b>Nom de l'utilisateur : </b><?php echo $nom ?><br>
+					<b>Mail de l'utilisateur : </b><?php echo $mail ?><br><br>
 					
-					<p>
-						<label class="label2" for="nom"><b>Nom de l'utilisateur : </b><?php echo $nom ?></label>
-					</p>
+					<b>L'année d'entrée en BTS  </b><?php echo $annee ?>
+					<input type="submit" name="btnSupprimer" id="btnSupprimer" value="Supprimer l'utilisateur">
 					
-					<p>
-						<label class="label2" for="mail"><b>Mail de l'utilisateur : </b><?php echo $mail ?></label>
-					</p>
-					
-					<p>
-						<label class="label2" for="annee"><b>L'année d'entrée en BTS  </b><?php echo $annee ?></label>
-					</p>
-					<p>
-						<input type="submit" name="btnSupprimer" id="btnSupprimer" value="Supprimer l'utilisateur">
-					</p>
 				<?php }?>	
 			</form>
 		</div>

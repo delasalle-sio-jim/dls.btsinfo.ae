@@ -76,7 +76,7 @@ if( (! isset ($_POST ["listeEleves"]) == true) && ( ! isset ($_POST ["btnSupprim
 			$typeMessage = 'information';
 			$lienRetour = 'index.php?action=Menu#menu4';
 			$themeFooter = $themeNormal;
-			//include_once ($cheminDesVues . 'VueSupprimerCompteEleve.php');
+			include_once ($cheminDesVues . 'VueSupprimerCompteEleve.php');
 		}
 		else
 		{
@@ -84,7 +84,7 @@ if( (! isset ($_POST ["listeEleves"]) == true) && ( ! isset ($_POST ["btnSupprim
 			$typeMessage = 'avertissement';
 			$lienRetour = '#page_principale';
 			$themeFooter = $themeProbleme;
-			//include_once ($cheminDesVues . 'VueSupprimerCompteEleve.php');
+			include_once ($cheminDesVues . 'VueSupprimerCompteEleve.php');
 		}
 		
 		unset($DAO);

@@ -55,22 +55,26 @@
 		<div id="content">
 			<h2>Exporter les données au format .CSV</h2>
 			<form name="form1" id="form1" action="index.php?action=ExporterDesDonnees" method="post">
+			
+					<p>
+						<input type="checkbox" name="export[]" value="ElevesParPromo">
+						Liste des élèves (triées par promo)
+					</p>
+					<p>
+						<input type="checkbox" name="export[]" value="ElevesParNom">
+						Liste des élèves (triées par nom)
+					</p>
+					<p>
+						<input type="checkbox" name="export[]" value="Inscrits">
+						Liste des inscrits
+					</p>
 					
-					<label class= "label2">Données des élèves (triées par promo)</label>
-					<input class= "label2" type="checkbox" name="export[]" value="ElevesParPromo">
+					<p>
+						<input type="checkbox" name="export[]" value="NonInscrits">
+						Liste des non inscrits
+					</p>
 					
-					<label class= "label2">Données des élèves (triées par nom)</label>
-					<input class= "label2" type="checkbox" name="export[]" value="ElevesParNom">
-					
-					<label class= "label2">Liste des inscrits </label>
-					<input class= "label2" type="checkbox" name="export[]" value="Inscrits">
-					
-					<label class= "label2">Liste des non inscrits</label>
-					<input class= "label2" type="checkbox" name="export[]" value="NonInscrits">
-					
-					<div class="ui-widget">
-						<input type="submit" name="btnExporter" id="btnExporter" value="Télécharger">
-					</div>
+					<input type="submit" name="btnExporter" id="btnExporter" value="Télécharger">
 			</form>				
 		</div>
 		

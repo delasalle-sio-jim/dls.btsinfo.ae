@@ -28,57 +28,58 @@ if( (! isset ($_POST ["listeAdmins"]) == true)&&( ! isset ($_POST ["btnSupprimer
 	$themeFooter = $themeNormal;
 	include_once ($cheminDesVues . 'VueSupprimerCompteAdmin.php');
 }
-else {	
-	// récupération des données postées en cas de données incomplètes
-	if ( empty ($_POST ["listeAdmins"]) == true)  $adrMailAdmin = '';  else   $adrMailAdmin = $_POST ["listeAdmins"];
-	
-	include_once ('modele/DAO.class.php');
-	$dao = new DAO();
-	$utilisateur = $dao->getAdministrateur($adrMailAdmin);
-	
-	if(!$utilisateur ){
-		$etape = 0;
-		$message = 'L\'administrateur que vous tentez de supprimer n\'existe pas';
-		$typeMessage = 'avertissement';
-		$lienRetour = '#page_principale';
-		$themeFooter = $themeProbleme;	
-	}
-	
-	else{
-		$etape = 1;
-		$prenomAdmin = $utilisateur->getPrenom();
-		$nomAdmin = $utilisateur->getNom();
-		$txtMailAdmin = $utilisateur->getAdrMail();
-	 					 				 	
-		if(isset ($_POST ["btnSupprimerAdmin"]) == true) {
-			
-			$adrMailAdmin2 = $_POST["txtAdrMailAdmin2"];
-			
-			if($adrMailAdmin == $adrMailAdmin2){
-				  		
-				include_once ('modele/DAO.class.php');
-				$dao = new DAO();
-				$ok = $dao->supprimerCompteAdministrateur($adrMailAdmin);
-						 	
-				if ($ok) {	
-					$message = "Suppression effectuée. L\'administrateur lié à l'adresse ".$adrMailAdmin." ne poura plus effectuer de modification.";
-					$typeMessage = 'information';
-					$lienRetour = 'index.php?action=Menu#menu5';
-					$themeFooter = $themeNormal;
-					include_once ($cheminDesVues . 'VueSupprimerCompteAdmin.php');			 														 	
-				}
+else {
+	/* si on appuie sur le bouton Obtenir des détails */
+	if (isset ($_POST ["btnDetailAdmin"]) == true) {
 		
-			}
-		
-			else{
-				$message = "Les deux adresses mail de correspondent pas.";
-				$typeMessage = 'avertissement';
-				$lienRetour = '#page_principale';
-				$themeFooter = $themeProbleme;
-				include_once ($cheminDesVues . 'VueSupprimerCompteAdmin.php');
-			}
+		$_SESSION['adrMailAdmin'] = $_POST ["listeAdmins"];
+	
+		$unAdministrateur = $dao->getAdministrateur($_SESSION['adrMailAdmin']);
+	
+		if(!$unAdministrateur ){
+			$etape = 0;
+			$message = 'L\'administrateur que vous tentez de supprimer n\'existe pas';
+			$typeMessage = 'avertissement';
+			$lienRetour = '#page_principale';
+			$themeFooter = $themeProbleme;	
 		}
+		
+		else{ /* si l'administrateur existe */
+			$etape = 1;
+			$prenomAdmin = $unAdministrateur->getPrenom();
+			$nomAdmin = $unAdministrateur->getNom();
+			$txtMailAdmin = $unAdministrateur->getAdrMail();
+	
+		}
+	}
+	/* si on appuie sur le bouton supprimer */
+	else{
+
+		$etape = 0;
+		include_once ('modele/DAO.class.php');
+		$dao = new DAO();
+		$unAdministrateur = $dao->getAdministrateur($_SESSION['adrMailAdmin']);
+		$idAdmin = $unAdministrateur->getId();
+		$ok = $dao->supprimerCompteAdministrateur($idAdmin);				
+				 	
+		if ($ok) {	
+			$message = "Suppression effectuée. L\'administrateur lié à l'adresse ".$_SESSION['adrMailAdmin']." ne pourra plus effectuer de modification.";
+			$typeMessage = 'information';
+			$lienRetour = 'index.php?action=Menu#menu5';
+			$themeFooter = $themeNormal;
+			include_once ($cheminDesVues . 'VueSupprimerCompteAdmin.php');			 														 	
+		}
+		
+		else {
+			$message = "La suppression n'a pas pu s'effectuer.";
+			$typeMessage = 'avertissement';
+			$lienRetour = '#page_principale';
+			$themeFooter = $themeProbleme;
+			include_once ($cheminDesVues . 'VueSupprimerCompteAdmin.php');
+		}
+			
+	}
 	unset($DAO);
 	include_once ($cheminDesVues . 'VueSupprimerCompteAdmin.php');
-	}
+	
 }

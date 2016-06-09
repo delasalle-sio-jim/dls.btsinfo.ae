@@ -51,17 +51,16 @@ elseif( isset ($_POST ["btnDetail"]) == true && (! isset($_POST['btnEnvoyer']) =
 	if ($dao->existeAdrMail($_POST ["listeEleves"]) == false){
 		
 		$etape = 0;
+		
 		$message = "Veuillez rentrer une adresse mail existante.";
 		$typeMessage = 'avertissement';
 		$lienRetour = '#page_principale';
-		
 		$themeFooter = $themeProbleme;
 		include_once ($cheminDesVues . 'VueModifierCompteEleve.php');
 	}
 	/* Si elle est bonne, on affiche les nouvelles données correspondante à l'élève en question */
 	else{
-
-		$etape=1;
+		$etape = 1;
 		$unEleve = $dao->getEleve($_POST ["listeEleves"]);
 		$lesFonctions = $dao->getLesFonctions();
 		
@@ -86,19 +85,20 @@ elseif( isset ($_POST ["btnDetail"]) == true && (! isset($_POST['btnEnvoyer']) =
 		
 		$themeFooter = $themeNormal;
 		include_once ($cheminDesVues . 'VueModifierCompteEleve.php');
+
 	}
 }
 
 elseif (isset($_POST['btnEnvoyer']) == true )
 {
 	
-	if ( $_SESSION['idEleve'] == 0)  $idFonction = 0;  else   $idFonction = $_SESSION['idEleve'];
+	if ( $_POST['listeFonctions'] == null)  $idFonction = 0;  else   $idFonction = $_POST['listeFonctions'];
 	
 	if ($idFonction == '0') {
 		
 		$etape=1;
 		
-		$unEleve = $dao->getEleve($listeEleves);
+		$unEleve = $dao->getEleve($_SESSION['idEleve']);
 		$lesFonctions = $dao->getLesFonctions();
 		
 		$unNom = $unEleve->getNom();

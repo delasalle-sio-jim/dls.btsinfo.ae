@@ -87,7 +87,7 @@
 		<div id="header">
 			<div id="header-menu">
 				<ul id="menu-horizontal">
-					<li><a href="index.php?action=Menu#menu5" data-ajax="false">Retour menu</a></li>
+					<li><a href="index.php?action=Menu#menu5">Retour menu</a></li>
 				</ul>
 			</div>
 			<div id="header-logos">
@@ -99,35 +99,22 @@
 		<h2>Supprimer un administrateur</h2>
 			<form name="form1" id="form1" action="index.php?action=SupprimerCompteAdmin" method="post" >
 			
-				<?php if ($etape == 0)
-				{?>
-					<p>
-						<label for="listeAdmins">Adresse mail de l'administrateur à supprimer :</label>
+				<?php if ($etape == 0) {?>
+				
+						<br>Adresse mail de l'administrateur à supprimer :<br>
 						<input type="text" name="listeAdmins" id="listeAdmins" maxlength="50" pattern="^.+@.+\..+$" placeholder="Adresse mail de l'administrateur à supprimer" class="normal" value="<?php if($etape == 1 ) echo $txtMailAdmin ; else echo ''; ?>" required>
-					</p>
-					<p>
-					
+						<br><br>
 			 			<input type="submit" name="btnDetailAdmin"  id="btnDetailAdmin" value="Obtenir détail">
-					</p>
+					
 				<?php } else
 				{?>
-					<p>
-						<label class="label2" for="prenomAdmin"><b>Prénom de l'administrateur: </b><?php echo $prenomAdmin ?></label>
-					</p>
-					<p>
-						<label class="label2" for="nomAdmin"><b>Nom de l'administrateur : </b><?php echo $nomAdmin ?></label>
-					</p>
-					<p>
-						<label class="label2" for="MailAdmin"><b>Mail de l'administrateur : </b><?php echo $txtMailAdmin ?></label>
-					</p>
-					<p>
-						<label class="label2" for="txtAdrMailAdmin">Entrez le mail de l'administrateur pour confimer la suppression de celui-ci :</label>
-						<input type="text" name="txtAdrMailAdmin2" id="txtAdrMailAdmin" maxlength="50" class ="normal" pattern="^.+@.+\..+$" required>
-					</p>
-					<p>
+						<br><b>Prénom de l'administrateur: </b><?php echo $prenomAdmin ?><br>
+						<b>Nom de l'administrateur : </b><?php echo $nomAdmin ?><br>
+						<b>Mail de l'administrateur : </b><?php echo $txtMailAdmin ?><br><br>
+					
+					
 						<input type="submit" name="btnSupprimerAdmin"  id="btnSupprimerAdmin" value="Supprimer l'administrateur" >
-					</p>
-					<?php echo $_SESSION['adrMailAdmin'];?>
+					
 				<?php }?>
 			</form>	
 			

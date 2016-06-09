@@ -1184,7 +1184,7 @@ class DAO
 	/*
 	// exporte les données des élèves au format .csv DYNAMIQUEMENT (table entière, nom des colonnes non modifiables)
 	// créé par Killian BOUTIN le 01/06/2016
-	function ExportToCSV($nomColonnes, $donneesTable, $nomFichierCSV)
+	function ExportToCSV($nomColonnes, $requeteSQL, $nomFichierCSV)
 	{
 		include 'parametres.localhost.php';
 		
@@ -1213,12 +1213,12 @@ class DAO
 		 
 		$reqNomColonnes->closeCursor();
 		 
-		// on récupère maintenant les données dans la variable $donneesTable
-		$txt_req = ($donneesTable);
-		$reqDonneesTable = $this->cnx->prepare($txt_req);
-		$reqDonneesTable->setFetchMode (PDO::FETCH_OBJ);
-		$reqDonneesTable->execute();
-		$uneLigne = $reqDonneesTable->fetch();
+		// on récupère maintenant les données dans la variable $requeteSQL
+		$txt_req = ($requeteSQL);
+		$req = $this->cnx->prepare($txt_req);
+		$req->setFetchMode (PDO::FETCH_OBJ);
+		$req->execute();
+		$uneLigne = $req->fetch();
 		 
 		// tant qu'il y a des données
 		while($uneLigne){
@@ -1227,7 +1227,7 @@ class DAO
 				/* le fichier csv récupère les données de la colonne correspondante
 				$csv.=$uneLigne->$colName[$i].";";
 			}
-			$uneLigne = $reqDonneesTable->fetch();
+			$uneLigne = $req->fetch();
 			// on retourne à la ligne
 			$csv.="\n";
 		}
@@ -1247,10 +1247,9 @@ class DAO
 	
 	// exporte les données des élèves au format .csv
 	// créé par Killian BOUTIN le 01/06/2016
-	function ExportToCSV($nomColonnes, $donneesTable, $nomFichierCSV)
+	function exporterEnCSV($nomColonnes, $requeteSQL, $nomFichierCSV)
 	{
-		include 'parametres.localhost.php';
-	
+		
 		// on initialise les valeurs 
 		$csv = "";
 		$colName = $nomColonnes;
@@ -1264,21 +1263,21 @@ class DAO
 		// on retourne à la ligne 
 		$csv.="\n";
 	
-		// on récupère maintenant les données dans la variable $donneesTable 
-		$txt_req = ($donneesTable);
-		$reqDonneesTable = $this->cnx->prepare($txt_req);
-		$reqDonneesTable->setFetchMode (PDO::FETCH_OBJ);
-		$reqDonneesTable->execute();
-		$uneLigne = $reqDonneesTable->fetch();
+		// on récupère maintenant les données dans la variable $requeteSQL 
+		$txt_req = ($requeteSQL);
+		$req = $this->cnx->prepare($txt_req);
+		$req->setFetchMode (PDO::FETCH_OBJ);
+		$req->execute();
+		$uneLigne = $req->fetch();
 			
 		// tant qu'il y a des données 
 		while($uneLigne){
-			// pour $i allant de la première à la dernière colonne
+			// pour $j allant de la première à la dernière colonne
 			for ($j=0;$j<$numCol;$j++){
 				// le fichier csv récupère les données de la colonne correspondante
 				$csv .= $uneLigne->$colName[$j]."\t";
 			}
-			$uneLigne = $reqDonneesTable->fetch();
+			$uneLigne = $req->fetch();
 			// on retourne à la ligne
 			$csv.="\n";
 		}

@@ -41,17 +41,17 @@ else {
 		/* on parcourt le tableau de checkbox */
 		foreach($_POST['export'] as $value)
 		{
-			/* on traite chaque cas, on faut des "AS" pour renommer les colonnes. Les array de $nomColonnes doivent porter les mêmes noms que les AS de $donneesTable dans le même ordre */
+			/* on traite chaque cas, on faut des "AS" pour renommer les colonnes. Les array de $nomColonnes doivent porter les mêmes noms que les AS de $requeteSQL dans le même ordre */
 			if ($value == "ElevesParPromo"){
 				$nomColonnes = array("Promo","Nom","Prenom","Sexe","Telephone","Adresse Mail","Rue","Code Postal","Ville","Entreprise");
-				$donneesTable = "SELECT anneeDebutBTS AS Promo, nom AS Nom, prenom AS Prenom, sexe AS Sexe,";
-				$donneesTable .= " tel AS Telephone, adrMail AS \"Adresse Mail\", rue AS Rue, codePostal AS \"Code Postal\",";
-				$donneesTable .= " ville AS Ville, entreprise AS Entreprise";
-				$donneesTable .= " FROM ae_eleves";
-				$donneesTable .= " ORDER BY Promo, Nom, Prenom;";
+				$requeteSQL = "SELECT anneeDebutBTS AS Promo, nom AS Nom, prenom AS Prenom, sexe AS Sexe,";
+				$requeteSQL .= " tel AS Telephone, adrMail AS \"Adresse Mail\", rue AS Rue, codePostal AS \"Code Postal\",";
+				$requeteSQL .= " ville AS Ville, entreprise AS Entreprise";
+				$requeteSQL .= " FROM ae_eleves";
+				$requeteSQL .= " ORDER BY Promo, Nom, Prenom;";
 				$nomFichierCSV = "ElevesParPromo";
 				
-				$dao->ExportToCSV($nomColonnes, $donneesTable, $nomFichierCSV);
+				$dao->exporterEnCSV($nomColonnes, $requeteSQL, $nomFichierCSV);
 				
 				/* on rentre une nouvelle valeur dans le tableau */
 				array_push($lesFichiers, "ElevesParPromo.csv");
@@ -59,13 +59,14 @@ else {
 			}
 			if ($value == "ElevesParNom"){
 				$nomColonnes = array("Nom","Prenom","Sexe","Promo","Telephone","Adresse Mail","Rue","Code Postal","Ville","Entreprise");
-				$donneesTable = "SELECT nom AS Nom, prenom AS Prenom, sexe AS Sexe, anneeDebutBTS AS Promo,";
-				$donneesTable .= " tel AS Telephone, adrMail AS \"Adresse Mail\", rue AS Rue, codePostal AS \"Code Postal\",";
-				$donneesTable .= " ville AS Ville, entreprise AS Entreprise";
-				$donneesTable .= " FROM ae_eleves;";
+				$requeteSQL = "SELECT nom AS Nom, prenom AS Prenom, sexe AS Sexe, anneeDebutBTS AS Promo,";
+				$requeteSQL .= " tel AS Telephone, adrMail AS \"Adresse Mail\", rue AS Rue, codePostal AS \"Code Postal\",";
+				$requeteSQL .= " ville AS Ville, entreprise AS Entreprise";
+				$requeteSQL .= " FROM ae_eleves";
+				$requeteSQL .= " ORDER BY Nom, Prenom";
 				$nomFichierCSV = "Eleves";
 				
-				$dao->ExportToCSV($nomColonnes, $donneesTable, $nomFichierCSV);
+				$dao->exporterEnCSV($nomColonnes, $requeteSQL, $nomFichierCSV);
 				
 				/* on rentre une nouvelle valeur dans le tableau */
 				array_push($lesFichiers, "Eleves.csv");
@@ -73,15 +74,15 @@ else {
 			}
 			if ($value == "Inscrits"){
 				$nomColonnes = array("Nom","Prenom","Promo","Date d'inscription","Nombre de personnes","Montant regle","Montant rembourse");
-				$donneesTable = "SELECT nom AS Nom, prenom AS Prenom, anneeDebutBTS AS Promo, dateInscription AS \"Date d'inscription\", nbrePersonnes AS \"Nombre de personnes\",";
-				$donneesTable .= " montantRegle AS \"Montant regle\", montantRembourse AS \"Montant rembourse\"";
-				$donneesTable .= " FROM ae_inscriptions, ae_eleves";
-				$donneesTable .= " WHERE ae_inscriptions.idEleve = ae_eleves.id";
-				$donneesTable .= " AND inscriptionAnnulee = 0";
-				$donneesTable .= " ORDER BY Nom, Prenom";
+				$requeteSQL = "SELECT nom AS Nom, prenom AS Prenom, anneeDebutBTS AS Promo, dateInscription AS \"Date d'inscription\", nbrePersonnes AS \"Nombre de personnes\",";
+				$requeteSQL .= " montantRegle AS \"Montant regle\", montantRembourse AS \"Montant rembourse\"";
+				$requeteSQL .= " FROM ae_inscriptions, ae_eleves";
+				$requeteSQL .= " WHERE ae_inscriptions.idEleve = ae_eleves.id";
+				$requeteSQL .= " AND inscriptionAnnulee = 0";
+				$requeteSQL .= " ORDER BY Nom, Prenom";
 				$nomFichierCSV = "Inscrits";
 				
-				$dao->ExportToCSV($nomColonnes, $donneesTable, $nomFichierCSV);
+				$dao->exporterEnCSV($nomColonnes, $requeteSQL, $nomFichierCSV);
 				
 				/* on rentre une nouvelle valeur dans le tableau */
 				array_push($lesFichiers, "Inscrits.csv");
@@ -89,12 +90,12 @@ else {
 			}
 			if ($value == "NonInscrits"){
 				$nomColonnes = array("Nom","Prenom","Promo","Adresse Mail");
-				$donneesTable = "SELECT nom AS Nom, prenom AS Prenom, anneeDebutBTS AS Promo, adrMail AS \"Adresse Mail\"";
-				$donneesTable .= " FROM ae_eleves WHERE ae_eleves.id NOT IN (SELECT idEleve FROM ae_inscriptions)";
-				$donneesTable .= " ORDER BY Nom, Prenom";
+				$requeteSQL = "SELECT nom AS Nom, prenom AS Prenom, anneeDebutBTS AS Promo, adrMail AS \"Adresse Mail\"";
+				$requeteSQL .= " FROM ae_eleves WHERE ae_eleves.id NOT IN (SELECT idEleve FROM ae_inscriptions)";
+				$requeteSQL .= " ORDER BY Nom, Prenom";
 				$nomFichierCSV = "NonInscrits";
 				
-				$dao->ExportToCSV($nomColonnes, $donneesTable, $nomFichierCSV);
+				$dao->exporterEnCSV($nomColonnes, $requeteSQL, $nomFichierCSV);
 				
 				/* on rentre une nouvelle valeur dans le tableau */
 				array_push($lesFichiers, "NonInscrits.csv");
@@ -144,12 +145,12 @@ else {
 	        {
 	        	// Erreur lors de l’ouverture.
 	        	// On peut ajouter du code ici pour gérer les différentes erreurs.
-	     		echo 'Erreur, impossible de créer l&#039;archive.';
+	     		echo "Erreur, impossible de créer l'archive.";
 	     	}
 		}
 		else
 		{
-			echo 'Le dossier &quot;exportationssio/&quot; n&#039;existe pas.';
+			echo "Le dossier \"exportations\" n'existe pas.";
 		}
      
    		include_once ($cheminDesVues . 'VueExporterDesDonnees.php');

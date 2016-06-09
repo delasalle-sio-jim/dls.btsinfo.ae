@@ -175,6 +175,7 @@
 						<?php } ?>	
 							
 					</select>
+					
 				</p>						
 				<p>
 					<input type="submit" value="Envoyer les données" name="btnEnvoyer" id="btnEnvoyer" />
