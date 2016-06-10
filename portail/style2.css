@@ -141,6 +141,16 @@ ul#menu-horizontal li a:hover {
 	background: #0b4c8e;
 }
 
+/* ajout d'un coin arrondi (en haut et à gauche) au premier lien uniquement lors du survol de la souris */
+ul#menu-horizontal li:first-child a:hover {
+	-moz-border-radius: 15px 0 0 0;
+	-webkit-border-radius: 15px 0 0 0;
+	-o-border-radius: 15px 0 0 0;
+	-ms-border-radius: 15px 0 0 0;
+	-khtml-border-radius: 15px 0 0 0;
+	border-radius: 15px 0 0 0;
+}
+
 /* ----------------- Positionnement des images -------------------- */
 
 /* style de la division id="header-logos" */
