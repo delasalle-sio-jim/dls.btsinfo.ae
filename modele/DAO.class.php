@@ -40,6 +40,9 @@
 // getLesAdressesMails() : array
 //   fournit la liste de toutes les adresses mails des eleves ; le résultat est fourni sous forme d'une collection d'adresses mails
 
+// getLesAdressesMailsAdmin() : array
+//   fournit la liste de toutes les adresses mails des administrateur ; le résultat est fourni sous forme d'une collection d'adresses mails
+
 // supprimerCompteEleve($parametre) : booléen
 //   supprime un compte Eleve (ainsi que ses inscriptions s'il en a) à partir de son identifiant ou de son adresse mail
 //   retourne true si enregistrement supprimé correctement, retourne false en cas de problème
@@ -56,6 +59,9 @@
 
 // creerCompteAdministrateur($unAdministrateur) : booléen
 //   enregistre l'administrateur dans la bdd et retourne true si enregistrement effectué correctement, retourne false en cas de problème
+
+// modifierCompteAdmin($unAdministrateur) : booléen
+//   modifie l'admnistrateur dans la bdd et retourne true si mise à jour effectuée correctement, retourne false en cas de problème
 
 // getAdministrateur($parametre) : Administrateur
 //   recherche et fournit un objet Administrateur à partir de son identifiant ou de son adresse mail
@@ -97,6 +103,9 @@
 // getInscriptionEleve($idEleve) : Inscription
 //   fournit un objet Inscription à partir de l'idEleve ; fournit la valeur null si l'élève n'a pas d'inscription
 
+// getLesInscriptions() : Inscriptions
+//   fournit toutes les inscriptions (non annulées) de la BDD
+
 // annulerInscription($idInscription) : booléen
 //   annule une inscription dans la bdd et retourne true si enregistrement effectué correctement, retourne false en cas de problème
 
@@ -107,11 +116,13 @@
 // creerAdressesMails($uneAdresseMail) : Adresses Mails
 //	fournit un objet AdresseMails à partir d'une adresse
 
-// ExportToCSV(nomColonnes, $nombreColonnes, donneesTable, nomTable) : Fichier .csv
-//	fournit un fichier csv avec toutes les adresses mails
+// creerCompteEleveAuto($uneAdresseMail) : booléen
+// 	insérer les nouveaux élèves dans la base de données
+//  return true si l'insertion s'est bien déroulée
 
-// méthode prévue mais non écrite /////////////////////////////////////////////////////////////////
-// estInscritAlaProchaineSoiree ($uneAdrMail) : bool
+// exporterEnCSV(nomColonnes, $nombreColonnes, requeteSQL, nomFichierCSV)
+//	met à jour un fichier csv avec toutes les adresses mails
+
 
 
 // certaines méthodes nécessitent les fichiers suivants :
@@ -456,6 +467,9 @@ class DAO
 		return $lesMails;
 	}
 	
+	// fournit la liste de toutes les adresses mails des administrateurs
+	// le résultat est fourni sous forme d'une collection d'adresses mails
+	// créé par Killian BOUTIN le 02/06/2016
 	public function getLesAdressesMailsAdmin()
 	{	// préparation de la requête de recherche
 		$txt_req = "Select adrMail from ae_administrateurs order by adrMail";

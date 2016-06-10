@@ -86,30 +86,25 @@ header('Expires: 0');
 				<h4 style="text-align: center; margin-top: 10px; margin-bottom: 10px;">Supprimer un administrateur</h4>
 				<form action="index.php?action=SupprimerCompteAdmin" method="post" data-ajax="false" >
 				
-					<div class="ui-widget">
+					<?php if ($etape == 0)	{?>
+					
 						<label for="listeAdmins">Administrateur: </label>
 						<input id="listeAdmins" type="email"  value="<?php if($etape == 1 ) echo $txtMailAdmin; else echo ''; ?>" name="listeAdmins" required pattern="^.+@.+\..+$" placeholder="Recherchez à l'aide de l'email de l'administrateur">
 		
-						<input type="submit" name="btnDetail" id="btnDetail" value="Obtenir les détails">
-					</div>
+						<input type="submit" name="btnDetailAdmin" id="btnDetailAdmin" value="Obtenir les détails">
 					
-					<?php if ($etape == 1)	
-						{?> 
-					<div>
-						<label for="txtAdrMailAdmin"><b>Prénom de l'administrateur  : </b><?php echo $prenomAdmin ?></label>
+					<?php } else{ ?> 
+						<label><b>Prénom de l'administrateur  : </b><?php echo $prenomAdmin ?></label>
+						<label><b>Nom de l'administrateur : </b><?php echo $nomAdmin ?></label>
+						<label><b>Mail de l'administrateur : </b><?php echo $txtMailAdmin ?></label>
 
-						<label for="txtAdrMailAdmin"><b>Nom de l'administrateur : </b><?php echo $nomAdmin ?></label>
-
-						<label for="txtAdrMailAdmin">Entrez le mail de l'administrateur pour confirmer la suppression de celui-ci :</label>
-						<input type="text" name="txtAdrMailAdmin2" id="txtAdrMailAdmin" placeholder="Adresse mail de l'administrateur a supprimer" required>
-					</div>
 					
-					<div data-role="fieldcontain" class="ui-hide-label">
+					
 					<input type="submit" name="btnSupprimerAdmin"  id="btnSupprimerAdmin" value="Supprimer Administrateur">
-					</div>
+					<?php } ?>
 				</form>
 						
-				<?php } ?>
+		
 				<div data-role="footer" data-position="fixed" data-theme="<?php echo $themeNormal; ?>">
 					<h4>Annuaire des anciens du BTS Informatique<br>Lycée De La Salle (Rennes)</h4>
 				</div>

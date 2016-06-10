@@ -44,7 +44,7 @@ else {
 			$themeFooter = $themeProbleme;	
 		}
 		
-		else{ /* si l'administrateur existe */
+		else{ /* si l'administrateur existe on affiche à l'administrateur */
 			$etape = 1;
 			$prenomAdmin = $unAdministrateur->getPrenom();
 			$nomAdmin = $unAdministrateur->getNom();

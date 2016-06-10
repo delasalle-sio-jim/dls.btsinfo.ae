@@ -86,14 +86,14 @@ header('Expires: 0');
 			<h4 style="text-align: center; margin-top: 10px; margin-bottom: 10px;">Modifier un administrateur</h4>
 			<form name="form1" id="form1" action="index.php?action=ModifierCompteAdmin" method="post" data-ajax="false">
 			
-			<div class="ui-widget">
+				<?php if($etape == 1) {?>
+				
 				<label for="listeAdmins">Administrateur: </label>
 				<input id="listeAdmins" type="email"  value="<?php if($etape == 1 ) echo $uneAdrMail; else echo ''; ?>" name="listeAdmins" required pattern="^.+@.+\..+$" placeholder="Recherchez à l'aide de l'email de l'administrateur">
 
 				<input type="submit" name="btnDetail" id="btnDetail" value="Obtenir les détails">
-			</div>
-				<?php if($etape == 1)
-				{?>
+			
+				<?php } else {?>
 				<div data-role="fieldcontain" class="ui-hide-label">
 					<label for="txtNom">Nom (de naissance) * :</label>
 					<input type="text" name="txtNom" id="txtNom" maxlength="30" required value="<?php echo $nom; ?>" />
