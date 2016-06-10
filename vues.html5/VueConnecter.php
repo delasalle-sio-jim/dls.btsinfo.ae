@@ -48,7 +48,7 @@
 		<div id="header">
 			<div id="header-menu">
 				<ul id="menu-horizontal">
-					<li><a href="index.php?action=DemanderCreationCompte">Création compte</a></li>
+					<li><a href="../portail/index2.php">Retour au portail</a></li>
 				</ul>
 			</div>
 			<div id="header-logos">
