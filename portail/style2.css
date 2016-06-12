@@ -35,7 +35,7 @@ body {
 	/* police, marges nulles et padding de 30 pixels en haut */
 	font: 0.8em Verdana, Arial, Helvetica, sans-serif;
 	margin: 0;
-	padding: 20px 0 0 0;
+	padding: 10px 0 0 0;
 	
 	/* fond avec un dégradé de couleur (blanc en haut, gris en bas) */
 	background: -moz-linear-gradient(top, rgb(255, 255, 255), rgb(210, 210, 210));

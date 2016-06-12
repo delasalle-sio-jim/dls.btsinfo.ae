@@ -54,21 +54,26 @@
 		</div>
 		<div id="content">
 			<h2>Inscription à la soirée</h2>
-			<form name="form1" id="form1" action="index.php?action=CreerMonInscription" method="post">
 			
-				<p>La prochaine soirée aura lieu le <b><?php echo $laDateSoiree ?> à 20h </b>au restaurant <b> <?php echo $leRestaurant ?> </b> situé <b> <?php echo $lAdresse ?> </b>.</p>
-				
-				<p>Le tarif pour cette soirée est de <b> <?php echo $leTarif ?> €</b> par personne. </p>
-				
-				<p style="text-align:center;margin-bottom: -8px;"><i>Nombre de places à réserver :</i> <input type="number" style="width:32px;" name="txtNbPlaces" id="txtNbPlaces" pattern="^[0-9]{1,2}$" maxlength="30" min="1" max="10" value="1" step="1" required/></p>
-					
-				<p><input type="checkbox" required name="validation" id="validation" required> En cochant cette case vous vous vous engagez à régler la somme de <?php echo $leTarif ?> € par place réservée. </p>
-				
-				<p> Vous pouvez régler à l'avance en envoyant un chèque au nom d'INPACT (Association Inpact, 5 rue de la Motte Brûlon, 35000 Rennes), en précisant votre nom, ou régler à votre arrivée à la soirée.</p>
+			<h3>Rappel :</h3>
+			<p>La prochaine soirée aura lieu le <b><?php echo $laDateSoiree ?> à 20h </b>au restaurant <b> <?php echo $leRestaurant ?> </b> situé <b> <?php echo $lAdresse ?> </b>.</p>
+			<p>Le tarif pour cette soirée est de <b> <?php echo $leTarif ?> €</b> par personne. </p>
+			<br>
+			
+			<h3>Indiquez le nombre de places à réserver :</h3>
 						
-				<p>
-					<input type="submit" name="btnInscription"  id="btnInscription" value="M'inscrire" >
+			<form name="form1" id="form1" action="index.php?action=CreerMonInscription" method="post">
+				<p style="text-align:center;margin-bottom: -8px;">
+					<i>Nombre de places à réserver :</i> 
+					<input type="number" style="width:32px;" name="txtNbPlaces" id="txtNbPlaces" pattern="^[0-9]{1,2}$" maxlength="30" min="1" max="10" value="1" step="1" required/>
 				</p>
+				<br>
+				<p><input type="checkbox" required name="validation" id="validation" required> En cochant cette case vous vous vous engagez à régler la somme de <?php echo $leTarif ?> € par place réservée. </p>
+				<br>
+				<p> Vous pouvez régler à l'avance en envoyant un chèque au nom d'INPACT (Association Inpact, 5 rue de la Motte Brûlon, 35000 Rennes), en précisant votre nom, ou régler à votre arrivée à la soirée.</p>
+				<br>
+				<p><input type="submit" name="btnInscription"  id="btnInscription" value="M'inscrire" ></p>
+				<br>
 			</form>
 		</div>
 		

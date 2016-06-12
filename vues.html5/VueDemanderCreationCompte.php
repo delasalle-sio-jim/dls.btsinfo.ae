@@ -56,7 +56,7 @@
 			<p>Après vérification de votre demande par les administrateurs de l'annuaire (cette opération peut prendre quelques jours éventuellement),
 			 vous recevrez un mail de confirmation avec votre mot de passe (que vous pourrez ensuite modifier).</p>
 			 
-			<h3>Entrez les données nécessaires à la création de votre compte (* indique un champ obligatoire) :</h3>
+			<h3>Entrez les données demandées (* indique un champ obligatoire) :</h3>
 						
 			<form name="form1" id="form1" action="index.php?action=DemanderCreationCompte" method="post">
 

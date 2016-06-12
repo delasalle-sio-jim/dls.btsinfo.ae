@@ -67,7 +67,7 @@ else{
 				$themeFooter = $themeProbleme;
 				include_once ($cheminDesVues . 'VueModifierMonInscription.php');
 			}
-			/* et que le nombre de place est différent de 0, on fait le traitement */
+			/* et que le nombre de places est différent de 0, on fait le traitement */
 			else{
 				
 				$idInscription = $uneInscription->getId();
@@ -159,7 +159,7 @@ else{
 			else{
 				$ok = $dao->annulerInscription($idEleve);
 					
-				if (!$ok)
+				if ( ! $ok)
 				{
 					$message ="L'application à rencontré un problème.";
 					$typeMessage = 'avertissement';

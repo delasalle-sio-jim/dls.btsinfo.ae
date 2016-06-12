@@ -54,6 +54,9 @@
 			
 		<div id="content">
 			<h2>Exporter les données au format .CSV</h2>
+			
+			<h3>Sélectionnez les données à exporter :</h3>
+			
 			<form name="form1" id="form1" action="index.php?action=ExporterDesDonnees" method="post">
 			
 					<p>

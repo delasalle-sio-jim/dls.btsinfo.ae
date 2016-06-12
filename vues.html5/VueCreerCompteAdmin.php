@@ -54,7 +54,7 @@
 			 		
 			<h2>Création d'un compte administrateur </h2>
 			 
-			<h3>Entrez les données nécessaires à la création du compte (tous les champs sont obligatoires) :</h3>
+			<h3>Entrez les données demandées (tous les champs sont obligatoires) :</h3>
 						
 			<form name="form1" id="form1" action="index.php?action=CreerCompteAdmin" method="post">
 

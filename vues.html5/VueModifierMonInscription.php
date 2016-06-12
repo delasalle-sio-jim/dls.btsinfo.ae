@@ -52,14 +52,18 @@
 				<img src="images/Intitules_bts_ig_sio.png" id="logo-droite" alt="BTS Informatique" />
 			</div>
 		</div>
+		
 		<div id="content">
 			<h2>Modification ou annulation de mon inscription</h2>
+			
+			<h3>Rappel :</h3>
+			<p>La prochaine soirée aura lieu le <b><?php echo $laDateSoiree ?> à 20h </b>au restaurant <b> <?php echo $leRestaurant ?> </b> situé <b> <?php echo $lAdresse ?> </b>.</p>
+			<p>Le tarif pour cette soirée est de <b> <?php echo $leTarif ?> €</b> par personne. </p>
+			<br>
+			
+			<h3>Vous pouvez modifier le nombre de places, ou annuler votre inscription :</h3>
+						
 			<form name="form1" id="form1" action="index.php?action=ModifierMonInscription" method="post">
-
-				<p>La prochaine soirée aura lieu le <b><?php echo $laDateSoiree ?> à 20h </b>au restaurant <b> <?php echo $leRestaurant ?> </b> situé <b> <?php echo $lAdresse ?> </b>.</p>
-				
-				<p>Le tarif pour cette soirée est de <b> <?php echo $leTarif ?> €</b> par personne. </p>
-				
 				<p><i>Nombre de places à réserver :</i> <input type="number" style="width:32px;" name="txtNbPlaces" id="txtNbPlaces" pattern="^[0-9]{1,2}$" maxlength="30" min="0" max="10" step="1" value="<?php echo $nbPersonnes; ?>" required/></p>
 					
 				<p>

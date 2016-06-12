@@ -35,12 +35,14 @@ body {
 	/* police, marges nulles et padding de 30 pixels en haut */
 	font: 0.8em Verdana, Arial, Helvetica, sans-serif;
 	margin: 0;
-	padding: 20px 0 0 0;
+	padding: 10px 0 0 0;
 	
 	/* fond avec un dégradé de couleur (blanc en haut, gris en bas) */
 	background: -moz-linear-gradient(top, rgb(255, 255, 255), rgb(210, 210, 210));
 	background: -webkit-gradient(linear, left top, left bottom, from(rgb(255, 255, 255)), to(rgb(210, 210, 210)));
 	background: linear-gradient(to bottom, rgb(255, 255, 255), rgb(210, 210, 210));
+	
+	/* pour permettre au dégradé d'agir sur l'ensemble de l'écran */
 	background-attachment: fixed;
 }
 
@@ -207,10 +209,10 @@ div#content h2 {
 /* style des balises <h3> de la division <div id="content"> */
 div#content h3 {
 	/* marges */
-	margin: 10px 0 15px 0;
+	margin: 10px 0 10px 0;
 	
 	/* taille et couleur de la police */
-	font: 1em Verdana, Arial, Helvetica, sans-serif;
+	font: 1.2em Verdana, Arial, Helvetica, sans-serif;
 	font-weight: bold;
 	color: #0b4c8e;
 }
@@ -223,7 +225,8 @@ div#content h3.titre_inscription{
 /* style des balises <p> de la division <div id="content"> */
 div#content p {
 	margin-top: 10px;
-	line-height: 1.2em; 
+	margin-bottom: 10px;
+	/*line-height: 1.2em; */
 	text-align: justify;
 }
 
@@ -259,7 +262,7 @@ div#menu-vertical {
 	/* padding en haut et en bas */
 	padding: 20px 0 20px 0;
 	width: 450px;
-	height: 300px;
+	height: 330px;
 	margin: 0 auto;
 }
 
@@ -477,10 +480,10 @@ table {
 
 /* ----------------- Mise en forme des formulaires -------------------- */
 
-/* paragraphes dans formulaires */
-form p {
+/* style des balises <p> contenus dans un formulaire de la division <div id="content"> */
+div#content form p {
 	padding: 0;
-	margin: 8px 0 0 0;
+	margin: 5px 0 0 0;
 }
 input, select {
 	padding-left: 5px;
@@ -545,10 +548,10 @@ input[type="checkbox"] {
 	width: 20px;
 	height: 15px;
 	margin-left: 0px;
-	margin-top: 8px;
+	margin-top: 0px;
 }
 input[type=radio] {
-	width: 30px;
+	width: 25px;
 }
 input[type=radio]:first-child {
 	margin-left: 200px;
@@ -559,6 +562,7 @@ input[type=submit] {
 	width: 230px;
 	height: 25px;
 	margin-left: 300px;
+	margin-top: 0px;
 	
 	/* coins arrondis */
 	-moz-border-radius: 7px;

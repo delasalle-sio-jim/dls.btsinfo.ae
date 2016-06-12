@@ -65,6 +65,9 @@
 			
 		<div id="content">
 			<h2>Modifier mon mot de passe</h2>
+			
+			<h3>Entrez votre nouveau mot de passe et sa confirmation :</h3>
+			
 			<form name="form1" id="form1" action="index.php?action=ChangerDeMdpAdmin" method="post">
 				<p>
 					<label for="txtNouveauMdp">Nouveau mot de passe :</label>

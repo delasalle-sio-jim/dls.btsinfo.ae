@@ -52,6 +52,8 @@
 		<div id="content">
 			 		
 			<h2>Création d'un compte élève (actuel ou ancien)</h2>
+			
+			<h3>Entrez les données demandées (* indique un champ obligatoire) :</h3>
 									
 			<form name="form1" id="form1" action="index.php?action=CreerCompteEleve" method="post">
 

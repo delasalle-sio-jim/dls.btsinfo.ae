@@ -54,8 +54,10 @@
 			
 		<div id="content">
 			<h2>Modifier les infos sur la soirée</h2>
+			
+			<h3>Entrez les données demandées :</h3>
+			
 			<form name="form1" id="form1" action="index.php?action=ModifierDetailsSoiree" method="post">
-					<br>
 					<p>
 						<label for="txtDate">Date (jj/mm/aaaa) :</label>
 						<input type="text" name="txtDate" id="txtDate"  pattern="^[0-9]{2}(/)[0-9]{2}(/)[0-9]{4}$" required placeholder="Date de la soirée (jj/mm/aaaa)"  value="<?php if(isset($uneSoiree)) echo Outils::convertirEnDateFR($uneSoiree->getDateSoiree()); else echo "";?>" >
