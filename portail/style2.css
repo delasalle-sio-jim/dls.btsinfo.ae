@@ -35,7 +35,7 @@ body {
 	/* police, marges nulles et padding de 30 pixels en haut */
 	font: 0.8em Verdana, Arial, Helvetica, sans-serif;
 	margin: 0;
-	padding: 30px 0 0 0;
+	padding: 20px 0 0 0;
 	
 	/* fond avec un dégradé de couleur (blanc en haut, gris en bas) */
 	background: -moz-linear-gradient(top, rgb(255, 255, 255), rgb(210, 210, 210));
@@ -279,8 +279,8 @@ a.petit-bouton-menu {
 		
 	/* dimensions, margin, padding, type d'affichage, bordure */
 	width: 450px;
-	margin: 10px auto;
-	padding: 5px;
+	margin: 8px auto;
+	padding: 3px;
 	display: block;
 	border: 1px solid rgba(0, 0, 0, 0.1);
 	

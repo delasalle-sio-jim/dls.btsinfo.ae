@@ -42,7 +42,8 @@ CREATE TABLE IF NOT EXISTS ae_administrateurs (
 INSERT INTO ae_administrateurs (id, adrMail, motDePasse, prenom, nom) VALUES
 (1, 'jean.michel.cartron@gmail.com', 'd033e22ae348aeb5660fc2140aec35850c4da997', 'Jean-Michel', 'CARTRON'),
 (2, 'cat-legendre@wanadoo.fr', 'd033e22ae348aeb5660fc2140aec35850c4da997', 'Catherine', 'LEGENDRE'),
-(3, 'bouvier.samuel@free.fr', 'd033e22ae348aeb5660fc2140aec35850c4da997', 'Samuel', 'BOUVIER');
+(3, 'bouvier.samuel@free.fr', 'd033e22ae348aeb5660fc2140aec35850c4da997', 'Samuel', 'BOUVIER'),
+(4, 'christophe35.robert@hotmail.fr', 'd033e22ae348aeb5660fc2140aec35850c4da997', 'Christophe', 'ROBERT');
 
 -- --------------------------------------------------------
 

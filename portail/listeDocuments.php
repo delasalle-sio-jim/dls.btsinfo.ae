@@ -59,7 +59,7 @@
 		</div>
 			
 		<div id="footer">
-			<p>Documents disponibles en téléchargement - BTS Informatique - Lycée De La Salle (Rennes)</p>
+			<p>Documents disponibles en téléchargement - BTS SIO - Lycée De La Salle (Rennes)</p>
 		</div>
 	</div>
 </body>
