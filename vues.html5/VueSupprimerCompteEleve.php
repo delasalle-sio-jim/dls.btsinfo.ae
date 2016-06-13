@@ -114,10 +114,10 @@
 					<b>Nom de l'utilisateur : </b><?php echo $nom ?><br>
 					<b>Mail de l'utilisateur : </b><?php echo $mail ?><br><br>
 					
-					<b>L'année d'entrée en BTS  </b><?php echo $annee ?>
+					<b>Année d'entrée en BTS : </b><?php echo $annee ?>
 					<input type="submit" name="btnSupprimer" id="btnSupprimer" value="Supprimer l'utilisateur">
 					
-				<?php }?>	
+				<?php } ?>
 			</form>
 		</div>
 		<div id="footer">

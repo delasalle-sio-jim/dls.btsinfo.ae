@@ -92,11 +92,20 @@
 				
 		<div id="content">
 			<h2>Mise à jour des réglements et remboursements d'un élève</h2>
+			
+			<?php if($etape == 0){ ?>
+			
+				<h3>Entrez l'adresse mail du compte de l'élève à modifier :</h3>
+				
+			<?php } else { ?>
+			
+				<h3>Modifiez le compte de <?php echo $unNom . ' ' . $unPrenom; ?>:</h3>
+				
+			<?php } ?>
 			<form name="form1" id="form1" action="index.php?action=ModifierReglementsRemboursements" method="post">
 			
 					<?php if($etape == 0){ ?>
 					<div class="ui-widget">
-					
 						<p>
 							 <label for="listeEleves">Eleves: </label>
 		 					 <input type="email" id="listeEleves"   name="listeEleves" placeholder="Recherchez à l'aide de l'email de l'utilisateur" value = "<?php if (!empty ($_POST ["listeEleves"]) == true) echo $_POST ["listeEleves"]; else echo "";?>" pattern="^.+@.+\..+$" required>
@@ -107,6 +116,10 @@
 					</div>
 
 					<?php }else {?>
+						<p>
+							<label >Adresse mail :</label>
+							<input type="text" value="<?php echo $adrMailEleve ?>" disabled>
+						</p>
 						<p>
 							<label >Nbr de places réservées :</label>
 							<input type="text" value="<?php echo $unNbrePersonnes ?>" disabled>

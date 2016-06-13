@@ -83,7 +83,6 @@
 				<form action="index.php?action=ModifierReglementsRemboursements" method="post" data-ajax="false">
 					<div data-role="fieldcontain" >
 
-						<div class="ui-widget">
 						<p>
 							 <label for="listeEleves">Eleves: </label>
 		 					 <input type="email" id="listeEleves"   name="listeEleves" placeholder="Recherchez à l'aide de l'email de l'utilisateur" value = "<?php if (!empty ($_POST ["listeEleves"]) == true) echo $_POST ["listeEleves"]; else echo "";?>" pattern="^.+@.+\..+$" required>
@@ -91,7 +90,6 @@
 						<p>
 							<input type="submit" name="btnDetail" id="btnDetail" value="Obtenir les détails">
 						</p>	
-					</div>
 
 					<?php if ($etape == 1){?>
 						<p>

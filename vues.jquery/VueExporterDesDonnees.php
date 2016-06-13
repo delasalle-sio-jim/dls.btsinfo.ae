@@ -10,9 +10,6 @@ header('Content-Tranfer-Encoding: none');
 header('Expires: 0');
 ?>
 
-<!-- LE DOWNLOAD NE FONCTIONNE PAS SUR CETTE VERSION MOBILE, A VOIR SI C'EST PARCEQU'ON EST SUR ORDI -->
-
-
 <!doctype html>
 <html>
 	<head>	

@@ -52,6 +52,10 @@
 			$_SESSION['idEleve'] = $idEleve;
 			
 			$uneInscription = $dao->getInscriptionEleve($idEleve);
+			
+			$unNom = $uneInscription->getNom();
+			$unPrenom = $uneInscription->getPrenom();
+			
 			$unNbrePersonnes = $uneInscription->getNbrePersonnes();
 			$dateInscription = $uneInscription->getDateInscription();
 			$montantRembourse = number_format($uneInscription->getMontantRembourse(), 2, '.', ' ');
@@ -74,6 +78,9 @@
 		*/
 		$unEleve = $dao->getEleve($_SESSION['idEleve']);
 		$uneInscription = $dao->getInscriptionEleve($_SESSION['idEleve']);
+		
+		/* on reprend l'adresse pour éviter les messages d'erreurs */
+		$adrMailEleve = $unEleve->getAdrMail();
 		
 		$unId = $uneInscription->getId();
 		$unNom = $uneInscription->getNom();

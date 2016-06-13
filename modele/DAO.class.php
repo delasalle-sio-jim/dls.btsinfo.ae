@@ -751,7 +751,7 @@ class DAO
 		
 		// liaison de la requête et de ses paramètres
 		$req->bindValue("dateSoiree", Outils::convertirEnDateUS($uneSoiree->getDateSoiree()), PDO::PARAM_STR);
-		$req->bindValue("nomRestaurant",  utf8_decode($uneSoiree->getNomRestaurant()), PDO::PARAM_STR);
+		$req->bindValue("nomRestaurant",  stripslashes(utf8_decode($uneSoiree->getNomRestaurant())), PDO::PARAM_STR);
 		$req->bindValue("adresse",utf8_decode($uneSoiree->getAdresse()), PDO::PARAM_STR);
 		$req->bindValue("tarif" , utf8_decode($uneSoiree->getTarif()), PDO::PARAM_STR);
 		$req->bindValue("lienMenu", utf8_decode($uneSoiree->getLienMenu()), PDO::PARAM_STR);
