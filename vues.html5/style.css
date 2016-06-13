@@ -197,6 +197,7 @@ div#content h2 {
 	font-size: 1.4em;
 	color: #0b4c8e;
 	line-height: 25px;
+	cursor: default;
 	
 	/* ajout d'une image à gauche */
 	background: url(../images/puce.png) no-repeat left bottom;
@@ -215,6 +216,7 @@ div#content h3 {
 	font: 1.2em Verdana, Arial, Helvetica, sans-serif;
 	font-weight: bold;
 	color: #0b4c8e;
+	cursor: default;
 }
 
 div#content h3.titre_inscription{
