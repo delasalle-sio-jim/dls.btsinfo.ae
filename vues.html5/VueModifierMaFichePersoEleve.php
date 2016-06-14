@@ -52,7 +52,7 @@
 		<div id="content">
 			 		
 			<h2>Mettre à jour mon profil</h2>
-			<p>Vous pouvez à tout moment modifier les informations liées à votre compte.</p>
+			
 			<h3>Modifiez les données de votre profil (* indique un champ obligatoire) :</h3>
 			
 			<form name="form1" id="form1" action="index.php?action=ModifierMaFichePersoEleve" method="post">

@@ -1,13 +1,13 @@
 <?php
 // Projet DLS - BTS Info - Anciens élèves
-	// Fonction de la vue vues.jquery/VueModifierMaFichePersoAdmin.php : afficher la vue de modification d'un administrateur qui modifie sa propre fiche perso
+	// Fonction de la vue vues.jquery/VueModifierMaFichePersoAdmin.php : 
+	//    afficher la vue de modification d'un administrateur qui modifie sa propre fiche perso
 	// Ecrit le 24/05/2016 par Killian BOUTIN
 ?>
 <!doctype html>
 <html>
 	<head>
 		<?php include_once ('head.php'); ?>
-		
 		<script>
 			<?php if ($typeMessage != '') { ?>
 				// associe une fonction à l'événement pageinit
@@ -30,11 +30,12 @@
 					<div data-role="fieldcontain" class="ui-hide-label">
 
 						<label for="txtNom">Nom (de naissance) *</label>
-						<input type="text" name="txtNom" id="txtNom" maxlength="30" placeholder="Nom (de naissance) *" data-mini="true" required value="<?php echo $nom; ?>">
+						<input type="text" name="txtNom" id="txtNom" maxlength="30" placeholder="Nom (de naissance) *" 
+							data-mini="true" required value="<?php echo $nom; ?>">
 
 						<label for="txtPrenom">Prénom *</label>
-						<input type="text" name="txtPrenom" id="txtPrenom" maxlength="30" placeholder="Prénom *" data-mini="true" required value="<?php echo $prenom; ?>">
-						
+						<input type="text" name="txtPrenom" id="txtPrenom" maxlength="30" placeholder="Prénom *" 
+							data-mini="true" required value="<?php echo $prenom; ?>">
 						
 					</div>
 					
@@ -44,12 +45,6 @@
 				</form>
 			</div>
 				
-			<?php if($debug == true) {
-				// en mise au point, on peut afficher certaines variables dans la page
-				echo "<p>typeMessage = " . $typeMessage . "</p>";
-				echo "<p>message = " . $message . "</p>";
-			} ?>
-			
 			<div data-role="footer" data-position="fixed" data-theme="<?php echo $themeNormal; ?>">
 				<h4>Annuaire des anciens du BTS Informatique<br>Lycée De La Salle (Rennes)</h4>
 			</div>

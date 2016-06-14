@@ -99,7 +99,7 @@
 				
 			<?php } else { ?>
 			
-				<h3>Modifiez le compte de <?php echo $unNom . ' ' . $unPrenom; ?>:</h3>
+				<h3>Modifiez le compte de <?php echo $unPrenom . ' ' . $unNom; ?> :</h3>
 				
 			<?php } ?>
 			<form name="form1" id="form1" action="index.php?action=ModifierReglementsRemboursements" method="post">
