@@ -126,6 +126,8 @@
 // getLesImages() : Images
 //   fournit les infos sur les images
 
+// supprimerImage($uneImage) : booléen
+//   supprime la photo passée en paramètre dans la BDD et retourne true si la suppression s'est effectuée correctement, retourne false sinon
 
 
 // certaines méthodes nécessitent les fichiers suivants :
@@ -134,7 +136,7 @@ include_once ('Eleve.class.php');
 include_once ('Administrateur.class.php');
 include_once ('Soiree.class.php');
 include_once ('Inscription.class.php');
-include_once ('Galerie.class.php');
+include_once ('Image.class.php');
 include_once ('Outils.class.php');
 
 // inclusion des paramètres de l'application
@@ -1310,7 +1312,7 @@ class DAO
 	}
 	
 	// fournit toutes les images de la BDD (avec promo et classe)
-	// le résultat est fourni sous forme d'une collection d
+	// le résultat est fourni sous forme d'une collection d'Images
 	// créé par Killian BOUTIN le 01/06/2016
 	function getLesImages()
 	{	// préparation de la requête d'extraction des inscriptions non annulées
@@ -1333,7 +1335,7 @@ class DAO
 		$uneClasse = utf8_encode($uneLigne->classe);
 		$unLien = utf8_encode($uneLigne->lien);
 		
-		$uneImage = new Galerie($unId, $unePromo, $uneClasse, $unLien);
+		$uneImage = new Image($unId, $unePromo, $uneClasse, $unLien);
 		// ajout de l'inscription à la collection
 		$lesImages[] = $uneImage;
 		// extraction de la ligne suivante
@@ -1343,6 +1345,22 @@ class DAO
 		$req->closeCursor();
 		
 		return $lesImages;
+		
+	}
+	
+	// fournit toutes les images de la BDD (avec promo et classe)
+	// retourne true si la suppression est effectuée
+	// retourne false en cas de problème
+	// créé par Killian BOUTIN le 15/06/2016
+	function supprimerImage($idImage){
+		// préparation de la requête d'extraction des inscriptions non annulées
+		$txt_req = "DELETE FROM ae_galerie WHERE id = :id";
+		$req = $this->cnx->prepare($txt_req);
+		// liaison de la requête et de son paramètre
+		$req->bindValue("id", $idImage, PDO::PARAM_STR);
+		// exécution de la requête
+		$ok = $req->execute();
+		return $ok;
 		
 	}
 	

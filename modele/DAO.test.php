@@ -12,7 +12,7 @@ include_once ('Eleve.class.php');
 include_once ('Administrateur.class.php');
 include_once ('Soiree.class.php');
 include_once ('Inscription.class.php');
-include_once ('Galerie.class.php');
+include_once ('Image.class.php');
 include_once ('Outils.class.php');
 ?>
 <!DOCTYPE html>
@@ -694,7 +694,7 @@ $nomFichierCSV = "Eleves";
 $dao->ExportToCSV($nomColonnes, $requeteSQL, $nomFichierCSV);
 */
 
-
+/*
 // test de la méthode getLesImages ---------------------------------------------------------
 // créé par le 15/06/2016 Killian BOUTIN
 
@@ -707,11 +707,27 @@ echo "<p>Nombre de photos : " . $nbPhotos . "</p>";
 foreach ($lesImages as $uneImage)
 {	$lien = $uneImage->getLien();
 	echo ($uneImage->toString());
-	echo ('<a href="../images/galerie/' . $lien . '">Lien vers la photo</a>');
+	echo ('<a href="../images/galerie/' . $lien . '"> Lien vers la photo </a>');
 	echo ('<br><br>');
 }
+*/
 
-// ferme la connexion à MySQL :
+/*
+// test de la méthode supprimerImage(idImage) ---------------------------------------------------------
+// créé par le 15/06/2016 Killian BOUTIN
+
+echo "<h3>Test de supprimerImage(idImage) : </h3>";
+$ok = $dao->supprimerImage(1);
+if ($ok){
+	echo "L'image a été supprimée avec succès";
+}
+else{
+	echo "La suppression est un echec";
+}
+*/
+
+
+// ferme la connexion à MySQL
 unset($dao);
 ?>
 

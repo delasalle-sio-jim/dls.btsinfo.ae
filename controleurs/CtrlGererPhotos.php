@@ -5,70 +5,61 @@
 
 // connexion du serveur web à la base MySQL
 include_once ('modele/DAO.class.php');
+
+$dao = new DAO();
+$lesImages = $dao->getLesImages();
+
 if ( $_SESSION['typeUtilisateur'] != 'administrateur') {
 	// si le demandeur n'est pas authentifié, il s'agit d'une tentative d'accès frauduleux
 	// dans ce cas, on provoque une redirection vers la page de connexion
 	header ("Location: index.php?action=Deconnecter");
 }
-$dao = new DAO();
 
-$lesImages = $dao->getLesImages();
-
-include_once ($cheminDesVues . 'VueGererPhotos.php');
-
-if (! isset ($_POST ["btnModifier"])) {
-	// si les données n'ont pas été postées, c'est le premier appel du formulaire : affichage de la vue sans message d'erreur
-	$urgence= true;
-	$message = '';
-	$typeMessage = '';			// 2 valeurs possibles : 'information' ou 'avertissement'
-	$lienRetour = '#page_principale';
-	$themeFooter = $themeNormal;
-	include_once ($cheminDesVues . 'VueGererPhotos.php');
-}
-else {
+else{
 	
-	$urgence=false;
-	$uneSoiree = $dao->getSoiree($urgence);
-
-	// récupération des données postées
-	if ( empty ($_POST ["txtNomRestaurant"]) == true)  $unNomRestaurant = $uneSoiree->getNomRestaurant();  else   $unNomRestaurant = $_POST ["txtNomRestaurant"];
-	if ( empty ($_POST ["txtDate"]) == true)  $uneDate = $uneSoiree->getDateSoiree();  else   $uneDate = $_POST ["txtDate"];
-	if ( empty ($_POST ["txtAdresse"]) == true)  $uneAdresse = $uneSoiree->getAdresse();  else   $uneAdresse = $_POST ["txtAdresse"];
-	if ( empty ($_POST ["txtTarif"]) == true)  $unTarif = $uneSoiree->getTarif();  else   $unTarif = $_POST ["txtTarif"];
-	if ( empty ($_POST ["txtLienMenu"]) == true)  $unLienMenu = $uneSoiree->getLienMenu();  else   $unLienMenu = $_POST ["txtLienMenu"];
-	if ( empty ($_POST ["txtLatitude"]) == true)  $uneLatitude = $uneSoiree->getLatitude();  else   $uneLatitude = $_POST ["txtLatitude"];
-	if ( empty ($_POST ["txtLongitude"]) == true)  $uneLongitude = $uneSoiree->getLongitude();  else   $uneLongitude = $_POST ["txtLongitude"];
-	
-	$uneSoiree->setDateSoiree($uneDate);
-	$uneSoiree->setNomRestaurant($unNomRestaurant);
-	$uneSoiree->setAdresse($uneAdresse);
-	$uneSoiree->setTarif($unTarif);
-	$uneSoiree->setLienMenu($unLienMenu);
-	$uneSoiree->setLatitude($uneLatitude);
-	$uneSoiree->setLongitude($uneLongitude);
-	
-	$ok = $dao->modifierSoiree($uneSoiree);
-	
-	//recupération des details de la soirée directement depuis la base de donnée
-	$urgence = true;
-	$uneSoiree = $dao->getSoiree($urgence);
-	
-	if ($ok) 
-		{
-			$message = "Modifications effectuées.";
-			$typeMessage = 'information';
-			$lienRetour = 'index.php?action=Menu#menu2';
-			$themeFooter = $themeNormal;
-			include_once ($cheminDesVues . 'VueModifierDetailsSoiree.php');
+	/* Si on arrive sur la page sans rien cliquer */
+	if (!isset($_GET['actionGalerie'])) {
+		include_once ($cheminDesVues . 'VueGererPhotos.php');
+	}
+	else{
+		/* Si on clique sur ajouter */
+		if (isset ($_GET['actionGalerie']) AND ($_GET['actionGalerie'] == 'ajouter')){
+			
+			echo "Ajouter une photo";
+			
 		}
-		else
-		{
-			$message = "L\'application a rencontré un problème.";
-			$typeMessage = 'avertissement';
-			$lienRetour = '#page_principale';
-			$themeFooter = $themeProbleme;
-			include_once ($cheminDesVues . 'VueModifierDetailsSoiree.php');
+		else {
+			/* Si on clique sur modifier */
+			if (isset ($_GET['actionGalerie']) AND ($_GET['actionGalerie'] == 'modifier')){
+				
+				echo "Modifier la photo comportant l'id " . $_GET['id'];
+			}
+			else
+			{
+				/* Si on clique sur supprimer */
+				if(isset ($_GET['actionGalerie']) AND ($_GET['actionGalerie'] == 'supprimer'))
+				{
+					/* On supprime l'image en fonction de l'id de cette image */
+					$ok = $dao->supprimerImage($_GET['id']);
+					
+					if($ok)
+					{
+						$message = "Modifications effectuées.";
+						$typeMessage = 'information';
+						$lienRetour = 'index.php?action=GererPhotos';
+						$themeFooter = $themeNormal;
+						include_once ($cheminDesVues . 'VueGererPhotos.php');
+					}
+					else
+					{
+						$message = "L\'application a rencontré un problème.";
+						$typeMessage = 'avertissement';
+						$lienRetour = '#page_principale';
+						$themeFooter = $themeProbleme;
+						include_once ($cheminDesVues . 'VueGererPhotos.php');
+					}
+				}
+			}
 		}
+	}
 }
-
-

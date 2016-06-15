@@ -8,13 +8,13 @@
 <head>
 	<meta charset="utf-8">
 	<link rel="stylesheet" media="screen" href="vues.html5/styleGalerie.css" />
-	<link rel="stylesheet" type="text/css" href="fancybox/jquery.fancybox-1.3.4.css" media="screen" />
+	<link rel="stylesheet" type="text/css" href="fancybox.galerie/jquery.fancybox-1.3.4.css" media="screen" />
 	
 	<!-- Inclure jQuery -->
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.0/jquery.min.js"></script>
 	
 	<!-- Inclure le script de la fancybox -->
-	<script type="text/javascript" src="js/jquery.fancybox-1.3.4.pack.js"></script>
+	<script type="text/javascript" src="js.galerie/jquery.fancybox-1.3.4.pack.js"></script>
 	
 	<script type="text/javascript">
 	
@@ -69,22 +69,22 @@
 				<?php 
 				/* Pour chaque image de la collection */
 				foreach ($lesImages as $uneImage){
-				?>
+					
+					if ($uneImage->getClasse() == 1)
+						$classe = "1ère Année";
+					elseif ($uneImage->getClasse() == 2 )
+						$classe = "2ème Année";
+					elseif ($uneImage->getClasse() == 3 )
+						$classe = "Post-BTS";
+					else $classe = "Année X"; ?>
 				
-					<a id="fancybox" href="images/galerie/<?php echo $uneImage->getLien() ?>">
+					<a title= "Photo de classe de la promo de <?php echo $uneImage->getPromo() . ", " . $classe ?>" id="fancybox" href="photos.700/<?php echo $uneImage->getLien() ?>">
 					<div class="work">
 					 
-						<img src="images/galerie/<?php echo $uneImage->getLien() ?>" />
+						<img src="photos.700/<?php echo $uneImage->getLien() ?>" />
 						<div class="triangle-gauche"></div><!-- .triangle-gauche -->
 						<div class="triangle-droite"></div><!-- .triangle-droite -->
-						<span><?php echo $uneImage->getPromo() ?>	
-						<?php if ($uneImage->getClasse() == 1)
-						 			echo "1ère Année";
-							  elseif ($uneImage->getClasse() == 2 )
-							  		echo "2ème Année";
-							  elseif ($uneImage->getClasse() == 3 )
-							  		echo "Infodis";
-							  else echo "Année X"; ?> </span>
+						<span><?php echo $uneImage->getPromo() . " " . $classe ?> </span>
 					 
 					</div><!-- .work -->
 					</a>

@@ -2,7 +2,7 @@
 /* CSS Document */
 
 body {
-    background: url(../images/galerie/crossed_stripes.png);
+    background: url(../images.galerie/crossed_stripes.png);
     padding:0;
     margin: 5px;
     font-family: 'Din', Arial, "Trebuchet MS";
@@ -64,7 +64,7 @@ a {
 }
 
 #works .work .triangle-droite {
-    background: url(../images/galerie/triangle-droite.png);
+    background: url(../images.galerie/triangle-droite.png);
     width: 312px;
     height: 293px;
     position: absolute;
@@ -84,7 +84,7 @@ a {
 }
 
 #works .work .triangle-gauche {
-    background: url(../images/galerie/triangle-gauche.png);
+    background: url(../images.galerie/triangle-gauche.png);
     width: 312px;
     height: 293px;
     position: absolute;
@@ -149,12 +149,12 @@ div#content h3 {
 
 @font-face{
         font-family: "Din";
-        src: url("fonts/din-webfont.eot");
-        src: local("@"),url("fonts/din-webfont.ttf") format("truetype");
+        src: url("fonts.galerie/din-webfont.eot");
+        src: local("@"),url("fonts.galeries/din-webfont.ttf") format("truetype");
 }
 
 @font-face{
         font-family: "Din-medium";
-        src: url("fonts/din_medium-webfont.eot");
-        src: local("@"),url("fonts/din_medium-webfont.ttf") format("truetype");
+        src: url("fonts.galeries/din_medium-webfont.eot");
+        src: local("@"),url("fonts.galeries/din_medium-webfont.ttf") format("truetype");
 }

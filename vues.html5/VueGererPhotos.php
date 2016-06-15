@@ -33,6 +33,7 @@
 			document.getElementById("texte_message").innerHTML = msg;
 			window.open ("#affichage_message", "_self");
 		}
+	
 	</script>
 	
 </head> 
@@ -55,7 +56,7 @@
 			<h2>Modifier la galerie photo</h2>
 			
 			<h3>Vous pouvez ajouter, modifier ou supprimer des photos de classe :</h3>
-			
+		
 			<table class="tableau">
 				<!-- affichage ligne d'entête colorée en vert (success)-->
 				<thead>
@@ -72,24 +73,22 @@
 					<tr>
 						<td><a href="images/galerie/<?php echo $uneImage->getLien(); ?>"><img src="images/galerie/<?php echo $uneImage->getLien(); ?>" alt="Photo" width= 400px height= 200px;/></a></td>
 						<td><?php echo $uneImage->getPromo(); ?></td>
-						<td><?php echo $uneImage->getClasse(); ?> mois</td>
-						<!-- POUR MODIFIER REDIRIGER VERS GERERPHOTOS ET CONTROLEUR RENVERRA VERS LA PAGE D'AJOUT soit "VueGererPhotos2" -->
-						<td><?php echo '<a href="index.php?action=GererPhotos&faire=modifier&id=' . $uneImage->getId() . '">'; ?><img src="images/galerie/edit.png" alt="Modifier"></a></td>
-						<td><?php echo '<a href="index.php?action=GererPhotos&faire=supprimer&id=' . $uneImage->getId() . '">'; ?><img src="images/galerie/remove.png" alt="Supprimer"></a></td>
+						<td><?php echo $uneImage->getClasse(); ?></td>
+						<td><?php echo '<a href="index.php?action=GererPhotos&actionGalerie=modifier&id=' . $uneImage->getId() . '">'; ?><img src="images/galerie/edit.png" alt="Modifier"></a></td>
+						<td><?php echo '<a href="index.php?action=GererPhotos&actionGalerie=supprimer&id=' . $uneImage->getId() . '">'; ?><img src="images/galerie/remove.png" alt="Supprimer"></a></td>
 					</tr>
 					<?php } ?>
 							
 					<tr>
-						<td>Nombre de photos</td>
-						<td><?php echo sizeof($lesImages) ?></td>
+						<td>Ajouter une photo de classe</td>
 						<td></td>
 						<td></td>
 						<td></td>
+						<td><a href="index.php?action=GererPhotos&actionGalerie=ajouter"><img src="images/galerie/ajout.png" alt="Ajouter"/></a></td>
 					</tr>
 			</table>
-		</div>		
 		</div>
-		
+				
 		<div id="footer">
 			<p>Annuaire des anciens élèves du BTS Informatique - Lycée De La Salle (Rennes)</p>
 		</div>		
