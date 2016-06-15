@@ -12,6 +12,7 @@ include_once ('Eleve.class.php');
 include_once ('Administrateur.class.php');
 include_once ('Soiree.class.php');
 include_once ('Inscription.class.php');
+include_once ('Galerie.class.php');
 include_once ('Outils.class.php');
 ?>
 <!DOCTYPE html>
@@ -681,7 +682,7 @@ foreach ($lesAdressesMails as $uneAdresseMail)
 }
 */
 
-
+/*
 // test de la méthode ExportToCSV ($nomColonnes, $requeteSQL, $nomFichierCSV) ---------------------------------------------------------
 // créé par Killian BOUTIN le 01/06/2016
 echo "<h3>Test de ExportToCSV (nomColonnes, donneesTable, nomFichierCSV) : </h3>";
@@ -691,7 +692,24 @@ $requeteSQL = "SELECT anneeDebutBTS,tel,prenom FROM ae_eleves";
 $nomFichierCSV = "Eleves";
 
 $dao->ExportToCSV($nomColonnes, $requeteSQL, $nomFichierCSV);
+*/
 
+
+// test de la méthode getLesImages ---------------------------------------------------------
+// créé par le 15/06/2016 Killian BOUTIN
+
+echo "<h3>Test de getLesImages : </h3>";
+$lesImages = $dao->getLesImages();
+$nbPhotos = sizeof($lesImages);
+echo "<p>Nombre de photos : " . $nbPhotos . "</p>";
+
+// affichage des infos sur les photos et de la photos
+foreach ($lesImages as $uneImage)
+{	$lien = $uneImage->getLien();
+	echo ($uneImage->toString());
+	echo ('<a href="../images/galerie/' . $lien . '">Lien vers la photo</a>');
+	echo ('<br><br>');
+}
 
 // ferme la connexion à MySQL :
 unset($dao);

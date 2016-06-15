@@ -65,7 +65,7 @@
 						<div>
 							<p><a href="index.php?action=RechercherAnciens" class="bouton-menu">Rechercher d'autres anciens élèves</a></p>
 							<p><a href="index.php?action=ProposerStage" class="bouton-menu">Proposer un stage à un étudiant</a></p>
-							<p><a href="index.php?action=VoirPhotos" class="bouton-menu">Consulter la galerie de photos</a></p>
+							<!--  <p><a href="index.php?action=VoirPhotos" class="bouton-menu" target="_blank">Consulter la galerie de photos</a></p> -->
 						</div>
 					</div>
 				<?php } ?>
@@ -95,7 +95,7 @@
 						<h3><a href="#menu3">Le réseau des anciens élèves...</a></h3>
 						<div>
 							<p><a href="index.php?action=RechercherAnciens" class="bouton-menu">Rechercher d'autres anciens élèves</a></p>
-							<p><a href="index.php?action=GererPhotos" class="bouton-menu">Gérer la galerie de photos</a></p>
+							<!-- <p><a href="index.php?action=GererPhotos" class="bouton-menu">Gérer la galerie de photos</a></p> -->
 						</div>
 					</div>
 					

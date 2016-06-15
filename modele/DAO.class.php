@@ -4,8 +4,8 @@
 //                                                 DAO : Data Access Object
 //                             Cette classe fournit des méthodes d'accès à la bdd anciensEtudiants
 //                                                 Elle utilise l'objet PDO
-//                       Auteur : JM Cartron                       Dernière modification : 14/03/2016
-//						 Participation de : Nicolas Esteve
+//                       Auteur : JM Cartron                       Dernière modification : 25/06/2016
+//						 Participation de : Nicolas Esteve et Killian Boutin
 // -------------------------------------------------------------------------------------------------------------------------
 
 // ATTENTION : la position des méthodes dans ce fichier est identique à la position des tests dans la classe DAO.test.php
@@ -114,14 +114,17 @@
 //   le résultat est fourni sous forme d'une collection d'adresses mails
 
 // creerAdressesMails($uneAdresseMail) : Adresses Mails
-//	fournit un objet AdresseMails à partir d'une adresse
+//	 fournit un objet AdresseMails à partir d'une adresse
 
 // creerCompteEleveAuto($uneAdresseMail) : booléen
-// 	insérer les nouveaux élèves dans la base de données
-//  return true si l'insertion s'est bien déroulée
+// 	 insérer les nouveaux élèves dans la base de données
+//   return true si l'insertion s'est bien déroulée
 
 // exporterEnCSV(nomColonnes, $nombreColonnes, requeteSQL, nomFichierCSV)
-//	met à jour un fichier csv avec toutes les adresses mails
+//	 met à jour un fichier csv avec toutes les adresses mails
+
+// getLesImages() : Images
+//   fournit les infos sur les images
 
 
 
@@ -131,6 +134,7 @@ include_once ('Eleve.class.php');
 include_once ('Administrateur.class.php');
 include_once ('Soiree.class.php');
 include_once ('Inscription.class.php');
+include_once ('Galerie.class.php');
 include_once ('Outils.class.php');
 
 // inclusion des paramètres de l'application
@@ -1302,6 +1306,43 @@ class DAO
 		// on intègre dans le fichier créé, les données de la variable $csv
 		fwrite($csvFile,utf8_encode($csv));
 		fclose($csvFile);
+		
+	}
+	
+	// fournit toutes les images de la BDD (avec promo et classe)
+	// le résultat est fourni sous forme d'une collection d
+	// créé par Killian BOUTIN le 01/06/2016
+	function getLesImages()
+	{	// préparation de la requête d'extraction des inscriptions non annulées
+		$txt_req = "SELECT id, promo, classe, lien";
+		$txt_req .= " FROM ae_galerie";
+		$req = $this->cnx->prepare($txt_req);
+		
+		// extraction des données
+		$req->execute();
+		$uneLigne = $req->fetch(PDO::FETCH_OBJ);
+		
+		// construction d'une collection d'objets Inscription
+		$lesImages = array();
+		
+		// tant qu'une ligne est trouvée :
+		while ($uneLigne)
+		{	// création d'un objet Images
+		$unId = utf8_encode($uneLigne->id);
+		$unePromo = utf8_encode($uneLigne->promo);
+		$uneClasse = utf8_encode($uneLigne->classe);
+		$unLien = utf8_encode($uneLigne->lien);
+		
+		$uneImage = new Galerie($unId, $unePromo, $uneClasse, $unLien);
+		// ajout de l'inscription à la collection
+		$lesImages[] = $uneImage;
+		// extraction de la ligne suivante
+		$uneLigne = $req->fetch(PDO::FETCH_OBJ);
+		}
+		// libère les ressources du jeu de données
+		$req->closeCursor();
+		
+		return $lesImages;
 		
 	}
 	

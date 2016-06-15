@@ -56,7 +56,7 @@
 							<ul data-role="listview" data-inset="true">								
 								<li><a href="index.php?action=RechercherAnciens" data-mini="true" data-role="button" data-ajax="false" data-transition="<?php echo $transition; ?>">Rechercher d'autres anciens élèves</a></li>
 								<li><a href="index.php?action=ProposerStage" data-mini="true" data-role="button" data-ajax="false" data-transition="<?php echo $transition; ?>">Proposer un stage à un étudiant</a></li>
-								<li><a href="index.php?action=VoirPhotos" data-mini="true" data-role="button" data-ajax="false" data-transition="<?php echo $transition; ?>">Consulter la galerie de photos</a></li>
+								<!-- <li><a href="index.php?action=VoirPhotos" data-mini="true" data-role="button" data-ajax="false" data-transition="<?php echo $transition; ?>">Consulter la galerie de photos</a></li> -->
 							</ul>
 						</div>
 					</div>
@@ -88,7 +88,7 @@
 							<h3>Le réseau des anciens élèves...</h3>
 							<ul data-role="listview" data-inset="true">		
 								<li><a href="index.php?action=RechercherAnciens" data-mini="true" data-role="button" data-ajax="false" data-transition="<?php echo $transition; ?>">Rechercher d'autres anciens élèves</a></li>
-								<li><a href="index.php?action=GererPhotos" data-mini="true" data-role="button" data-ajax="false" data-transition="<?php echo $transition; ?>">Gérer la galerie de photos</a></li>
+								<!-- <li><a href="index.php?action=GererPhotos" data-mini="true" data-role="button" data-ajax="false" data-transition="<?php echo $transition; ?>">Gérer la galerie de photos</a></li> -->
 							</ul>
 						</div>	
 											
