@@ -130,7 +130,13 @@
 //   fournit les données d'une image en fonction de son id
 //   fournit la valeur null si la photo n'existe pas
 
-// supprimerImage($uneImage) : booléen
+// ajouterImage($uneImage) : booleen
+//   ajoute la photo dans la BDD, renvoi true si l'ajout s'est effectuée correctement, retourne false sinon
+
+// modifierImage($uneImage) : booleen
+//   modifie la photo dans la BDD, renvoi true si l'ajout s'est effectuée correctement, retourne false sinon
+
+// supprimerImage($idImage) : booléen
 //   supprime la photo passée en paramètre dans la BDD et retourne true si la suppression s'est effectuée correctement, retourne false sinon
 
 
@@ -1334,16 +1340,16 @@ class DAO
 		// tant qu'une ligne est trouvée :
 		while ($uneLigne)
 		{	// création d'un objet Images
-		$unId = utf8_encode($uneLigne->id);
-		$unePromo = utf8_encode($uneLigne->promo);
-		$uneClasse = utf8_encode($uneLigne->classe);
-		$unLien = utf8_encode($uneLigne->lien);
-		
-		$uneImage = new Image($unId, $unePromo, $uneClasse, $unLien);
-		// ajout de l'inscription à la collection
-		$lesImages[] = $uneImage;
-		// extraction de la ligne suivante
-		$uneLigne = $req->fetch(PDO::FETCH_OBJ);
+			$unId = utf8_encode($uneLigne->id);
+			$unePromo = utf8_encode($uneLigne->promo);
+			$uneClasse = utf8_encode($uneLigne->classe);
+			$unLien = utf8_encode($uneLigne->lien);
+			
+			$uneImage = new Image($unId, $unePromo, $uneClasse, $unLien);
+			// ajout de l'inscription à la collection
+			$lesImages[] = $uneImage;
+			// extraction de la ligne suivante
+			$uneLigne = $req->fetch(PDO::FETCH_OBJ);
 		}
 		// libère les ressources du jeu de données
 		$req->closeCursor();
@@ -1352,23 +1358,7 @@ class DAO
 		
 	}
 	
-	// fournit toutes les images de la BDD (avec promo et classe)
-	// retourne true si la suppression est effectuée
-	// retourne false en cas de problème
-	// créé par Killian BOUTIN le 15/06/2016
-	public function supprimerImage($idImage){
-		// préparation de la requête d'extraction des inscriptions non annulées
-		$txt_req = "DELETE FROM ae_galerie WHERE id = :id";
-		$req = $this->cnx->prepare($txt_req);
-		// liaison de la requête et de son paramètre
-		$req->bindValue("id", $idImage, PDO::PARAM_STR);
-		// exécution de la requête
-		$ok = $req->execute();
-		return $ok;
-		
-	}
-	
-	
+
 	// fournit les informations de l'image
 	// renvoie null si l'image est inexistante
 	// renvoie les informations sur l'image sinon
@@ -1376,23 +1366,23 @@ class DAO
 	
 	public function getImage($idImage)
 	{	// préparation de la requête
-		$txt_req = "SELECT *";
-		$txt_req .= " FROM ae_galerie";
-		$txt_req .= " WHERE id = :idImage;";
-		
-		$req = $this->cnx->prepare($txt_req);
-		// liaison de la requête et de son paramètre
-		$req->bindValue("idImage", $idImage, PDO::PARAM_INT);
-		
-		// extraction des données
-		$req->execute();
-		$uneLigne = $req->fetch(PDO::FETCH_OBJ);
-		// libère les ressources du jeu de données
-		$req->closeCursor();
-		
-		// traitement de la réponse
-		if ( ! $uneLigne)
-			return null;
+	$txt_req = "SELECT *";
+	$txt_req .= " FROM ae_galerie";
+	$txt_req .= " WHERE id = :idImage;";
+	
+	$req = $this->cnx->prepare($txt_req);
+	// liaison de la requête et de son paramètre
+	$req->bindValue("idImage", $idImage, PDO::PARAM_INT);
+	
+	// extraction des données
+	$req->execute();
+	$uneLigne = $req->fetch(PDO::FETCH_OBJ);
+	// libère les ressources du jeu de données
+	$req->closeCursor();
+	
+	// traitement de la réponse
+	if ( ! $uneLigne)
+		return null;
 		else
 		{	// création d'un objet Inscription
 			$unId = $uneLigne->id;
@@ -1406,6 +1396,59 @@ class DAO
 	}
 	
 	
+	// ajoute dans la BDD la photo et ses données passées en paramètres
+	// retourne true si l'ajout est effectuée
+	// retourne false en cas de problème
+	// créé par Killian BOUTIN le 15/06/2016
+	public function ajouterImage($uneImage){
+		// préparation de la requête d'extraction des inscriptions non annulées
+		$txt_req = "INSERT INTO ae_galerie (promo, classe , lien) VALUES (:promo, :classe, :lien)";
+		$req = $this->cnx->prepare($txt_req);
+		// liaison de la requête et de son paramètre
+		$req->bindValue("promo", $uneImage->getPromo(), PDO::PARAM_INT);
+		$req->bindValue("classe", $uneImage->getClasse(), PDO::PARAM_INT);
+		$req->bindValue("lien", $uneImage->getLien(), PDO::PARAM_STR);
+		// exécution de la requête
+		$ok = $req->execute();
+		return $ok;
+	
+	}
+	
+	
+	// modifie l'image dont l'id est passé en paramètre
+	// retourne true si la modification est effectuée
+	// retourne false en cas de problème
+	// créé par Killian BOUTIN le 15/06/2016
+	public function modifierImage($uneImage){
+		// préparation de la requête d'extraction des inscriptions non annulées
+		$txt_req = "UPDATE ae_galerie SET promo = :promo, classe = :classe, lien = :lien WHERE id = :id";
+		$req = $this->cnx->prepare($txt_req);
+		// liaison de la requête et de son paramètre
+		$req->bindValue("promo", $uneImage->getPromo(), PDO::PARAM_INT);
+		$req->bindValue("classe", $uneImage->getClasse(), PDO::PARAM_INT);
+		$req->bindValue("lien", $uneImage->getLien(), PDO::PARAM_STR);
+		$req->bindValue("id", $uneImage->getId(), PDO::PARAM_INT);
+		// exécution de la requête
+		$ok = $req->execute();
+		return $ok;
+	}
+	
+	
+	// supprime l'image dont l'id est passé en paramètre
+	// retourne true si la suppression est effectuée
+	// retourne false en cas de problème
+	// créé par Killian BOUTIN le 15/06/2016
+	public function supprimerImage($idImage){
+		// préparation de la requête d'extraction des inscriptions non annulées
+		$txt_req = "DELETE FROM ae_galerie WHERE id = :id";
+		$req = $this->cnx->prepare($txt_req);
+		// liaison de la requête et de son paramètre
+		$req->bindValue("id", $idImage, PDO::PARAM_INT);
+		// exécution de la requête
+		$ok = $req->execute();
+		return $ok;
+		
+	}
 	
 			
 } // fin de la classe DAO

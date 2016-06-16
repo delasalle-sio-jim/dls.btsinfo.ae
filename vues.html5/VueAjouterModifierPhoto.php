@@ -74,7 +74,7 @@
 
 						<tr>
 							<td style="font-weight: bold;">Photo</td>
-							<td><input type="file" name="filePhoto" id="filePhoto" style="border: 0px; margin-left: -10px;"></td>
+							<td><input type="file" name="filePhoto" id="filePhoto" <?php if ($action == 'ajouter') echo 'required' ?> style="border: 0px; margin-left: -10px;"></td>
 						</tr>
 						<tr>
 							<td style="font-weight: bold;">Promo</td>
@@ -85,11 +85,7 @@
 							<td><input type="text" name="txtClasse" id="txtClasse" placeholder="Entrez la classe (1,2 ou 3)" required maxlength="1" pattern="^(1|2|3)$" value="<?php echo $uneClasse; ?>" /></td>
 						</tr>
 				</table>
-				<?php if ($action == "ajouter"){ ?>
-				<input type="submit" value="Envoyer les données" name="btnAjouter" id="btnAjouter" />
-				<?php } else{ ?>
-				<input type="submit" value="Envoyer les données" name="btnModifier" id="btnModifier" />
-				<?php } ?>
+				<input type="submit" value="Envoyer les données" name="btnEnvoi" id="btnEnvoi" />
 			</form>
 		</div>
 				

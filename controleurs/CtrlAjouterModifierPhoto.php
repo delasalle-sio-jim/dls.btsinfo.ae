@@ -28,94 +28,132 @@ else{
 	l'action "actionGalerie" aura donc une valeur : "ajouter" ou "modifier" */
 	
 	/* Si on a cliqué sur ajouter */
-	if ($action == 'ajouter'){
-		
+	if ($action == 'ajouter'){ /* DEBUT DE L'ACTION AJOUTER */
+	
 		$leTitre = "Ajout d'une nouvelle photo de classe";
 		$leSousTitre = "Ajouter une";
-		$unePromo = "";
-		$uneClasse = "";
-		
-		/* Si on n'a pas cliqué sur le bouton d'ajout */
-		if ( ! isset ($_POST['btnAjouter'])){
-			
-			$message = '';
-			$typeMessage = '';			// 2 valeurs possibles : 'information' ou 'avertissement'
-			$lienRetour = '#page_principale';
-			$themeFooter = $themeNormal;
-			include_once ($cheminDesVues . 'VueAjouterModifierPhoto.php');
-		}
-		
-		/* Si on a cliqué sur le bouton d'ajout */
-		else{
-			
-			echo "ajout ok";
-			include_once ($cheminDesVues . 'VueAjouterModifierPhoto.php');
-		}
+		if (empty ($_POST['txtPromo'])) $unePromo = ""; else $unePromo = $_POST['txtPromo'];
+		if (empty ($_POST['txtClasse'])) $uneClasse = ""; else $uneClasse = $_POST['txtClasse'];
 	}
+	/* Si on a cliqué sur modifier */
 	else {
 		/* Si on a cliqué sur modifier */
 		if ($action == 'modifier'){
-			
+	
 			/* On recupère les données de la photo grâce à son identifiant */
 			$uneImage = $dao->getImage($_GET['id']);
-			
-			$leTitre = "Modification de la photo de classe " . $_GET['id'];
+	
+			/* On met dans des variables le titre, sous titre, la promo et la classe en fonction de l'action et de l'id */
+			$leTitre = "Modification de la photo de classe n°" . $_GET['id'];
 			$leSousTitre = "Modifier la";
 			$unePromo = $uneImage->getPromo();
 			$uneClasse = $uneImage->getClasse();
+		}
+	}
+	
+	/* Si on n'a pas encore cliqué sur le bouton d'envoi */
+	if ( ! isset ($_POST['btnEnvoi'])){
+		
+		$message = '';
+		$typeMessage = '';			// 2 valeurs possibles : 'information' ou 'avertissement'
+		$lienRetour = 'index.php?action=GererPhotos';
+		$themeFooter = $themeNormal;
+		include_once ($cheminDesVues . 'VueAjouterModifierPhoto.php');
+	}
+	
+	/* Si on a cliqué sur le bouton d'envoi */
+	else{
+		/* Si on a choisit une nouvelle photo de classe */
+		
+		/* IL FAUDRA DANS LES 2 CAS FAIRE "$dao->modifierImage"
+		 * mais dans un cas on prendra le lien de la BDD
+		 *  dans l'autre on prendra le lien de la nouvelle image */
+		
+		if (isset ($_FILES['filePhoto'])){
 			
-			/* Si on n'a pas cliqué sur le bouton de modification */
-			if ( ! isset ($_POST['btnModifier'])){
+			/* On prend les extensions que l'on accepte soit jpeg et jpg */
+			$listeExtensions = array('.jpg', '.jpeg');
 			
-				$message = '';
-				$typeMessage = '';			// 2 valeurs possibles : 'information' ou 'avertissement'
-				$lienRetour = 'index.php?action=GererPhotos';
-				$themeFooter = $themeNormal;
+			/* On prend l'extension du fichier téléchargé */
+			$extension = strrchr($_FILES['filePhoto']['name'], '.');
+			
+			/* On regarde si l'extension du fichié téléchargé est correcte, sinon on affiche un message d'avertissement */
+			if (!in_array($extension, $listeExtensions)){
+				$message ="Veuillez choisir une image de type .jpg ou .jpeg.";
+				$typeMessage = 'avertissement';
+				$lienRetour = '#page_principale';
+				$themeFooter = $themeProbleme;
 				include_once ($cheminDesVues . 'VueAjouterModifierPhoto.php');
 			}
 			
-			/* Si on a cliqué sur le bouton de modification */
+			/* Si l'extension est bonne, on continue le traitement */
 			else{
 				
-				/* Si on a choisit une nouvelle photo de classe */
+				/* Initialisation des variables d'upload de la photo de classe */
+				$leDossier = 'photos.initiales/'; // Le dossier d'enregistrement
+				$unLien = $_FILES['filePhoto']['name']; // Le fichier récupéré
 				
-				/* IL FAUDRA DANS LES 2 CAS FAIRE "$dao->modifierImage"
-				 * mais dans un cas on prendra le lien de la BDD
-				 *  dans l'autre on prendra le lien de la nouvelle image */
-				
-				if (isset ($_FILES['filePhoto'])){
+				/* Deplacement de la photo téléchargé dans le dossier => photos.initiales/ */
+				move_uploaded_file($_FILES['filePhoto']['tmp_name'], $leDossier . $unLien);
+								
+				/* Si l'action était d'ajouter une photo, on effectue l'ajout grâce à la fonction */
+				if ($action == 'ajouter'){
 					
-					/* On prend les extensions que l'on accepte soit jpeg et jpg */
-					$listeExtensions = array('.jpg', '.jpeg');
+					$unId = 0;  /* Il ne sera pas ajouté puisque c'est un auto incremente qui donnera son id */
+					$unePromo = $_POST['txtPromo'];
+					$uneClasse = $_POST['txtClasse'];
 					
-					/* On prend l'extension du fichier téléchargé */
-					$extension = strrchr($_FILES['filePhoto']['name'], '.');
+					$uneImage = new Image ($unId, $unePromo, $uneClasse, $unLien);
 					
-					/* On regarde si l'extension du fichié téléchargé est correcte, sinon on affiche un message d'avertissement */
-					if (!in_array($extension, $listeExtensions)){
-						$message ="Veuillez choisir une image de type .jpg ou .jpeg.";
+					$ok = $dao->ajouterImage($uneImage);
+					
+					if ($ok){
+						$message = 'L\'ajout s\'est correctement effectué.';
+						$typeMessage = 'information';			// 2 valeurs possibles : 'information' ou 'avertissement'
+						$lienRetour = 'index.php?action=GererPhotos';
+						$themeFooter = $themeNormal;
+						include_once ($cheminDesVues . 'VueAjouterModifierPhoto.php');
+					}
+					else{
+						$message ="L\'ajout est un échec !";
 						$typeMessage = 'avertissement';
 						$lienRetour = '#page_principale';
 						$themeFooter = $themeProbleme;
 						include_once ($cheminDesVues . 'VueAjouterModifierPhoto.php');
 					}
+				}
+				/* Si l'action était de modifier une photo, on effectue la modification grâce à la fonction */
+				else{
 					
-					/* Si l'extension est bonne, on continue le traitement */
+					$unId = $_GET['id'];  /* Il ne sera pas ajouté puisque c'est un auto incremente qui donnera son id */
+					$unePromo = $_POST['txtPromo'];
+					$uneClasse = $_POST['txtClasse'];
+					
+					$uneImage = new Image ($unId, $unePromo, $uneClasse, $unLien);
+					
+					$ok = $dao->modifierImage($uneImage);
+						
+					if ($ok){
+						$message = 'La modification s\'est correctement effectuée.';
+						$typeMessage = 'information';			// 2 valeurs possibles : 'information' ou 'avertissement'
+						$lienRetour = 'index.php?action=GererPhotos';
+						$themeFooter = $themeNormal;
+						include_once ($cheminDesVues . 'VueAjouterModifierPhoto.php');
+					}
+					
 					else{
-						
-						/* Initialisation des variables d'upload de la photo de classe */
-						$dossier = 'photos.initiales/'; // Le dossier d'enregistrement
-						$photo = $_FILES['filePhoto']['name']; // Le fichier récupéré
-						
-						/* Deplacement de la photo téléchargé dans le dossier => photos.initiales/ */
-						move_uploaded_file($_FILES['filePhoto']['tmp_name'], $dossier . $photo);
-
+						$message = 'La modification est un échec !';
+						$typeMessage = 'avertissement';
+						$lienRetour = '#page_principale';
+						$themeFooter = $themeProbleme;
+						include_once ($cheminDesVues . 'VueAjouterModifierPhoto.php');
 					}
 				}
-				else {
-					
-				}
-			}	
+			}
 		}
-	} /* Fin action modifier */
+		/* Si il n'a pas choisit de photo */
+		else {
+			
+		}
+	}	
 }

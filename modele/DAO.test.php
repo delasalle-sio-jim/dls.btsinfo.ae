@@ -713,6 +713,82 @@ foreach ($lesImages as $uneImage)
 */
 
 /*
+// test de la méthode getImage ---------------------------------------------------------
+// créé par le 16/06/2016 Killian BOUTIN
+
+echo "<h3>Test de getImage : </h3>";
+$uneImage = $dao->getImage(1);
+
+if ($uneImage){
+	// affichage des infos sur la photo
+	echo ($uneImage->toString());
+	echo ('<a href="../photos.700/' . $uneImage->getLien() . '"> Lien vers la photo </a>');
+	echo ('<br><br>');
+}
+else{
+	echo "Aucune image ne possède l'identifiant 1";
+}
+
+$uneImage = $dao->getImage(50);
+
+if ($uneImage){
+	// affichage des infos sur la photo
+	echo ($uneImage->toString());
+	echo ('<a href="../photos.700/' . $uneImage->getLien() . '"> Lien vers la photo </a>');
+	echo ('<br><br>');
+}
+else{
+	echo "Aucune image ne possède l'identifiant 50";
+}
+*/
+
+/*
+// test de la méthode ajouterImage(uneImage) ---------------------------------------------------------
+// créé par le 16/06/2016 Killian BOUTIN
+
+echo "<h3>Test de ajouterImage(uneImage) : </h3>";
+$unId = 0;
+$unePromo = 2001;
+$uneClasse = 1;
+$unLien = "01-02-Info2.jpg";
+
+$uneImage = new Image($unId, $unePromo, $uneClasse, $unLien);
+
+$ok = $dao->ajouterImage($uneImage);
+
+if ($ok){
+	echo "L'image a été ajoutée avec succès";
+}
+else{
+	echo "L'ajout est un echec";
+}
+*/
+
+
+/*
+// test de la méthode modifierImage(uneImage) ---------------------------------------------------------
+// créé par le 16/06/2016 Killian BOUTIN
+
+echo "<h3>Test de modifierImage(uneImage) : </h3>";
+$unId = 4;
+$unePromo = 2001;
+$uneClasse = 2;
+$unLien = "01-02-Info2.jpg";
+
+$uneImage = new Image($unId, $unePromo, $uneClasse, $unLien);
+
+$ok = $dao->modifierImage($uneImage);
+
+if ($ok){
+	echo "L'image a été modifiée avec succès";
+}
+else{
+	echo "L'ajout est un echec";
+}
+*/
+
+
+/*
 // test de la méthode supprimerImage(idImage) ---------------------------------------------------------
 // créé par le 15/06/2016 Killian BOUTIN
 
