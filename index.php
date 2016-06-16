@@ -134,6 +134,9 @@ switch($action){
 	case 'GererPhotos': {
 		include_once ('controleurs/CtrlGererPhotos.php'); break;
 	}
+	case 'AjouterModifierPhoto': {
+		include_once ('controleurs/CtrlAjouterModifierPhoto.php'); break;
+	}
 	case 'CreerCompteEleve': {
 		include_once ('controleurs/CtrlCreerCompteEleve.php'); break;
 	}

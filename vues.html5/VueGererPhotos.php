@@ -71,11 +71,11 @@
 					<!-- Pour chaque image, on ajoute une nouvelle ligne dans le tableau -->
 					<?php foreach ($lesImages as $uneImage){?>
 					<tr>
-						<td><a href="images/galerie/<?php echo $uneImage->getLien(); ?>"><img src="images/galerie/<?php echo $uneImage->getLien(); ?>" alt="Photo" width= 400px height= 200px;/></a></td>
+						<td><a href="images/galerie/<?php echo $uneImage->getLien(); ?>"><img src="photos.700/<?php echo $uneImage->getLien(); ?>" alt="Photo" width= 400px height= 200px;/></a></td>
 						<td><?php echo $uneImage->getPromo(); ?></td>
 						<td><?php echo $uneImage->getClasse(); ?></td>
-						<td><?php echo '<a href="index.php?action=GererPhotos&actionGalerie=modifier&id=' . $uneImage->getId() . '">'; ?><img src="images/galerie/edit.png" alt="Modifier"></a></td>
-						<td><?php echo '<a href="index.php?action=GererPhotos&actionGalerie=supprimer&id=' . $uneImage->getId() . '">'; ?><img src="images/galerie/remove.png" alt="Supprimer"></a></td>
+						<td><?php echo '<a href="index.php?action=AjouterModifierPhoto&actionGalerie=modifier&id=' . $uneImage->getId() . '">'; ?><img src="images.galerie/edit.png" alt="Modifier"></a></td>
+						<td><?php echo '<a href="index.php?action=GererPhotos&actionGalerie=supprimer&id=' . $uneImage->getId() . '">'; ?><img src="images.galerie/remove.png" alt="Supprimer"></a></td>
 					</tr>
 					<?php } ?>
 							
@@ -84,7 +84,7 @@
 						<td></td>
 						<td></td>
 						<td></td>
-						<td><a href="index.php?action=GererPhotos&actionGalerie=ajouter"><img src="images/galerie/ajout.png" alt="Ajouter"/></a></td>
+						<td><a href="index.php?action=AjouterModifierPhoto&actionGalerie=ajouter"><img src="images.galerie/ajout.png" alt="Ajouter"/></a></td>
 					</tr>
 			</table>
 		</div>
