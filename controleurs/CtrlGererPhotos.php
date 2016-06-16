@@ -19,46 +19,37 @@ else{
 	
 	/* Si on arrive sur la page sans rien cliquer */
 	if (!isset($_GET['actionGalerie'])) {
+		
+		$message = '';
+		$typeMessage = '';			// 2 valeurs possibles : 'information' ou 'avertissement'
+		$lienRetour = '#page_principale';
+		$themeFooter = $themeNormal;
 		include_once ($cheminDesVues . 'VueGererPhotos.php');
 	}
+	
 	else{
-		/* Si on clique sur ajouter */
-		if (isset ($_GET['actionGalerie']) AND ($_GET['actionGalerie'] == 'ajouter')){
+		/* Si on clique sur supprimer */
+		if(isset ($_GET['actionGalerie']) AND ($_GET['actionGalerie'] == 'supprimer'))
+		{
+			/* On supprime l'image en fonction de l'id de cette image */
+			$ok = $dao->supprimerImage($_GET['id']);
 			
-			echo "Ajouter une photo";
-			
-		}
-		else {
-			/* Si on clique sur modifier */
-			if (isset ($_GET['actionGalerie']) AND ($_GET['actionGalerie'] == 'modifier')){
-				
-				echo "Modifier la photo comportant l'id " . $_GET['id'];
+			if($ok)
+			{
+				$message = "Modifications effectuées.";
+				$typeMessage = 'information';
+				/* Pour cette page, on renvoie sur GererPhotos pour réafficher toutes les photos */
+				$lienRetour = 'index.php?action=GererPhotos';
+				$themeFooter = $themeNormal;
+				include_once ($cheminDesVues . 'VueGererPhotos.php');
 			}
 			else
 			{
-				/* Si on clique sur supprimer */
-				if(isset ($_GET['actionGalerie']) AND ($_GET['actionGalerie'] == 'supprimer'))
-				{
-					/* On supprime l'image en fonction de l'id de cette image */
-					$ok = $dao->supprimerImage($_GET['id']);
-					
-					if($ok)
-					{
-						$message = "Modifications effectuées.";
-						$typeMessage = 'information';
-						$lienRetour = 'index.php?action=GererPhotos';
-						$themeFooter = $themeNormal;
-						include_once ($cheminDesVues . 'VueGererPhotos.php');
-					}
-					else
-					{
-						$message = "L\'application a rencontré un problème.";
-						$typeMessage = 'avertissement';
-						$lienRetour = '#page_principale';
-						$themeFooter = $themeProbleme;
-						include_once ($cheminDesVues . 'VueGererPhotos.php');
-					}
-				}
+				$message = "L\'application a rencontré un problème.";
+				$typeMessage = 'avertissement';
+				$lienRetour = '#page_principale';
+				$themeFooter = $themeProbleme;
+				include_once ($cheminDesVues . 'VueGererPhotos.php');
 			}
 		}
 	}

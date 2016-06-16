@@ -43,7 +43,7 @@
 		<div id="header">
 			<div id="header-menu">
 				<ul id="menu-horizontal">
-					<li><a href="index.php?action=Menu#menu2" data-ajax="false">Retour menu</a></li>
+					<li><a href="index.php?action=Menu#menu3" data-ajax="false">Retour menu</a></li>
 				</ul>
 			</div>
 			<div id="header-logos">
@@ -74,8 +74,8 @@
 						<td><a href="images/galerie/<?php echo $uneImage->getLien(); ?>"><img src="photos.700/<?php echo $uneImage->getLien(); ?>" alt="Photo" width= 400px height= 200px;/></a></td>
 						<td><?php echo $uneImage->getPromo(); ?></td>
 						<td><?php echo $uneImage->getClasse(); ?></td>
-						<td><?php echo '<a href="index.php?action=AjouterModifierPhoto&actionGalerie=modifier&id=' . $uneImage->getId() . '">'; ?><img src="images.galerie/edit.png" alt="Modifier"></a></td>
-						<td><?php echo '<a href="index.php?action=GererPhotos&actionGalerie=supprimer&id=' . $uneImage->getId() . '">'; ?><img src="images.galerie/remove.png" alt="Supprimer"></a></td>
+						<td><a href="index.php?action=AjouterModifierPhoto&actionGalerie=modifier&id=<?php echo $uneImage->getId() ?>"><img src="images.galerie/edit.png" alt="Modifier"></a></td>
+						<td><a href="index.php?action=GererPhotos&actionGalerie=supprimer&id=<?php echo $uneImage->getId() ?>"><img src="images.galerie/remove.png" alt="Supprimer"></a></td>
 					</tr>
 					<?php } ?>
 							

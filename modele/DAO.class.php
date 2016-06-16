@@ -123,8 +123,12 @@
 // exporterEnCSV(nomColonnes, $nombreColonnes, requeteSQL, nomFichierCSV)
 //	 met à jour un fichier csv avec toutes les adresses mails
 
-// getLesImages() : Images
+// getLesImages() : array
 //   fournit les infos sur les images
+
+// getImage($idImage) : Image
+//   fournit les données d'une image en fonction de son id
+//   fournit la valeur null si la photo n'existe pas
 
 // supprimerImage($uneImage) : booléen
 //   supprime la photo passée en paramètre dans la BDD et retourne true si la suppression s'est effectuée correctement, retourne false sinon
@@ -1001,7 +1005,7 @@ class DAO
 	// le résultat est fourni sous forme d'une collection d'adresses mails
 	// créé par Nicolas Esteve le XX/01/2016
 	// modifié par Killian BOUTIN le 31/05/2016
-	function getLesAdressesMailsDesInscrits()
+	public function getLesAdressesMailsDesInscrits()
 	{	// préparation de la requête
 		$txt_req = "SELECT adrMail FROM ae_eleves, ae_inscriptions WHERE ae_eleves.id = ae_inscriptions.idEleve AND inscriptionAnnulee = 0 ORDER BY adrMail";
 		$req = $this->cnx->prepare($txt_req);
@@ -1039,7 +1043,7 @@ class DAO
 	// fournit la valeur null si le paramètre n'existe pas ou est incorrect
 	// créé par Nicolas Esteve le XX/01/2016
 	// ATTENTION : cette fonction est à priori inutile ; utiliser de préférence creerInscription et modifierInscription ? (Jim)
-	function inscription($dateInscription,$nbPersonnes,$montant,$montantRembourse,$idEleve,$idSoiree)
+	public function inscription($dateInscription,$nbPersonnes,$montant,$montantRembourse,$idEleve,$idSoiree)
 	{
 		$txt_req ="SELECT * FROM ae_inscriptions WHERE id = :idEleve";
 		$req = $this->cnx->prepare($txt_req);
@@ -1204,7 +1208,7 @@ class DAO
 	/*
 	// exporte les données des élèves au format .csv DYNAMIQUEMENT (table entière, nom des colonnes non modifiables)
 	// créé par Killian BOUTIN le 01/06/2016
-	function ExportToCSV($nomColonnes, $requeteSQL, $nomFichierCSV)
+	public function ExportToCSV($nomColonnes, $requeteSQL, $nomFichierCSV)
 	{
 		include 'parametres.localhost.php';
 		
@@ -1267,7 +1271,7 @@ class DAO
 	
 	// exporte les données des élèves au format .csv
 	// créé par Killian BOUTIN le 01/06/2016
-	function exporterEnCSV($nomColonnes, $requeteSQL, $nomFichierCSV)
+	public function exporterEnCSV($nomColonnes, $requeteSQL, $nomFichierCSV)
 	{
 		
 		// on initialise les valeurs 
@@ -1314,7 +1318,7 @@ class DAO
 	// fournit toutes les images de la BDD (avec promo et classe)
 	// le résultat est fourni sous forme d'une collection d'Images
 	// créé par Killian BOUTIN le 01/06/2016
-	function getLesImages()
+	public function getLesImages()
 	{	// préparation de la requête d'extraction des inscriptions non annulées
 		$txt_req = "SELECT id, promo, classe, lien";
 		$txt_req .= " FROM ae_galerie";
@@ -1352,7 +1356,7 @@ class DAO
 	// retourne true si la suppression est effectuée
 	// retourne false en cas de problème
 	// créé par Killian BOUTIN le 15/06/2016
-	function supprimerImage($idImage){
+	public function supprimerImage($idImage){
 		// préparation de la requête d'extraction des inscriptions non annulées
 		$txt_req = "DELETE FROM ae_galerie WHERE id = :id";
 		$req = $this->cnx->prepare($txt_req);
@@ -1363,6 +1367,45 @@ class DAO
 		return $ok;
 		
 	}
+	
+	
+	// fournit les informations de l'image
+	// renvoie null si l'image est inexistante
+	// renvoie les informations sur l'image sinon
+	// créé par Killian BOUTIN le 16/06/2016
+	
+	public function getImage($idImage)
+	{	// préparation de la requête
+		$txt_req = "SELECT *";
+		$txt_req .= " FROM ae_galerie";
+		$txt_req .= " WHERE id = :idImage;";
+		
+		$req = $this->cnx->prepare($txt_req);
+		// liaison de la requête et de son paramètre
+		$req->bindValue("idImage", $idImage, PDO::PARAM_INT);
+		
+		// extraction des données
+		$req->execute();
+		$uneLigne = $req->fetch(PDO::FETCH_OBJ);
+		// libère les ressources du jeu de données
+		$req->closeCursor();
+		
+		// traitement de la réponse
+		if ( ! $uneLigne)
+			return null;
+		else
+		{	// création d'un objet Inscription
+			$unId = $uneLigne->id;
+			$unePromo = $uneLigne->promo;
+			$uneClasse = $uneLigne->classe;
+			$unLien = $uneLigne->lien;
+	
+			$uneImage = new Image($unId, $unePromo, $uneClasse, $unLien);
+			return $uneImage;
+		}
+	}
+	
+	
 	
 			
 } // fin de la classe DAO
