@@ -105,6 +105,9 @@ switch($action){
 	case 'VoirListeInscritsEleve': {
 		include_once ('controleurs/CtrlVoirListeInscritsEleve.php'); break;
 	}
+	case 'VoirPhotos': {
+		include_once ('controleurs/CtrlVoirPhotos.php'); break;
+	}
 	case 'ProposerStage': {
 		include_once ('controleurs/CtrlProposerStage.php'); break;
 	}
@@ -127,6 +130,12 @@ switch($action){
 	}
 	case 'ModifierReglementsRemboursements': {
 		include_once ('controleurs/CtrlModifierReglementsRemboursements.php'); break;
+	}
+	case 'GererPhotos': {
+		include_once ('controleurs/CtrlGererPhotos.php'); break;
+	}
+	case 'AjouterModifierPhoto': {
+		include_once ('controleurs/CtrlAjouterModifierPhoto.php'); break;
 	}
 	case 'CreerCompteEleve': {
 		include_once ('controleurs/CtrlCreerCompteEleve.php'); break;

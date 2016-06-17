@@ -4,8 +4,8 @@
 //                                                 DAO : Data Access Object
 //                             Cette classe fournit des méthodes d'accès à la bdd anciensEtudiants
 //                                                 Elle utilise l'objet PDO
-//                       Auteur : JM Cartron                       Dernière modification : 14/03/2016
-//						 Participation de : Nicolas Esteve
+//                       Auteur : JM Cartron                       Dernière modification : 25/06/2016
+//						 Participation de : Nicolas Esteve et Killian Boutin
 // -------------------------------------------------------------------------------------------------------------------------
 
 // ATTENTION : la position des méthodes dans ce fichier est identique à la position des tests dans la classe DAO.test.php
@@ -114,15 +114,30 @@
 //   le résultat est fourni sous forme d'une collection d'adresses mails
 
 // creerAdressesMails($uneAdresseMail) : Adresses Mails
-//	fournit un objet AdresseMails à partir d'une adresse
+//	 fournit un objet AdresseMails à partir d'une adresse
 
 // creerCompteEleveAuto($uneAdresseMail) : booléen
-// 	insérer les nouveaux élèves dans la base de données
-//  return true si l'insertion s'est bien déroulée
+// 	 insérer les nouveaux élèves dans la base de données
+//   return true si l'insertion s'est bien déroulée
 
 // exporterEnCSV(nomColonnes, $nombreColonnes, requeteSQL, nomFichierCSV)
-//	met à jour un fichier csv avec toutes les adresses mails
+//	 met à jour un fichier csv avec toutes les adresses mails
 
+// getLesImages() : array
+//   fournit les infos sur les images
+
+// getImage($idImage) : Image
+//   fournit les données d'une image en fonction de son id
+//   fournit la valeur null si la photo n'existe pas
+
+// ajouterImage($uneImage) : booleen
+//   ajoute la photo dans la BDD, renvoi true si l'ajout s'est effectuée correctement, retourne false sinon
+
+// modifierImage($uneImage) : booleen
+//   modifie la photo dans la BDD, renvoi true si l'ajout s'est effectuée correctement, retourne false sinon
+
+// supprimerImage($idImage) : booléen
+//   supprime la photo passée en paramètre dans la BDD et retourne true si la suppression s'est effectuée correctement, retourne false sinon
 
 
 // certaines méthodes nécessitent les fichiers suivants :
@@ -131,6 +146,7 @@ include_once ('Eleve.class.php');
 include_once ('Administrateur.class.php');
 include_once ('Soiree.class.php');
 include_once ('Inscription.class.php');
+include_once ('Image.class.php');
 include_once ('Outils.class.php');
 
 // inclusion des paramètres de l'application
@@ -995,7 +1011,7 @@ class DAO
 	// le résultat est fourni sous forme d'une collection d'adresses mails
 	// créé par Nicolas Esteve le XX/01/2016
 	// modifié par Killian BOUTIN le 31/05/2016
-	function getLesAdressesMailsDesInscrits()
+	public function getLesAdressesMailsDesInscrits()
 	{	// préparation de la requête
 		$txt_req = "SELECT adrMail FROM ae_eleves, ae_inscriptions WHERE ae_eleves.id = ae_inscriptions.idEleve AND inscriptionAnnulee = 0 ORDER BY adrMail";
 		$req = $this->cnx->prepare($txt_req);
@@ -1033,7 +1049,7 @@ class DAO
 	// fournit la valeur null si le paramètre n'existe pas ou est incorrect
 	// créé par Nicolas Esteve le XX/01/2016
 	// ATTENTION : cette fonction est à priori inutile ; utiliser de préférence creerInscription et modifierInscription ? (Jim)
-	function inscription($dateInscription,$nbPersonnes,$montant,$montantRembourse,$idEleve,$idSoiree)
+	public function inscription($dateInscription,$nbPersonnes,$montant,$montantRembourse,$idEleve,$idSoiree)
 	{
 		$txt_req ="SELECT * FROM ae_inscriptions WHERE id = :idEleve";
 		$req = $this->cnx->prepare($txt_req);
@@ -1198,7 +1214,7 @@ class DAO
 	/*
 	// exporte les données des élèves au format .csv DYNAMIQUEMENT (table entière, nom des colonnes non modifiables)
 	// créé par Killian BOUTIN le 01/06/2016
-	function ExportToCSV($nomColonnes, $requeteSQL, $nomFichierCSV)
+	public function ExportToCSV($nomColonnes, $requeteSQL, $nomFichierCSV)
 	{
 		include 'parametres.localhost.php';
 		
@@ -1261,7 +1277,7 @@ class DAO
 	
 	// exporte les données des élèves au format .csv
 	// créé par Killian BOUTIN le 01/06/2016
-	function exporterEnCSV($nomColonnes, $requeteSQL, $nomFichierCSV)
+	public function exporterEnCSV($nomColonnes, $requeteSQL, $nomFichierCSV)
 	{
 		
 		// on initialise les valeurs 
@@ -1305,6 +1321,217 @@ class DAO
 		
 	}
 	
+	// fournit toutes les images de la BDD (avec promo et classe)
+	// le résultat est fourni sous forme d'une collection d'Images
+	// créé par Killian BOUTIN le 01/06/2016
+	public function getLesImages()
+	{	// préparation de la requête d'extraction des inscriptions non annulées
+		$txt_req = "SELECT id, promo, classe, lien";
+		$txt_req .= " FROM ae_galerie";
+		$req = $this->cnx->prepare($txt_req);
+		
+		// extraction des données
+		$req->execute();
+		$uneLigne = $req->fetch(PDO::FETCH_OBJ);
+		
+		// construction d'une collection d'objets Inscription
+		$lesImages = array();
+		
+		// tant qu'une ligne est trouvée :
+		while ($uneLigne)
+		{	// création d'un objet Images
+			$unId = utf8_encode($uneLigne->id);
+			$unePromo = utf8_encode($uneLigne->promo);
+			$uneClasse = utf8_encode($uneLigne->classe);
+			$unLien = utf8_encode($uneLigne->lien);
+			
+			$uneImage = new Image($unId, $unePromo, $uneClasse, $unLien);
+			// ajout de l'inscription à la collection
+			$lesImages[] = $uneImage;
+			// extraction de la ligne suivante
+			$uneLigne = $req->fetch(PDO::FETCH_OBJ);
+		}
+		// libère les ressources du jeu de données
+		$req->closeCursor();
+		
+		return $lesImages;
+		
+	}
+	
+
+	// fournit les informations de l'image
+	// renvoie null si l'image est inexistante
+	// renvoie les informations sur l'image sinon
+	// créé par Killian BOUTIN le 16/06/2016
+	
+	public function getImage($idImage)
+	{	// préparation de la requête
+	$txt_req = "SELECT *";
+	$txt_req .= " FROM ae_galerie";
+	$txt_req .= " WHERE id = :idImage;";
+	
+	$req = $this->cnx->prepare($txt_req);
+	// liaison de la requête et de son paramètre
+	$req->bindValue("idImage", $idImage, PDO::PARAM_INT);
+	
+	// extraction des données
+	$req->execute();
+	$uneLigne = $req->fetch(PDO::FETCH_OBJ);
+	// libère les ressources du jeu de données
+	$req->closeCursor();
+	
+	// traitement de la réponse
+	if ( ! $uneLigne)
+		return null;
+		else
+		{	// création d'un objet Inscription
+			$unId = $uneLigne->id;
+			$unePromo = $uneLigne->promo;
+			$uneClasse = $uneLigne->classe;
+			$unLien = $uneLigne->lien;
+	
+			$uneImage = new Image($unId, $unePromo, $uneClasse, $unLien);
+			return $uneImage;
+		}
+	}
+	
+	
+	// ajoute dans la BDD la photo et ses données passées en paramètres
+	// retourne true si l'ajout est effectuée
+	// retourne false en cas de problème
+	// créé par Killian BOUTIN le 15/06/2016
+	public function ajouterImage($uneImage){
+		// préparation de la requête d'extraction des inscriptions non annulées
+		$txt_req = "INSERT INTO ae_galerie (promo, classe , lien) VALUES (:promo, :classe, :lien)";
+		$req = $this->cnx->prepare($txt_req);
+		// liaison de la requête et de son paramètre
+		$req->bindValue("promo", $uneImage->getPromo(), PDO::PARAM_INT);
+		$req->bindValue("classe", $uneImage->getClasse(), PDO::PARAM_INT);
+		$req->bindValue("lien", $uneImage->getLien(), PDO::PARAM_STR);
+		// exécution de la requête
+		$ok = $req->execute();
+		return $ok;
+	
+	}
+	
+	
+	// modifie l'image dont l'id est passé en paramètre
+	// retourne true si la modification est effectuée
+	// retourne false en cas de problème
+	// créé par Killian BOUTIN le 15/06/2016
+	public function modifierImage($uneImage){
+		// préparation de la requête d'extraction des inscriptions non annulées
+		$txt_req = "UPDATE ae_galerie SET promo = :promo, classe = :classe, lien = :lien WHERE id = :id";
+		$req = $this->cnx->prepare($txt_req);
+		// liaison de la requête et de son paramètre
+		$req->bindValue("promo", $uneImage->getPromo(), PDO::PARAM_INT);
+		$req->bindValue("classe", $uneImage->getClasse(), PDO::PARAM_INT);
+		$req->bindValue("lien", $uneImage->getLien(), PDO::PARAM_STR);
+		$req->bindValue("id", $uneImage->getId(), PDO::PARAM_INT);
+		// exécution de la requête
+		$ok = $req->execute();
+		return $ok;
+	}
+	
+	
+	// supprime l'image dont l'id est passé en paramètre
+	// retourne true si la suppression est effectuée
+	// retourne false en cas de problème
+	// créé par Killian BOUTIN le 15/06/2016
+	public function supprimerImage($idImage){
+		// préparation de la requête d'extraction des inscriptions non annulées
+		$txt_req = "DELETE FROM ae_galerie WHERE id = :id";
+		$req = $this->cnx->prepare($txt_req);
+		// liaison de la requête et de son paramètre
+		$req->bindValue("id", $idImage, PDO::PARAM_INT);
+		// exécution de la requête
+		$ok = $req->execute();
+		return $ok;
+		
+	}
+	
+	
+	// redimensionne l'image donnée et la place dans le dossier donné
+	// retourne true si la le redimensionnement s'est bien déroulé
+	// retourne falese sinon
+	// créé par Killian BOUTIN le 17/06/2016
+	public function redimensionnerImage($uneImage, $uneSource, $uneDestination, $uneTailleMax){
+		
+		$toUpperImage = strtoupper($uneImage);
+		
+		if ((strrchr($toUpperImage, '.') == '.JPG') OR (strrchr($toUpperImage, '.') == '.JPEG')){
+			
+			$ok = $src_image = imagecreatefromjpeg($uneSource . $uneImage);
+			if ( ! $ok) return false;
+		}
+		elseif (strrchr($toUpperImage, '.') == '.PNG'){ 
+			$ok = $src_image = imagecreatefrompng($uneSource . $uneImage);
+			if ( ! $ok) return false;
+		}			
+		else {
+			return false;
+		}
+		
+		
+		// INFORMATIONS SUR LA SOURCE
+		
+			// Taille de la source
+			$uneTailleImage[] = getimagesize($uneSource . $uneImage);
+			// Largeur de la source
+			$src_w = getimagesize($uneSource . $uneImage)[0];
+		
+			// Hauteur de la source
+			$src_h = getimagesize($uneSource . $uneImage)[1];
+		
+		// DIMENSION PROVISOIRE DE L'IMAGE DESTINATION
+		
+			// Largeur de la destination
+			$dst_w = $src_w;
+				
+			// Hauteur de la destination
+			$dst_h = $src_h;
+		
+		// SI L'IMAGE EST TROP LARGE
+		if ($dst_w > $uneTailleMax){
+			// Taux de reduction
+			$unTauxReduction = $dst_w / $uneTailleMax;
+			
+			// Largeur de la destination
+			$dst_w = $src_w / $unTauxReduction;
+			
+			// Hauteur de la destination
+			$dst_h = $src_h / $unTauxReduction;
+		}
+		
+		// SI L'IMAGE EST TROP HAUTE
+		if ($dst_h > $uneTailleMax){
+			// Taux de reduction
+			$unTauxReduction = $dst_h / $uneTailleMax;
+				
+			// Largeur de la destination
+			$dst_w = $dst_w / $unTauxReduction;
+				
+			// Hauteur de la destination
+			$dst_h = $dst_h / $unTauxReduction;
+		}
+		
+		// On donne à l'image ses dimensions
+		$ok = $dst_image = imagecreatetruecolor($dst_w, $dst_h);
+		if ( ! $ok) return false;
+		
+		// On crée l'image, les 0 correspondent aux coordononnées
+		$ok = imagecopyresampled($dst_image, $src_image, 0, 0, 0, 0, $dst_w, $dst_h, $src_w, $src_h);
+		if ( ! $ok) return false;
+		
+		$ok = imagejpeg ($dst_image, $uneDestination . $uneImage);
+		if ( ! $ok) return false;
+		
+		// Si on arrive ici, tout va bien !
+		return true;
+
+	}
+	
+
 			
 } // fin de la classe DAO
 

@@ -149,6 +149,20 @@ CREATE TABLE IF NOT EXISTS ae_soirees (
 INSERT INTO ae_soirees (id, dateSoiree, nomRestaurant, adresse, tarif, lienMenu, latitude, longitude) VALUES
 (1, '2016-11-04', 'Cot'' et Boeuf', '1 Ter Route de Fougères, 35510 Cesson-Sévigné', '22', 'http://www.pagesjaunes.fr/pros/51832422', 48.1326846, -1.6339654);
 
+-- --------------------------------------------------------
+
+--
+-- Structure de la table 'ae_galerie'
+--
+
+CREATE TABLE IF NOT EXISTS ae_galerie (
+  id int(11) NOT NULL AUTO_INCREMENT,
+  promo int(4) NOT NULL,
+  classe int(1) NOT NULL,
+  lien varchar(100) NOT NULL,
+  PRIMARY KEY (id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

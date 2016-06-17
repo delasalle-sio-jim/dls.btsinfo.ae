@@ -12,6 +12,7 @@ include_once ('Eleve.class.php');
 include_once ('Administrateur.class.php');
 include_once ('Soiree.class.php');
 include_once ('Inscription.class.php');
+include_once ('Image.class.php');
 include_once ('Outils.class.php');
 ?>
 <!DOCTYPE html>
@@ -681,7 +682,7 @@ foreach ($lesAdressesMails as $uneAdresseMail)
 }
 */
 
-
+/*
 // test de la méthode ExportToCSV ($nomColonnes, $requeteSQL, $nomFichierCSV) ---------------------------------------------------------
 // créé par Killian BOUTIN le 01/06/2016
 echo "<h3>Test de ExportToCSV (nomColonnes, donneesTable, nomFichierCSV) : </h3>";
@@ -691,9 +692,157 @@ $requeteSQL = "SELECT anneeDebutBTS,tel,prenom FROM ae_eleves";
 $nomFichierCSV = "Eleves";
 
 $dao->ExportToCSV($nomColonnes, $requeteSQL, $nomFichierCSV);
+*/
+
+/*
+// test de la méthode getLesImages ---------------------------------------------------------
+// créé par le 15/06/2016 Killian BOUTIN
+
+echo "<h3>Test de getLesImages : </h3>";
+$lesImages = $dao->getLesImages();
+$nbPhotos = sizeof($lesImages);
+echo "<p>Nombre de photos : " . $nbPhotos . "</p>";
+
+// affichage des infos sur les photos et de la photos
+foreach ($lesImages as $uneImage)
+{	$lien = $uneImage->getLien();
+	echo ($uneImage->toString());
+	echo ('<a href="../images/galerie/' . $lien . '"> Lien vers la photo </a>');
+	echo ('<br><br>');
+}
+*/
+
+/*
+// test de la méthode getImage ---------------------------------------------------------
+// créé par le 16/06/2016 Killian BOUTIN
+
+echo "<h3>Test de getImage : </h3>";
+$uneImage = $dao->getImage(1);
+
+if ($uneImage){
+	// affichage des infos sur la photo
+	echo ($uneImage->toString());
+	echo ('<a href="../photos.700/' . $uneImage->getLien() . '"> Lien vers la photo </a>');
+	echo ('<br><br>');
+}
+else{
+	echo "Aucune image ne possède l'identifiant 1";
+}
+
+$uneImage = $dao->getImage(50);
+
+if ($uneImage){
+	// affichage des infos sur la photo
+	echo ($uneImage->toString());
+	echo ('<a href="../photos.700/' . $uneImage->getLien() . '"> Lien vers la photo </a>');
+	echo ('<br><br>');
+}
+else{
+	echo "Aucune image ne possède l'identifiant 50";
+}
+*/
+
+/*
+// test de la méthode ajouterImage(uneImage) ---------------------------------------------------------
+// créé par le 16/06/2016 Killian BOUTIN
+
+echo "<h3>Test de ajouterImage(uneImage) : </h3>";
+$unId = 0;
+$unePromo = 2001;
+$uneClasse = 1;
+$unLien = "01-02-Info2.jpg";
+
+$uneImage = new Image($unId, $unePromo, $uneClasse, $unLien);
+
+$ok = $dao->ajouterImage($uneImage);
+
+if ($ok){
+	echo "L'image a été ajoutée avec succès";
+}
+else{
+	echo "L'ajout est un echec";
+}
+*/
 
 
-// ferme la connexion à MySQL :
+/*
+// test de la méthode modifierImage(uneImage) ---------------------------------------------------------
+// créé par le 16/06/2016 Killian BOUTIN
+
+echo "<h3>Test de modifierImage(uneImage) : </h3>";
+$unId = 4;
+$unePromo = 2001;
+$uneClasse = 2;
+$unLien = "01-02-Info2.jpg";
+
+$uneImage = new Image($unId, $unePromo, $uneClasse, $unLien);
+
+$ok = $dao->modifierImage($uneImage);
+
+if ($ok){
+	echo "L'image a été modifiée avec succès";
+}
+else{
+	echo "L'ajout est un echec";
+}
+*/
+
+
+/*
+// test de la méthode supprimerImage(idImage) ---------------------------------------------------------
+// créé par le 15/06/2016 Killian BOUTIN
+
+echo "<h3>Test de supprimerImage(idImage) : </h3>";
+$ok = $dao->supprimerImage(1);
+if ($ok){
+	echo "L'image a été supprimée avec succès";
+}
+else{
+	echo "La suppression est un echec";
+}
+*/
+
+
+// test de la méthode redimensionnerImage(uneImage, uneDestination, uneTailleMax) ---------------------------------------------------------
+// créé par le 17/06/2016 Killian BOUTIN
+
+echo "<h3>Test de redimensionnerImage(uneImage, uneDestination, uneTailleMax) : </h3>";
+
+?> 
+<form enctype="multipart/form-data" action="DAO.test.php" method="post">
+	<input type="file" name="filePhoto" id="filePhoto" required><br>
+	<input type="submit" value="Envoyer les données" name="btnEnvoi" id="btnEnvoi" />		
+</form>
+
+<?php
+if (!empty ($_FILES['filePhoto'])){
+	
+	/* Initialisation des variables d'upload de la photo */
+	$uneSource = '../photos.initiales/'; // Le dossier d'enregistrement
+	$uneImage = $_FILES['filePhoto']['name']; // Le fichier récupéré
+	
+	/* Deplacement de la photo téléchargé dans le dossier => photos.initiales/ */
+	move_uploaded_file($_FILES['filePhoto']['tmp_name'], $uneSource . $uneImage);
+	
+	$toUpperImage = strtoupper($_FILES['filePhoto']['tmp_name']);
+	echo "<br>L'extension de l'image avant de la déplacer est " . strrchr($toUpperImage, '.') . ".<br>";
+	
+	$toUpperImage =  strtoupper($uneSource . $uneImage);
+	echo "L'extension de l'image après l'avoir déplacé est " .  strrchr($toUpperImage, '.') . ".<br>";
+	echo "La largeur était de " . getimagesize($uneSource . $uneImage)[0] . " et la hauteur de " .	$src_w = getimagesize($uneSource . $uneImage)[1] . ".<br>";
+	
+	/* On met dans images.galerie pour ne pas effacer les autres photos */
+	$ok = $dao->redimensionnerImage($uneImage, $uneSource,'../images.galerie/',500);
+	
+	if ($ok){
+		echo "<b>L'image a été redimensionnée avec succès.</b>";
+	}
+	else{
+		echo "<b>Le redimensionnement est un échec.</b>";
+	}
+}
+
+// ferme la connexion à MySQL
 unset($dao);
 ?>
 

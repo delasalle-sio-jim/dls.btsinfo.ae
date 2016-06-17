@@ -1,0 +1,164 @@
+@charset "utf-8";
+/* CSS Document */
+
+body {
+    background: url(../images.galerie/crossed_stripes.png);
+    padding:0;
+    margin: 5px;
+    font-family: 'Din', Arial, "Trebuchet MS";
+}
+
+a img {
+    border: none;
+}
+
+a {
+    text-decoration: none;
+    color: #6E052E;
+}
+
+#content {
+    font-family: 'Din', "Trebuchet MS";
+    color :#FFF;
+    margin: 0 auto;
+    text-align: justify;
+}
+
+/* Contient le header avec un background noir transparent */
+
+#header {
+	margin:0 auto;
+    overflow: hidden;
+}
+
+
+
+/* #works contient tous les travaux, le margin-top est élevé pour ne pas apparaitre sous le menu flottant */
+
+#works {
+    margin-bottom: 40px;
+    overflow: hidden;
+    margin-top: 12px;
+    margin-left: 12px;
+}
+
+#works .work {
+	/* Voici le overflow:hidden qui permet de cacher les triangles et de ne les voir apparaitre que lorsqu'ils sont dedans la div */
+    overflow: hidden;
+    width: 420px;
+    height: 292px;
+    border: 4px solid #222;
+    cursor: pointer;
+    position: relative;
+    -moz-transition: all .2s; 
+    -webkit-transition: all .2s; 
+    -o-transition: all .2s; 
+    transition: all .2s;
+    float: left;
+    margin-right: 12px;
+	margin-bottom:12px;
+}
+
+#works .work:hover {
+    border: 4px solid #FFF;
+}
+
+#works .work .triangle-droite {
+    background: url(../images.galerie/triangle-droite.png);
+    width: 420px;
+    height: 293px;
+    position: absolute;
+    /* Voici le décalage du triangle à droite lorsqu'on n'est pas en :hover */
+    right: -400px;
+    bottom: -293px;
+    -moz-transition: all .2s; 
+    -webkit-transition: all .2s; 
+    -o-transition: all .2s; 
+    transition: all .2s;
+    opacity: 0.7;
+}
+
+#works .work:hover .triangle-droite {
+	/* Voici la position du triangle à droite lorsqu'on est en :hover */
+    right: 1px;
+    bottom: 1px;
+    opacity: 0.7;
+}
+
+#works .work .triangle-gauche {
+    background: url(../images.galerie/triangle-gauche.png);
+    width: 420px;
+    height: 293px;
+    position: absolute;
+    /* Voici le décalage du triangle à gauche lorsqu'on n'est pas en :hover */
+    left: -420px;
+    top: -293px;
+    -moz-transition: all .2s; 
+    -webkit-transition: all .2s; 
+    -o-transition: all .2s; 
+    transition: all .2s;
+    opacity: 0.7;
+}
+
+#works .work:hover .triangle-gauche {
+	/* Voici la position du triangle à gauche lorsqu'on est en :hover */
+    left: -1px;
+    top: -1px;
+    opacity: 0.7;
+}
+
+#works .work span {
+    color: #FFF;
+    text-transform: uppercase;
+    font-size: 20px;
+    text-align: center;
+    position: absolute;
+    /* Voici la position du span lorsqu'on n'est pas en :hover */
+    top: 12px;
+    left: -55px;
+    font-family: 'Din';
+    background: #222;
+    padding-left: 70px;
+    padding-right: 8px;
+    -moz-transition: all .2s; 
+    -webkit-transition: all .2s; 
+    -o-transition: all .2s; 
+    transition: all .2s;
+}
+
+#works .work:hover span {
+	/* Voici la position du span lorsqu'on est en :hover */
+    left: -20px;
+}
+
+img {
+	width: 420px;
+	height: 292px;
+	display: block;
+  	 }
+}
+
+div#content h3 {
+	/* marges */
+	margin: 10px 0 10px 0;
+	
+	/* taille et couleur de la police */
+	font: 1.2em Verdana, Arial, Helvetica, sans-serif;
+	font-weight: bold;
+	color: #0b4c8e;
+	cursor: default;
+}
+
+/*----------------------------------- FONTS ------------------------------------*/
+
+@font-face{
+        font-family: "Din";
+        src: url("fonts.galerie/din-webfont.eot");
+        src: local("@"),url("fonts.galeries/din-webfont.ttf") format("truetype");
+}
+
+@font-face{
+        font-family: "Din-medium";
+        src: url("fonts.galeries/din_medium-webfont.eot");
+        src: local("@"),url("fonts.galeries/din_medium-webfont.ttf") format("truetype");
+}

@@ -12,6 +12,7 @@ div#page {
 	/* largeur, centrage avec des marges auto, padding nul, bordure noire, alignement gauche */
 	width: 800px;
 	margin: 0 auto;
+	margin-bottom: 10px;
 	padding: 0;
 	border: #000 1px solid; 
 	text-align: left;

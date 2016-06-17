@@ -137,7 +137,7 @@
 							<input type="text" name="txtMontantRembourse" id="txtMontantRembourse" maxlength="20" placeholder="Montant rembourse à l'élève"  value="<?php echo $montantRembourse?>" >
 						</p>
 						<p>
-							<label class=label2 >Coût total à payer par l'élève : <?php echo $montantTotal ?> €</label>
+							<label class=label2 >Coût restant à payer par l'élève : <?php echo $montantTotal ?> €</label>
 						</p>
 						<p>
 							<label id="boutonAnnulerInscription" >Annuler l'inscription de l'élève :</label>
