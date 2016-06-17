@@ -834,13 +834,11 @@ if (!empty ($_FILES['filePhoto'])){
 	/* On met dans images.galerie pour ne pas effacer les autres photos */
 	$ok = $dao->redimensionnerImage($uneImage, $uneSource,'../images.galerie/',500);
 	
-	if ($dao->redimensionnerImage($uneImage, $uneSource,'../images.galerie/',500) == true){
-		echo "<b>L'image a été redimensionnée avec succès</b>";
-		$dao->redimensionnerImage($uneImage, $uneSource,'../images.galerie',500);
+	if ($ok){
+		echo "<b>L'image a été redimensionnée avec succès.</b>";
 	}
 	else{
-		echo "<b>Le redimensionnement est un echec.</b>";
-		$dao->redimensionnerImage($uneImage, $uneSource,'../images',500);
+		echo "<b>Le redimensionnement est un échec.</b>";
 	}
 }
 

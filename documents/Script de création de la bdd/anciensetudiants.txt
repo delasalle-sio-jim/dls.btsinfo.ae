@@ -159,7 +159,7 @@ CREATE TABLE IF NOT EXISTS ae_galerie (
   id int(11) NOT NULL AUTO_INCREMENT,
   promo int(4) NOT NULL,
   classe int(1) NOT NULL,
-  lien varchar(30) NOT NULL,
+  lien varchar(100) NOT NULL,
   PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

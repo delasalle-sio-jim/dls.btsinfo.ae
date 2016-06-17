@@ -57,10 +57,10 @@
 			
 			<h3><?php echo $leTitre; ?></h3>
 			
-			<p>Pour la <b>photo</b>, veuillez choisir un type .jpg ou .jpeg
+			<p>Pour la <b>photo</b>, veuillez choisir un type .png, .jpg ou .jpeg
 			<p>Pour la <b>promo</b>, veuillez indiquer la première année (au mois de septembre).<br>
 				Exemple : pour 2000-2001, entrez 2000.</p>
-			<p>Pour la <b>classe</b>, veuillez indiquer si c'est 1ère année, 2ème année ou 3ème année (Post-BTS).</p>
+			<p>Pour la <b>classe</b>, veuillez indiquer si c'est 1<sup>ère</sup> année, 2<sup>ème</sup> année ou 3<up>ème</up> année (Post-BTS).</p>
 			
 			<form name="form1" id="form1" enctype="multipart/form-data" action="index.php?action=AjouterModifierPhoto&actionGalerie=<?php echo $url ?>" method="post">
 				<table class="tableau">
@@ -74,7 +74,7 @@
 
 						<tr>
 							<td style="font-weight: bold;">Photo</td>
-							<td><input type="file" name="filePhoto" id="filePhoto" <?php if ($action == 'ajouter') echo 'required' ?> style="border: 0px; margin-left: -10px;"></td>
+							<td><input type="file" name="filePhoto" id="filePhoto" <?php if ($action == 'ajouter') echo 'required' ?> accept=".jpg, .jpeg, .png" style="border: 0px; margin-left: -10px;"></td>
 						</tr>
 						<tr>
 							<td style="font-weight: bold;">Promo</td>

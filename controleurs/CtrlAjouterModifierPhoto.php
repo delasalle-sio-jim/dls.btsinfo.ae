@@ -75,7 +75,7 @@ else{
 			
 			/* On regarde si l'extension du fichié téléchargé est correcte, sinon on affiche un message d'avertissement */
 			if (!in_array(strtoupper($extension), $listeExtensions)){
-				$message ="Veuillez choisir une image de type .jpg ou .jpeg.";
+				$message ="Veuillez choisir une image de type .png, .jpg ou .jpeg.";
 				$typeMessage = 'avertissement';
 				$lienRetour = '#page_principale';
 				$themeFooter = $themeProbleme;
@@ -86,11 +86,15 @@ else{
 			else{
 				
 				/* Initialisation des variables d'upload de la photo de classe */
-				$leDossier = 'photos.initiales/'; // Le dossier d'enregistrement
-				$unLien = $_FILES['filePhoto']['name']; // Le fichier récupéré
+				$leDossierInitial = 'photos.initiales/'; // Le dossier d'enregistrement pour photos originales
+				$leDossier700 = 'photos.700/';			 // Le dossier d'enregistrement pour version HTML5
+				$leDossier300 = 'photos.300/';			 // Le dossier d'enregistrement pour version jQuery Mobile
+				$unLien = $_FILES['filePhoto']['name'];  // Le fichier récupéré
 				
 				/* Deplacement de la photo téléchargé dans le dossier => photos.initiales/ */
-				move_uploaded_file($_FILES['filePhoto']['tmp_name'], $leDossier . $unLien);
+				move_uploaded_file($_FILES['filePhoto']['tmp_name'], $leDossierInitial . $unLien);
+				$dao->redimensionnerImage($unLien, $leDossierInitial, $leDossier700, 700);
+				$dao->redimensionnerImage($unLien, $leDossierInitial, $leDossier300, 300);
 								
 				/* Si l'action était d'ajouter une photo, on effectue l'ajout grâce à la fonction */
 				if ($action == 'ajouter'){

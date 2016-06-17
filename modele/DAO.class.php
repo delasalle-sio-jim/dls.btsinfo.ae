@@ -1450,6 +1450,7 @@ class DAO
 		
 	}
 	
+	
 	// redimensionne l'image donnée et la place dans le dossier donné
 	// retourne true si la le redimensionnement s'est bien déroulé
 	// retourne falese sinon
@@ -1460,65 +1461,77 @@ class DAO
 		
 		if ((strrchr($toUpperImage, '.') == '.JPG') OR (strrchr($toUpperImage, '.') == '.JPEG')){
 			
-			$src_image = imagecreatefromjpeg($uneSource . $uneImage);
+			$ok = $src_image = imagecreatefromjpeg($uneSource . $uneImage);
+			if ( ! $ok) return false;
 		}
-		/* Si elle n'est pas jpg, elle est png */
-		else { 
-			$src_image = imagecreatefrompng($uneSource . $uneImage);
+		elseif (strrchr($toUpperImage, '.') == '.PNG'){ 
+			$ok = $src_image = imagecreatefrompng($uneSource . $uneImage);
+			if ( ! $ok) return false;
+		}			
+		else {
+			return false;
 		}
 		
-		/* INFORMATIONS SUR LA SOURCE */
 		
-			/* Taille de la source */
+		// INFORMATIONS SUR LA SOURCE
+		
+			// Taille de la source
 			$uneTailleImage[] = getimagesize($uneSource . $uneImage);
-			/* Largeur de la source */
+			// Largeur de la source
 			$src_w = getimagesize($uneSource . $uneImage)[0];
 		
-			/* Hauteur de la source */
+			// Hauteur de la source
 			$src_h = getimagesize($uneSource . $uneImage)[1];
 		
-		/* DIMENSION PROVISOIRE DE L'IMAGE DESTINATION */
+		// DIMENSION PROVISOIRE DE L'IMAGE DESTINATION
 		
-			/* Largeur de la destination */
+			// Largeur de la destination
 			$dst_w = $src_w;
 				
-			/* Hauteur de la destination */
+			// Hauteur de la destination
 			$dst_h = $src_h;
 		
-		/* SI L'IMAGE EST TROP LARGE */
+		// SI L'IMAGE EST TROP LARGE
 		if ($dst_w > $uneTailleMax){
-			/* Taux de reduction */
+			// Taux de reduction
 			$unTauxReduction = $dst_w / $uneTailleMax;
 			
-			/* Largeur de la destination */
+			// Largeur de la destination
 			$dst_w = $src_w / $unTauxReduction;
 			
-			/* Hauteur de la destination */
+			// Hauteur de la destination
 			$dst_h = $src_h / $unTauxReduction;
 		}
 		
-		/* SI L'IMAGE EST TROP HAUTE */
+		// SI L'IMAGE EST TROP HAUTE
 		if ($dst_h > $uneTailleMax){
-			/* Taux de reduction */
+			// Taux de reduction
 			$unTauxReduction = $dst_h / $uneTailleMax;
 				
-			/* Largeur de la destination */
+			// Largeur de la destination
 			$dst_w = $dst_w / $unTauxReduction;
 				
-			/* Hauteur de la destination */
+			// Hauteur de la destination
 			$dst_h = $dst_h / $unTauxReduction;
 		}
 		
-		/* On donne à l'image ses dimensions */
-		$dst_image = imagecreatetruecolor($dst_w, $dst_h);
+		// On donne à l'image ses dimensions
+		$ok = $dst_image = imagecreatetruecolor($dst_w, $dst_h);
+		if ( ! $ok) return false;
 		
-		/* On crée l'image, les 0 correspondent aux coordononnées */
-		imagecopyresampled($dst_image, $src_image, 0, 0, 0, 0, $dst_w, $dst_h, $src_w, $src_h);
+		// On crée l'image, les 0 correspondent aux coordononnées
+		$ok = imagecopyresampled($dst_image, $src_image, 0, 0, 0, 0, $dst_w, $dst_h, $src_w, $src_h);
+		if ( ! $ok) return false;
 		
-		imagejpeg ($dst_image, $uneDestination . $uneImage);
+		$ok = imagejpeg ($dst_image, $uneDestination . $uneImage);
+		if ( ! $ok) return false;
+		
+		// Si on arrive ici, tout va bien !
+		return true;
+
 	}
-		
 	
+
 			
 } // fin de la classe DAO
 

@@ -31,7 +31,14 @@ else{
 		/* Si on clique sur supprimer */
 		if(isset ($_GET['actionGalerie']) AND ($_GET['actionGalerie'] == 'supprimer'))
 		{
-			/* On supprime l'image en fonction de l'id de cette image */
+			$uneImage = $dao->getImage($_GET['id']);
+			$unLien = $uneImage->getLien();
+			
+			/* On supprime l'image en fonction de l'id de cette image dans les dossiers */
+			unlink("photos.300/" . $unLien );
+			unlink("photos.700/" . $unLien );
+			
+			/* On supprime l'image en fonction de l'id de cette image dans la BDD */
 			$ok = $dao->supprimerImage($_GET['id']);
 			
 			if($ok)

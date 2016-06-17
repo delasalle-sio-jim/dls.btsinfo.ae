@@ -75,7 +75,7 @@
 					<!-- Pour chaque image, on ajoute une nouvelle ligne dans le tableau -->
 					<?php foreach ($lesImages as $uneImage){?>
 					<tr>
-						<td><a href="photos.initiales/<?php echo $uneImage->getLien(); ?>"><img src="photos.initiales/<?php echo $uneImage->getLien(); ?>" alt="Photo" width= 400px height= 200px;/></a></td>
+						<td><a href="photos.700/<?php echo $uneImage->getLien(); ?>"><img src="photos.700/<?php echo $uneImage->getLien(); ?>" alt="Photo" width= 400px height= 200px;/></a></td>
 						<td><?php echo $uneImage->getPromo(); ?></td>
 						<td><?php echo $uneImage->getClasse(); ?></td>
 						<td><a href="index.php?action=AjouterModifierPhoto&actionGalerie=modifier&id=<?php echo $uneImage->getId() ?>"><img src="images.galerie/edit.png" alt="Modifier"></a></td>

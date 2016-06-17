@@ -70,14 +70,22 @@
 				/* Pour chaque image de la collection */
 				foreach ($lesImages as $uneImage){
 					
+					/* On regarde si l'année est différente de celle de la photo d'avant */
+					if($annee != $uneImage->getPromo()) {
+						echo "<div style=\"width: 2000px; overflow:hidden;\"></div>";
+					}
+					
+					/* On change l'année */
+					$annee = $uneImage->getPromo();
+					
 					if ($uneImage->getClasse() == 1)
-						$classe = "1ère Année";
+						$classe = "1<sup>ère</sup> année";
 					elseif ($uneImage->getClasse() == 2 )
-						$classe = "2ème Année";
+						$classe = "2<sup>ème</sup> année";
 					elseif ($uneImage->getClasse() == 3 )
 						$classe = "Post-BTS";
 					else $classe = "Année X"; ?>
-				
+					
 					<a title= "Photo de classe de la promo de <?php echo $uneImage->getPromo() . ", " . $classe ?>" id="fancybox" href="photos.700/<?php echo $uneImage->getLien() ?>">
 					<div class="work">
 					 
