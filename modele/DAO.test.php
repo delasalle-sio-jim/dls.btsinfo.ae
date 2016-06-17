@@ -803,6 +803,47 @@ else{
 */
 
 
+// test de la méthode redimensionnerImage(uneImage, uneDestination, uneTailleMax) ---------------------------------------------------------
+// créé par le 17/06/2016 Killian BOUTIN
+
+echo "<h3>Test de redimensionnerImage(uneImage, uneDestination, uneTailleMax) : </h3>";
+
+?> 
+<form enctype="multipart/form-data" action="DAO.test.php" method="post">
+	<input type="file" name="filePhoto" id="filePhoto" required><br>
+	<input type="submit" value="Envoyer les données" name="btnEnvoi" id="btnEnvoi" />		
+</form>
+
+<?php
+if (!empty ($_FILES['filePhoto'])){
+	
+	/* Initialisation des variables d'upload de la photo */
+	$uneSource = '../photos.initiales/'; // Le dossier d'enregistrement
+	$uneImage = $_FILES['filePhoto']['name']; // Le fichier récupéré
+	
+	/* Deplacement de la photo téléchargé dans le dossier => photos.initiales/ */
+	move_uploaded_file($_FILES['filePhoto']['tmp_name'], $uneSource . $uneImage);
+	
+	$toUpperImage = strtoupper($_FILES['filePhoto']['tmp_name']);
+	echo "<br>L'extension de l'image avant de la déplacer est " . strrchr($toUpperImage, '.') . ".<br>";
+	
+	$toUpperImage =  strtoupper($uneSource . $uneImage);
+	echo "L'extension de l'image après l'avoir déplacé est " .  strrchr($toUpperImage, '.') . ".<br>";
+	echo "La largeur était de " . getimagesize($uneSource . $uneImage)[0] . " et la hauteur de " .	$src_w = getimagesize($uneSource . $uneImage)[1] . ".<br>";
+	
+	/* On met dans images.galerie pour ne pas effacer les autres photos */
+	$ok = $dao->redimensionnerImage($uneImage, $uneSource,'../images.galerie/',500);
+	
+	if ($dao->redimensionnerImage($uneImage, $uneSource,'../images.galerie/',500) == true){
+		echo "<b>L'image a été redimensionnée avec succès</b>";
+		$dao->redimensionnerImage($uneImage, $uneSource,'../images.galerie',500);
+	}
+	else{
+		echo "<b>Le redimensionnement est un echec.</b>";
+		$dao->redimensionnerImage($uneImage, $uneSource,'../images',500);
+	}
+}
+
 // ferme la connexion à MySQL
 unset($dao);
 ?>

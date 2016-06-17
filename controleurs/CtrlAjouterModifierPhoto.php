@@ -63,22 +63,18 @@ else{
 	
 	/* Si on a cliqué sur le bouton d'envoi */
 	else{
-		/* Si on a choisit une nouvelle photo de classe */
 		
-		/* IL FAUDRA DANS LES 2 CAS FAIRE "$dao->modifierImage"
-		 * mais dans un cas on prendra le lien de la BDD
-		 *  dans l'autre on prendra le lien de la nouvelle image */
-		
-		if (isset ($_FILES['filePhoto'])){
+		/* Si on a choisi une nouvelle photo de classe */
+		if (($_FILES['filePhoto']["name"]) != ""){
 			
 			/* On prend les extensions que l'on accepte soit jpeg et jpg */
-			$listeExtensions = array('.jpg', '.jpeg');
+			$listeExtensions = array('.JPG', '.JPEG', '.PNG');
 			
 			/* On prend l'extension du fichier téléchargé */
 			$extension = strrchr($_FILES['filePhoto']['name'], '.');
 			
 			/* On regarde si l'extension du fichié téléchargé est correcte, sinon on affiche un message d'avertissement */
-			if (!in_array($extension, $listeExtensions)){
+			if (!in_array(strtoupper($extension), $listeExtensions)){
 				$message ="Veuillez choisir une image de type .jpg ou .jpeg.";
 				$typeMessage = 'avertissement';
 				$lienRetour = '#page_principale';
@@ -151,9 +147,33 @@ else{
 				}
 			}
 		}
-		/* Si il n'a pas choisit de photo */
+		/* Si il n'a pas choisi de photo */
 		else {
 			
+			$unId = $_GET['id'];  /* Il ne sera pas ajouté puisque c'est un auto incremente qui donnera son id */
+			$unePromo = $_POST['txtPromo'];
+			$uneClasse = $_POST['txtClasse'];
+			$unLien = $uneImage->getLien();
+				
+			$uneImage = new Image ($unId, $unePromo, $uneClasse, $unLien);
+				
+			$ok = $dao->modifierImage($uneImage);
+			
+			if ($ok){
+				$message = 'La modification s\'est correctement effectuée.';
+				$typeMessage = 'information';			// 2 valeurs possibles : 'information' ou 'avertissement'
+				$lienRetour = 'index.php?action=GererPhotos';
+				$themeFooter = $themeNormal;
+				include_once ($cheminDesVues . 'VueAjouterModifierPhoto.php');
+			}
+				
+			else{
+				$message = 'La modification est un échec !';
+				$typeMessage = 'avertissement';
+				$lienRetour = '#page_principale';
+				$themeFooter = $themeProbleme;
+				include_once ($cheminDesVues . 'VueAjouterModifierPhoto.php');
+			}
 		}
 	}	
 }

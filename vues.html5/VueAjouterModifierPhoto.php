@@ -43,7 +43,7 @@
 		<div id="header">
 			<div id="header-menu">
 				<ul id="menu-horizontal">
-					<li><a href="index.php?action=Menu#menu3" data-ajax="false">Retour menu</a></li>
+					<li><a href="index.php?action=GererPhotos" data-ajax="false">Gérer les photos</a></li>
 				</ul>
 			</div>
 			<div id="header-logos">
@@ -59,7 +59,7 @@
 			
 			<p>Pour la <b>photo</b>, veuillez choisir un type .jpg ou .jpeg
 			<p>Pour la <b>promo</b>, veuillez indiquer la première année (au mois de septembre).<br>
-				Exemple : Pour 2000-2001, entrez 2000.</p>
+				Exemple : pour 2000-2001, entrez 2000.</p>
 			<p>Pour la <b>classe</b>, veuillez indiquer si c'est 1ère année, 2ème année ou 3ème année (Post-BTS).</p>
 			
 			<form name="form1" id="form1" enctype="multipart/form-data" action="index.php?action=AjouterModifierPhoto&actionGalerie=<?php echo $url ?>" method="post">
