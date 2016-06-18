@@ -7,20 +7,26 @@
 
 // liste des méthodes statiques de cette classe (dans l'ordre d'apparition dans le fichier) :
 
-// estUnEntierValide        : validation d'un nombre entier (il doit comporter 1 ou plusieurs chiffres chiffres)
-// estUnCodePostalValide    : validation d'un code postal (il doit comporter 5 chiffres)
-// estUneAdrMailValide      : validation d'une adresse mail
-// estUnNumTelValide        : validation d'un numéro de téléphone (5 groupes de 2 chiffres EVENTUELLEMENT séparés)
-// estUneDateValide         : validation d'une date (format jj/mm/aaaa ou bien jj-mm-aaaa)
-// corrigerDate             : remplace les "/" par des "-"
-// corrigerVille            : met la ville en majuscules et remplace les "SAINT" par "St"
-// corrigerPrenom           : met en majuscules le premier caractère, et le caractère qui suit un éventuel tiret
-// corrigerTelephone        : met le numéro sous la forme de 5 groupes de 2 chiffres séparés par des points
-// convertirEnDateUS        : convertit une date française (j/m/a) au format US (a-m-j)
-// convertirEnDateFR        : convertit une date US (a-m-j) au format Français (j/m/a)
-// envoyerMail              : envoyer un mail à un destinataire
-// creerMdp                 : créer un mot de passe aléatoire de 8 caractères
+// estUnEntierValide           : validation d'un nombre entier (il doit comporter 1 ou plusieurs chiffres chiffres)
+// estUnCodePostalValide       : validation d'un code postal (il doit comporter 5 chiffres)
+// estUneAdrMailValide         : validation d'une adresse mail
+// estUnNumTelValide           : validation d'un numéro de téléphone (5 groupes de 2 chiffres EVENTUELLEMENT séparés)
+// estUneDateValide            : validation d'une date (format jj/mm/aaaa ou bien jj-mm-aaaa)
+// corrigerDate                : remplace les "/" par des "-"
+// corrigerVille               : met la ville en majuscules et remplace les "SAINT" par "St"
+// corrigerPrenom              : met en majuscules le premier caractère, et le caractère qui suit un éventuel tiret
+// corrigerTelephone           : met le numéro sous la forme de 5 groupes de 2 chiffres séparés par des points
+// convertirEnDateUS           : convertit une date française (j/m/a) au format US (a-m-j)
+// convertirEnDateFR           : convertit une date US (a-m-j) au format Français (j/m/a)
+// envoyerMail                 : envoyer un mail à un destinataire
+// creerMdp                    : créer un mot de passe aléatoire de 8 caractères
 
+// getImageByNomFichier        : fournit une image à partir d'un nom de fichier correspondant à une image jpeg, gif ou png
+// enregistrerImageDansFichier : enregistre une image dans un fichier correspondant à une image jpeg, gif ou png
+// getLargeurImage             : fournit la largeur d'une image en pixels
+// getHauteurImage             : fournit la hauteur d'une image en pixels
+// redimensionnerImage         : redimensionne une image source pour la réduire à la taille maximum indiquée, et la place dans le dossier de destination
+	
 // ce fichier est destiné à être inclus dans les pages PHP qui ont besoin des fonctions qu'il contient
 // 2 possibilités pour inclure ce fichier :
 //     include_once ('Class.Outils.php');
@@ -231,6 +237,113 @@ class Outils
 		}
 		return $mdp;
 	}
+	
+	// fournit une image à partir d'un nom de fichier correspondant à une image jpeg, gif ou png
+	// fournit null dans les autres cas
+	// créé par Jim le 18/6/2016
+	public static function getImageByNomFichier ($nomFichierSource) {
+		$extensionFichier = strtoupper(strrchr($nomFichierSource, '.'));	
+		switch ($extensionFichier) {
+			case '.JPG'  : { return imagecreatefromjpeg($nomFichierSource); break; }
+			case '.JPEG' : { return imagecreatefromjpeg($nomFichierSource); break; }
+			case '.GIF'  : { return imagecreatefromgif($nomFichierSource); break; }
+			case '.PNG'  : { return imagecreatefrompng($nomFichierSource); break; }
+			default      : { return null; break; }
+		}	
+	}
+
+	// enregistre une image dans un fichier correspondant à une image jpeg, gif ou png
+	// fournit true si l'enregistrement s'est bien passé, false autrement
+	// créé par Jim le 18/6/2016
+	public static function enregistrerImageDansFichier ($uneImage, $nomFichierDestination) {
+		$extensionFichier = strtoupper(strrchr($nomFichierDestination, '.'));
+		switch ($extensionFichier) {
+			case '.JPG'  : { imagejpeg ($uneImage, $nomFichierDestination); return true; break; }
+			case '.JPEG' : { imagejpeg ($uneImage, $nomFichierDestination); return true; break; }
+			case '.GIF'  : { imagegif ($uneImage, $nomFichierDestination); return true; break; }
+			case '.PNG'  : { imagepng ($uneImage, $nomFichierDestination); return true; break; }
+			default      : { return false; break; }
+		}
+	}
+	
+	// fournit la largeur d'une image en pixels
+	// l'image peut être fournie par la méthode getImageByNomFichier
+	// créé par Jim le 18/06/2016
+	public static function getLargeurImage ($uneImage)
+	{	return imagesx ($uneImage);
+	}
+
+	// fournit la hauteur d'une image en pixels
+	// l'image peut être fournie par la méthode getImageByNomFichier
+	// créé par Jim le 18/06/2016
+	public static function getHauteurImage ($uneImage)
+	{	return imagesy ($uneImage);
+	}
+
+	// redimensionne une image source pour la réduire à la taille maximum indiquée, et la place dans le dossier de destination
+	// retourne true si la le redimensionnement s'est bien déroulé
+	// retourne false sinon
+	// créé par Jim le 17/06/2016
+	public static function redimensionnerImage($nomFichierPhoto, $nomDossierSource, $nomDossierDestination, $tailleMax) {
+		// tester si les noms de dossiers finissent par "/" et l'ajouter si besoin
+		$dernierCaractere = $nomDossierSource[strlen($nomDossierSource)-1];
+		if ($dernierCaractere != "/") $nomDossierSource .= "/";
+		$dernierCaractere = $nomDossierDestination[strlen($nomDossierDestination)-1];
+		if ($dernierCaractere != "/") $nomDossierDestination .= "/";
+	
+		// mémoriser les noms complets des fichiers et l'extension
+		$nomFichierSource = $nomDossierSource . $nomFichierPhoto;
+		$nomFichierDestination = $nomDossierDestination . $nomFichierPhoto;
+		$extensionFichier = strtoupper(strrchr($nomFichierPhoto, '.'));
+	
+		$imageSource = Outils::getImageByNomFichier($nomFichierSource);
+		if ( ! $imageSource) return false;
+	
+		// Largeur de la source
+		$largeurImageSource = imagesx ($imageSource);		// largeur en pixels
+		// Hauteur de la source
+		$hauteurImageSource = imagesy ($imageSource);		// hauteur en pixels
+	
+		// Largeur provisoire de la destination
+		$largeurImageDestination = $largeurImageSource;
+		// Hauteur provisoire de la destination
+		$hauteurImageDestination = $hauteurImageSource;
+	
+		// Si l'image est trop large
+		if ($largeurImageDestination > $tailleMax){
+			// Taux de réduction
+			$tauxReduction = $largeurImageDestination / $tailleMax;
+			// Largeur de la destination
+			$largeurImageDestination = $largeurImageSource / $tauxReduction;
+			// Hauteur de la destination
+			$hauteurImageDestination = $hauteurImageSource / $tauxReduction;
+		}
+	
+		// Si l'image est trop haute
+		if ($hauteurImageDestination > $tailleMax){
+			// Taux de réduction
+			$tauxReduction = $hauteurImageDestination / $tailleMax;
+			// Largeur de la destination
+			$largeurImageDestination = $largeurImageDestination / $tauxReduction;
+			// Hauteur de la destination
+			$hauteurImageDestination = $hauteurImageDestination / $tauxReduction;
+		}
+	
+		// On donne à l'image ses dimensions finales
+		$imageDestination = imagecreatetruecolor($largeurImageDestination, $hauteurImageDestination);
+		if ( ! $imageDestination) return false;
+	
+		// On crée l'image, les 0 correspondent aux coordononnées
+		$ok = imagecopyresampled($imageDestination, $imageSource, 0, 0, 0, 0,
+				$largeurImageDestination, $hauteurImageDestination, $largeurImageSource, $hauteurImageSource);
+		if ( ! $ok) return false;
+	
+		// On enregistrem la photo réduite dans un fichier
+		$ok = Outils::enregistrerImageDansFichier ($imageDestination, $nomFichierDestination);
+
+		return $ok;
+	}
+	
 } // fin de la classe Outils
 
 // ATTENTION : on ne met pas de balise de fin de script pour ne pas prendre le risque

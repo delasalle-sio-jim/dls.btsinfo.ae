@@ -1453,10 +1453,9 @@ class DAO
 	
 	// redimensionne l'image donnée et la place dans le dossier donné
 	// retourne true si la le redimensionnement s'est bien déroulé
-	// retourne falese sinon
+	// retourne false sinon
 	// créé par Killian BOUTIN le 17/06/2016
-	public function redimensionnerImage($uneImage, $uneSource, $uneDestination, $uneTailleMax){
-		
+	public function redimensionnerImage($uneImage, $uneSource, $uneDestination, $uneTailleMax){		
 		$toUpperImage = strtoupper($uneImage);
 		
 		if ((strrchr($toUpperImage, '.') == '.JPG') OR (strrchr($toUpperImage, '.') == '.JPEG')){
@@ -1528,9 +1527,8 @@ class DAO
 		
 		// Si on arrive ici, tout va bien !
 		return true;
-
 	}
-	
+
 
 			
 } // fin de la classe DAO

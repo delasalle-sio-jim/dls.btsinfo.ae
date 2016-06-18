@@ -803,9 +803,8 @@ else{
 */
 
 
-// test de la méthode redimensionnerImage(uneImage, uneDestination, uneTailleMax) ---------------------------------------------------------
+// test de la méthode redimensionnerImage($uneImage, $uneSource, $uneDestination, $uneTailleMax) -------------------
 // créé par le 17/06/2016 Killian BOUTIN
-
 echo "<h3>Test de redimensionnerImage(uneImage, uneDestination, uneTailleMax) : </h3>";
 
 ?> 
@@ -817,11 +816,11 @@ echo "<h3>Test de redimensionnerImage(uneImage, uneDestination, uneTailleMax) : 
 <?php
 if (!empty ($_FILES['filePhoto'])){
 	
-	/* Initialisation des variables d'upload de la photo */
+	//  Initialisation des variables d'upload de la photo
 	$uneSource = '../photos.initiales/'; // Le dossier d'enregistrement
 	$uneImage = $_FILES['filePhoto']['name']; // Le fichier récupéré
 	
-	/* Deplacement de la photo téléchargé dans le dossier => photos.initiales/ */
+	// Deplacement de la photo téléchargé dans le dossier => photos.initiales/ 
 	move_uploaded_file($_FILES['filePhoto']['tmp_name'], $uneSource . $uneImage);
 	
 	$toUpperImage = strtoupper($_FILES['filePhoto']['tmp_name']);
@@ -831,7 +830,7 @@ if (!empty ($_FILES['filePhoto'])){
 	echo "L'extension de l'image après l'avoir déplacé est " .  strrchr($toUpperImage, '.') . ".<br>";
 	echo "La largeur était de " . getimagesize($uneSource . $uneImage)[0] . " et la hauteur de " .	$src_w = getimagesize($uneSource . $uneImage)[1] . ".<br>";
 	
-	/* On met dans images.galerie pour ne pas effacer les autres photos */
+	// On met dans images.galerie pour ne pas effacer les autres photos
 	$ok = $dao->redimensionnerImage($uneImage, $uneSource,'../images.galerie/',500);
 	
 	if ($ok){
@@ -841,6 +840,7 @@ if (!empty ($_FILES['filePhoto'])){
 		echo "<b>Le redimensionnement est un échec.</b>";
 	}
 }
+
 
 // ferme la connexion à MySQL
 unset($dao);
