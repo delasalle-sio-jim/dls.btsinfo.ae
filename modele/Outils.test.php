@@ -33,11 +33,11 @@ if ( ! empty ($_FILES['filePhoto'])) {
 	var_dump ($_FILES['filePhoto']);
 	
 	echo "<br>";
-	echo $_FILES['filePhoto']['name'] . "<br>";
-	echo $_FILES['filePhoto']['type'] . "<br>";
-	echo $_FILES['filePhoto']['tmp_name'] . "<br>";
-	echo $_FILES['filePhoto']['error'] . "<br>";
-	echo $_FILES['filePhoto']['size'] . "<br>";
+	echo "Nom du fichier : " . $_FILES['filePhoto']['name'] . "<br>";
+	echo "Type : " . $_FILES['filePhoto']['type'] . "<br>";
+	echo "Dossier temporaire : " . $_FILES['filePhoto']['tmp_name'] . "<br>";
+	echo "Erreur : " . $_FILES['filePhoto']['error'] . "<br>";
+	echo "Taille : " . $_FILES['filePhoto']['size'] . "<br>";
 	echo "<br>";
 		
 	// Initialisation des variables d'upload de la photo
@@ -48,12 +48,12 @@ if ( ! empty ($_FILES['filePhoto'])) {
 	$nomCompletFichierSource = $nomDossierSource . $nomFichier;
 	$nomCompletFichierDestination = $nomDossierDestination . $nomFichier;
 
-	echo $nomFichierTemporaire . "<br>";
-	echo $nomDossierSource . "<br>";
-	echo $nomDossierDestination . "<br>";
-	echo $nomFichier . "<br>";
-	echo $nomCompletFichierSource . "<br>";
-	echo $nomCompletFichierDestination . "<br>";
+	echo "Nom de fichier temporaire : " . $nomFichierTemporaire . "<br>";
+	echo "Nom du dossier source : " . $nomDossierSource . "<br>";
+	echo "Nom du dossier de destination : " . $nomDossierDestination . "<br>";
+	echo "Nom du fichier : " . $nomFichier . "<br>";
+	echo "Nom complet du fichier source : " . $nomCompletFichierSource . "<br>";
+	echo "Nom complet du fichier de destination : " . $nomCompletFichierDestination . "<br>";
 	
 	// Déplacement de la photo téléchargée dans le dossier => photos.initiales/
 	move_uploaded_file($nomFichierTemporaire, $nomCompletFichierSource);
@@ -68,7 +68,7 @@ if ( ! empty ($_FILES['filePhoto'])) {
 	$imageSource = Outils::getImageByNomFichier($nomCompletFichierSource);
 	$largeur = Outils::getLargeurImage($imageSource);
 	$hauteur = Outils::getHauteurImage($imageSource);
-	echo "La largeur était " . $largeur . " et la hauteur était " . $hauteur . ".<br>";
+	echo "La largeur était de " . $largeur . "px et la hauteur était de " . $hauteur . "px.<br>";
 	
 	// On crée une copie réduite et on la place dans images.galerie pour ne pas effacer les autres photos
 	$ok = Outils::redimensionnerImage($nomFichier, $nomDossierSource, $nomDossierDestination, 500);
@@ -78,7 +78,7 @@ if ( ! empty ($_FILES['filePhoto'])) {
 		$imageDestination = Outils::getImageByNomFichier($nomCompletFichierDestination);
 		$largeur = Outils::getLargeurImage($imageDestination);
 		$hauteur = Outils::getHauteurImage($imageDestination);
-		echo "La largeur est maintenant " . $largeur . " et la hauteur est maintenant " . $hauteur . ".<br>";
+		echo "La largeur est maintenant de " . $largeur . "px et la hauteur est maintenant de " . $hauteur . "px.<br>";
 	}
 	else{
 		echo "<b>Le redimensionnement a échoué.</b>";
