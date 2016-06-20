@@ -1328,6 +1328,7 @@ class DAO
 	{	// préparation de la requête d'extraction des inscriptions non annulées
 		$txt_req = "SELECT id, promo, classe, lien";
 		$txt_req .= " FROM ae_galerie";
+		$txt_req .= " ORDER BY promo DESC, classe";
 		$req = $this->cnx->prepare($txt_req);
 		
 		// extraction des données
@@ -1450,7 +1451,7 @@ class DAO
 		
 	}
 	
-	
+	/*
 	// redimensionne l'image donnée et la place dans le dossier donné
 	// retourne true si la le redimensionnement s'est bien déroulé
 	// retourne false sinon
@@ -1528,7 +1529,7 @@ class DAO
 		// Si on arrive ici, tout va bien !
 		return true;
 	}
-
+*/
 
 			
 } // fin de la classe DAO

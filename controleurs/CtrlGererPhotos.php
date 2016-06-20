@@ -35,8 +35,9 @@ else{
 			$unLien = $uneImage->getLien();
 			
 			/* On supprime l'image en fonction de l'id de cette image dans les dossiers */
-			unlink("photos.300/" . $unLien );
-			unlink("photos.700/" . $unLien );
+			// if ($unLien != 'nophoto.jpg') unlink("photos.initiales/" . $unLien ); /* SEULEMENT SUR OVH */
+			if ($unLien != 'nophoto.jpg') unlink("photos.300/" . $unLien );
+			if ($unLien != 'nophoto.jpg') unlink("photos.700/" . $unLien );
 			
 			/* On supprime l'image en fonction de l'id de cette image dans la BDD */
 			$ok = $dao->supprimerImage($_GET['id']);

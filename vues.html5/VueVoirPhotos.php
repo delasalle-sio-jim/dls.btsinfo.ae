@@ -79,9 +79,9 @@
 					$annee = $uneImage->getPromo();
 					
 					if ($uneImage->getClasse() == 1)
-						$classe = "1<sup>ère</sup> année";
+						$classe = "1ère année";
 					elseif ($uneImage->getClasse() == 2 )
-						$classe = "2<sup>ème</sup> année";
+						$classe = "2ème année";
 					elseif ($uneImage->getClasse() == 3 )
 						$classe = "Post-BTS";
 					else $classe = "Année X"; ?>

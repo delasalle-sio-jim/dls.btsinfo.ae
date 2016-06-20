@@ -7,6 +7,7 @@
 
 // connexion du serveur web à la base MySQL
 include_once ('modele/DAO.class.php');
+include_once ('modele/Outils.class.php');
 
 $dao = new DAO();
 $lesImages = $dao->getLesImages();
@@ -93,8 +94,8 @@ else{
 				
 				/* Deplacement de la photo téléchargé dans le dossier => photos.initiales/ */
 				move_uploaded_file($_FILES['filePhoto']['tmp_name'], $leDossierInitial . $unLien);
-				$dao->redimensionnerImage($unLien, $leDossierInitial, $leDossier700, 700);
-				$dao->redimensionnerImage($unLien, $leDossierInitial, $leDossier300, 300);
+				Outils::redimensionnerImage($unLien, $leDossierInitial, $leDossier700, 700);
+				Outils::redimensionnerImage($unLien, $leDossierInitial, $leDossier300, 300);
 								
 				/* Si l'action était d'ajouter une photo, on effectue l'ajout grâce à la fonction */
 				if ($action == 'ajouter'){
