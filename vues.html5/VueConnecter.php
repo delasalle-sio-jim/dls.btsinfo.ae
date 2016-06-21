@@ -77,7 +77,7 @@
 			<form name="form1" id="form1" action="index.php?action=Connecter#menu2" method="post">
 				<p>
 					<label for="txtAdrMail">Adresse mail :</label>
-					<input type="email" name="txtAdrMail" id="txtAdrMail" maxlength="50" placeholder="Mon adresse mail" required value="<?php echo $adrMail; ?>" >
+					<input type="email" name="txtAdrMail" id="txtAdrMail" maxlength="50" placeholder="Mon adresse mail" pattern="^.+@.+\..+$" required value="<?php echo $adrMail; ?>" >
 				</p>
 				<p>
 					<label for="txtMotDePasse">Mot de passe :</label>

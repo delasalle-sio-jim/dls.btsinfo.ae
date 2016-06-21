@@ -80,7 +80,7 @@
 								<li><a href="index.php?action=VoirListeInscritsAdmin" data-mini="true" data-role="button" data-ajax="false" data-transition="<?php echo $transition; ?>">Consulter la liste des inscriptions</a></li>
 								<li><a href="index.php?action=EnvoyerCourriel" data-mini="true" data-role="button" data-ajax="false" data-transition="<?php echo $transition; ?>">Envoyer un courriel</a></li>
 								<li><a href="index.php?action=ExporterDesDonnees" data-mini="true" data-role="button" data-ajax="false" data-transition="<?php echo $transition; ?>">Exporter des données</a></li>
-								<li><a href="index.php?action=ModifierReglementsRemboursements" data-mini="true" data-role="button" data-ajax="false" data-transition="<?php echo $transition; ?>">Mettre à jour réglements et remboursements</a></li>
+								<li><a href="index.php?action=ModifierReglementsRemboursements" data-mini="true" data-role="button" data-ajax="false" data-transition="<?php echo $transition; ?>">Mettre à jour règlements et remboursements</a></li>
 							</ul>
 						</div>	
 	
