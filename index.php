@@ -17,8 +17,8 @@
 //    index.php?action=ModifierFicheEleve     : pour afficher la page de modification de sa fiche personnelle
 
 // il faut être administrateur pour les actions suivantes :
-//    index.php?action=ModifierCompteEleve    : pour afficher la page de modification d'un compte élève 
-//    index.php?action=SupprimerCompteEleve   : pour afficher la page de suppression d'un compte élève 
+//    index.php?action=ModifierCompteEleve    : pour afficher la page de modification d'un compte élève
+//    index.php?action=SupprimerCompteEleve   : pour afficher la page de suppression d'un compte élève
 //    index.php?action=SupprimerCompteAdmin	  : pour afficher la page de suppression d'un compte administateur
 
 session_start();				// permet d'utiliser des variables de session

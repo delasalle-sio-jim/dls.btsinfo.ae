@@ -108,6 +108,10 @@ div#header-menu {
 	padding: 0;
 	margin: 0;
 	background: #00A3E4;
+	background-image: url(../images/icone-linkedin.png);
+	background-repeat: no-repeat;
+  	background-position: 98% 50% ;
+	
 	
 	/* coins arrondis en haut uniquement */
 	-moz-border-radius: 15px 15px 0 0;

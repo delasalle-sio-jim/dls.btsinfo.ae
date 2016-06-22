@@ -86,7 +86,7 @@
 						$classe = "Post-BTS";
 					else $classe = "Année X"; ?>
 					
-					<a title= "Photo de classe de la promo de <?php echo $uneImage->getPromo() . ", " . $classe ?>" id="fancybox" href="photos.700/<?php echo $uneImage->getLien() ?>">
+					<a title= "Photo de classe de la promo de <?php echo $uneImage->getPromo() . ", " . $classe ?>" id="fancybox" href="photos.initiales/<?php echo $uneImage->getLien() ?>">
 					<div class="work">
 					 
 						<img src="photos.700/<?php echo $uneImage->getLien() ?>" />

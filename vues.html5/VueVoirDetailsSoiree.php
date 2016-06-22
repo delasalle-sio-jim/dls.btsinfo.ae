@@ -55,7 +55,7 @@
 	<div id="page">
 	
 		<div id="header">
-			<div id="header-menu">
+			<div id="header-menu"><a style="text-align: right;" href="https://fr.linkedin.com/" title="infobulle"><img src="../images/icone-linkedin.png">
 				<ul id="menu-horizontal">
 					<li><a href="index.php?action=Menu#menu2" data-ajax="false">Retour menu</a></li>
 				</ul>
