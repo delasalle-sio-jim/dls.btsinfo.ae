@@ -58,15 +58,33 @@
 			document.getElementById("texte_message").innerHTML = msg;
 			window.open ("#affichage_message", "_self");
 		}
+
+		function voirPhotos() {
+			window.location.href="index.php?action=Menu";
+		}
 	</script>
-</head> 
+	<script type="text/javascript">
+
+		// Cette fonction permet de scroller la page vers l'ancre choisie par l'utilisateur
+		function voirPhotos() {
+			var id = document.getElementById('txtAnnee').value;
+			window.location.href="#" + id;
+		}
+	</script>
+</head>
+
 <body>
 	<div id="page">
 		<div id="content">
 			<h3 style= "margin-left:12px;"><i>Galerie photo des anciens élèves :</i></h3>
+			
+			<!-- Quand on valide le formulaire avec le bouton ou si on clique sur "entrée" -->
+			<input type="text" name = "txtAnnee" id= "txtAnnee" style = "margin-left: 12px; " onKeyPress="if (event.keyCode == 13) voirPhotos()">
+			<input type="submit" value="Aller" onclick="voirPhotos()" ><br>
+			
 			<div id="works">
-	
 				<?php 
+
 				/* Pour chaque image de la collection */
 				foreach ($lesImages as $uneImage){
 					
@@ -75,7 +93,7 @@
 						echo "<div style=\"width: 2000px; overflow:hidden;\"></div>";
 					}
 					
-					if ($annee <= '2010'){
+					if ($uneImage->getPromo() <= '2010'){
 						$classe = "IG";
 					}
 					else{
@@ -94,7 +112,7 @@
 					else $classe = "Année X"; ?>
 					
 					<a title= "Photo de classe de la promo de <?php echo $uneImage->getPromo() . ", " . $classe ?>" id="fancybox" href="photos.initiales/<?php echo $uneImage->getLien() ?>">
-					<div class="work">
+					<div class="work" id="<?php echo $uneImage->getPromo() ?>">
 					 
 						<img src="photos.700/<?php echo $uneImage->getLien() ?>" />
 						<div class="triangle-gauche"></div><!-- .triangle-gauche -->

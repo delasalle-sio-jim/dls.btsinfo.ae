@@ -95,13 +95,13 @@ else{
 				move_uploaded_file($_FILES['filePhoto']['tmp_name'], $leDossierInitial . $unLien);
 				
 				/* On supprime le fichier qui a le même nom s'il existe dans les dossiers */
-				if ((file_exists($leDossier700 . $uneImage->getLien())) AND $uneImage->getLien() != 'nophoto.jpg'){
-					unlink($leDossier700 . $uneImage->getLien());
+				if ((file_exists($leDossier700 . $unLien)) AND $unLien != 'nophoto.jpg'){
+					unlink($leDossier700 . $unLien);
 				}				
 				Outils::redimensionnerImage($unLien, $leDossierInitial, $leDossier700, 700);
 				
-				if ((file_exists($leDossier300 . $uneImage->getLien())) AND $leDossier700 . $uneImage->getLien() != 'nophoto.jpg'){
-					unlink($leDossier300 . $uneImage->getLien());
+				if ((file_exists($leDossier300 . $unLien)) AND $leDossier700 . $unLien != 'nophoto.jpg'){
+					unlink($leDossier300 . $unLien);
 				}
 				Outils::redimensionnerImage($unLien, $leDossierInitial, $leDossier300, 300);
 								
