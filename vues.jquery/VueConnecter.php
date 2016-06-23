@@ -41,6 +41,7 @@
 		<div data-role="page" id="page_principale">
 			<div data-role="header" data-theme="<?php echo $themeNormal; ?>">
 				<h4><?php echo $titreHeader ?></h4>
+				<a href="../portail/index2.php" data-ajax="false" data-transition="<?php echo $transition; ?>">Retour au portail</a>
 				<?php include_once 'ReseauxSociaux.php';?>
 			</div>
 			

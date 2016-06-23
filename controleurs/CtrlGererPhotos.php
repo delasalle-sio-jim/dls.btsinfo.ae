@@ -6,6 +6,7 @@
 // connexion du serveur web à la base MySQL
 include_once ('modele/DAO.class.php');
 
+
 $dao = new DAO();
 $lesImages = $dao->getLesImages();
 

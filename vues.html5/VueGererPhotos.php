@@ -5,11 +5,10 @@
 ?>
 <!doctype html>
 
-<?php /* IL FAUDRA MODIFIER photos.initiales PAR photos.700 POUR CETTE VUE ET photos.300 POUR JQUERY MOBILE 
-		QUAND LE REDIMENSIONNEMENT DE L'IMAGE UPLOAD SERA OPERATIONNEL */?>
-
-
 <head>	
+<meta http-equiv="Expires" content="Tue, 01 Jan 1995 12:12:12 GMT">
+<meta http-equiv="Pragma" content="no-cache">
+
 	<?php include_once ('head.php'); ?>
 	<script>
 		window.onload = initialisations;

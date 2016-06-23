@@ -75,13 +75,20 @@
 						echo "<div style=\"width: 2000px; overflow:hidden;\"></div>";
 					}
 					
+					if ($annee <= '2010'){
+						$classe = "IG";
+					}
+					else{
+						$classe = "SIO";
+					}
+					
 					/* On change l'année */
 					$annee = $uneImage->getPromo();
 					
 					if ($uneImage->getClasse() == 1)
-						$classe = "1ère année";
+						$classe .= "1";
 					elseif ($uneImage->getClasse() == 2 )
-						$classe = "2ème année";
+						$classe .= "2";
 					elseif ($uneImage->getClasse() == 3 )
 						$classe = "Post-BTS";
 					else $classe = "Année X"; ?>

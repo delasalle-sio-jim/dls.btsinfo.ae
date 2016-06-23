@@ -3,11 +3,10 @@
 // Fonction du contrôleur CtrlAjouterModifierPhoto.php : traiter la demande d'ajout ou de modification des photos de la galerie
 // Ecrit le 16/06/2016 par Killian BOUTIN
 
-// REDIRIGER VERS GERERPHOTO QUAND L'AJOUT OU LA MODIFICATION A ETE FAITE !
-
 // connexion du serveur web à la base MySQL
 include_once ('modele/DAO.class.php');
 include_once ('modele/Outils.class.php');
+
 
 $dao = new DAO();
 $lesImages = $dao->getLesImages();
@@ -94,7 +93,16 @@ else{
 				
 				/* Deplacement de la photo téléchargé dans le dossier => photos.initiales/ */
 				move_uploaded_file($_FILES['filePhoto']['tmp_name'], $leDossierInitial . $unLien);
+				
+				/* On supprime le fichier qui a le même nom s'il existe dans les dossiers */
+				if ((file_exists($leDossier700 . $uneImage->getLien())) AND $uneImage->getLien() != 'nophoto.jpg'){
+					unlink($leDossier700 . $uneImage->getLien());
+				}				
 				Outils::redimensionnerImage($unLien, $leDossierInitial, $leDossier700, 700);
+				
+				if ((file_exists($leDossier300 . $uneImage->getLien())) AND $leDossier700 . $uneImage->getLien() != 'nophoto.jpg'){
+					unlink($leDossier300 . $uneImage->getLien());
+				}
 				Outils::redimensionnerImage($unLien, $leDossierInitial, $leDossier300, 300);
 								
 				/* Si l'action était d'ajouter une photo, on effectue l'ajout grâce à la fonction */
