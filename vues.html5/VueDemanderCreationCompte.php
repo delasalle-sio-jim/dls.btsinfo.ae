@@ -41,6 +41,7 @@
 			<div id=header-menu>
 				<ul id="menu-horizontal">
 					<li><a href="index.php?action=Connecter">Retour accueil</a></li>
+					<?php include_once 'ReseauxSociaux.php';?>
 				</ul>
 			</div>
 			<div id="header-logos">

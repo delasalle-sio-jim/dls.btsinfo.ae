@@ -16,6 +16,7 @@
 			<div data-role="header" data-theme="<?php echo $themeNormal; ?>">
 				<h4><?php echo $titreHeader; ?></h4>
 				<a href="index.php?action=Connecter" data-ajax="false" data-transition="<?php echo $transition; ?>">Déconnexion</a>
+				<?php include_once 'ReseauxSociaux.php';?>
 			</div>
 			<div data-role="content">
 				<h4 style="text-align: center; margin-top: 20px; margin-bottom: 20px;"><?php echo $titre . $prenom . ' ' . $nom; ?></h4>
@@ -56,7 +57,7 @@
 							<ul data-role="listview" data-inset="true">								
 								<li><a href="index.php?action=RechercherAnciens" data-mini="true" data-role="button" data-ajax="false" data-transition="<?php echo $transition; ?>">Rechercher d'autres anciens élèves</a></li>
 								<li><a href="index.php?action=ProposerStage" data-mini="true" data-role="button" data-ajax="false" data-transition="<?php echo $transition; ?>">Proposer un stage à un étudiant</a></li>
-								<li><a href="index.php?action=VoirPhotos" target="_blank" data-mini="true" data-role="button" data-ajax="false" data-transition="<?php echo $transition; ?>">Consulter la galerie de photos</a></li>
+								<li><a href="index.php?action=VoirPhotos" data-mini="true" data-role="button" data-ajax="false" data-transition="<?php echo $transition; ?>">Consulter la galerie de photos</a></li>
 							</ul>
 						</div>
 					</div>

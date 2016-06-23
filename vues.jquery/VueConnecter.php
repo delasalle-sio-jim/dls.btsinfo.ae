@@ -41,6 +41,7 @@
 		<div data-role="page" id="page_principale">
 			<div data-role="header" data-theme="<?php echo $themeNormal; ?>">
 				<h4><?php echo $titreHeader ?></h4>
+				<?php include_once 'ReseauxSociaux.php';?>
 			</div>
 			
 			<div data-role="content">

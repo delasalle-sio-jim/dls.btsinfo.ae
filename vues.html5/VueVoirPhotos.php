@@ -63,7 +63,7 @@
 <body>
 	<div id="page">
 		<div id="content">
-			<i></u><h3 style= "margin-left:12px;">Galerie photo des anciens élèves :</h3></i>
+			<h3 style= "margin-left:12px;"><i>Galerie photo des anciens élèves :</i></h3>
 			<div id="works">
 	
 				<?php 

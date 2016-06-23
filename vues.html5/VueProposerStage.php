@@ -16,6 +16,7 @@
 			<div id="header-menu">
 				<ul id="menu-horizontal">
 					<li><a href="index.php?action=Menu#menu3" data-ajax="false">Retour menu</a></li>
+					<?php include_once 'ReseauxSociaux.php';?>
 				</ul>
 			</div>
 			<div id="header-logos">

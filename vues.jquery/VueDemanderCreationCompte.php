@@ -24,6 +24,7 @@
 			<div data-role="header" data-theme="<?php echo $themeNormal; ?>">
 				<h4><?php echo $titreHeader ?></h4>
 				<a href="index.php?action=Deconnecter" data-ajax="false">Accueil</a>
+				<?php include_once 'ReseauxSociaux.php';?>
 			</div>
 			
 			<div data-role="content">

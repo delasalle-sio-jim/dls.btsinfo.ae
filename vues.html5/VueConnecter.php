@@ -49,6 +49,7 @@
 			<div id="header-menu">
 				<ul id="menu-horizontal">
 					<li><a href="../portail/index2.php">Retour au portail</a></li>
+					<?php include_once 'ReseauxSociaux.php';?>
 				</ul>
 			</div>
 			<div id="header-logos">

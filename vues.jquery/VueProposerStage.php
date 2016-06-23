@@ -20,11 +20,12 @@
 			<div data-role="header" data-theme="<?php echo $themeNormal; ?>">
 				<h4><?php echo $titreHeader ?></h4>
 				<a href="index.php?action=Menu" data-ajax="false" data-transition="<?php echo $transition; ?>">Retour menu</a>
+				<?php include_once 'ReseauxSociaux.php';?>
 			</div>
 			<div data-role="content">
 				<h4 style="text-align: center; margin-top: 10px; margin-bottom: 10px;">Proposer un stage </h4>
 				<p>Vous pouvez déposer une offre de stage sur le site web du lycée avec le lien ci-dessous :</p>
-				<center><p><a Target=_Blank href="http://www.lycee-delasalle.com/fr/relations-entreprises/deposer-une-offre-d-emploi.php?type_offre=2">www.lycee-delasalle.com</a></p></center>
+				<center><p><a Target=_blank href="http://www.lycee-delasalle.com/fr/relations-entreprises/deposer-une-offre-d-emploi.php?type_offre=2">www.lycee-delasalle.com</a></p></center>
 				<p>Les élèves et professeurs de BTS SIO vous remercient d'avance pour le temps que vous prenez pour aider la nouvelle génération.</p>
 			</div>
 			<div data-role="footer" data-position="fixed" data-theme="<?php echo $themeNormal; ?>">

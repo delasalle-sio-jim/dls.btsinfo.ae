@@ -44,6 +44,7 @@
 			<div id="header-menu">
 				<ul id="menu-horizontal">
 					<li><a href="index.php?action=GererPhotos" data-ajax="false">Gérer les photos</a></li>
+					<?php include_once 'ReseauxSociaux.php';?>
 				</ul>
 			</div>
 			<div id="header-logos">
