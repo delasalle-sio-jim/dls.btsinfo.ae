@@ -33,18 +33,28 @@
 				/* Pour chaque image de la collection */
 				foreach ($lesImages as $uneImage){
 					echo '<div style="text-align: center;">';
+					
+					$promo = $uneImage->getPromo() . "-" . ($uneImage->getPromo() + 1);
+					
 					/* On regarde si l'année est différente de celle de la photo d'avant */
 					if($annee != $uneImage->getPromo()) {
 						echo "<div style=\"width: 2000px; overflow:hidden;\"></div>";
 					}
 					
+					if ($annee <= '2011'){
+						$classe = "IG";
+					}
+					else{
+						$classe = "SIO";
+					}
+
 					/* On change l'année */
 					$annee = $uneImage->getPromo();
 					
 					if ($uneImage->getClasse() == 1)
-						$classe = "1ère année";
+						$classe .= "1";
 					elseif ($uneImage->getClasse() == 2 )
-						$classe = "2ème année";
+						$classe .= "2";
 					elseif ($uneImage->getClasse() == 3 )
 						$classe = "Post-BTS";
 					else $classe = "Année X"; ?>
@@ -52,7 +62,7 @@
 					<a href="photos.initiales/<?php echo $uneImage->getLien() ?>" target="_blank"><img src="photos.300/<?php echo $uneImage->getLien() ?>" /></a>
 					</div>
 					<br>
-					<span style="color: white; text-shadow: 0px 0px; position: absolute; margin-top: -43px; margin-left: 80px;"><?php echo "Année " . $uneImage->getPromo() . " " . $classe ?> </span>
+					<span style="color: white; text-shadow: 0px 0px; position: absolute; margin-top: -43px; margin-left: 33px;">Photo de <?php echo $classe . ", promotion " . $promo ?></span>
 					
 				<?php } ?>
 				</div>

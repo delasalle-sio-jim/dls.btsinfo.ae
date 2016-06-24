@@ -64,7 +64,7 @@
 					<div id="menu3" class="menu">
 						<h3><a href="#menu3">Le réseau des anciens élèves...</a></h3>
 						<div>
-							<p><a href="index.php?action=RechercherAnciens" class="bouton-menu">Rechercher d'autres anciens élèves</a></p>
+							<!-- <p><a href="index.php?action=RechercherAnciens" class="bouton-menu">Rechercher d'autres anciens élèves</a></p> -->
 							<p><a href="index.php?action=ProposerStage" class="bouton-menu">Proposer un stage à un étudiant</a></p>
 							<p><a href="index.php?action=VoirPhotos" class="bouton-menu" target="_blank">Consulter la galerie de photos</a></p>
 						</div>
@@ -86,7 +86,7 @@
 						<div>
 							<p><a href="index.php?action=ModifierDetailsSoiree" class="bouton-menu">Modifier les infos sur la soirée</a></p>
 							<p><a href="index.php?action=VoirListeInscritsAdmin" class="bouton-menu">Consulter la liste des inscriptions</a></p>
-							<p><a href="index.php?action=EnvoyerCourriel" class="bouton-menu">Envoyer un courriel</a></p>
+							<!-- <p><a href="index.php?action=EnvoyerCourriel" class="bouton-menu">Envoyer un courriel</a></p> -->
 							<p><a href="index.php?action=ExporterDesDonnees" class="bouton-menu">Exporter des données</a></p>
 							<p><a href="index.php?action=ModifierReglementsRemboursements" class="bouton-menu">Mettre à jour règlements et remboursements</a></p>
 						</div>
@@ -95,7 +95,7 @@
 					<div id="menu3" class="menu">
 						<h3><a href="#menu3">Le réseau des anciens élèves...</a></h3>
 						<div>
-							<p><a href="index.php?action=RechercherAnciens" class="bouton-menu">Rechercher d'autres anciens élèves</a></p>
+							<!-- <p><a href="index.php?action=RechercherAnciens" class="bouton-menu">Rechercher d'autres anciens élèves</a></p> -->
 							<p><a href="index.php?action=GererPhotos" class="bouton-menu">Gérer la galerie de photos</a></p>
 						</div>
 					</div>

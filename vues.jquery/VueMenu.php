@@ -55,7 +55,7 @@
 						<div data-role="collapsible">
 							<h3>Le réseau des anciens élèves...</h3>
 							<ul data-role="listview" data-inset="true">								
-								<li><a href="index.php?action=RechercherAnciens" data-mini="true" data-role="button" data-ajax="false" data-transition="<?php echo $transition; ?>">Rechercher d'autres anciens élèves</a></li>
+								<!-- <li><a href="index.php?action=RechercherAnciens" data-mini="true" data-role="button" data-ajax="false" data-transition="<?php // echo $transition; ?>">Rechercher d'autres anciens élèves</a></li> -->
 								<li><a href="index.php?action=ProposerStage" data-mini="true" data-role="button" data-ajax="false" data-transition="<?php echo $transition; ?>">Proposer un stage à un étudiant</a></li>
 								<li><a href="index.php?action=VoirPhotos" data-mini="true" data-role="button" data-ajax="false" data-transition="<?php echo $transition; ?>">Consulter la galerie de photos</a></li>
 							</ul>
@@ -79,18 +79,20 @@
 							<ul data-role="listview" data-inset="true">	
 								<li><a href="index.php?action=ModifierDetailsSoiree" data-mini="true" data-role="button" data-ajax="false" data-transition="<?php echo $transition; ?>">Modifier les infos sur la soirée</a></li>
 								<li><a href="index.php?action=VoirListeInscritsAdmin" data-mini="true" data-role="button" data-ajax="false" data-transition="<?php echo $transition; ?>">Consulter la liste des inscriptions</a></li>
-								<li><a href="index.php?action=EnvoyerCourriel" data-mini="true" data-role="button" data-ajax="false" data-transition="<?php echo $transition; ?>">Envoyer un courriel</a></li>
+								<!-- <li><a href="index.php?action=EnvoyerCourriel" data-mini="true" data-role="button" data-ajax="false" data-transition="<?php // echo $transition; ?>">Envoyer un courriel</a></li> -->
 								<li><a href="index.php?action=ExporterDesDonnees" data-mini="true" data-role="button" data-ajax="false" data-transition="<?php echo $transition; ?>">Exporter des données</a></li>
 								<li><a href="index.php?action=ModifierReglementsRemboursements" data-mini="true" data-role="button" data-ajax="false" data-transition="<?php echo $transition; ?>">Mettre à jour règlements et remboursements</a></li>
 							</ul>
 						</div>	
 	
+						<!-- 
 						<div data-role="collapsible">
 							<h3>Le réseau des anciens élèves...</h3>
 							<ul data-role="listview" data-inset="true">		
-								<li><a href="index.php?action=RechercherAnciens" data-mini="true" data-role="button" data-ajax="false" data-transition="<?php echo $transition; ?>">Rechercher d'autres anciens élèves</a></li>	</ul>
+								<li><a href="index.php?action=RechercherAnciens" data-mini="true" data-role="button" data-ajax="false" data-transition="<?php // echo $transition; ?>">Rechercher d'autres anciens élèves</a></li>	</ul>
 						</div>	
-											
+						-->
+							
 						<div data-role="collapsible" >
 							<h3>Gérer les comptes élèves...</h3>
 							<ul data-role="listview" data-inset="true">

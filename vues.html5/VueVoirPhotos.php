@@ -76,10 +76,11 @@
 <body>
 	<div id="page">
 		<div id="content">
-			<h3 style= "margin-left:12px;"><i>Galerie photo des anciens élèves :</i></h3>
+			<h3 style= "margin-left:12px;" id="top"><i>Galerie photo des anciens élèves :</i></h3>
 			
+			<h5 style= "margin: -12px 0px 2px 12px; ">Indiquez votre année d'arrivée :</h4>
 			<!-- Quand on valide le formulaire avec le bouton ou si on clique sur "entrée" -->
-			<input type="text" name = "txtAnnee" id= "txtAnnee" style = "margin-left: 12px; " onKeyPress="if (event.keyCode == 13) voirPhotos()">
+			<input type="number" name = "txtAnnee" id= "txtAnnee" style = "margin-left: 12px; " onKeyPress="if (event.keyCode == 13) voirPhotos()">
 			<input type="submit" value="Aller" onclick="voirPhotos()" ><br>
 			
 			<div id="works">
@@ -88,18 +89,20 @@
 				/* Pour chaque image de la collection */
 				foreach ($lesImages as $uneImage){
 					
+					$promo = $uneImage->getPromo() . "-" . ($uneImage->getPromo() + 1);
+					
 					/* On regarde si l'année est différente de celle de la photo d'avant */
 					if($annee != $uneImage->getPromo()) {
 						echo "<div style=\"width: 2000px; overflow:hidden;\"></div>";
 					}
 					
-					if ($uneImage->getPromo() <= '2010'){
+					if ($annee <= '2011'){
 						$classe = "IG";
 					}
 					else{
 						$classe = "SIO";
 					}
-					
+
 					/* On change l'année */
 					$annee = $uneImage->getPromo();
 					
@@ -111,20 +114,19 @@
 						$classe = "Post-BTS";
 					else $classe = "Année X"; ?>
 					
-					<a title= "Photo de classe de la promo de <?php echo $uneImage->getPromo() . ", " . $classe ?>" id="fancybox" href="photos.initiales/<?php echo $uneImage->getLien() ?>">
+					<a href = "#top" id="toTop" > Haut ↑ </a>
+					<a title= "Photo de la classe <?php echo $classe . ", promotion " . $promo ?>" id="fancybox" href="photos.initiales/<?php echo $uneImage->getLien() ?>">
 					<div class="work" id="<?php echo $uneImage->getPromo() ?>">
 					 
 						<img src="photos.700/<?php echo $uneImage->getLien() ?>" />
 						<div class="triangle-gauche"></div><!-- .triangle-gauche -->
 						<div class="triangle-droite"></div><!-- .triangle-droite -->
-						<span><?php echo $uneImage->getPromo() . " " . $classe ?> </span>
+						<span><?php echo $promo . " " . $classe ?> </span>
 					 
 					</div><!-- .work -->
 					</a>
-					
 				<?php } ?>
-    
-  			</div><!-- #works -->		
+  			</div><!-- #works -->
 		</div>
 	</div>
 	

@@ -12,15 +12,6 @@ $PARAM_BDD = "anciensEtudiants";	// nom de la base de données
 $PARAM_USER = "root";			// nom de l'utilisateur
 $PARAM_PWD = "";				// son mot de passe
 
-// paramètres de connexion chez OVH --------------------------------------------------------------------
-/*
-$PARAM_HOTE = "mysql51-46.perso";		// si le sgbd est sur la même machine que le serveur php
-$PARAM_PORT = "3306";					// le port utilisé par le serveur MySql
-$PARAM_BDD = "lyceedelasalle";			// nom de la base de données
-$PARAM_USER = "lyceedelasalle";			// nom de l'utilisateur
-$PARAM_PWD = "patwcg35";				// son mot de passe
-*/
-
 try
 {
 	$cnx = new PDO('mysql:host='.$PARAM_HOTE.';port='.$PARAM_PORT.';dbname='.$PARAM_BDD,$PARAM_USER,$PARAM_PWD);
@@ -38,7 +29,7 @@ global $ADR_MAIL_EMETTEUR, $ADR_MAIL_ADMINISTRATEUR, $ADR_SERVICE_WEB;
 // adresse de l'émetteur lors d'un envoi de courriel
 // autres adresses fictives "delasalle.sio.emetteur@gmail.com" et "delasalle.sio.destinataire@gmail.com"
 
-$ADR_MAIL_EMETTEUR = "delasalle.sio.crib@gmail.com";// mot de pase sio1sio2 (boite mail test)
+$ADR_MAIL_EMETTEUR = "delasalle.sio.crib@gmail.com";
 
 // adresse de l'administrateur lors d'un envoi de courriel
 $ADR_MAIL_ADMINISTRATEUR = "delasalle.sio.boutin.k@gmail.com";

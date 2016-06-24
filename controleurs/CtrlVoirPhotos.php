@@ -14,6 +14,5 @@ $dao = new DAO();
 // obtention de la collection des fonctions occupées par les anciens élèves (pour liste déroulante)
 $lesImages = $dao->getLesImages();
 $themeFooter = $themeNormal;
-$uneImage = $dao->getImage(1);
-$annee = $uneImage->getPromo();
+$annee = $lesImages[0]->getPromo();
 include_once ($cheminDesVues . 'VueVoirPhotos.php');
