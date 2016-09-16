@@ -18,8 +18,10 @@ include_once ('Outils.class.php');
 <body>
 
 <?php
+/*
 // test de la méthode redimensionnerImage($nomFichierImage, $nomDossierSource, $nomDossierDestination, $tailleMax) -------------
-// créé par Jim le 17/06/2016
+// créé par Jim le 18/06/2016
+
 echo "<h3>Test de redimensionnerImage(nomFichierImage, nomDossierSource, nomDossierDestination, tailleMax) : </h3>";
 
 ?>
@@ -29,6 +31,7 @@ echo "<h3>Test de redimensionnerImage(nomFichierImage, nomDossierSource, nomDoss
 </form>
 
 <?php
+
 if ( ! empty ($_FILES['filePhoto'])) {
 	var_dump ($_FILES['filePhoto']);
 	
@@ -84,6 +87,25 @@ if ( ! empty ($_FILES['filePhoto'])) {
 		echo "<b>Le redimensionnement a échoué.</b>";
 	}
 }
+
+*/
+
+// test de la méthode envoyerMail------------------------------------------------------------------
+// ATTENTION : remplacez l'adr destinataire par votre adresse pour pouvoir vérifier la réception du mail
+// créé le 09/09/2016 par Killian BOUTIN
+
+echo "<h3>Test de l'envoi de mail avec encodage / décodage : </h3>";
+
+$adresseDestinataire = "delasalle.sio.boutin.k@gmail.com";
+$sujet = "title test de é de è de î etc ";
+$message = "msg test de é de è de î etc ";
+$adresseEmetteur = "delasalle.sio.eleve@gmail.com";
+$ok = false;
+$ok = Outils::envoyerMail ($adresseDestinataire, $sujet, $message, $adresseEmetteur);
+echo ('<b>Test de la méthode envoyerMail : </b><br>');
+if ($ok == true) echo ('Un mail vient d\'être envoyé !<br>');
+else echo ('L\'envoi du mail a rencontré un problème !<br>');
+echo ('<br>');
 
 ?>
 

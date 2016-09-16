@@ -211,7 +211,7 @@ class Outils
 			$adresseDestinataire = str_replace("@gmailcom", "@gmail.com", $adresseDestinataire);
 		}
 		// envoi du mail avec la fonction mail de PHP
-		$ok = mail($adresseDestinataire , $sujet , $message, "From: " . $adresseEmetteur);
+		$ok = mail($adresseDestinataire , utf8_decode($sujet) , utf8_decode($message), "From: " . $adresseEmetteur);
 		return $ok;
 	}
 	
