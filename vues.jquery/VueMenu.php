@@ -47,6 +47,7 @@
 									if ($dao->getInscriptionEleve($idEleve) != null AND $dao->getSoiree(true) != NULL){
 								?>
 								<li><a href="index.php?action=ModifierMonInscription" data-mini="true" data-role="button" data-ajax="false" data-transition="<?php echo $transition; ?>">Modifier ou annuler mon inscription</a></li>
+								<li><a href="https://docs.google.com/forms/d/e/1FAIpQLSf4TQyA6g3B3VHK_ALFvnl6xwrDYzF_VsDC093fi8bhqHTSjQ/viewform?c=0&w=1" data-mini="true" data-role="button" data-ajax="false" data-transition="<?php echo $transition; ?>">Modifier ou annuler mon inscription</a></li>
 								<?php 
 								} ?>
 							</ul>
