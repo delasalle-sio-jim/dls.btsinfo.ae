@@ -74,14 +74,14 @@ else {
 		
 		$ok = $dao->creerInscription($uneInscription);
 			if (!$ok){
-				$message ="L'application à rencontré un problème";
+				$message ="L'application a rencontré un problème";
 				$typeMessage = 'avertissement';
 				$lienRetour = '#page_principale';
 				$themeFooter = $themeProbleme;
 				include_once ($cheminDesVues . 'VueCreerMonInscription.php');
 			}
 			else{
-				$message ='Vous êtes inscrit ! <br>Le montant total que vous devez régler pour la soirée est de '. $montantTotal . ' euros.';
+				$message ='Vous êtes inscrit ! <br>Le montant total que vous devez régler pour la soirée est de '. $montantTotal . ' euros. Merci de bien vouloir renseigner votre menu.';
 				$typeMessage = 'information';
 				$lienRetour = 'index.php?action=Menu#menu2';
 				$themeFooter = $themeNormal;

@@ -726,7 +726,7 @@ class DAO
 			$req->execute();
 			$uneLigne = $req->fetch(PDO::FETCH_OBJ);
 			// si la requête ne renvoie aucune ligne ou si la date de la soirée est passée
-			if( ! $uneLigne OR (date("Y-m-d") > ($uneLigne->dateSoiree)))
+			if( ! $uneLigne || (date("Y-m-d") > ($uneLigne->dateSoiree)))
 				return null;
 			else
 			{	$unId = utf8_encode($uneLigne->id);
