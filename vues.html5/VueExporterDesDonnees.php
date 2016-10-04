@@ -2,7 +2,7 @@
 	// Projet DLS - BTS Info - Anciens élèves
 	// Fonction de la vue vues.html5/VueExporterDesDonnées : afficher le formulaire de modification des infos sur la soirée
 	// Ecrit le 01/06/2016 par Killian BOUTIN
-	// Modifié le 02/06/2016 par Killian BOUTIN
+	// Modifié le 04/10/2016 par Killian BOUTIN
 ?>
 <!doctype html>
 <html>
@@ -61,21 +61,17 @@
 			<form name="form1" id="form1" action="index.php?action=ExporterDesDonnees" method="post">
 			
 					<p>
-						<input type="checkbox" name="export[]" value="ElevesParPromo">
-						Liste des élèves (triées par promo)
+						<a href="Exportations/ElevesParPromo.csv">Liste des élèves (triées par promo)</a>
 					</p>
 					<p>
-						<input type="checkbox" name="export[]" value="ElevesParNom">
-						Liste des élèves (triées par nom)
+						<a href="Exportations/Eleves.csv">Liste des élèves (triées par nom)</a>
 					</p>
 					<p>
-						<input type="checkbox" name="export[]" value="Inscrits">
-						Liste des inscrits
+						<a href="Exportations/Inscrits.csv">Liste des inscrits</a>
 					</p>
 					
 					<p>
-						<input type="checkbox" name="export[]" value="NonInscrits">
-						Liste des non inscrits
+						<a href="Exportations/NonInscrits.csv">Liste des non inscrits</a>
 					</p>
 					
 					<input type="submit" name="btnExporter" id="btnExporter" value="Télécharger">

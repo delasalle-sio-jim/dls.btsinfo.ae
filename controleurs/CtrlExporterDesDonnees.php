@@ -2,7 +2,7 @@
 // Projet DLS - BTS Info - Anciens élèves
 // Fonction du contrôleur CtrlExporterDesDonnees.php : traite la demande d'export des données présente dans la table au format .csv
 // Ecrit le 01/06/2016 par Killian BOUTIN
-// Modifié le 06/06/2016 par Killian BOUTIN
+// Modifié le 04/10/2016 par Killian BOUTIN
 
 // connexion du serveur web à la base MySQL
 include_once ('modele/DAO.class.php');
@@ -13,12 +13,13 @@ if ( $_SESSION['typeUtilisateur'] != 'administrateur') {
 }
 $dao = new DAO();
 
-
-
 $texte = "";
 
-/* on crée le tableau $lesFichiers */
+/*
+
+// on crée le tableau $lesFichiers
 $lesFichiers = array();
+
 
 if (! isset ($_POST ["btnExporter"])) {
 	// si les données n'ont pas été postées, c'est le premier appel du formulaire : affichage de la vue sans message d'erreur
@@ -38,10 +39,10 @@ else {
 		include_once ($cheminDesVues . 'VueExporterDesDonnees.php');
 	}
 	else{
-		/* on parcourt le tableau de checkbox */
+		// on parcourt le tableau de checkbox 
 		foreach($_POST['export'] as $value)
 		{
-			/* on traite chaque cas, on faut des "AS" pour renommer les colonnes. Les array de $nomColonnes doivent porter les mêmes noms que les AS de $requeteSQL dans le même ordre */
+			// on traite chaque cas, on faut des "AS" pour renommer les colonnes. Les array de $nomColonnes doivent porter les mêmes noms que les AS de $requeteSQL dans le même ordre 
 			if ($value == "ElevesParPromo"){
 				$nomColonnes = array("Promo","Nom","Prenom","Sexe","Telephone","Adresse Mail","Rue","Code Postal","Ville","Entreprise");
 				$requeteSQL = "SELECT anneeDebutBTS AS Promo, nom AS Nom, prenom AS Prenom, sexe AS Sexe,";
@@ -53,7 +54,7 @@ else {
 				
 				$dao->exporterEnCSV($nomColonnes, $requeteSQL, $nomFichierCSV);
 				
-				/* on rentre une nouvelle valeur dans le tableau */
+				// on rentre une nouvelle valeur dans le tableau 
 				array_push($lesFichiers, "ElevesParPromo.csv");
 				
 			}
@@ -68,7 +69,7 @@ else {
 				
 				$dao->exporterEnCSV($nomColonnes, $requeteSQL, $nomFichierCSV);
 				
-				/* on rentre une nouvelle valeur dans le tableau */
+				// on rentre une nouvelle valeur dans le tableau 
 				array_push($lesFichiers, "Eleves.csv");
 				
 			}
@@ -84,7 +85,7 @@ else {
 				
 				$dao->exporterEnCSV($nomColonnes, $requeteSQL, $nomFichierCSV);
 				
-				/* on rentre une nouvelle valeur dans le tableau */
+				// on rentre une nouvelle valeur dans le tableau 
 				array_push($lesFichiers, "Inscrits.csv");
 				
 			}
@@ -97,7 +98,7 @@ else {
 				
 				$dao->exporterEnCSV($nomColonnes, $requeteSQL, $nomFichierCSV);
 				
-				/* on rentre une nouvelle valeur dans le tableau */
+				// on rentre une nouvelle valeur dans le tableau 
 				array_push($lesFichiers, "NonInscrits.csv");
 				
 			}
@@ -152,11 +153,16 @@ else {
 		{
 			echo "Le dossier \"exportations\" n'existe pas.";
 		}
+		
      
    		include_once ($cheminDesVues . 'VueExporterDesDonnees.php');
    		
 	}
 	
 }
+
+*/
+
+include_once ($cheminDesVues . 'VueExporterDesDonnees.php');
 
 
