@@ -11,7 +11,13 @@ $dao = new DAO();
 $lesInscriptions = $dao->getLesInscriptions();
 
 /* récupération du nombre d'inscriptions */
-$nombreInscrits = sizeof($lesInscriptions);
+
+$nombreInscrits = 0;
+
+foreach ($lesInscriptions as $uneInscription)
+{
+	$nombreInscrits += $uneInscription->getNbrePersonnes();
+}
 $themeFooter = $themeNormal;
 
 /* déclaration du nombre total d'inscriptions */
