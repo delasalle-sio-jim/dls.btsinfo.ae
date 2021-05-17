@@ -2,7 +2,7 @@
 // Projet DLS - BTS Info - Anciens élèves
 // Test de la classe Outils
 // fichier : modele/Outils.test.php
-// Créé par Jim le 18/6/2016
+// Créé par Jim le 17/5/2021
 
 // ATTENTION : la position des tests dans ce fichier est identique à la position des méthodes testées dans la classe Outils
 
