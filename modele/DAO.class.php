@@ -151,7 +151,7 @@ include_once ('Outils.class.php');
 
 // inclusion des paramètres de l'application
 //include_once ('parametres.free.php');
-include_once ('parametres.localhost.php');
+include_once ('parametres.php');
 
 // début de la classe DAO (Data Access Object)
 class DAO
