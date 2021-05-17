@@ -20,7 +20,7 @@ global $ADR_MAIL_EMETTEUR, $ADR_MAIL_ADMINISTRATEUR, $ADR_SERVICE_WEB;
 // inclusion de la classe Outils
 include_once ('../modele/Outils.class.php');
 // inclusion des paramètres de l'application
-include_once ('../modele/parametres.php');
+include_once ('../modele/Parametres.php');
 	
 // Récupération des données transmises
 // la fonction $_GET récupère une donnée passée en paramètre dans l'URL par la méthode GET
